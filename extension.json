@@ -1,0 +1,92 @@
+{
+	"name": "CognitiveProcessDesigner",
+	"version": "1.0.0",
+	"license-name": "GPL-3.0-only",
+	"author": [
+		"[http://www.hallowelt.com Hallo Welt! GmbH]"
+	],
+	"url": "http://www.hallowelt.com",
+	"descriptionmsg": "cognitiveprocessdesigner-desc",
+	"requires": {
+		"MediaWiki": ">= 1.31.0",
+		"extensions": {
+			"PageForms": "~4.6"
+		}
+	},
+	"attributes": {
+		"BlueSpiceFoundation": {
+			"PermissionRegistry": {
+				"cognitiveprocessdesigner-viewspecialpage": {
+					"type": "global",
+					"roles": [
+						"admin",
+						"editor",
+						"maintenanceadmin",
+						"reader"
+					]
+				}
+			}
+		}
+	},
+	"AvailableRights": [
+		"cognitiveprocessdesigner-viewspecialpage"
+	],
+	"GroupPermissions": {
+		"*": {
+			"cognitiveprocessdesigner-viewspecialpage": false
+		},
+		"user": {
+			"cognitiveprocessdesigner-viewspecialpage": true
+		},
+		"sysop": {
+			"cognitiveprocessdesigner-viewspecialpage": true
+		}
+	},
+	"SpecialPages": {
+		"CognitiveProcessDesignerEdit": "\\CognitiveProcessDesigner\\Special\\SpecialEdit",
+		"CognitiveProcessDesignerTestSuite": "\\CognitiveProcessDesigner\\Special\\SpecialTestSuite"
+	},
+	"MessagesDirs": {
+		"CognitiveProcessDesigner": "i18n"
+	},
+	"AutoloadNamespaces": {
+		"CognitiveProcessDesigner\\": "src/"
+	},
+	"ResourceModules": {
+		"ext.cognitiveProcessDesignerEdit.bpmn-js": {
+			"class": "\\CognitiveProcessDesigner\\ResourceModule\\BpmnJS"
+		},
+		"ext.cognitiveProcessDesignerEdit.special": {
+			"scripts": [
+				"js/bpmn/bpmn-custom-menu.js",
+				"js/cognitiveprocessdesigner.app.js",
+				"js/cognitiveprocessdesigner.special.edit.js",
+				"js/cognitiveprocessdesigner.wiki.bridge.js"
+			],
+			"dependencies": [
+				"ext.cognitiveProcessDesignerEdit.bpmn-js",
+				"ext.pageforms.popupformedit"
+			]
+		},
+		"ext.cognitiveProcessDesignerTestSuite.special": {
+			"scripts": [
+				"js/bpmn/bpmn-custom-menu.js",
+				"js/cognitiveprocessdesigner.app.js",
+				"js/cognitiveprocessdesigner.wiki.bridge.js"
+			],
+			"dependencies": [
+				"ext.cognitiveProcessDesignerEdit.bpmn-js"
+			]
+		},
+		"ext.cognitiveProcessDesignerEdit.styles": {
+			"styles": [
+				"styles/cognitiveprocessdesigner.css"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "CognitiveProcessDesigner/resources"
+	},
+	"manifest_version": 2
+}

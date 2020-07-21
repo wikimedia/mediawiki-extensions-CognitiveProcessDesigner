@@ -1,0 +1,170 @@
+
+<div class='content' id='js-drop-zone'>
+    {{> CognitiveProcessDesignStatusHeader}}
+    <div class='canvas' id='js-canvas'></div>
+</div>
+
+<div id='importExport' class='io-import-export'>
+
+    <ul class='io-import io-control io-control-list io-horizontal'>
+        <li>
+            <button title='{{open_bpmn_from_local}}' jsaction='click:bio.openLocal'>
+                <span class='cpd-icon-open'></span>
+            </button>
+        </li>
+        <li class='vr' style='margin-left: 2px'></li>
+        <li>
+            <button title='{{create_new_bpmn}}' jsaction='click:bio.createNew'>
+                <span class='cpd-icon-plus-circled'></span>
+            </button>
+        </li>
+    </ul>
+
+    <!--[if !IE]><!-->
+    <ul class='io-export io-control io-control-list io-horizontal'>
+        <li>
+            <a target='_blank' href class='download' title='{{download_bpmn}}' jswidget='downloadBPMN' data-track='diagram:download-bpmn'>
+                <span class='cpd-icon-download'></span>
+            </a>
+        </li>
+        <li>
+            <a target='_blank' href class='download' title='{{download_svg}}' jswidget='downloadSVG' data-track='diagram:download-svg'>
+                <span class='cpd-icon-picture'></span>
+            </a>
+        </li>
+    </ul>
+    <!--<![endif]-->
+</div>
+
+{{> CognitiveProcessDesignAlerts}}
+
+<div id='infoBox' class='io-editing-tools' jswidget='editing-tools'>
+    <ul class='io-control-list io-horizontal'>
+        <li class='io-control'>
+            <button jsaction='click:bio.showKeyboard'>
+                <span class='cpd-icon-keyboard'> </span>
+            </button>
+        </li>
+        <li class='io-control'>
+            <button jsaction='click:bio.toggleFullscreen'>
+                <span class='cpd-icon-resize-full'> </span>
+            </button>
+        </li>
+    </ul>
+</div>
+
+<div class='io-zoom-controls'>
+
+    <ul class='io-zoom-reset io-control io-control-list'>
+        <li>
+            <button title='reset zoom' jsaction='click:bio.zoomReset'>
+                <span class='cpd-icon-size-reset'></span>
+            </button>
+        </li>
+    </ul>
+
+    <ul class='io-zoom io-control io-control-list'>
+        <li>
+            <button jsaction='click:bio.zoomIn'>
+                <span class='cpd-icon-plus'></span>
+            </button>
+        </li>
+        <li>
+            <hr/>
+        </li>
+        <li>
+            <button jsaction='click:bio.zoomOut'>
+                <span class='cpd-icon-minus'></span>
+            </button>
+        </li>
+    </ul>
+</div>
+{{#edit}}
+    {{> CognitiveProcessDesignPopup}}
+    <script> var editMode = true</script>
+{{/edit}}
+{{^edit}}
+    <script> var editMode = false</script>
+{{/edit}}
+<div class='io-dialog keybindings-dialog' jswidget='keybindings-dialog'>
+
+    <div class='content bindings-mac'>
+        <h2>{{keyboard_shortcuts}}</h2>
+        <table>
+            <tbody>
+            <tr>
+                <td>{{undo}}</td>
+                <td class='binding'>⌘ + Z</td>
+            </tr>
+            <tr>
+                <td>{{redo}}</td>
+                <td class='binding'>⌘ + ⇧ + Z</td>
+            </tr>
+            <tr>
+                <td>{{select_all}}</td>
+                <td class='binding'>⌘ + A</td>
+            </tr>
+            <tr>
+                <td>{{vscrol}}</td>
+                <td class='binding'>⌥ + Scrolling</td>
+            </tr>
+            <tr>
+                <td>{{hscroll}}</td>
+                <td class='binding'>⌥ + ⇧ + Scrolling</td>
+            </tr>
+            <tr>
+                <td>{{direct_editing}}</td>
+                <td class='binding'>E</td>
+            </tr>
+            <tr>
+                <td>{{lasso}}</td>
+                <td class='binding'>L</td>
+            </tr>
+            <tr>
+                <td>{{space}}</td>
+                <td class='binding'>S</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class='content bindings-default'>
+        <h2>{{keyboard_shortcuts}}</h2>
+        <table>
+            <tbody>
+            <tr>
+                <td>{{undo}}</td>
+                <td class='binding'><code>ctrl + Z</td>
+            </tr>
+            <tr>
+                <td>{{redo}}</td>
+                <td class='binding'><code>ctrl + ⇧ + Z</td>
+            </tr>
+            <tr>
+                <td>{{select_all}}</td>
+                <td class='binding'><code>ctrl + A</td>
+            </tr>
+            <tr>
+                <td>{{vscroll}}</td>
+                <td class='binding'>ctrl + Scrolling</td>
+            </tr>
+            <tr>
+                <td>{{hscroll}}</td>
+                <td class='binding'>ctrl + ⇧ + Scrolling</td>
+            </tr>
+            <tr>
+                <td>{{direct_editing}}</td>
+                <td class='binding'>E</td>
+            </tr>
+            <tr>
+                <td>{{lasso}}</td>
+                <td class='binding'>L</td>
+            </tr>
+            <tr>
+                <td>{{space}}</td>
+                <td class='binding'>S</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

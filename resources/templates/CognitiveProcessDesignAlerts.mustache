@@ -1,0 +1,18 @@
+<div class='io-alerts'>
+
+	<div class='io-control alert' jswidget='import-warnings-alert'>
+		<a href class='close' aria-hidden='true' jsaction='click:bio.clearImportDetails'>&times;</a>
+		{{import_warnings}}
+
+		<a href jsaction='click:bio.showImportDetails'>{{show_details}}</a>.
+	</div>
+
+	<div class='io-control alert' jswidget='undo-redo-alert'>
+		{{you_edited_diagram}}
+
+		<a href jsaction='click:bio.undo'>{{undo_last_change}}</a>.
+
+		<a href class='close' aria-hidden='true' jsaction='click:bio.hideUndoAlert'>&times;</a>
+	</div>
+
+</div>
