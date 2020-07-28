@@ -2,8 +2,8 @@
 
 namespace CognitiveProcessDesigner\Special;
 
-use BlueSpice\SpecialPage;
-use BlueSpice\TemplateParser;
+use SpecialPage;
+use TemplateParser;
 
 class CognitiveSpecialPage extends SpecialPage {
 
