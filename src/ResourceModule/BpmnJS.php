@@ -7,18 +7,18 @@ use ResourceLoaderContext;
 class BpmnJS extends \ResourceLoaderFileModule {
 
 	/**
-	 *
-	 * @param \ResourceLoaderContext $context
-	 * @return array
+	 * @inheritDoc
+	 * @param ResourceLoaderContext $context
+	 * @return void
 	 */
-	protected function getScriptFiles( \ResourceLoaderContext $context ) {
+	public function getScript( ResourceLoaderContext $context ) {
 		if ( $context->getDebug() ) {
 			array_unshift( $this->scripts, 'bpmn-js/bpmn-modeler.development.js' );
 		} else {
 			array_unshift( $this->scripts, 'bpmn-js/bpmn-modeler.production.min.js' );
 		}
-		$files = parent::getScriptFiles( $context );
-		return $files;
+
+		return parent::getScript( $context );
 	}
 
 	/**
