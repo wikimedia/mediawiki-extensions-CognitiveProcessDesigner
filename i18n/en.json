@@ -1,8 +1,11 @@
 {
+	"@metadata": {},
 	"cognitiveprocessdesigner-desc": "Draw BPMN processes with a graphical user interface in Semantic MediaWiki",
 	"cognitiveprocessdesigneredit": "Cognitive Process Designer Edit",
 	"cognitiveprocessdesignertestsuite": "Cognitive Process Designer Test Suite",
 	"specialpages-group-semantic-process": "Semantic Process",
+	"right-cognitiveprocessdesigner-viewspecialpage": "Allowed to view special page [[Special:CognitiveProcessDesignerEdit|Cognitive Process Designer Edit]]",
+	"action-cognitiveprocessdesigner-viewspecialpage": "allowed to view special page [[Special:CognitiveProcessDesignerEdit|Cognitive Process Designer Edit]]",
 	"cpd-loading-diagram": "Loading diagram, please hang tight",
 	"cpd-err-display-diagram": "The system could not display the diagram.",
 	"cpd-err-details": "Some details on the problem",
