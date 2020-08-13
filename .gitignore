@@ -6,4 +6,3 @@ vendor/**
 
 composer.lock
 composer.phar
-package-lock.json
