@@ -3,9 +3,9 @@
 	"version": "1.0.0",
 	"license-name": "GPL-3.0-only",
 	"author": [
-		"[http://www.hallowelt.com Hallo Welt! GmbH]"
+		"[https://www.hallowelt.com Hallo Welt! GmbH]"
 	],
-	"url": "http://www.hallowelt.com",
+	"url": "https://www.hallowelt.com",
 	"descriptionmsg": "cognitiveprocessdesigner-desc",
 	"requires": {
 		"MediaWiki": ">= 1.31.0",
@@ -48,6 +48,9 @@
 	},
 	"MessagesDirs": {
 		"CognitiveProcessDesigner": "i18n"
+	},
+	"ExtensionMessagesFiles": {
+		"CognitiveProcessDesignerAliases": "CognitiveProcessDesignerEdit.i18n.alias.php"
 	},
 	"AutoloadNamespaces": {
 		"CognitiveProcessDesigner\\": "src/"
