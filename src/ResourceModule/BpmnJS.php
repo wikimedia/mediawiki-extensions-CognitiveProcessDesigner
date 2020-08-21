@@ -9,7 +9,7 @@ class BpmnJS extends \ResourceLoaderFileModule {
 	/**
 	 * @inheritDoc
 	 * @param ResourceLoaderContext $context
-	 * @return void
+	 * @return string|array
 	 */
 	public function getScript( ResourceLoaderContext $context ) {
 		if ( $context->getDebug() ) {
