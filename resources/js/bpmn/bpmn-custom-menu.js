@@ -35,7 +35,6 @@ class CustomContextPad {
 			current.position = position;
 
 			current.container = createAnnotateContainer();
-			// current.container = me.popupMenu._createContainer();
 			var headerEntries = [];
 
 			var headTitle = {className: 'headerAnnotate', id: 'bpmn-annotate', options: '', title:'Annotate Element'};
@@ -44,10 +43,9 @@ class CustomContextPad {
 			var headerEntriesContainer = me.popupMenu._createEntries(headerEntries, 'djs-popup-header');
 			current.container.appendChild(headerEntriesContainer);
 
-			loadSemanticForms('');
 
-			var entriesContainer = me.popupMenu._createEntries(annotate, 'djs-popup-body');
-			current.entries = annotate;
+			var entriesContainer = me.popupMenu._createEntries(mw.cpdSemanticForms.entries, 'djs-popup-body');
+			current.entries = mw.cpdSemanticForms.entries;
 			current.container.appendChild(entriesContainer);
 
 			me.popupMenu._attachContainer(current.container, parent, position.cursor);
@@ -88,10 +86,14 @@ class CustomContextPad {
 			'jumpToPage': {
 					group: 'jumpToPage',
 					className: 'cpd-icon-jumpToPage',
-					title: 'Jump to Page',
+					title: mw.msg( 'cpd-open-page-label' ),
 					action: {
 						click: function(event, element) {
-							window.open( mw.config.get( 'wgScriptPath' ) + '/index.php?title=' + element.id );
+							window.open(
+								mw.config.get( 'wgScriptPath' ) +
+								'/index.php?title=' +
+								mw.cpdManager.bpmnPagePath + ':' + element.id
+							);
 						}
 					}
 				}
@@ -101,10 +103,10 @@ class CustomContextPad {
 			'annotate': {
 				group: 'annotate',
 				className: 'cpd-icon-annotate',
-				title: 'Page Forms',
+				title: mw.msg( 'cpd-page-forms-label' ),
 				action: {
 					click: function(event, element) {
-						window.currentElement = element;
+						mw.cpdSemanticForms.currentElement = element;
 						openAnnotate( { cursor: { x: event.x, y: event.y } } );
 					}
 				}

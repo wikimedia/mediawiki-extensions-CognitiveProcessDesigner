@@ -125,6 +125,7 @@ body:not(.error) .screen.error,body:not(.intro) .screen.intro,body:not(.loading)
 
 .canvas {
 	display: block;
+	height: 600px;
 }
 
 body.shown .canvas,body.loaded .canvas {
@@ -571,12 +572,13 @@ textarea.error-log:hover {
 	content: '\e86d';
 }
 
-#js-drop-zone {
-	height: 800px;
+#js-drop-zone, .cpd-js-drop-zone {
+	height: 400px;
 	border: 1px solid #cecece;
+	margin-bottom: 55px;
 }
 
-#infoBox {
+.infoBox {
 	top: 150px;
 }
 
@@ -601,4 +603,20 @@ textarea.error-log:hover {
 	vertical-align: middle;
 	font-size: 15px;
 	font-weight: bold;
+}
+
+.cpd-editor-info-box {
+	border: 2px dotted black;
+	text-align:center;
+	margin: 5px 0px 20px 0px;
+	padding:5px;
+}
+
+.cpd-editor-overlay {
+	background-color: rgba(1, 1, 1, 0.1);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }

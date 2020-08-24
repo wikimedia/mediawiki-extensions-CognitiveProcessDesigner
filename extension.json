@@ -1,9 +1,11 @@
 {
 	"name": "CognitiveProcessDesigner",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"license-name": "GPL-3.0-only",
 	"author": [
-		"[https://www.hallowelt.com Hallo Welt! GmbH]"
+		"[http://www.hallowelt.com Hallo Welt! GmbH]",
+		"Oleksandr Pinchuck",
+		"Robert Vogel"
 	],
 	"url": "https://www.hallowelt.com",
 	"descriptionmsg": "cognitiveprocessdesigner-desc",
@@ -24,22 +26,37 @@
 						"maintenanceadmin",
 						"reader"
 					]
+				},
+				"cognitiveprocessdesigner-editbpmn": {
+					"type": "global",
+					"roles": [
+						"admin",
+						"editor",
+						"maintenanceadmin"
+					]
 				}
+			},
+			"TagRegistry": {
+				"bpmn": "\\CognitiveProcessDesigner\\Tag\\BPMN"
 			}
 		}
 	},
 	"AvailableRights": [
-		"cognitiveprocessdesigner-viewspecialpage"
+		"cognitiveprocessdesigner-viewspecialpage",
+		"cognitiveprocessdesigner-editbpmn"
 	],
 	"GroupPermissions": {
 		"*": {
-			"cognitiveprocessdesigner-viewspecialpage": false
+			"cognitiveprocessdesigner-viewspecialpage": false,
+			"cognitiveprocessdesigner-editbpmn": false
 		},
 		"user": {
-			"cognitiveprocessdesigner-viewspecialpage": true
+			"cognitiveprocessdesigner-viewspecialpage": true,
+			"cognitiveprocessdesigner-editbpmn": true
 		},
 		"sysop": {
-			"cognitiveprocessdesigner-viewspecialpage": true
+			"cognitiveprocessdesigner-viewspecialpage": true,
+			"cognitiveprocessdesigner-editbpmn": true
 		}
 	},
 	"SpecialPages": {
@@ -61,24 +78,73 @@
 		},
 		"ext.cognitiveProcessDesignerEdit.special": {
 			"scripts": [
-				"js/bpmn/bpmn-custom-menu.js",
-				"js/cognitiveprocessdesigner.app.js",
-				"js/cognitiveprocessdesigner.special.edit.js",
-				"js/cognitiveprocessdesigner.wiki.bridge.js"
+				"js/cognitiveprocessdesigner.special.edit.js"
 			],
 			"dependencies": [
-				"ext.cognitiveProcessDesignerEdit.bpmn-js",
-				"ext.pageforms.popupformedit"
+				"ext.cognitiveProcessDesigner.editor",
+				"oojs-ui"
 			]
 		},
 		"ext.cognitiveProcessDesignerTestSuite.special": {
 			"scripts": [
-				"js/bpmn/bpmn-custom-menu.js",
-				"js/cognitiveprocessdesigner.app.js",
-				"js/cognitiveprocessdesigner.wiki.bridge.js"
+				"js/cognitiveprocessdesigner.special.test.js"
 			],
 			"dependencies": [
-				"ext.cognitiveProcessDesignerEdit.bpmn-js"
+				"ext.cognitiveProcessDesigner.editor",
+				"oojs-ui"
+			]
+		},
+		"ext.cognitiveProcessDesigner.editor": {
+			"templates": {
+				"bpmneditor.mustache": "templates/BPMNEditorInjectable.mustache"
+			},
+			"scripts": [
+				"js/bpmn/bpmn-custom-menu.js",
+				"js/cpd/cpd.semanticForms.js",
+				"js/cpd/cpd.widgets.js",
+				"js/cpd/cpd.mapper.js",
+				"js/cpd/cpd.manager.js"
+			],
+			"dependencies": [
+				"ext.cognitiveProcessDesignerEdit.bpmn-js",
+				"ext.pageforms.popupformedit"
+			],
+			"messages": [
+				"cpd-open-page-label",
+				"cpd-page-forms-label",
+				"cpd-warning-message-lost-data",
+				"cpd-loading-diagram",
+				"cpd-err-display-diagram",
+				"cpd-err-details",
+				"cpd-bpmn-diagram-header",
+				"cpd-enter-bpmn-id-placeholder",
+				"cpd-load-bpmn-from-wiki-placeholder",
+				"cpd-create-bpmn-placeholder",
+				"cpd-bpmn-id-placeholder",
+				"cpd-overwrite-wiki-page-question",
+				"cpd-yes",
+				"cpd-no",
+				"cpd-create-new-bpmn",
+				"cpd-open-bpmn-from-local-file",
+				"cpd-err-import-warning",
+				"cpd-show-details",
+				"cpd-you-edited-diagram",
+				"cpd-undo-last-change",
+				"cpd-download-bpmn",
+				"cpd-download-svg",
+				"cpd-keyboard-shortcuts",
+				"cpd-keyboard-shortcuts-undo",
+				"cpd-keyboard-shortcuts-redo",
+				"cpd-keyboard-shortcuts-select-all",
+				"cpd-keyboard-shortcuts-vscroll",
+				"cpd-keyboard-shortcuts-hscroll",
+				"cpd-keyboard-shortcuts-direct-editing",
+				"cpd-keyboard-shortcuts-lasso",
+				"cpd-keyboard-shortcuts-space",
+				"cpd-btn-label-save",
+				"cancel",
+				"cpd-saving-process",
+				"cpd-saved"
 			]
 		},
 		"ext.cognitiveProcessDesignerEdit.styles": {
@@ -86,6 +152,10 @@
 				"styles/cognitiveprocessdesigner.css"
 			]
 		}
+	},
+	"Hooks": {
+		"OutputPageParserOutput": "\\CognitiveProcessDesigner\\Hook\\OutputPageParserOutput\\AddModules::callback",
+		"BSUEModulePDFBeforeCreatePDF": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeCreatePDF\\RemoveEditBPMNTags::callback"
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",

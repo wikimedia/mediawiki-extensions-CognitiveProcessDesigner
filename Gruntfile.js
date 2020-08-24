@@ -4,14 +4,14 @@ module.exports = function ( grunt ) {
 
 	var conf = grunt.file.readJSON( 'extension.json' );
 	grunt.initConfig( {
+		banana: conf.MessagesDirs,
 		jsonlint: {
 			all: [
 				'**/*.json',
 				'!node_modules/**',
 				'!vendor/**'
 			]
-		},
-		banana: conf.MessagesDirs
+		}
 	} );
 
 	grunt.registerTask( 'test', [ 'jsonlint', 'banana' ] );

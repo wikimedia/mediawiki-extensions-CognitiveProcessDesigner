@@ -1,5 +1,7 @@
 {
-	"@metadata": {},
+	"@metadata": {
+		"authors": "HalloWelt! GmbH"
+	},
 	"cognitiveprocessdesigner-desc": "{{desc|name=Code Editor|url=https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer}}",
 	"cognitiveprocessdesigneredit": "{{doc-special|CognitiveProcessDesignerEdit}}",
 	"cognitiveprocessdesignertestsuite": "{{doc-special|CognitiveProcessDesignerTestSuite}}",
@@ -33,5 +35,12 @@
 	"cpd-keyboard-shortcuts-hscroll": "Scrolling (Horizontal) keyboard shortcut",
 	"cpd-keyboard-shortcuts-direct-editing": "Direct editing keyboard shortcut",
 	"cpd-keyboard-shortcuts-lasso": "Lasso tool keyboard shortcut",
-	"cpd-keyboard-shortcuts-space": "Space tool keyboard shortcut"
+	"cpd-keyboard-shortcuts-space": "Space tool keyboard shortcut",
+	"cpd-empty-diagram": "empty bpmn diagram message",
+	"cpd-btn-label-save": "Label for 'Save' button",
+	"cpd-open-page-label": "Label for `Open page` menu item annotation",
+	"cpd-page-forms-label": "Label for `Page forms` menu item annotation",
+	"cpd-warning-message-lost-data": "Message when user tries to exit page while diagram has not been saved yet",
+	"cpd-saving-process": "Message when diagram is saving",
+	"cpd-saved": "Message when diagram has been successfully saved"
 }
