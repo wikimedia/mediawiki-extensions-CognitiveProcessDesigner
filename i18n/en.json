@@ -1,8 +1,10 @@
 {
+	"@metadata": {
+		"authors": "HalloWelt! GmbH"
+	},
 	"cognitiveprocessdesigner-desc": "Draw BPMN processes with a graphical user interface in Semantic MediaWiki",
 	"cognitiveprocessdesigneredit": "Cognitive Process Designer Edit",
 	"cognitiveprocessdesignertestsuite": "Cognitive Process Designer Test Suite",
-	"specialpages-group-semantic-process": "Semantic Process",
 	"cpd-loading-diagram": "Loading diagram, please hang tight",
 	"cpd-err-display-diagram": "The system could not display the diagram.",
 	"cpd-err-details": "Some details on the problem",
@@ -30,5 +32,12 @@
 	"cpd-keyboard-shortcuts-hscroll": "Scrolling (Horizontal)",
 	"cpd-keyboard-shortcuts-direct-editing": "Direct editing",
 	"cpd-keyboard-shortcuts-lasso": "Lasso tool",
-	"cpd-keyboard-shortcuts-space": "Space tool"
+	"cpd-keyboard-shortcuts-space": "Space tool",
+	"cpd-empty-diagram": "empty bpmn diagram",
+	"cpd-btn-label-save": "Save",
+	"cpd-open-page-label": "Open page",
+	"cpd-page-forms-label": "Page forms",
+	"cpd-warning-message-lost-data": "The changes you performed on the diagram will be lost",
+	"cpd-saving-process": "Saving process...",
+	"cpd-saved": "Saved"
 }
