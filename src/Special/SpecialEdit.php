@@ -14,11 +14,4 @@ class SpecialEdit extends CognitiveSpecialPage {
 			'ext.cognitiveProcessDesignerEdit.special'
 		] );
 	}
-
-	/**
-	 * @return bool
-	 */
-	protected function isEditPage() {
-		return true;
-	}
 }
