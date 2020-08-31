@@ -92,7 +92,7 @@ class CustomContextPad {
 							window.open(
 								mw.config.get( 'wgScriptPath' ) +
 								'/index.php?title=' +
-								mw.cpdManager.bpmnPagePath + ':' + element.id
+								mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + element.id
 							);
 						}
 					}
