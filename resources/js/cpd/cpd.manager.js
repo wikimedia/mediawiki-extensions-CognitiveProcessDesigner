@@ -1,6 +1,9 @@
 ( function( mw, BpmnJS, customMenuModule ) {
 
 	mw.cpdManager = {
+
+		separator: '/',
+
 		tplData: {
 			'loading_diagram_msg': mw.message( 'cpd-loading-diagram' ),
 			'err_display_diagram_msg': mw.message( 'cpd-err-display-diagram' ),
@@ -337,7 +340,7 @@
 				if ( content !== null ) {
 					new mw.Api().post( {
 						action: 'edit',
-						title: mw.cpdManager.bpmnPagePath + ':' + bpmnElements[k].element.id,
+						title: mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + bpmnElements[k].element.id,
 						text: content,
 						token: mw.user.tokens.get('editToken')
 					} ).done( function(data) {
@@ -357,7 +360,7 @@
 						mw.cpdManager.orphanedPagesDeleted = false;
 						new mw.Api().post( {
 							action: 'edit',
-							title: mw.cpdManager.bpmnPagePath + ':' + id,
+							title: mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + id,
 							text: '[[Category:Delete]]',
 							token: mw.user.tokens.get('editToken')
 						} ).done( function(data) {
