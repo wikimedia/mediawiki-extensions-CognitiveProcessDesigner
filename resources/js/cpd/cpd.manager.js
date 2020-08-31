@@ -106,8 +106,15 @@
 				this.loadBPMNFromWiki();
 			}
 			mw.cpdWidgets.init( wrapper );
+
 			this.setupEventHandlers();
-			window.onbeforeunload = mw.cpdManager.checkDirty;
+			var me = this;
+			window.onbeforeunload = function( e ) {
+				if ( me.checkDirty() ) {
+					return false;
+				}
+			};
+
 		},
 
 		destroy: function() {
@@ -237,7 +244,6 @@
 		setError: function( err ) {
 			this.setStatus( 'error' );
 			this.wrapper.find('.error .error-log').val( err.message );
-			console.error( err );
 		},
 
 		setStatus: function( state ) {
@@ -331,7 +337,7 @@
 				if ( content !== null ) {
 					new mw.Api().post( {
 						action: 'edit',
-						title: mw.cpdManager.bpmnPagePath + '/' + bpmnElements[k].element.id,
+						title: mw.cpdManager.bpmnPagePath + ':' + bpmnElements[k].element.id,
 						text: content,
 						token: mw.user.tokens.get('editToken')
 					} ).done( function(data) {
@@ -351,7 +357,7 @@
 						mw.cpdManager.orphanedPagesDeleted = false;
 						new mw.Api().post( {
 							action: 'edit',
-							title: mw.cpdManager.bpmnPagePath + '/' + id,
+							title: mw.cpdManager.bpmnPagePath + ':' + id,
 							text: '[[Category:Delete]]',
 							token: mw.user.tokens.get('editToken')
 						} ).done( function(data) {
