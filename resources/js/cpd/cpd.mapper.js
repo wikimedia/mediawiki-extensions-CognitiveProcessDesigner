@@ -14,7 +14,7 @@
 						return mw.cpdMapper.skipElementTypes
 							.indexOf( elementsList[k].element.type ) === -1;
 					} )
-					.map( function( k ) { return bpmnPath + ':' + k; } )
+					.map( function( k ) { return bpmnPath + mw.cpdManager.separator + k; } )
 					.join( ',');
 			content += '|+sep=,' + '\n';
 			content += '}}\n';
@@ -59,7 +59,7 @@
 
 		getElementSemanticProperties: function( bpmnEl, bpmnPath, bpmnLanes ) {
 			var content = '{{#set:Element\n';
-			content += '|id=' + bpmnPath + ':' + bpmnEl.element.id + '\n';
+			content += '|id=' + bpmnPath + mw.cpdManager.separator + bpmnEl.element.id + '\n';
 
 			/**
 			 *  Shape properties
@@ -83,7 +83,7 @@
 			if ( bpmnEl.element.outgoing && bpmnEl.element.outgoing.length > 0 ) {
 				content += '|outgoing=';
 				content += bpmnEl.element.outgoing
-					.map( function( v ) { return bpmnPath + ':' + v.id; } )
+					.map( function( v ) { return bpmnPath + mw.cpdManager.separator + v.id; } )
 					.join( ',');
 				content += '|+sep=,';
 				content += '\n';
@@ -91,7 +91,7 @@
 			if ( bpmnEl.element.incoming && bpmnEl.element.incoming.length > 0 ) {
 				content += '|incoming=';
 				content += bpmnEl.element.incoming
-					.map( function( v ) { return bpmnPath + ':' + v.id; } )
+					.map( function( v ) { return bpmnPath + mw.cpdManager.separator + v.id; } )
 					.join( ',');
 				content += '|+sep=,';
 				content += '\n';
@@ -102,12 +102,12 @@
 			 */
 			if ( bpmnEl.element.businessObject.sourceRef ) {
 				if ( bpmnEl.element.businessObject.sourceRef.id ) {
-					content += '|sourceRef=' + bpmnPath + ':' + bpmnEl.element.businessObject.sourceRef.id + '\n';
+					content += '|sourceRef=' + bpmnPath + mw.cpdManager.separator + bpmnEl.element.businessObject.sourceRef.id + '\n';
 				}
 				if ( bpmnEl.element.businessObject.sourceRef.length > 0 ) {
 					content += '|sourceRef=';
 					content += bpmnEl.element.businessObject.sourceRef
-						.map( function( v ) { return bpmnPath + ':' + v.id; } )
+						.map( function( v ) { return bpmnPath + mw.cpdManager.separator + v.id; } )
 						.join( ',');
 					content += '|+sep=,';
 					content += '\n';
@@ -115,7 +115,7 @@
 			}
 
 			if ( bpmnEl.element.businessObject.targetRef ) {
-				content += '|targetRef=' + bpmnPath + ':' + bpmnEl.element.businessObject.targetRef.id + '\n';
+				content += '|targetRef=' + bpmnPath + mw.cpdManager.separator + bpmnEl.element.businessObject.targetRef.id + '\n';
 			}
 
 			/**
@@ -125,13 +125,13 @@
 				bpmnEl.element.parent.type !== 'bpmn:Process' &&
 				bpmnEl.element.parent.type !== 'bpmn:Collaboration' )
 			{
-				content += '|parent=' + bpmnPath + ':' + bpmnEl.element.parent.id + '\n';
+				content += '|parent=' + bpmnPath + mw.cpdManager.separator + bpmnEl.element.parent.id + '\n';
 			}
 
 			if ( bpmnEl.element.children && bpmnEl.element.children.length > 0 ) {
 				content += '|children=';
 				content += bpmnEl.element.children
-					.map( function( v ) { return bpmnPath + ':' + v.id; } )
+					.map( function( v ) { return bpmnPath + mw.cpdManager.separator + v.id; } )
 					.join( ',');
 				content += '|+sep=,';
 				content += '\n';
@@ -184,7 +184,7 @@
 					var parentLanes = [];
 					for ( var i = 0; i < bpmnLaneKeys.length; i++ ) {
 						if ( mw.cpdMapper.isElementBoundedByAnotherOne( bpmnEl, bpmnLanes[bpmnLaneKeys[i]] ) ) {
-							parentLanes.push( bpmnPath + ':' + bpmnLanes[bpmnLaneKeys[i]].element.id );
+							parentLanes.push( bpmnPath + mw.cpdManager.separator + bpmnLanes[bpmnLaneKeys[i]].element.id );
 						}
 					}
 					if ( parentLanes.length > 0 ) {
