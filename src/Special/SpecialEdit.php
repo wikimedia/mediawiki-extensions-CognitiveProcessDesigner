@@ -10,6 +10,14 @@ class SpecialEdit extends CognitiveSpecialPage {
 			'cognitiveprocessdesigner-viewspecialpage',
 			true
 		);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function execute( $par ) {
+		parent::execute( $par );
+
 		$this->getOutput()->addModules( [
 			'ext.cognitiveProcessDesignerEdit.special'
 		] );
