@@ -13,6 +13,14 @@ class SpecialTestSuite extends CognitiveSpecialPage {
 			'cognitiveprocessdesigner-viewspecialpage',
 			false
 		);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function execute( $par ) {
+		parent::execute( $par );
+
 		$this->getOutput()->addModules( [
 			'ext.cognitiveProcessDesignerTestSuite.special'
 		] );
