@@ -36,13 +36,13 @@ class BPMNHandler extends Handler {
 		$imgName = $bpmnName . '.' . $this->defaultImgType;
 		$img = wfFindFile( $imgName );
 		if ( $img ) {
-			$imgUrlTs = $img->getViewUrl() . '?ts=' . $img->nextHistoryLine()->img_timestamp;
+			$imgUrlTs = $img->getViewUrl() . '?ts=' . $img->getTimestamp();
 			$imgDescUrl = $img->getDescriptionUrl();
-			$imgHeight = isset( $this->tagArgs['height'] ) ? $this->tagArgs['height'] : $img->getHeight();
-			$imgWidth = isset( $this->tagArgs['width'] ) ? $this->tagArgs['width'] : $img->getWidth();
+			$imgHeight = $this->tagArgs['height'] ?? $img->getHeight();
+			$imgWidth = $this->tagArgs['width'] ?? $img->getWidth();
 		} else {
-			$imgHeight = isset( $this->tagArgs['height'] ) ? $this->tagArgs['height'] : 'auto';
-			$imgWidth = isset( $this->tagArgs['width'] ) ? $this->tagArgs['width'] : 'auto';
+			$imgHeight = $this->tagArgs['height'] ?? 'auto';
+			$imgWidth = $this->tagArgs['width'] ?? 'auto';
 		}
 
 		$id = mt_rand();
