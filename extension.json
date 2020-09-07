@@ -12,7 +12,8 @@
 	"requires": {
 		"MediaWiki": ">= 1.31.0",
 		"extensions": {
-			"PageForms": "~4.6"
+			"PageForms": "~4.6",
+			"BlueSpiceFoundation": "3.1.*"
 		}
 	},
 	"attributes": {
