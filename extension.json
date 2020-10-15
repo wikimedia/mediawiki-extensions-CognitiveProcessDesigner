@@ -104,7 +104,8 @@
 			],
 			"dependencies": [
 				"ext.cognitiveProcessDesignerEdit.bpmn-js",
-				"ext.pageforms.popupformedit"
+				"ext.pageforms.popupformedit",
+				"mediawiki.api.edit"
 			],
 			"messages": [
 				"cpd-open-page-label",
@@ -148,16 +149,41 @@
 			"styles": [
 				"styles/cognitiveprocessdesigner.css"
 			]
+		},
+		"ext.cpd.entity": {
+			"styles": [
+				"styles/cpd.entity.less"
+			]
 		}
 	},
+	"ServiceWiringFiles": [
+		"includes/ServiceWiring.php"
+	],
 	"Hooks": {
 		"ParserFirstCallInit": "\\CognitiveProcessDesigner\\Hook\\ParserFirstCallInit\\RenderBPMNTag::callback",
 		"OutputPageParserOutput": "\\CognitiveProcessDesigner\\Hook\\OutputPageParserOutput\\AddModules::callback",
-		"BSUEModulePDFBeforeCreatePDF": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeCreatePDF\\RemoveEditBPMNTags::callback"
+		"OutputPageBeforeHTML": "\\CognitiveProcessDesigner\\Hook\\OutputPageBeforeHTML\\AddEntityHeaderFooter::callback",
+		"BSUEModulePDFBeforeCreatePDF": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeCreatePDF\\PrepareBPMNDiagramForExport::callback",
+		"BSUEModulePDFBeforeAddingStyleBlocks": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeAddingStyleBlocks\\AddCPDStyles::callback",
+		"MakeGlobalVariablesScript": "\\CognitiveProcessDesigner\\Hook\\MakeGlobalVariablesScript\\AddConfigVars::callback",
+		"LoadExtensionSchemaUpdates": "\\CognitiveProcessDesigner\\Hook\\LoadExtensionSchemaUpdates\\AddRequiredPages::callback"
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
 		"remoteExtPath": "CognitiveProcessDesigner/resources"
+	},
+	"config_prefix": "wg",
+	"config": {
+		"CPDEntityElementTypes": {
+			"value": [
+				"bpmn:Task",
+				"BPMN Task",
+				"Activity"
+			]
+		},
+		"CPDHappyPathSMWPropertyName": {
+			"value": "Bpmn_isHappyPath"
+		}
 	},
 	"manifest_version": 2
 }

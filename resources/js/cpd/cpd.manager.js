@@ -326,30 +326,54 @@
 		},
 
 		postDiagramElementsToWiki: function() {
+			mw.cpdManager.bpmnElementsPostedToWiki = false;
 			var diagramLanes = this.getCurrentDiagramLanes();
 			var diagramGroups = this.getCurrentDiagramGroups();
 			var bpmnElements = this.getCurrentDiagramElements();
+			var editElementPagePromises = [];
 			Object.keys( bpmnElements ).forEach( function( k ) {
-				mw.cpdManager.bpmnElementsPostedToWiki = false;
+				var editElementPageDeferred = $.Deferred();
+				editElementPagePromises.push( editElementPageDeferred.promise() );
+
 				var content = mw.cpdMapper.mapElementToWikiContent(
 					bpmnElements[k],
 					mw.cpdManager.bpmnPagePath,
 					diagramLanes,
 					diagramGroups
 				);
-				if ( content !== null ) {
-					new mw.Api().post( {
+
+				var elementPageName = mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + bpmnElements[k].element.id;
+				var currentPageContentAPI = new mw.Api();
+				currentPageContentAPI.get( {
+					prop: 'revisions',
+					rvprop: 'content|timestamp',
+					titles: elementPageName,
+					curtimestamp: true,
+					indexpageids: true
+				} )
+				.done( function(result ) {
+					var pageId = result.query.pageids[0];
+					var pageData = result.query.pages[pageId];
+					var revisionContent = '';
+					if ( pageData.revisions ) {
+						revisionContent = pageData.revisions[0]['*'];
+					}
+					revisionContent = revisionContent.replace(/<div class="cdp-data".*?<\/div>/s, '').trim();
+					revisionContent = '<div class="cdp-data">' + content + '</div>' + "\n" + revisionContent;
+					var editPageAPI = new mw.Api();
+					editPageAPI.postWithToken( 'csrf', {
 						action: 'edit',
-						title: mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + bpmnElements[k].element.id,
-						text: content,
-						token: mw.user.tokens.get('editToken')
-					} ).done( function(data) {
-						mw.cpdManager.bpmnElementsPostedToWiki = true;
-					}).fail( function( reqStatus, data) {});
-				} else {
-					mw.cpdManager.bpmnElementsPostedToWiki = true;
-				}
+						title: elementPageName,
+						text: revisionContent
+					} )
+					.done( function( result ) {
+						editElementPageDeferred.resolve();
+					} );
+				} );
 			});
+			$.when.apply( $, editElementPagePromises ).then( function() {
+				mw.cpdManager.bpmnElementsPostedToWiki = true;
+			} );
 		},
 
 		deleteOrphanedElementPagesFromWiki: function() {
