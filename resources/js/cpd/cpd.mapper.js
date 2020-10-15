@@ -4,8 +4,7 @@
 		skipElementTypes: [ 'bpmn:Process', 'bpmn:Collaboration', 'label' ],
 
 		mapDiagramXmlToWiki: function( xml, bpmnPath, bpmnName, elementsList ) {
-			var content = '[[Category:BPMN]]\n';
-			content += '{{#set:Process\n';
+			var content = '{{BPMN_Process\n';
 			content += '|id=' + bpmnPath + '\n';
 			content += '|label=' + bpmnName + '\n';
 			content += '|has_element=' +
@@ -16,11 +15,10 @@
 					} )
 					.map( function( k ) { return bpmnPath + mw.cpdManager.separator + k; } )
 					.join( ',');
-			content += '|+sep=,' + '\n';
 			content += '}}\n';
 
 			content += '<div id=\"processXml\" class=\"toccolours mw-collapsible mw-collapsed\">' +
-				'The following code shows the XML Serialization of the Process:' +
+				'The following code shows the XML serialization of the process:' +
 				'<div class=\"mw-collapsible-content\">' +
 				xml +
 				'</div></div>';
@@ -58,23 +56,24 @@
 		},
 
 		getElementSemanticProperties: function( bpmnEl, bpmnPath, bpmnLanes ) {
-			var content = '{{#set:Element\n';
-			content += '|id=' + bpmnPath + mw.cpdManager.separator + bpmnEl.element.id + '\n';
+			var id = bpmnPath + mw.cpdManager.separator + bpmnEl.element.id;
+			var content = '{{BPMN_Element\n';
+			content += '|id=' + id + '\n';
 
 			/**
 			 *  Shape properties
 			 */
 			if ( bpmnEl.element.x ) {
-				content += '|xBound=' + bpmnEl.element.x + '\n';
+				content += '|bpmn_xBound=' + bpmnEl.element.x + '\n';
 			}
 			if ( bpmnEl.element.y ) {
-				content += '|yBound=' + bpmnEl.element.y + '\n';
+				content += '|bpmn_yBound=' + bpmnEl.element.y + '\n';
 			}
 			if ( bpmnEl.element.width ) {
-				content += '|width=' + bpmnEl.element.width + '\n';
+				content += '|bpmn_width=' + bpmnEl.element.width + '\n';
 			}
 			if ( bpmnEl.element.height ) {
-				content += '|height=' + bpmnEl.element.height + '\n';
+				content += '|bpmn_height=' + bpmnEl.element.height + '\n';
 			}
 
 			/**
@@ -85,16 +84,55 @@
 				content += bpmnEl.element.outgoing
 					.map( function( v ) { return bpmnPath + mw.cpdManager.separator + v.id; } )
 					.join( ',');
-				content += '|+sep=,';
 				content += '\n';
+
+				if ( mw.config.get( 'wgCPDEntityElementTypes' ).indexOf( bpmnEl.element.type ) > -1 ) {
+					/**
+					 * bpmnEl.element.outgoing contains only flows (connections)
+					 * getRelatedEntities allows to get exact shapes to which current element targets
+					 */
+					var targetEntities = mw.cpdMapper.getRelatedEntities(
+						bpmnPath,
+						bpmnEl.element,
+						'outgoing',
+						'target'
+					).filter( function ( v ) {
+						return v !== id;
+					});
+
+					if ( targetEntities.length > 0 ) {
+						content += '|targetEntities=';
+						content += targetEntities.join( ',' );
+						content += '\n';
+					}
+				}
 			}
 			if ( bpmnEl.element.incoming && bpmnEl.element.incoming.length > 0 ) {
 				content += '|incoming=';
 				content += bpmnEl.element.incoming
 					.map( function( v ) { return bpmnPath + mw.cpdManager.separator + v.id; } )
 					.join( ',');
-				content += '|+sep=,';
 				content += '\n';
+
+				if ( mw.config.get( 'wgCPDEntityElementTypes' ).indexOf( bpmnEl.element.type ) > -1 ) {
+					/**
+					 * bpmnEl.element.incoming contains only flows (connections)
+					 * getRelatedEntities allows to get exact shapes that targets to current element
+					 */
+					var sourceEntities = mw.cpdMapper.getRelatedEntities(
+						bpmnPath,
+						bpmnEl.element,
+						'incoming',
+						'source'
+					).filter( function ( v ) {
+						return v !== id;
+					});
+					if ( sourceEntities.length > 0 ) {
+						content += '|sourceEntities=';
+						content += sourceEntities.join(',');
+						content += '\n';
+					}
+				}
 			}
 
 			/**
@@ -109,7 +147,6 @@
 					content += bpmnEl.element.businessObject.sourceRef
 						.map( function( v ) { return bpmnPath + mw.cpdManager.separator + v.id; } )
 						.join( ',');
-					content += '|+sep=,';
 					content += '\n';
 				}
 			}
@@ -133,7 +170,6 @@
 				content += bpmnEl.element.children
 					.map( function( v ) { return bpmnPath + mw.cpdManager.separator + v.id; } )
 					.join( ',');
-				content += '|+sep=,';
 				content += '\n';
 			}
 
@@ -149,10 +185,10 @@
 				content += '|label=' + bpmnEl.element.businessObject.name + '\n';
 				if ( bpmnEl.element.businessObject.di.label && bpmnEl.element.businessObject.di.label.bounds ) {
 					labelSubObj = '{{#subobject:PositionLabel\n';
-					labelSubObj += '|x=' + bpmnEl.element.businessObject.di.label.bounds.x + '\n';
-					labelSubObj += '|y=' + bpmnEl.element.businessObject.di.label.bounds.y + '\n';
-					labelSubObj += '|height=' + bpmnEl.element.businessObject.di.label.bounds.height + '\n';
-					labelSubObj += '|width=' + bpmnEl.element.businessObject.di.label.bounds.width + '\n';
+					labelSubObj += '|bpmn_x=' + bpmnEl.element.businessObject.di.label.bounds.x + '\n';
+					labelSubObj += '|bpmn_y=' + bpmnEl.element.businessObject.di.label.bounds.y + '\n';
+					labelSubObj += '|bpmn_height=' + bpmnEl.element.businessObject.di.label.bounds.height + '\n';
+					labelSubObj += '|bpmn_width=' + bpmnEl.element.businessObject.di.label.bounds.width + '\n';
 					labelSubObj += '}}\n';
 				}
 			}
@@ -188,7 +224,7 @@
 						}
 					}
 					if ( parentLanes.length > 0 ) {
-						content += '|parentLanes=' + parentLanes.join(',') + '|+sep=,\n';
+						content += '|parentLanes=' + parentLanes.join(',');
 					}
 				}
 			}
@@ -259,6 +295,26 @@
 				points.bounded.x2 <= points.boundary.x2 &&
 				points.bounded.y1 >= points.boundary.y1 &&
 				points.bounded.y2 <= points.boundary.y2;
+		},
+
+		getRelatedEntities: function( bpmnPath, element, direction, object ) {
+			return element[direction].map( function( v ) {
+				if ( v[object] !== undefined && v[object].type ) {
+					if( mw.config.get( 'wgCPDEntityElementTypes' ).indexOf( v[object].type ) > -1 ) {
+						return bpmnPath + mw.cpdManager.separator + v[object].id;
+					}
+					if ( v[object][direction] !== undefined && v[object][direction].length ) {
+						return mw.cpdMapper.getRelatedEntities( bpmnPath, v[object], direction, object );
+					}
+				}
+			})
+			.flat(100)
+			.filter( function( v, i, a ) {
+				if( v === undefined ) {
+					return false;
+				}
+				return a.indexOf( v ) === i;
+			});
 		}
 	};
 }( mw ));
