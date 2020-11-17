@@ -12,8 +12,7 @@
 	"requires": {
 		"MediaWiki": ">= 1.31.0",
 		"extensions": {
-			"PageForms": "~4.6",
-			"BlueSpiceFoundation": "3.1.*"
+			"PageForms": "~4.6"
 		}
 	},
 	"attributes": {
@@ -36,9 +35,6 @@
 						"maintenanceadmin"
 					]
 				}
-			},
-			"TagRegistry": {
-				"bpmn": "\\CognitiveProcessDesigner\\Tag\\BPMN"
 			}
 		}
 	},
@@ -66,6 +62,9 @@
 	},
 	"MessagesDirs": {
 		"CognitiveProcessDesigner": "i18n"
+	},
+	"ExtensionMessagesFiles": {
+		"CognitiveProcessDesignerSpecialPages": "languages/CognitiveProcessDesignerSpecialPages.alias.php"
 	},
 	"AutoloadNamespaces": {
 		"CognitiveProcessDesigner\\": "src/"
@@ -152,6 +151,7 @@
 		}
 	},
 	"Hooks": {
+		"ParserFirstCallInit": "\\CognitiveProcessDesigner\\Hook\\ParserFirstCallInit\\RenderBPMNTag::callback",
 		"OutputPageParserOutput": "\\CognitiveProcessDesigner\\Hook\\OutputPageParserOutput\\AddModules::callback",
 		"BSUEModulePDFBeforeCreatePDF": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeCreatePDF\\RemoveEditBPMNTags::callback"
 	},

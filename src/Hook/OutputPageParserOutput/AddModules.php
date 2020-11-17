@@ -1,12 +1,17 @@
 <?php
 namespace CognitiveProcessDesigner\Hook\OutputPageParserOutput;
 
-use BlueSpice\Hook\OutputPageParserOutput;
+use OutputPage;
+use ParserOutput;
 
-class AddModules extends OutputPageParserOutput {
+class AddModules {
 
-	public function doProcess() {
-		$this->out->addModules( [
+	/**
+	 * @param OutputPage &$out
+	 * @param ParserOutput $parserOutput
+	 */
+	public static function callback( OutputPage &$out, ParserOutput $parserOutput ) {
+		$out->addModules( [
 			'ext.cognitiveProcessDesigner.editor',
 			'ext.cognitiveProcessDesignerEdit.styles'
 		] );
