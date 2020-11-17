@@ -2,8 +2,8 @@
 
 namespace CognitiveProcessDesigner\Special;
 
-use BlueSpice\SpecialPage;
 use Html;
+use SpecialPage;
 
 class CognitiveSpecialPage extends SpecialPage {
 
@@ -60,12 +60,5 @@ class CognitiveSpecialPage extends SpecialPage {
 		$this->getOutput()->addModuleStyles( [
 			'ext.cognitiveProcessDesignerEdit.styles'
 		] );
-	}
-
-	/**
-	 * @return string ID of the HTML element being added
-	 */
-	protected function getId() {
-		return 'cpd';
 	}
 }
