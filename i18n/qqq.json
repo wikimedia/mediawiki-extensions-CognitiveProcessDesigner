@@ -6,10 +6,6 @@
 	"cognitiveprocessdesigneredit": "{{doc-special|CognitiveProcessDesignerEdit}}",
 	"cognitiveprocessdesignertestsuite": "{{doc-special|CognitiveProcessDesignerTestSuite}}",
 	"specialpages-group-semantic-process": "{{doc-special-group}}",
-	"right-cognitiveprocessdesigner-viewspecialpage": "{{doc-right|cognitiveprocessdesigner-viewspecialpage}}",
-	"right-cognitiveprocessdesigner-editbpmn": "{{doc-right|cognitiveprocessdesigner-editbpmn}}",
-	"action-cognitiveprocessdesigner-viewspecialpage": "{{doc-action|cognitiveprocessdesigner-viewspecialpage}}",
-	"action-cognitiveprocessdesigner-editbpmn": "{{doc-action|cognitiveprocessdesigner-editbpmn}}",
 	"cpd-loading-diagram": "Loading diagram message on Cognitive special pages",
 	"cpd-err-display-diagram": "Error message when diagram can not be loaded",
 	"cpd-err-details": "Error log when diagram can not be loaded",
@@ -44,5 +40,9 @@
 	"cpd-page-forms-label": "Label for `Page forms` menu item annotation",
 	"cpd-warning-message-lost-data": "Message when user tries to exit page while diagram has not been saved yet",
 	"cpd-saving-process": "Message when diagram is saving",
-	"cpd-saved": "Message when diagram has been successfully saved"
+	"cpd-saved": "Message when diagram has been successfully saved",
+	"action-cognitiveprocessdesigner-viewspecialpage": "Label for denied page access, with name of special page\n{{doc-action|cognitiveprocessdesigner-viewspecialpage}}",
+	"action-cognitiveprocessdesigner-editbpmn": "Label for denied action\n{{doc-action|cognitiveprocessdesigner-editbpmn}}",
+	"right-cognitiveprocessdesigner-viewspecialpage": "Grants access to the [[Special:CognitiveProcessDesignerEdit]] special page.\n{{doc-right|cognitiveprocessdesigner-viewspecialpage}}",
+	"right-cognitiveprocessdesigner-editbpmn": "Grants access to BPMN diagram edit interface.\n{{doc-right|cognitiveprocessdesigner-editbpmn}}"
 }

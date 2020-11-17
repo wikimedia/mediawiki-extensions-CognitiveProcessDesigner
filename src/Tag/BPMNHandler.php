@@ -1,14 +1,50 @@
 <?php
 namespace CognitiveProcessDesigner\Tag;
 
-use BlueSpice\Tag\Handler;
 use Html;
+use Parser;
+use PPFrame;
 
-class BPMNHandler extends Handler {
-	protected $defaultImgType = 'svg';
-	protected $tagInput = '';
-	protected $tagArgs = [];
+class BPMNHandler {
+
+	/**
+	 *
+	 * @var string
+	 */
+	protected $processedInput = '';
+
+	/**
+	 *
+	 * @var array
+	 */
+	protected $processedArgs = [];
+
+	/**
+	 *
+	 * @var Parser
+	 */
 	protected $parser = null;
+
+	/**
+	 *
+	 * @var PPFrame
+	 */
+	protected $frame = null;
+
+	/**
+	 * @var string
+	 */
+	protected $defaultImgType = 'svg';
+
+	/**
+	 * @var false|string|string[]
+	 */
+	protected $tagInput = '';
+
+	/**
+	 * @var array
+	 */
+	protected $tagArgs = [];
 
 	/**
 	 * BPMNHandler constructor.
@@ -23,7 +59,7 @@ class BPMNHandler extends Handler {
 		$this->tagInput = explode( ' ', trim( $processedInput ) );
 		$this->tagArgs = $processedArgs;
 		$this->parser = $parser;
-		parent::__construct( $processedInput, $processedArgs, $parser, $frame );
+		$this->frame = $frame;
 	}
 
 	/**

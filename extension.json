@@ -35,9 +35,6 @@
 						"maintenanceadmin"
 					]
 				}
-			},
-			"TagRegistry": {
-				"bpmn": "\\CognitiveProcessDesigner\\Tag\\BPMN"
 			}
 		}
 	},
@@ -67,7 +64,7 @@
 		"CognitiveProcessDesigner": "i18n"
 	},
 	"ExtensionMessagesFiles": {
-		"CognitiveProcessDesignerAliases": "CognitiveProcessDesignerEdit.i18n.alias.php"
+		"CognitiveProcessDesignerSpecialPages": "languages/CognitiveProcessDesignerSpecialPages.alias.php"
 	},
 	"AutoloadNamespaces": {
 		"CognitiveProcessDesigner\\": "src/"
@@ -154,6 +151,7 @@
 		}
 	},
 	"Hooks": {
+		"ParserFirstCallInit": "\\CognitiveProcessDesigner\\Hook\\ParserFirstCallInit\\RenderBPMNTag::callback",
 		"OutputPageParserOutput": "\\CognitiveProcessDesigner\\Hook\\OutputPageParserOutput\\AddModules::callback",
 		"BSUEModulePDFBeforeCreatePDF": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeCreatePDF\\RemoveEditBPMNTags::callback"
 	},
