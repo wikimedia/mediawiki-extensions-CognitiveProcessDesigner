@@ -358,8 +358,8 @@
 					if ( pageData.revisions ) {
 						revisionContent = pageData.revisions[0]['*'];
 					}
-					revisionContent = revisionContent.replace(/<div class="cdp-data".*?<\/div>/s, '').trim();
-					revisionContent = '<div class="cdp-data">' + content + '</div>' + "\n" + revisionContent;
+					revisionContent = revisionContent.replace(/<div class="cpd-data".*?[\s\S]+<\/div>/, '').trim();
+					revisionContent = '<div class="cpd-data">' + content + '</div>' + "\n" + revisionContent;
 					var editPageAPI = new mw.Api();
 					editPageAPI.postWithToken( 'csrf', {
 						action: 'edit',
