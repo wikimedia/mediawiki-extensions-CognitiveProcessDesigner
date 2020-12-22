@@ -101,7 +101,7 @@ class BPMNHandler {
 				'button',
 				[
 					'id' => 'cpd-btn-edit-bpmn-id-' . $id,
-					'class' => 'cpd-edit-bpmn',
+					'class' => 'cpd-edit-bpmn mw-ui-button',
 					'data-id' => $id,
 					'data-bpmn-name' => $bpmnName
 				],
