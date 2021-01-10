@@ -1,5 +1,7 @@
 <?php
 
+$specialPageAliases = [];
+
 /** English */
 $specialPageAliases['en'] = [
 	'CognitiveProcessDesignerEdit' =>
