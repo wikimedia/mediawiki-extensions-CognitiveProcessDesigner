@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Florian COLLIN",
+			"Thibaut120094"
+		]
+	},
+	"cognitiveprocessdesigner-desc": "Dessinez des processus BPMN avec une interface utilisateur graphique dans Semantic MediaWiki",
+	"cognitiveprocessdesigneredit": "Cognitive Process Designer Edit",
+	"cpd-yes": "Oui",
+	"cpd-keyboard-shortcuts-undo": "Annuler",
+	"cpd-keyboard-shortcuts-redo": "Refaire",
+	"cpd-btn-label-save": "Enregistrer",
+	"cpd-saved": "Enregistré"
+}

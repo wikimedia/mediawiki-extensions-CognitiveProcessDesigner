@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": "HalloWelt! GmbH"
+		"authors": [
+			"HalloWelt! GmbH"
+		]
 	},
 	"cognitiveprocessdesigner-desc": "{{desc|name=Code Editor|url=https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer}}",
 	"cognitiveprocessdesigneredit": "{{doc-special|CognitiveProcessDesignerEdit}}",
