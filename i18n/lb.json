@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robby"
+		]
+	},
+	"cpd-bpmn-diagram-header": "BPMN Diagramm",
+	"cpd-yes": "Jo",
+	"cpd-no": "Neen",
+	"cpd-btn-label-save": "Späicheren",
+	"cpd-open-page-label": "Säit opmaachen",
+	"cpd-saved": "Gespäichert"
+}

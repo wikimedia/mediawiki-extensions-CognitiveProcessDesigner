@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"Colathewikian"
+		]
+	},
+	"cpd-loading-diagram": "加载图表中，请稍等勿躁",
+	"cpd-err-display-diagram": "系统无法显示图表。",
+	"cpd-err-details": "有关该问题的详情",
+	"cpd-enter-bpmn-id-placeholder": "请输入您的BPMN的ID",
+	"cpd-create-new-bpmn": "创建新的BPMN",
+	"cpd-overwrite-wiki-page-question": "此维基页面已存在。您想覆盖该页面吗？",
+	"cpd-yes": "是",
+	"cpd-no": "否",
+	"cpd-show-details": "显示详情",
+	"cpd-you-edited-diagram": "你编辑了图表。",
+	"cpd-undo-last-change": "撤销最近的更改",
+	"cpd-download-bpmn": "下载BPMN图表",
+	"cpd-download-svg": "下载为SVG",
+	"cpd-keyboard-shortcuts-undo": "撤销",
+	"cpd-keyboard-shortcuts-redo": "重做",
+	"cpd-keyboard-shortcuts-select-all": "点选所有",
+	"cpd-btn-label-save": "储存",
+	"cpd-open-page-label": "开启页面",
+	"cpd-warning-message-lost-data": "你将失去你对图表做出的更改",
+	"cpd-saved": "已储存",
+	"action-cognitiveprocessdesigner-editbpmn": "编辑BPMN图表",
+	"right-cognitiveprocessdesigner-editbpmn": "编辑BPMN图表"
+}

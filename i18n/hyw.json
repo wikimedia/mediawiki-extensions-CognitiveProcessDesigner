@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Շահէն"
+		]
+	},
+	"cpd-yes": "Այո",
+	"cpd-no": "Ոչ",
+	"cpd-keyboard-shortcuts-undo": "Յետարկել",
+	"cpd-keyboard-shortcuts-redo": "Կրկնել",
+	"cpd-keyboard-shortcuts-select-all": "Ընտրել բոլորը",
+	"cpd-btn-label-save": "Յիշել",
+	"cpd-saved": "Յիշելը կատարուեցաւ"
+}
