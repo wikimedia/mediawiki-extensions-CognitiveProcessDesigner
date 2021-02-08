@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eduardo Addad de Oliveira"
+			"Eduardo Addad de Oliveira",
+			"Eduardoaddad"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Desenhe processos BPMN com uma interface gráfica de usuário no Semantic MediaWiki",
 	"cognitiveprocessdesigneredit": "Edição do designer de processo cognitivo",
+	"cognitiveprocessdesignertestsuite": "Conjunto de testes de design de processo progressivo",
 	"specialpages-group-semantic-process": "Processo semântico",
 	"cpd-loading-diagram": "Carregando diagrama, por favor, aguarde",
 	"cpd-err-display-diagram": "O sistema não conseguiu exibir o diagrama.",
