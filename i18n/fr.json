@@ -3,12 +3,13 @@
 		"authors": [
 			"Florian COLLIN",
 			"Gomoko",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Verdy p"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Dessinez des processus BPMN avec une interface utilisateur graphique dans Semantic MediaWiki",
 	"cognitiveprocessdesigneredit": "Cognitive Process Designer Edit",
-	"cognitiveprocessdesignertestsuite": "Suite de test de conception du processus prognitif",
+	"cognitiveprocessdesignertestsuite": "Suite de test de conception du processus cognitif",
 	"specialpages-group-semantic-process": "Processus sémantique",
 	"cpd-loading-diagram": "Chargement du diagramme, veuillez attendre un peu",
 	"cpd-err-display-diagram": "Le système n’a pas pu afficher le diagramme.",
@@ -43,7 +44,7 @@
 	"cpd-open-page-label": "Ouvrir la page",
 	"cpd-page-forms-label": "Formulaires de la page",
 	"cpd-warning-message-lost-data": "Les modifications que vous avez effectuées sur le diagramme seront perdues",
-	"cpd-saving-process": "Enregistrement du processus…",
+	"cpd-saving-process": "Enregistrement du processus...",
 	"cpd-saved": "Enregistré",
 	"action-cognitiveprocessdesigner-viewspecialpage": "afficher la page spéciale « {{int:cognitiveprocessdesigneredit}} »",
 	"action-cognitiveprocessdesigner-editbpmn": "modifier le diagramme BPMN",
