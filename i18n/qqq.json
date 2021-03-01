@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"HalloWelt! GmbH",
-			"Robby"
+			"Robby",
+			"Umherirrender"
 		]
 	},
-	"cognitiveprocessdesigner-desc": "{{desc|name=Code Editor|url=https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer}}",
+	"cognitiveprocessdesigner-desc": "{{desc|name=Cognitive Process Designer|url=https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer}}",
 	"cognitiveprocessdesigneredit": "{{doc-special|CognitiveProcessDesignerEdit}}",
 	"cognitiveprocessdesignertestsuite": "{{doc-special|CognitiveProcessDesignerTestSuite}}",
 	"specialpages-group-semantic-process": "{{doc-special-group}}",
