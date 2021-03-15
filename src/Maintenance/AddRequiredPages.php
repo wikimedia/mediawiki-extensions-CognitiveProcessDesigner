@@ -7,7 +7,6 @@ use Title;
 use WikiPage;
 
 class AddRequiredPages extends LoggedUpdateMaintenance {
-
 	/**
 	 *
 	 * @var array
@@ -28,16 +27,13 @@ class AddRequiredPages extends LoggedUpdateMaintenance {
 		'Property:Bpmn_TargetRef' => '[[Has type::Page]]',
 		'Property:Bpmn_isHappyPath' => '[[Has type::Boolean]]',
 		'Category:BPMN_Task' => '',
-		'Template:BPMN_Process' => <<<HERE
-[[Category:BPMN]]
+		'Template:BPMN_Process' => "[[Category:BPMN]]
 {{#set:Process
  |id={{{id|}}}
  |label={{{label|}}}
  |has_element={{{has_element|}}}|+sep=,
-}}
-HERE,
-		'Template:BPMN_Element' => <<<HERE
-{{#if:{{{label|}}}|{{DISPLAYTITLE:{{{label|}}}}}}}
+}}",
+		'Template:BPMN_Element' => "{{#if:{{{label|}}}|{{DISPLAYTITLE:{{{label|}}}}}}}
 {{#set:Element
  |id={{{id|}}}
  |label={{{label|}}}
@@ -54,8 +50,7 @@ HERE,
  |parent={{{parent|}}}
  |children={{{children|}}}|+sep=,
  |parentLanes={{{parentLanes|}}}|+sep=,
-}}
-HERE
+}}",
 	];
 
 	/**
