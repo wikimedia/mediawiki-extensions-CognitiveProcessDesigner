@@ -37,6 +37,8 @@
 			'cancel': mw.message( 'cancel' ),
 		},
 
+		batchSize: 5,
+
 		bpmnName: '',
 
 		bpmnPagePath: '',
@@ -330,7 +332,46 @@
 			var diagramLanes = this.getCurrentDiagramLanes();
 			var diagramGroups = this.getCurrentDiagramGroups();
 			var bpmnElements = this.getCurrentDiagramElements();
+
+			var batches = this.makeElementsBatches( Object.values( bpmnElements ) );
+
+			var dfd = $.Deferred();
+
+			this.executeElementsBatches( batches, diagramLanes, diagramGroups, dfd);
+
+			dfd.done( function() {
+				mw.cpdManager.bpmnElementsPostedToWiki = true;
+			} );
+		},
+
+		makeElementsBatches: function( elements ) {
+			var batches = [];
+
+			while( elements.length > 0 ) {
+				batches.push( elements.splice( 0, this.batchSize ) );
+			}
+
+			return batches;
+		},
+
+		executeElementsBatches: function( batches, diagramLanes, diagramGroups, dfd ) {
+			if( batches.length === 0 ) {
+				dfd.resolve();
+				return;
+			}
+
+			var batch = batches.shift();
+
+			this.executeElementsBatch( batch, diagramLanes, diagramGroups ).done( function() {
+				this.executeElementsBatches( batches, diagramLanes, diagramGroups, dfd );
+			}.bind( this ) );
+		},
+
+		executeElementsBatch: function( bpmnElements, diagramLanes, diagramGroups ) {
+			var dfd = $.Deferred();
+
 			var editElementPagePromises = [];
+
 			Object.keys( bpmnElements ).forEach( function( k ) {
 				var editElementPageDeferred = $.Deferred();
 				editElementPagePromises.push( editElementPageDeferred.promise() );
@@ -351,7 +392,7 @@
 					curtimestamp: true,
 					indexpageids: true
 				} )
-				.done( function(result ) {
+				.done( function( result ) {
 					var pageId = result.query.pageids[0];
 					var pageData = result.query.pages[pageId];
 					var revisionContent = '';
@@ -372,8 +413,10 @@
 				} );
 			});
 			$.when.apply( $, editElementPagePromises ).then( function() {
-				mw.cpdManager.bpmnElementsPostedToWiki = true;
+				dfd.resolve();
 			} );
+
+			return dfd.promise();
 		},
 
 		deleteOrphanedElementPagesFromWiki: function() {
