@@ -6,5 +6,7 @@
 	},
 	"cpd-yes": "Ja",
 	"cpd-no": "Nej",
-	"cpd-keyboard-shortcuts-select-all": "Vælg alle"
+	"cpd-keyboard-shortcuts-select-all": "Vælg alle",
+	"cpd-btn-label-save": "Gem",
+	"cpd-saved": "Gemt"
 }
