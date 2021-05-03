@@ -4,7 +4,7 @@ use CognitiveProcessDesigner\Utility\BPMNHeaderFooterRenderer;
 use MediaWiki\MediaWikiServices;
 
 return [
-	'BPMNHeaderFooterRenderer' => function ( MediaWikiServices $services ) {
+	'BPMNHeaderFooterRenderer' => static function ( MediaWikiServices $services ) {
 		$cpdEntityElementTypes = null;
 		if ( $services->getMainConfig()->has( 'CPDEntityElementTypes' ) ) {
 			$cpdEntityElementTypes = $services->getMainConfig()->get( 'CPDEntityElementTypes' );
