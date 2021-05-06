@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jon Harald Søby"
+		]
+	},
+	"cpd-yes": "Ja",
+	"cpd-no": "Nei",
+	"cpd-show-details": "Vis detaljer",
+	"cpd-you-edited-diagram": "Du redigerte diagrammet.",
+	"cpd-undo-last-change": "Angre forrige endring",
+	"cpd-download-svg": "Last ned som SVG",
+	"cpd-keyboard-shortcuts": "Tastatursnarveier"
+}
