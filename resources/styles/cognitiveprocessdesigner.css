@@ -576,6 +576,7 @@ textarea.error-log:hover {
 	height: 400px;
 	border: 1px solid #cecece;
 	margin-bottom: 55px;
+	background-color: white;
 }
 
 .infoBox {
