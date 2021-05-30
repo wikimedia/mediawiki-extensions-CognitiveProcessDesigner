@@ -50,7 +50,9 @@ class AddRequiredPages extends LoggedUpdateMaintenance {
  |parent={{{parent|}}}
  |children={{{children|}}}|+sep=,
  |parentLanes={{{parentLanes|}}}|+sep=,
-}}",
+ |loopCharacteristics={{{loopCharacteristics|}}}
+}}
+[[Category:BPMN {{{loopCharacteristics|}}}]]",
 	];
 
 	/**
