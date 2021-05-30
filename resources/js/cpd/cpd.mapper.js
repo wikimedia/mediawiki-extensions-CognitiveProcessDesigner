@@ -173,6 +173,28 @@
 				content += '\n';
 			}
 
+			if ( bpmnEl.element.businessObject.loopCharacteristics ) {
+				var loopCharacteristicsContent = '|loopCharacteristics=';
+
+				var type = bpmnEl.element.businessObject.loopCharacteristics.$type;
+
+				if ( type === 'bpmn:StandardLoopCharacteristics' ) {
+					loopCharacteristicsContent += 'loop';
+				}
+				else if ( type === 'bpmn:MultiInstanceLoopCharacteristics' ) {
+					if ( bpmnEl.element.businessObject.loopCharacteristics.isSequential ) {
+						loopCharacteristicsContent += 'multi instance sequential';
+					}
+					else {
+						loopCharacteristicsContent += 'multi instance parallel';
+					}
+				}
+
+				loopCharacteristicsContent += '\n';
+
+				content += loopCharacteristicsContent;
+			}
+
 			if ( bpmnLanes !== null ) {
 				content += mw.cpdMapper.getParentLaneSemanticProperty( bpmnEl, bpmnLanes, bpmnPath );
 			}
