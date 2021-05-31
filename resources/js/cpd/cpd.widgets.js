@@ -57,7 +57,7 @@
 		actions: function () {
 			return {
 				'bio.toggleFullscreen': function () {
-					mw.cpdWidgets.toggleFullScreen( document.querySelector('html') );
+					mw.cpdWidgets.toggleFullScreen( document.querySelector('.cpd-js-drop-zone') );
 				},
 				'bio.createNew': mw.cpdManager.createDiagram,
 				'bio.openLocal': function () {
