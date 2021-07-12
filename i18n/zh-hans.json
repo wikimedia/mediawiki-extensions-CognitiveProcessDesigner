@@ -1,13 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Colathewikian"
+			"Colathewikian",
+			"Lakejason0"
 		]
 	},
 	"cpd-loading-diagram": "加载图表中，请稍等勿躁",
 	"cpd-err-display-diagram": "系统无法显示图表。",
 	"cpd-err-details": "有关该问题的详情",
 	"cpd-enter-bpmn-id-placeholder": "请输入您的BPMN的ID",
+	"cpd-load-bpmn-from-wiki-placeholder": "从wiki加载BPMN",
 	"cpd-create-new-bpmn": "创建新的BPMN",
 	"cpd-overwrite-wiki-page-question": "此维基页面已存在。您想覆盖该页面吗？",
 	"cpd-yes": "是",
