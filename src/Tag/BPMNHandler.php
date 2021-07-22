@@ -67,7 +67,7 @@ class BPMNHandler {
 	 */
 	public function handle() {
 		if ( !isset( $this->tagArgs['name'] ) || $this->tagArgs['name'] === '' ) {
-			return Html::errorBox('"name" attribute of diagram must be specified!');
+			return Html::errorBox( '"name" attribute of diagram must be specified!' );
 		}
 
 		$bpmnName = wfStripIllegalFilenameChars( $this->tagArgs['name'] );
