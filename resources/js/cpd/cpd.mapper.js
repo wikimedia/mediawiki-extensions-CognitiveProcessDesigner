@@ -19,9 +19,9 @@
 
 			content += '<div id=\"processXml\" class=\"toccolours mw-collapsible mw-collapsed\">' +
 				'The following code shows the XML serialization of the process:' +
-				'<div class=\"mw-collapsible-content\">' +
+				'<div class=\"mw-collapsible-content\"><pre>' +
 				xml +
-				'</div></div>';
+				'</pre></div></div>';
 			return content;
 		},
 
