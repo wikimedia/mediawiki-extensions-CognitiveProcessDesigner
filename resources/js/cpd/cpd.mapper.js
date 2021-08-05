@@ -28,8 +28,8 @@
 		mapDiagramWikiToXml: function( data ) {
 			var xml = data.match(/mw-collapsible-content">[\S\s]*<\/div><\/div>/g);
 			xml = xml[0]
-				.replace( 'mw-collapsible-content\">', '' )
-				.replace( '</div></div>', '' );
+				.replace( 'mw-collapsible-content\"><pre>', '' )
+				.replace( '</pre></div></div>', '' );
 			return xml;
 		},
 
