@@ -643,3 +643,19 @@ textarea.error-log:hover {
 	visibility: visible;
 	background: #b6b4b4;
 }
+.djs-popup-body {
+	max-height: 300px;
+	overflow-y: scroll;
+}
+.djs-popup-body::-webkit-scrollbar {
+	width: auto;
+	visibility: visible;
+}
+.djs-popup-body::-webkit-scrollbar-thumb {
+	visibility: visible;
+	background: #efefef;
+}
+.djs-popup-body::-webkit-scrollbar-track {
+	visibility: visible;
+	background: #b6b4b4;
+}
