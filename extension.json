@@ -12,7 +12,7 @@
 	"requires": {
 		"MediaWiki": ">= 1.31.0",
 		"extensions": {
-			"PageForms": "~4.6"
+			"PageForms": "~5.0"
 		}
 	},
 	"attributes": {
