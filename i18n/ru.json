@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac"
+		]
+	},
+	"cpd-yes": "Да",
+	"cpd-no": "Нет",
+	"cpd-show-details": "Показать подробности",
+	"cpd-keyboard-shortcuts-undo": "Отменить",
+	"cpd-keyboard-shortcuts-redo": "Повторить",
+	"cpd-btn-label-save": "Сохранить",
+	"cpd-saved": "Сохранено"
+}

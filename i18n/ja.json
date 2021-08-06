@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tmv"
+		]
+	},
+	"cpd-bpmn-id-placeholder": "BPMNのID",
+	"cpd-yes": "はい",
+	"cpd-btn-label-save": "保存",
+	"cpd-saved": "保存"
+}
