@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ameisenigel"
+		]
+	},
+	"cpd-overwrite-wiki-page-question": "Wiki-Seite existiert bereits. Möchtest du sie überschreiben?",
+	"cpd-yes": "Ja",
+	"cpd-no": "Nein",
+	"cpd-show-details": "Einzelheiten anzeigen",
+	"cpd-undo-last-change": "Letzte Änderung rückgängig machen",
+	"cpd-download-svg": "Als SVG herunterladen",
+	"cpd-keyboard-shortcuts": "Tastaturkürzel",
+	"cpd-keyboard-shortcuts-undo": "Rückgängig",
+	"cpd-keyboard-shortcuts-redo": "Wiederholen",
+	"cpd-keyboard-shortcuts-select-all": "Alle auswählen",
+	"cpd-btn-label-save": "Speichern",
+	"cpd-saved": "Gespeichert"
+}

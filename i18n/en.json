@@ -43,5 +43,6 @@
 	"action-cognitiveprocessdesigner-viewspecialpage": "view special page \"{{int:cognitiveprocessdesigneredit}}\"",
 	"action-cognitiveprocessdesigner-editbpmn": "edit the BPMN diagram",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Access to the [[Special:Cognitive Process Designer Edit]] special page",
-	"right-cognitiveprocessdesigner-editbpmn": "Edit BPMN diagrams"
+	"right-cognitiveprocessdesigner-editbpmn": "Edit BPMN diagrams",
+	"specialpages-group-semantic-process": "Semantic Process"
 }

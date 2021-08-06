@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nghiemtrongdai VN"
+		]
+	},
+	"cpd-yes": "Có",
+	"cpd-no": "Không",
+	"cpd-show-details": "Hiện chi tiết",
+	"cpd-keyboard-shortcuts-undo": "Lùi lại",
+	"cpd-keyboard-shortcuts-select-all": "Chọn tất cả",
+	"cpd-btn-label-save": "Lưu",
+	"cpd-open-page-label": "Mở trang",
+	"cpd-saved": "Đã lưu"
+}

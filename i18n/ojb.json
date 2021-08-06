@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aandeginini"
+		]
+	},
+	"cognitiveprocessdesigneredit": "Aanji' maaminonendam dibenim giin-ozhitoon",
+	"specialpages-group-semantic-process": "Ikidowin-mazina'igan inakamigad",
+	"cpd-err-display-diagram": "Asigin gaawiin naago' mazinabii'igan.",
+	"cpd-create-bpmn-placeholder": "Ozhitoon BPMN",
+	"cpd-bpmn-id-placeholder": "BPMN odaabii'iwe-mazina'igan",
+	"cpd-overwrite-wiki-page-question": "Aawan wigi mazina'igan. Andawendam ozhibii'an gawiweba'an?",
+	"cpd-yes": "En'/eya'",
+	"cpd-open-bpmn-from-local-file": "Baakin BPNM mazinibii'igan onda'ibii besho mazina'igaans akina",
+	"cpd-undo-last-change": "Gaawiin-inakamigizi ishkwaaj aanji'",
+	"cpd-keyboard-shortcuts": "Mazinaabikiwebinigan-ozhibii'igan wayezhim",
+	"cpd-keyboard-shortcuts-redo": "Doodan-miinawaa",
+	"cpd-keyboard-shortcuts-hscroll": "Odaabaadan (edawayi'ii)",
+	"cpd-keyboard-shortcuts-space": "Dawaa aabajichigan",
+	"cpd-empty-diagram": "Zhiigon \"bpmn\" mazinibii'igan",
+	"cpd-btn-label-save": "Ishkon",
+	"cpd-open-page-label": "Baakise mazina'igan",
+	"cpd-page-forms-label": "Mazina'igan mooshkinebii'ige",
+	"cpd-warning-message-lost-data": "aanji' giin ozhitoon bindiig mazinibii'igan waa-awaan wanisin",
+	"cpd-saved": "Ayaa aanji'",
+	"action-cognitiveprocessdesigner-viewspecialpage": "Waabam gichi-apiitendaagwad mazina'igan  \"{{int:cognitiveprocessdesigneredit}}\"",
+	"action-cognitiveprocessdesigner-editbpmn": "Aanji' BPMN mazinibii'igan",
+	"right-cognitiveprocessdesigner-viewspecialpage": "Biindigaw bindiig [[Special:Cognitive Process Designer Edit]] gichi-apiitendaagwad mazina'igan",
+	"right-cognitiveprocessdesigner-editbpmn": "Aanji' BPMN mazinibii'igan"
+}
