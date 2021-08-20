@@ -29,7 +29,9 @@
 			var xml = data.match(/mw-collapsible-content">[\S\s]*<\/div><\/div>/g);
 			xml = xml[0]
 				.replace( 'mw-collapsible-content\"><pre>', '' )
-				.replace( '</pre></div></div>', '' );
+				.replace( '</pre></div></div>', '' )
+				.replace( '</div>', '' );
+
 			return xml;
 		},
 
