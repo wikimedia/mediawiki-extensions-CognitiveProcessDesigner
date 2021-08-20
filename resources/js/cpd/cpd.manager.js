@@ -268,6 +268,7 @@
 		},
 
 		uploadSVGToWiki: function() {
+			var dfd = $.Deferred();
 			this.svgUploadedToWiki = false;
 			var data = new Uint8Array( this.bpmnSVG.length );
 			for ( var i = 0; i < this.bpmnSVG.length; i++ ) {
@@ -280,22 +281,24 @@
 					format: 'json'
 			}).done( function(data) {
 				if ( data.upload ) {
-					mw.cpdManager.updateBpmnImgEl( data.upload.imageinfo );
-					mw.cpdManager.svgUploadedToWiki = true;
+					dfd.resolve( data.upload.imageinfo );
 				}
 			}).fail( function(retStatus, data) {
 				if ( data.error ) {
 					if ( data.error.code === 'fileexists-no-change' ||
 						data.error.code === 'internal_api_error_DBTransactionStateError' ) {
-						mw.cpdManager.svgUploadedToWiki = true;
-						return;
+						dfd.resolve();
+					}
+					else {
+						dfd.reject();
 					}
 				}
 				if ( data.upload ) {
-					mw.cpdManager.updateBpmnImgEl( data.upload.imageinfo );
-					mw.cpdManager.svgUploadedToWiki = true;
+					dfd.resolve( data.upload.imageinfo );
 				}
 			});
+
+			return dfd.promise();
 		},
 
 		updateBpmnImgEl: function( imageinfo ) {
@@ -317,14 +320,12 @@
 				this.getCurrentDiagramElements()
 			);
 
-			new mw.Api().post( {
+			return new mw.Api().post( {
 				action: 'edit',
 				title: mw.cpdManager.bpmnPagePath,
 				text: wikiContent,
 				token: mw.user.tokens.get('editToken')
-			} ).done( function(data) {
-					mw.cpdManager.bpmnPostedToWiki = true;
-			}).fail( function( reqStatus, data) { });
+			} );
 		},
 
 		postDiagramElementsToWiki: function() {
@@ -335,13 +336,15 @@
 
 			var batches = this.makeElementsBatches( Object.values( bpmnElements ) );
 
-			var dfd = $.Deferred();
+			var batchDFD = $.Deferred(), dfd = $.Deferred();
 
-			this.executeElementsBatches( batches, diagramLanes, diagramGroups, dfd);
+			this.executeElementsBatches( batches, diagramLanes, diagramGroups, batchDFD);
 
-			dfd.done( function() {
-				mw.cpdManager.bpmnElementsPostedToWiki = true;
+			batchDFD.done( function() {
+				dfd.resolve();
 			} );
+
+			return dfd.promise();
 		},
 
 		makeElementsBatches: function( elements ) {
@@ -409,7 +412,10 @@
 					} )
 					.done( function( result ) {
 						editElementPageDeferred.resolve();
-					} );
+					} )
+					.fail( function( error ) {
+						dfd.reject( error );
+					});
 				} );
 			});
 			$.when.apply( $, editElementPagePromises ).then( function() {
@@ -420,6 +426,7 @@
 		},
 
 		deleteOrphanedElementPagesFromWiki: function() {
+			var dfd = $.Deferred();
 			if ( mw.cpdManager.initDiagramElements.length > 0 ) {
 				var currentBpmnElementIds = Object.keys( mw.cpdManager.getCurrentDiagramElements() );
 				mw.cpdManager.initDiagramElements.forEach( function( id ) {
@@ -430,12 +437,16 @@
 							title: mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + id,
 							text: '[[Category:Delete]]',
 							token: mw.user.tokens.get('editToken')
-						} ).done( function(data) {
-							mw.cpdManager.orphanedPagesDeleted = true;
-						}).fail( function( reqStatus, data) {});
+						} ).done( function() {
+							dfd.resolve();
+						} ).fail( function() {
+							dfd.reject();
+						} );
 					}
-				});
+				} );
 			}
+
+			return dfd.promise();
 		},
 
 		loadBPMNFromWiki: function() {
@@ -509,24 +520,27 @@
 
 		saveBPMN: function() {
 			this.statusBar.text( mw.message( 'cpd-saving-process' ) );
-			this.postDiagramToWiki();
-			this.postDiagramElementsToWiki();
-			this.deleteOrphanedElementPagesFromWiki();
-			this.uploadSVGToWiki();
-			var bpmnSavingCheckStatus = setInterval( function() {
-				if ( mw.cpdManager.svgUploadedToWiki === true &&
-					mw.cpdManager.bpmnPostedToWiki === true &&
-					mw.cpdManager.bpmnElementsPostedToWiki === true &&
-					mw.cpdManager.orphanedPagesDeleted === true
-				) {
-					if (mw.cpdManager.specialPageMode === false) {
-						mw.cpdManager.destroy();
-					}
-					mw.cpdManager.statusBar.text( mw.message( 'cpd-saved' ) );
-					clearInterval(bpmnSavingCheckStatus);
-				}
-			}, 200);
-
+			this.postDiagramToWiki().done( function() {
+				this.postDiagramElementsToWiki().done( function() {
+					this.deleteOrphanedElementPagesFromWiki().done( function() {
+						this.uploadSVGToWiki().done( function( info ) {
+							mw.cpdManager.updateBpmnImgEl( info );
+							if (mw.cpdManager.specialPageMode === false) {
+								mw.cpdManager.destroy();
+							}
+							mw.cpdManager.statusBar.text( mw.message( 'cpd-saved' ) );
+						} ).fail( function() {
+							console.error( 'Failed uploading SVG');
+						} );
+					}.bind( this ) ).fail( function() {
+						console.error( 'Failed deleting orphaned pages');
+					} );
+				}.bind( this ) ).fail( function( error ) {
+					console.error( 'Failed posting elements to wiki' );
+				} );
+			}.bind( this ) ).fail( function( error ) {
+				console.error( 'Failed posting to wiki');
+			} ) ;
 		},
 
 		actionConfirmed: function() {
