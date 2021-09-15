@@ -1,10 +1,22 @@
 {
 	"@metadata": {
 		"authors": [
+			"Romaine",
 			"SPQRobin"
 		]
 	},
+	"specialpages-group-semantic-process": "Semantisch proces",
 	"cpd-yes": "Ja",
 	"cpd-no": "Nee",
-	"cpd-download-svg": "Downloaden als SVG"
+	"cpd-show-details": "Details weergeven",
+	"cpd-you-edited-diagram": "U bewerkte het diagram.",
+	"cpd-undo-last-change": "Laatste wijziging ongedaan maken",
+	"cpd-download-bpmn": "Download BPMN-diagram",
+	"cpd-download-svg": "Downloaden als SVG",
+	"cpd-keyboard-shortcuts": "Sneltoetsen",
+	"cpd-keyboard-shortcuts-undo": "Ongedaan maken",
+	"cpd-keyboard-shortcuts-redo": "Opnieuw uitvoeren",
+	"cpd-keyboard-shortcuts-select-all": "Alle selecteren",
+	"cpd-keyboard-shortcuts-vscroll": "Scrollen (verticaal)",
+	"cpd-keyboard-shortcuts-hscroll": "Scrollen (horizontaal)"
 }
