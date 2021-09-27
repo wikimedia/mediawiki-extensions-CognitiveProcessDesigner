@@ -270,33 +270,57 @@
 		uploadSVGToWiki: function() {
 			var dfd = $.Deferred();
 			this.svgUploadedToWiki = false;
-			var data = new Uint8Array( this.bpmnSVG.length );
-			for ( var i = 0; i < this.bpmnSVG.length; i++ ) {
-				data[i] = this.bpmnSVG.charCodeAt( i );
-			}
-			var blob = new Blob([data], { type: 'image/svg+xml' });
-			new mw.Api().upload( blob, {
+
+			var bpmnElements = this.getCurrentDiagramElements();
+			var bpmnElementsTitles = Object.keys( bpmnElements ).join( '|' );
+
+			var params = {
+				action: 'query',
+				format: 'json',
+				titles: bpmnElementsTitles,
+				prop: 'info',
+				inprop: 'url'
+			};
+
+			var api = new mw.Api();
+			api.get( params ).done( function ( response ) {
+				var pages = response.query.pages;
+
+				for ( var p in pages ) {
+					var titleKey = pages[p].title.replace( ' ', '_' );
+
+					var regexp = new RegExp( '(data-element-id="' + titleKey + '".*?)(<g.*?\/g>)' );
+					var replacement = '$1<a xlink:href="' + pages[p].fullurl + '">$2</a>';
+					this.bpmnSVG = this.bpmnSVG.replace( regexp, replacement );
+				}
+
+				var data = new Uint8Array( this.bpmnSVG.length );
+				for ( var i = 0; i < this.bpmnSVG.length; i++ ) {
+					data[i] = this.bpmnSVG.charCodeAt( i );
+				}
+				var blob = new Blob( [ data ], { type: 'image/svg+xml' } );
+				new mw.Api().upload( blob, {
 					filename: mw.cpdManager.bpmnPagePath,
 					ignorewarnings: true,
 					format: 'json'
-			}).done( function(data) {
-				if ( data.upload ) {
-					dfd.resolve( data.upload.imageinfo );
-				}
-			}).fail( function(retStatus, data) {
-				if ( data.error ) {
-					if ( data.error.code === 'fileexists-no-change' ||
-						data.error.code === 'internal_api_error_DBTransactionStateError' ) {
-						dfd.resolve();
+				} ).done( function ( data ) {
+					if ( data.upload ) {
+						dfd.resolve( data.upload.imageinfo );
 					}
-					else {
-						dfd.reject();
+				} ).fail( function ( retStatus, data ) {
+					if ( data.error ) {
+						if ( data.error.code === 'fileexists-no-change' ||
+							data.error.code === 'internal_api_error_DBTransactionStateError' ) {
+							dfd.resolve();
+						} else {
+							dfd.reject();
+						}
 					}
-				}
-				if ( data.upload ) {
-					dfd.resolve( data.upload.imageinfo );
-				}
-			});
+					if ( data.upload ) {
+						dfd.resolve( data.upload.imageinfo );
+					}
+				} );
+			}.bind( this ) );
 
 			return dfd.promise();
 		},
