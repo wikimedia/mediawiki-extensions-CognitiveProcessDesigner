@@ -138,26 +138,15 @@ class BPMNHandler {
 		// the image or object element must be there' in any case
 		// it's hidden as long as there is no content.
 		$output .= Html::openElement(
-			'a',
-			[
-				'id' => 'cpd-img-href-' . $id,
-				'href' => $imgDescUrl
-			]
-		);
-
-		$output .= Html::element(
-			'img',
+			'object',
 			[
 				'id' => 'cpd-img-' . $id,
-				'src' => $imgUrlTs,
-				'title' => 'bpmn: ' . $bpmnName,
-				'height' => $imgHeight,
-				'width' => $imgWidth,
-				'alt' => $bpmnName,
+				'data' => $img->getCanonicalUrl(),
+				'type' => 'image/svg+xml',
 				'class' => $imgClass
 			]
 		);
-		$output .= Html::closeElement( 'a' );
+		$output .= Html::closeElement( 'object' );
 
 		$output .= Html::element(
 			'div',
