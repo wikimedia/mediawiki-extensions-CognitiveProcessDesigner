@@ -327,11 +327,14 @@
 
 		updateBpmnImgEl: function( imageinfo ) {
 			if ( mw.cpdManager.bpmnImgEl !== null ) {
-				mw.cpdManager.bpmnImgEl.attr( 'src', imageinfo.url + '?ts=' + imageinfo.timestamp );
-				mw.cpdManager.bpmnImgEl.parent().attr( 'href', imageinfo.descriptionurl );
+
 				if ( mw.cpdManager.bpmnImgEl.hasClass('hidden') ) {
 					mw.cpdManager.bpmnImgEl.removeClass('hidden');
 				}
+				mw.cpdManager.bpmnImgEl.attr( 'data', imageinfo.url + '?ts=' + imageinfo.timestamp );
+
+				// Needed to update HTML <object>, to reload it with the latest diagram image
+				mw.cpdManager.bpmnImgEl.attr( 'data', mw.cpdManager.bpmnImgEl.attr( 'data' ) );
 			}
 		},
 
@@ -449,25 +452,83 @@
 			return dfd.promise();
 		},
 
+		executeDeleteElementsBatch: function( batch, bpmnElements ) {
+			var dfd = $.Deferred();
+
+			var elementsDeleteDeferred = new Map();
+
+			batch.forEach( function( id ) {
+				var elementDeleteDeferred = $.Deferred();
+				elementsDeleteDeferred.set( id, elementDeleteDeferred );
+
+				if ( bpmnElements.indexOf( id ) === -1 ) {
+					mw.cpdManager.orphanedPagesDeleted = false;
+					new mw.Api().post( {
+						action: 'edit',
+						title: mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + id,
+						text: '[[Category:Delete]]',
+						token: mw.user.tokens.get('editToken')
+					} ).done( function() {
+						elementsDeleteDeferred.get( id ).resolve();
+					} ).fail( function() {
+						elementsDeleteDeferred.get( id ).reject();
+					} );
+				}
+				else {
+					elementDeleteDeferred.resolve();
+				}
+			} );
+
+			var elementsDeletePromises = [];
+
+			elementsDeleteDeferred.forEach( function( deferred ) {
+				elementsDeletePromises.push( deferred.promise() );
+			} );
+
+			$.when.apply( $, elementsDeletePromises ).done( function() {
+				dfd.resolve();
+			} ).fail( function() {
+				dfd.reject();
+			} );
+
+			return dfd.promise();
+		},
+
+		executeDeleteElementsBatches: function( batches, bpmnElementsIds, dfd ) {
+			if( batches.length === 0 ) {
+				dfd.resolve();
+				return;
+			}
+
+			var batch = batches.shift();
+
+			this.executeDeleteElementsBatch( batch, bpmnElementsIds ).done( function() {
+				this.executeDeleteElementsBatches( batches, bpmnElementsIds, dfd );
+			}.bind( this ) ).fail( function() {
+				dfd.reject();
+			} );
+		},
+
 		deleteOrphanedElementPagesFromWiki: function() {
 			var dfd = $.Deferred();
+
 			if ( mw.cpdManager.initDiagramElements.length > 0 ) {
+				var batches = this.makeElementsBatches( mw.cpdManager.initDiagramElements );
+
 				var currentBpmnElementIds = Object.keys( mw.cpdManager.getCurrentDiagramElements() );
-				mw.cpdManager.initDiagramElements.forEach( function( id ) {
-					if ( currentBpmnElementIds.indexOf( id ) === -1 ) {
-						mw.cpdManager.orphanedPagesDeleted = false;
-						new mw.Api().post( {
-							action: 'edit',
-							title: mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + id,
-							text: '[[Category:Delete]]',
-							token: mw.user.tokens.get('editToken')
-						} ).done( function() {
-							dfd.resolve();
-						} ).fail( function() {
-							dfd.reject();
-						} );
-					}
+
+				var batchDFD = $.Deferred();
+
+				this.executeDeleteElementsBatches( batches, currentBpmnElementIds, batchDFD );
+
+				batchDFD.done( function() {
+					dfd.resolve();
+				} ).fail( function() {
+					dfd.reject();
 				} );
+			}
+			else {
+				dfd.resolve();
 			}
 
 			return dfd.promise();

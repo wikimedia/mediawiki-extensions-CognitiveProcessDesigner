@@ -71,8 +71,6 @@ class BPMNHandler {
 		}
 
 		$bpmnName = wfStripIllegalFilenameChars( $this->tagArgs['name'] );
-		$imgUrlTs = '';
-		$imgDescUrl = '';
 		$imgName = $bpmnName . '.' . $this->defaultImgType;
 		$img = wfFindFile( $imgName );
 		if ( $img ) {
@@ -137,16 +135,20 @@ class BPMNHandler {
 
 		// the image or object element must be there' in any case
 		// it's hidden as long as there is no content.
-		$output .= Html::openElement(
-			'object',
-			[
-				'id' => 'cpd-img-' . $id,
-				'data' => $img->getCanonicalUrl(),
-				'type' => 'image/svg+xml',
-				'class' => $imgClass
-			]
-		);
-		$output .= Html::closeElement( 'object' );
+		if ( $img ) {
+			$output .= Html::openElement(
+				'object',
+				[
+					'id' => 'cpd-img-' . $id,
+					'data' => $imgUrl,
+					'type' => 'image/svg+xml',
+					'class' => $imgClass,
+					'height' => $imgHeight,
+					'width' => $imgWidth,
+				]
+			);
+			$output .= Html::closeElement( 'object' );
+		}
 
 		$output .= Html::element(
 			'div',
