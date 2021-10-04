@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Mainframe98",
 			"Romaine",
 			"SPQRobin"
 		]
@@ -18,5 +19,7 @@
 	"cpd-keyboard-shortcuts-redo": "Opnieuw uitvoeren",
 	"cpd-keyboard-shortcuts-select-all": "Alle selecteren",
 	"cpd-keyboard-shortcuts-vscroll": "Scrollen (verticaal)",
-	"cpd-keyboard-shortcuts-hscroll": "Scrollen (horizontaal)"
+	"cpd-keyboard-shortcuts-hscroll": "Scrollen (horizontaal)",
+	"cpd-btn-label-save": "Opslaan",
+	"cpd-saved": "Opgeslagen"
 }
