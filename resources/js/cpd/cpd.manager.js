@@ -332,6 +332,8 @@
 					mw.cpdManager.bpmnImgEl.removeClass('hidden');
 				}
 				mw.cpdManager.bpmnImgEl.attr( 'data', imageinfo.url + '?ts=' + imageinfo.timestamp );
+				mw.cpdManager.bpmnImgEl.attr( 'height', imageinfo.height );
+				mw.cpdManager.bpmnImgEl.attr( 'width', imageinfo.width );
 
 				// Needed to update HTML <object>, to reload it with the latest diagram image
 				mw.cpdManager.bpmnImgEl.attr( 'data', mw.cpdManager.bpmnImgEl.attr( 'data' ) );
