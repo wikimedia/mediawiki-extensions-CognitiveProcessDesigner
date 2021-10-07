@@ -74,13 +74,13 @@ class BPMNHandler {
 		$imgName = $bpmnName . '.' . $this->defaultImgType;
 		$img = wfFindFile( $imgName );
 		if ( $img ) {
-			$imgUrlTs = $img->getViewUrl() . '?ts=' . $img->getTimestamp();
-			$imgDescUrl = $img->getDescriptionUrl();
-			$imgHeight = $this->tagArgs['height'] ?? $img->getHeight();
-			$imgWidth = $this->tagArgs['width'] ?? $img->getWidth();
+			$imgUrl = $img->getCanonicalUrl();
+			$imgHeight = isset( $this->tagArgs['height'] ) ? $this->tagArgs['height'] : $img->getHeight();
+			$imgWidth = isset( $this->tagArgs['width'] ) ? $this->tagArgs['width'] : $img->getWidth();
 		} else {
-			$imgHeight = $this->tagArgs['height'] ?? 'auto';
-			$imgWidth = $this->tagArgs['width'] ?? 'auto';
+			$imgUrl = '';
+			$imgHeight = isset( $this->tagArgs['height'] ) ? $this->tagArgs['height'] : 'auto';
+			$imgWidth = isset( $this->tagArgs['width'] ) ? $this->tagArgs['width'] : 'auto';
 		}
 
 		$id = mt_rand();
@@ -135,20 +135,18 @@ class BPMNHandler {
 
 		// the image or object element must be there' in any case
 		// it's hidden as long as there is no content.
-		if ( $img ) {
-			$output .= Html::openElement(
-				'object',
-				[
-					'id' => 'cpd-img-' . $id,
-					'data' => $imgUrl,
-					'type' => 'image/svg+xml',
-					'class' => $imgClass,
-					'height' => $imgHeight,
-					'width' => $imgWidth,
-				]
-			);
-			$output .= Html::closeElement( 'object' );
-		}
+		$output .= Html::openElement(
+			'object',
+			[
+				'id' => 'cpd-img-' . $id,
+				'data' => $imgUrl,
+				'type' => 'image/svg+xml',
+				'class' => $imgClass,
+				'height' => $imgHeight,
+				'width' => $imgWidth,
+			]
+		);
+		$output .= Html::closeElement( 'object' );
 
 		$output .= Html::element(
 			'div',
