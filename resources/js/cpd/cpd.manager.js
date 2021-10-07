@@ -138,7 +138,7 @@
 				}
 				this.wrapper.empty();
 			}
-			if ( this.bpmnImgEl !== null && this.bpmnImgEl.attr( 'src' ) ) {
+			if ( this.bpmnImgEl !== null && this.bpmnImgEl.attr( 'data' ) ) {
 				if ( this.bpmnImgEl.hasClass( 'hidden' ) ) {
 					this.bpmnImgEl.removeClass( 'hidden' );
 				}
