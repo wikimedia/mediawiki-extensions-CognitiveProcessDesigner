@@ -78,6 +78,7 @@ class BPMNHandler {
 			$imgHeight = isset( $this->tagArgs['height'] ) ? $this->tagArgs['height'] : $img->getHeight();
 			$imgWidth = isset( $this->tagArgs['width'] ) ? $this->tagArgs['width'] : $img->getWidth();
 		} else {
+			$imgUrl = '';
 			$imgHeight = isset( $this->tagArgs['height'] ) ? $this->tagArgs['height'] : 'auto';
 			$imgWidth = isset( $this->tagArgs['width'] ) ? $this->tagArgs['width'] : 'auto';
 		}
@@ -134,20 +135,18 @@ class BPMNHandler {
 
 		// the image or object element must be there' in any case
 		// it's hidden as long as there is no content.
-		if ( $img ) {
-			$output .= Html::openElement(
-				'object',
-				[
-					'id' => 'cpd-img-' . $id,
-					'data' => $imgUrl,
-					'type' => 'image/svg+xml',
-					'class' => $imgClass,
-					'height' => $imgHeight,
-					'width' => $imgWidth,
-				]
-			);
-			$output .= Html::closeElement( 'object' );
-		}
+		$output .= Html::openElement(
+			'object',
+			[
+				'id' => 'cpd-img-' . $id,
+				'data' => $imgUrl,
+				'type' => 'image/svg+xml',
+				'class' => $imgClass,
+				'height' => $imgHeight,
+				'width' => $imgWidth,
+			]
+		);
+		$output .= Html::closeElement( 'object' );
 
 		$output .= Html::element(
 			'div',

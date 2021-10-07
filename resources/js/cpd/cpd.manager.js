@@ -55,6 +55,8 @@
 
 		wrapper: null,
 
+		placeholder: null,
+
 		renderer: null,
 
 		error: null,
@@ -81,10 +83,14 @@
 
 		states: [ 'error', 'loading', 'loaded', 'shown', 'intro' ],
 
-		init: function( wrapper, canvas, bpmnName, bpmnImgEl, editToolbar, editBtn, statusBar ) {
+		init: function( wrapper, placeholder, canvas, bpmnName, bpmnImgEl, editToolbar, editBtn, statusBar ) {
 			this.bpmnPagePath = this.bpmnName = bpmnName;
 
 			mw.cpdSemanticForms.init();
+
+			if ( placeholder.length ) {
+				this.placeholder = placeholder;
+			}
 
 			this.wrapper = wrapper;
 			this.wrapper.removeClass( 'hidden' );
@@ -328,6 +334,12 @@
 		updateBpmnImgEl: function( imageinfo ) {
 			if ( mw.cpdManager.bpmnImgEl !== null ) {
 
+				if ( this.placeholder !== null ) {
+					if ( !this.placeholder.hasClass( 'hidden' ) ) {
+						this.placeholder.addClass( 'hidden' );
+					}
+				}
+
 				if ( mw.cpdManager.bpmnImgEl.hasClass('hidden') ) {
 					mw.cpdManager.bpmnImgEl.removeClass('hidden');
 				}
@@ -564,7 +576,7 @@
 			});
 		},
 
-		editBPMN: function( bpmnName, wrapper, imgEl, editBtn ) {
+		editBPMN: function( bpmnName, wrapper, placeholder, imgEl, editBtn ) {
 			if ( !this.actionConfirmed() ) {
 				return;
 			}
@@ -592,7 +604,7 @@
 				cancelBtn.hide();
 			}
 
-			this.init( wrapper, canvas, bpmnName, imgEl, editToolbar, editBtn, statusBar );
+			this.init( wrapper, placeholder, canvas, bpmnName, imgEl, editToolbar, editBtn, statusBar );
 		},
 
 		cancelEditBPMN: function() {
@@ -656,9 +668,10 @@
 			var bpmnName = e.target.dataset.bpmnName;
 			var wrapper = $( '#cpd-wrapper-' + bpmnId  ),
 				imgEl = $( '#cpd-img-' + bpmnId ),
-				editBtn = $( this );
+				editBtn = $( this ),
+				placeholder = $( '#cpd-placeholder-' + bpmnId );
 			mw.cpdManager.editBPMN(
-				bpmnName, wrapper, imgEl, editBtn
+				bpmnName, wrapper, placeholder, imgEl, editBtn
 			);
 		});
 	} );
