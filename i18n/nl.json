@@ -21,5 +21,6 @@
 	"cpd-keyboard-shortcuts-vscroll": "Scrollen (verticaal)",
 	"cpd-keyboard-shortcuts-hscroll": "Scrollen (horizontaal)",
 	"cpd-btn-label-save": "Opslaan",
-	"cpd-saved": "Opgeslagen"
+	"cpd-saved": "Opgeslagen",
+	"action-cognitiveprocessdesigner-viewspecialpage": "de speciale pagina \"{{int:cognitiveprocessdesigneredit}}\" te bekijken"
 }
