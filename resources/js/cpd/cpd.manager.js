@@ -365,7 +365,7 @@
 				action: 'edit',
 				title: mw.cpdManager.bpmnPagePath,
 				text: wikiContent,
-				token: mw.user.tokens.get('editToken')
+				token: mw.user.tokens.get('csrfToken')
 			} );
 		},
 
