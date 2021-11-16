@@ -481,7 +481,7 @@
 						action: 'edit',
 						title: mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + id,
 						text: '[[Category:Delete]]',
-						token: mw.user.tokens.get('editToken')
+						token: mw.user.tokens.get('csrfToken')
 					} ).done( function() {
 						elementsDeleteDeferred.get( id ).resolve();
 					} ).fail( function() {
