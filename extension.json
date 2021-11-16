@@ -18,15 +18,6 @@
 	"attributes": {
 		"BlueSpiceFoundation": {
 			"PermissionRegistry": {
-				"cognitiveprocessdesigner-viewspecialpage": {
-					"type": "global",
-					"roles": [
-						"admin",
-						"editor",
-						"maintenanceadmin",
-						"reader"
-					]
-				},
 				"cognitiveprocessdesigner-editbpmn": {
 					"type": "global",
 					"roles": [
@@ -39,32 +30,21 @@
 		}
 	},
 	"AvailableRights": [
-		"cognitiveprocessdesigner-viewspecialpage",
 		"cognitiveprocessdesigner-editbpmn"
 	],
 	"GroupPermissions": {
 		"*": {
-			"cognitiveprocessdesigner-viewspecialpage": false,
 			"cognitiveprocessdesigner-editbpmn": false
 		},
 		"user": {
-			"cognitiveprocessdesigner-viewspecialpage": true,
 			"cognitiveprocessdesigner-editbpmn": true
 		},
 		"sysop": {
-			"cognitiveprocessdesigner-viewspecialpage": true,
 			"cognitiveprocessdesigner-editbpmn": true
 		}
 	},
-	"SpecialPages": {
-		"CognitiveProcessDesignerEdit": "\\CognitiveProcessDesigner\\Special\\SpecialEdit",
-		"CognitiveProcessDesignerTestSuite": "\\CognitiveProcessDesigner\\Special\\SpecialTestSuite"
-	},
 	"MessagesDirs": {
 		"CognitiveProcessDesigner": "i18n"
-	},
-	"ExtensionMessagesFiles": {
-		"CognitiveProcessDesignerSpecialPages": "languages/CognitiveProcessDesignerSpecialPages.alias.php"
 	},
 	"AutoloadNamespaces": {
 		"CognitiveProcessDesigner\\": "src/"
@@ -72,24 +52,6 @@
 	"ResourceModules": {
 		"ext.cognitiveProcessDesignerEdit.bpmn-js": {
 			"class": "\\CognitiveProcessDesigner\\ResourceModule\\BpmnJS"
-		},
-		"ext.cognitiveProcessDesignerEdit.special": {
-			"scripts": [
-				"js/cognitiveprocessdesigner.special.edit.js"
-			],
-			"dependencies": [
-				"ext.cognitiveProcessDesigner.editor",
-				"oojs-ui"
-			]
-		},
-		"ext.cognitiveProcessDesignerTestSuite.special": {
-			"scripts": [
-				"js/cognitiveprocessdesigner.special.test.js"
-			],
-			"dependencies": [
-				"ext.cognitiveProcessDesigner.editor",
-				"oojs-ui"
-			]
 		},
 		"ext.cognitiveProcessDesigner.editor": {
 			"templates": {
