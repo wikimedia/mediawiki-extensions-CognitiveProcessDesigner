@@ -336,7 +336,7 @@ body.shown .io-help {
 	/* Original */
 	/* left: 20px; */
 	/*left: 20px;*/
-  /*   width: auto;        
+  /*   width: auto;
    position: fixed;
 	left: 220px;
 	bottom: 90px;       */
@@ -429,6 +429,14 @@ body.shown .io-help {
 	padding: 10px 20px;
 	line-height: 20px;
 	margin: 0 auto 10px;
+}
+
+.io-alerts .alert .details {
+	display: none;
+}
+
+.io-alerts .alert .details.open {
+	display: block;
 }
 
 .io-alerts .alert.open {

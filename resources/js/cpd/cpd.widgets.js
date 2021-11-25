@@ -103,7 +103,10 @@
 					mw.cpdWidgets.showWarnings(null );
 				},
 				'bio.showImportDetails': function (e) {
-					mw.cpdWidgets.openDialog( mw.cpdWidgets.widgets['import-warnings-alert'] );
+					var details = mw.cpdWidgets.widgets['import-warnings-alert'].find('.details');
+					if ( details.length !== 0 ) {
+						mw.cpdWidgets.toggleVisible( details, true );
+					}
 				}
 			};
 		},
