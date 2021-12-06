@@ -27,6 +27,11 @@
 					]
 				}
 			}
+		},
+		"BlueSpiceVisualEditorConnector": {
+			"TagDefinitions": [
+				"ext.cpd.ve.tagdefinition"
+			]
 		}
 	},
 	"AvailableRights": [
@@ -116,6 +121,18 @@
 			"styles": [
 				"styles/cpd.entity.less"
 			]
+		},
+		"ext.cpd.ve.tagdefinition": {
+			"scripts": [
+				"js/tag/BpmnDefinition.js"
+			],
+			"messages": [
+				"cpd-ve-bpmn-title",
+				"cpd-ve-bpmn-desc",
+				"cpd-ve-bpmn-name-title",
+				"cpd-ve-bpmn-name-help",
+				"cpd-ve-bpmn-name-placeholder"
+			]
 		}
 	},
 	"ServiceWiringFiles": [
@@ -128,7 +145,8 @@
 		"BSUEModulePDFBeforeCreatePDF": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeCreatePDF\\PrepareBPMNDiagramForExport::callback",
 		"BSUEModulePDFBeforeAddingStyleBlocks": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeAddingStyleBlocks\\AddCPDStyles::callback",
 		"MakeGlobalVariablesScript": "\\CognitiveProcessDesigner\\Hook\\MakeGlobalVariablesScript\\AddConfigVars::callback",
-		"LoadExtensionSchemaUpdates": "\\CognitiveProcessDesigner\\Hook\\LoadExtensionSchemaUpdates\\AddRequiredPages::callback"
+		"LoadExtensionSchemaUpdates": "\\CognitiveProcessDesigner\\Hook\\LoadExtensionSchemaUpdates\\AddRequiredPages::callback",
+		"BSInsertMagicAjaxGetData": "\\CognitiveProcessDesigner\\Hook\\BSInsertMagicAjaxGetData\\AddBpmnTag::callback"
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
