@@ -11,5 +11,8 @@
 	"cpd-keyboard-shortcuts-undo": "Annulla",
 	"cpd-btn-label-save": "Sarva",
 	"cpd-saved": "Sarvatu",
-	"action-cognitiveprocessdesigner-viewspecialpage": "taliari la pàggina spiciali \"{{int:cognitiveprocessdesigneredit}}\""
+	"action-cognitiveprocessdesigner-viewspecialpage": "taliari la pàggina spiciali \"{{int:cognitiveprocessdesigneredit}}\"",
+	"cpd-tag-bpmn-desc": "Tag BPMN",
+	"cpd-ve-bpmn-title": "BPMN",
+	"cpd-ve-bpmn-name-title": "Nomu"
 }
