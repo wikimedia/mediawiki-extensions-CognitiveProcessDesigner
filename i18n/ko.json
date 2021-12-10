@@ -40,5 +40,12 @@
 	"cpd-saved": "저장됨",
 	"action-cognitiveprocessdesigner-viewspecialpage": "특수 문서 \"{{int:cognitiveprocessdesigneredit}}\" 보기",
 	"action-cognitiveprocessdesigner-editbpmn": "BPMN 다이어그램 편집",
-	"right-cognitiveprocessdesigner-editbpmn": "BPMN 다이어그램 편집"
+	"right-cognitiveprocessdesigner-editbpmn": "BPMN 다이어그램 편집",
+	"cpd-tag-bpmn-desc": "BPMN 태그",
+	"cpd-tag-bpmn-example": "BPMN 태그의 간단 사용 예시입니다",
+	"cpd-ve-bpmn-title": "BPMN",
+	"cpd-ve-bpmn-desc": "BPMN 다이어그램 추가",
+	"cpd-ve-bpmn-name-title": "이름",
+	"cpd-ve-bpmn-name-help": "당신의 다이어그램의 이름",
+	"cpd-ve-bpmn-name-placeholder": "일부 다이어그램"
 }
