@@ -4,13 +4,13 @@
 			"Florian COLLIN",
 			"Gomoko",
 			"Thibaut120094",
-			"Verdy p"
+			"Verdy p",
+			"Ajeje Brazorf"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Dessinez des processus BPMN avec une interface utilisateur graphique dans Semantic MediaWiki",
 	"cognitiveprocessdesigneredit": "Cognitive Process Designer Edit",
 	"cognitiveprocessdesignertestsuite": "Suite de test de conception du processus cognitif",
-	"specialpages-group-semantic-process": "Processus sémantique",
 	"cpd-loading-diagram": "Chargement du diagramme, veuillez attendre un peu",
 	"cpd-err-display-diagram": "Le système n’a pas pu afficher le diagramme.",
 	"cpd-err-details": "Certains détails du problème",
@@ -49,5 +49,13 @@
 	"action-cognitiveprocessdesigner-viewspecialpage": "afficher la page spéciale « {{int:cognitiveprocessdesigneredit}} »",
 	"action-cognitiveprocessdesigner-editbpmn": "modifier le diagramme BPMN",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Accéder à la page spéciale [[Special:Cognitive Process Designer Edit]]",
-	"right-cognitiveprocessdesigner-editbpmn": "Modifier les diagrammes DBPMN"
+	"right-cognitiveprocessdesigner-editbpmn": "Modifier les diagrammes DBPMN",
+	"specialpages-group-semantic-process": "Processus sémantique",
+	"cpd-tag-bpmn-desc": "Balise BPMN",
+	"cpd-tag-bpmn-example": "Voici un exemple d’une utilisation simple de la balise BPMN",
+	"cpd-ve-bpmn-title": "BPMN",
+	"cpd-ve-bpmn-desc": "Insérer un diagramme BPMN",
+	"cpd-ve-bpmn-name-title": "Nom",
+	"cpd-ve-bpmn-name-help": "Nom de votre diagramme",
+	"cpd-ve-bpmn-name-placeholder": "Un diagramme"
 }

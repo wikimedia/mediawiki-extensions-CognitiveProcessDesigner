@@ -4,7 +4,6 @@
 			"Ykhwong"
 		]
 	},
-	"specialpages-group-semantic-process": "시맨틱 프로세스",
 	"cpd-loading-diagram": "다이어그램을 불러오고 있으니 기다려 주십시오",
 	"cpd-err-display-diagram": "시스템이 다이어그램을 표시하지 못했습니다.",
 	"cpd-err-details": "문제에 관한 상세 정보",
@@ -40,5 +39,13 @@
 	"cpd-saved": "저장됨",
 	"action-cognitiveprocessdesigner-viewspecialpage": "특수 문서 \"{{int:cognitiveprocessdesigneredit}}\" 보기",
 	"action-cognitiveprocessdesigner-editbpmn": "BPMN 다이어그램 편집",
-	"right-cognitiveprocessdesigner-editbpmn": "BPMN 다이어그램 편집"
+	"right-cognitiveprocessdesigner-editbpmn": "BPMN 다이어그램 편집",
+	"specialpages-group-semantic-process": "시맨틱 프로세스",
+	"cpd-tag-bpmn-desc": "BPMN 태그",
+	"cpd-tag-bpmn-example": "BPMN 태그의 간단 사용 예시입니다",
+	"cpd-ve-bpmn-title": "BPMN",
+	"cpd-ve-bpmn-desc": "BPMN 다이어그램 추가",
+	"cpd-ve-bpmn-name-title": "이름",
+	"cpd-ve-bpmn-name-help": "당신의 다이어그램의 이름",
+	"cpd-ve-bpmn-name-placeholder": "일부 다이어그램"
 }
