@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Florian COLLIN",
 			"Gomoko",
 			"Thibaut120094",
-			"Verdy p",
-			"Ajeje Brazorf"
+			"Verdy p"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Dessinez des processus BPMN avec une interface utilisateur graphique dans Semantic MediaWiki",

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Keo010122",
 			"Nghiemtrongdai VN"
 		]
 	},
@@ -11,5 +12,8 @@
 	"cpd-keyboard-shortcuts-select-all": "Chọn tất cả",
 	"cpd-btn-label-save": "Lưu",
 	"cpd-open-page-label": "Mở trang",
-	"cpd-saved": "Đã lưu"
+	"cpd-saved": "Đã lưu",
+	"cpd-tag-bpmn-desc": "thẻ BPMN",
+	"cpd-ve-bpmn-title": "BPMN",
+	"cpd-ve-bpmn-name-title": "Tên"
 }
