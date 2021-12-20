@@ -5,5 +5,6 @@
 		]
 	},
 	"cpd-btn-label-save": "Ruõkk",
-	"action-cognitiveprocessdesigner-viewspecialpage": "ǩiččâd tuåimmseeid \"{{int: cognitiveprocessdesigneredit}}\""
+	"action-cognitiveprocessdesigner-viewspecialpage": "ǩiččâd tuåimmseeid \"{{int: cognitiveprocessdesigneredit}}\"",
+	"cpd-ve-bpmn-name-title": "Nõmm"
 }
