@@ -24,5 +24,6 @@
 	"cpd-open-page-label": "Seite öffnen",
 	"cpd-page-forms-label": "Formulare",
 	"cpd-saved": "Gespeichert",
-	"right-cognitiveprocessdesigner-editbpmn": "BPMN Diagramme bearbeiten"
+	"right-cognitiveprocessdesigner-editbpmn": "BPMN Diagramme bearbeiten",
+	"cpd-ve-bpmn-title": "BPMN"
 }
