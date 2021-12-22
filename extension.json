@@ -54,6 +54,10 @@
 	"AutoloadNamespaces": {
 		"CognitiveProcessDesigner\\": "src/"
 	},
+	"APIModules": {
+		"cpd-save-diagram-elements": "\\CognitiveProcessDesigner\\Api\\SaveDiagramElementsApi",
+		"cpd-delete-orphaned-elements": "\\CognitiveProcessDesigner\\Api\\DeleteOrphanedElementsApi"
+	},
 	"ResourceModules": {
 		"ext.cognitiveProcessDesignerEdit.bpmn-js": {
 			"class": "\\CognitiveProcessDesigner\\ResourceModule\\BpmnJS"
@@ -67,12 +71,14 @@
 				"js/cpd/cpd.semanticForms.js",
 				"js/cpd/cpd.widgets.js",
 				"js/cpd/cpd.mapper.js",
-				"js/cpd/cpd.manager.js"
+				"js/cpd/cpd.manager.js",
+				"js/dialog/progressBarDialog.js"
 			],
 			"dependencies": [
 				"ext.cognitiveProcessDesignerEdit.bpmn-js",
 				"ext.pageforms.popupformedit",
-				"mediawiki.api"
+				"mediawiki.api",
+				"oojs-ui"
 			],
 			"messages": [
 				"cpd-open-page-label",
@@ -109,7 +115,14 @@
 				"cpd-btn-label-save",
 				"cancel",
 				"cpd-saving-process",
-				"cpd-saved"
+				"cpd-saved",
+				"cpd-diagram-save-dialog-title",
+				"cpd-diagram-save-dialog-span",
+				"cpd-error-dialog-title",
+				"cpd-saving-error-svg-upload",
+				"cpd-saving-error-delete-orphaned-pages",
+				"cpd-saving-error-elements-save",
+				"cpd-saving-error-diagram-save"
 			]
 		},
 		"ext.cognitiveProcessDesignerEdit.styles": {
