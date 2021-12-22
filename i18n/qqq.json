@@ -56,5 +56,18 @@
 	"cpd-ve-bpmn-desc": "Description of inspector dialog",
 	"cpd-ve-bpmn-name-title": "Title of attribute field in inspector\n\n{{Identical|Name}}",
 	"cpd-ve-bpmn-name-help": "Help span for attribute field in inspector",
-	"cpd-ve-bpmn-name-placeholder": "Placeholder for attribute field in inspector"
+	"cpd-ve-bpmn-name-placeholder": "Placeholder for attribute field in inspector",
+	"cpd-api-save-diagram-elements-update-comment": "Comment when updating wiki page of diagram element",
+	"cpd-api-save-diagram-elements-param-elements": "Description for \"elements\" API parameter. Keys \"title\" and \"content\" are not translatable.",
+	"cpd-api-delete-orphaned-elements-param-elements": "Description for \"elements\" API parameter",
+	"cpd-api-delete-orphaned-elements-update-comment": "Comment when updating wiki page of diagram element",
+	"cpd-diagram-save-dialog-title": "Title of diagram saving dialog",
+	"cpd-diagram-save-dialog-span": "Span telling to user some information about diagram saving process.\n$1 - number of elements to be saved",
+	"cpd-error-dialog-title": "Error dialog title",
+	"cpd-saving-error-svg-upload": "Error message in case if SVG upload fails",
+	"cpd-saving-error-delete-orphaned-pages": "Error message in case if deleting of orphaned pages fails",
+	"cpd-saving-error-elements-save": "Error message in case if elements posting to wiki fails",
+	"cpd-saving-error-diagram-save": "Error message in case if diagram posting to wiki fails",
+	"apihelp-cpd-save-diagram-elements-summary": "API endpoint summary",
+	"apihelp-cpd-delete-orphaned-elements-summary": "API endpoint summary"
 }
