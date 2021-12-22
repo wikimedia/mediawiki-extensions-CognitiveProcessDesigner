@@ -81,6 +81,10 @@
 
 		sandboxMode: false,
 
+		savingProgressDialog: null,
+
+		windowManager: null,
+
 		states: [ 'error', 'loading', 'loaded', 'shown', 'intro' ],
 
 		init: function( wrapper, placeholder, canvas, bpmnName, bpmnImgEl, editToolbar, editBtn, statusBar ) {
@@ -126,6 +130,14 @@
 				}
 			};
 
+			this.savingProgressDialog = new ext.cpd.ProgressBarDialog( {
+				size: 'small'
+			} );
+
+			this.windowManager = new OO.ui.WindowManager();
+			$( document.body ).append( this.windowManager.$element );
+
+			this.windowManager.addWindows( [ this.savingProgressDialog ] );
 		},
 
 		destroy: function() {
@@ -346,9 +358,11 @@
 				if ( mw.cpdManager.bpmnImgEl.hasClass('hidden') ) {
 					mw.cpdManager.bpmnImgEl.removeClass('hidden');
 				}
-				mw.cpdManager.bpmnImgEl.attr( 'data', imageinfo.url + '?ts=' + imageinfo.timestamp );
-				mw.cpdManager.bpmnImgEl.attr( 'height', imageinfo.height );
-				mw.cpdManager.bpmnImgEl.attr( 'width', imageinfo.width );
+				if ( imageinfo ) {
+					mw.cpdManager.bpmnImgEl.attr('data', imageinfo.url + '?ts=' + imageinfo.timestamp);
+					mw.cpdManager.bpmnImgEl.attr('height', imageinfo.height);
+					mw.cpdManager.bpmnImgEl.attr('width', imageinfo.width);
+				}
 
 				// Needed to update HTML <object>, to reload it with the latest diagram image
 				mw.cpdManager.bpmnImgEl.attr( 'data', mw.cpdManager.bpmnImgEl.attr( 'data' ) );
@@ -378,51 +392,8 @@
 			var diagramGroups = this.getCurrentDiagramGroups();
 			var bpmnElements = this.getCurrentDiagramElements();
 
-			var batches = this.makeElementsBatches( Object.values( bpmnElements ) );
-
-			var batchDFD = $.Deferred(), dfd = $.Deferred();
-
-			this.executeElementsBatches( batches, diagramLanes, diagramGroups, batchDFD);
-
-			batchDFD.done( function() {
-				dfd.resolve();
-			} );
-
-			return dfd.promise();
-		},
-
-		makeElementsBatches: function( elements ) {
-			var batches = [];
-
-			while( elements.length > 0 ) {
-				batches.push( elements.splice( 0, this.batchSize ) );
-			}
-
-			return batches;
-		},
-
-		executeElementsBatches: function( batches, diagramLanes, diagramGroups, dfd ) {
-			if( batches.length === 0 ) {
-				dfd.resolve();
-				return;
-			}
-
-			var batch = batches.shift();
-
-			this.executeElementsBatch( batch, diagramLanes, diagramGroups ).done( function() {
-				this.executeElementsBatches( batches, diagramLanes, diagramGroups, dfd );
-			}.bind( this ) );
-		},
-
-		executeElementsBatch: function( bpmnElements, diagramLanes, diagramGroups ) {
-			var dfd = $.Deferred();
-
-			var editElementPagePromises = [];
-
+			var elementsToSave = [];
 			Object.keys( bpmnElements ).forEach( function( k ) {
-				var editElementPageDeferred = $.Deferred();
-				editElementPagePromises.push( editElementPageDeferred.promise() );
-
 				var content = mw.cpdMapper.mapElementToWikiContent(
 					bpmnElements[k],
 					mw.cpdManager.bpmnPagePath,
@@ -431,118 +402,57 @@
 				);
 
 				var elementPageName = mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + bpmnElements[k].element.id;
-				var currentPageContentAPI = new mw.Api();
-				currentPageContentAPI.get( {
-					prop: 'revisions',
-					rvprop: 'content|timestamp',
-					titles: elementPageName,
-					curtimestamp: true,
-					indexpageids: true
-				} )
-				.done( function( result ) {
-					var pageId = result.query.pageids[0];
-					var pageData = result.query.pages[pageId];
-					var revisionContent = '';
-					if ( pageData.revisions ) {
-						revisionContent = pageData.revisions[0]['*'];
-					}
-					revisionContent = revisionContent.replace(/<div class="cpd-data".*?[\s\S]+<\/div>/, '').trim();
-					revisionContent = '<div class="cpd-data">' + content + '</div>' + "\n" + revisionContent;
-					var editPageAPI = new mw.Api();
-					editPageAPI.postWithToken( 'csrf', {
-						action: 'edit',
-						title: elementPageName,
-						text: revisionContent
-					} )
-					.done( function( result ) {
-						editElementPageDeferred.resolve();
-					} )
-					.fail( function( error ) {
-						dfd.reject( error );
-					});
+
+				elementsToSave.push( {
+					content: content,
+					title: elementPageName
 				} );
-			});
-			$.when.apply( $, editElementPagePromises ).then( function() {
-				dfd.resolve();
 			} );
 
-			return dfd.promise();
-		},
-
-		executeDeleteElementsBatch: function( batch, bpmnElements ) {
 			var dfd = $.Deferred();
 
-			var elementsDeleteDeferred = new Map();
-
-			batch.forEach( function( id ) {
-				var elementDeleteDeferred = $.Deferred();
-				elementsDeleteDeferred.set( id, elementDeleteDeferred );
-
-				if ( bpmnElements.indexOf( id ) === -1 ) {
-					mw.cpdManager.orphanedPagesDeleted = false;
-					new mw.Api().post( {
-						action: 'edit',
-						title: mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + id,
-						text: '[[Category:Delete]]',
-						token: mw.user.tokens.get('editToken')
-					} ).done( function() {
-						elementsDeleteDeferred.get( id ).resolve();
-					} ).fail( function() {
-						elementsDeleteDeferred.get( id ).reject();
-					} );
-				}
-				else {
-					elementDeleteDeferred.resolve();
-				}
-			} );
-
-			var elementsDeletePromises = [];
-
-			elementsDeleteDeferred.forEach( function( deferred ) {
-				elementsDeletePromises.push( deferred.promise() );
-			} );
-
-			$.when.apply( $, elementsDeletePromises ).done( function() {
+			new mw.Api().post( {
+				action: 'cpd-save-diagram-elements',
+				elements: JSON.stringify( elementsToSave ),
+				token: mw.user.tokens.get('csrfToken')
+			} ).done( function( result ) {
 				dfd.resolve();
-			} ).fail( function() {
+			} ).fail( function( result ) {
 				dfd.reject();
 			} );
 
 			return dfd.promise();
-		},
-
-		executeDeleteElementsBatches: function( batches, bpmnElementsIds, dfd ) {
-			if( batches.length === 0 ) {
-				dfd.resolve();
-				return;
-			}
-
-			var batch = batches.shift();
-
-			this.executeDeleteElementsBatch( batch, bpmnElementsIds ).done( function() {
-				this.executeDeleteElementsBatches( batches, bpmnElementsIds, dfd );
-			}.bind( this ) ).fail( function() {
-				dfd.reject();
-			} );
 		},
 
 		deleteOrphanedElementPagesFromWiki: function() {
 			var dfd = $.Deferred();
 
 			if ( mw.cpdManager.initDiagramElements.length > 0 ) {
-				var batches = this.makeElementsBatches( mw.cpdManager.initDiagramElements );
-
 				var currentBpmnElementIds = Object.keys( mw.cpdManager.getCurrentDiagramElements() );
+				var elementsToDelete = [];
 
-				var batchDFD = $.Deferred();
-
-				this.executeDeleteElementsBatches( batches, currentBpmnElementIds, batchDFD );
-
-				batchDFD.done( function() {
-					dfd.resolve();
-				} ).fail( function() {
-					dfd.reject();
+				mw.cpdManager.initDiagramElements.forEach( function( id ) {
+					if ( currentBpmnElementIds.indexOf( id ) === -1 ) {
+						elementsToDelete.push( {
+							title: mw.cpdManager.bpmnPagePath + mw.cpdManager.separator + id
+						} );
+					}
 				} );
+
+				if ( elementsToDelete.length > 0 ) {
+					new mw.Api().post( {
+						action: 'cpd-delete-orphaned-elements',
+						elements: JSON.stringify( elementsToDelete ),
+						token: mw.user.tokens.get( 'csrfToken' )
+					} ).done( function( result ) {
+						dfd.resolve();
+					} ).fail( function( result ) {
+						dfd.reject();
+					} );
+				}
+				else {
+					dfd.resolve();
+				}
 			}
 			else {
 				dfd.resolve();
@@ -622,6 +532,11 @@
 
 		saveBPMN: function() {
 			this.statusBar.text( mw.message( 'cpd-saving-process' ) );
+
+			this.savingProgressDialog.open( {
+				elementsAmount: Object.keys( this.getCurrentDiagramElements() ).length
+			} );
+
 			this.postDiagramToWiki().done( function() {
 				this.postDiagramElementsToWiki().done( function() {
 					this.deleteOrphanedElementPagesFromWiki().done( function() {
@@ -631,18 +546,56 @@
 								mw.cpdManager.destroy();
 							}
 							mw.cpdManager.statusBar.text( mw.message( 'cpd-saved' ) );
+
+							mw.cpdManager.savingProgressDialog.close();
 						} ).fail( function() {
-							console.error( 'Failed uploading SVG');
+							mw.cpdManager.savingProgressDialog.close();
+
+							var errorMessage = mw.message( 'cpd-saving-error-svg-upload' ).text();
+							mw.cpdManager.showErrorMessage( errorMessage );
 						} );
 					}.bind( this ) ).fail( function() {
-						console.error( 'Failed deleting orphaned pages');
+						mw.cpdManager.savingProgressDialog.close();
+
+						var errorMessage = mw.message( 'cpd-saving-error-delete-orphaned-pages' ).text();
+						mw.cpdManager.showErrorMessage( errorMessage );
 					} );
 				}.bind( this ) ).fail( function( error ) {
-					console.error( 'Failed posting elements to wiki' );
+					mw.cpdManager.savingProgressDialog.close();
+
+					var errorMessage = mw.message( 'cpd-saving-error-elements-save' ).text();
+					mw.cpdManager.showErrorMessage( errorMessage );
 				} );
 			}.bind( this ) ).fail( function( error ) {
-				console.error( 'Failed posting to wiki');
+				mw.cpdManager.savingProgressDialog.close();
+
+				var errorMessage = mw.message( 'cpd-saving-error-diagram-save' ).text();
+				mw.cpdManager.showErrorMessage( errorMessage );
 			} ) ;
+		},
+
+		/**
+		 * Shows error message dialog.
+		 * Should be used in case of some errors, for example when saving diagram
+		 *
+		 * @param {String} message Already translated message
+		 */
+		showErrorMessage: function( message ) {
+			var messageDialog = new OO.ui.MessageDialog();
+
+			this.windowManager.addWindows( [ messageDialog ] );
+
+			this.windowManager.openWindow( messageDialog, {
+				title: mw.message( 'cpd-error-dialog-title' ).text(),
+				message: message,
+				actions: [
+					{
+						action: 'accept',
+						label: 'Dismiss',
+						flags: 'primary'
+					}
+				]
+			});
 		},
 
 		actionConfirmed: function() {
