@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Agaafd",
+			"Can",
 			"Joseph"
 		]
 	},
@@ -47,5 +48,11 @@
 	"action-cognitiveprocessdesigner-viewspecialpage": "\"{{int:cognitiveprocessdesigneredit}}\" özel sayfasını görüntülemeye",
 	"action-cognitiveprocessdesigner-editbpmn": "BPMN çizimini değiştirmeye",
 	"right-cognitiveprocessdesigner-viewspecialpage": "[[Special:Cognitive Process Designer Edit|Kavramsal Süreç Tasarımcısı Düzenleme]] özel sayfasına eriş",
-	"right-cognitiveprocessdesigner-editbpmn": "BPMN şemalarını düzenle"
+	"right-cognitiveprocessdesigner-editbpmn": "BPMN şemalarını düzenle",
+	"cpd-tag-bpmn-desc": "BPMN etiketi",
+	"cpd-tag-bpmn-example": "İşte, BPMN etiketinin basit bir kullanım örneği",
+	"cpd-ve-bpmn-title": "BPMN",
+	"cpd-ve-bpmn-desc": "BPMN diyagramı yerleştir",
+	"cpd-ve-bpmn-name-title": "Ad",
+	"cpd-ve-bpmn-name-help": "Diyagramınızın adı"
 }
