@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mschlindwein"
+		]
+	},
+	"cpd-overwrite-wiki-page-question": "Wiki-Seite existiert bereits. Möchten Sie sie überschreiben?",
+	"cpd-you-edited-diagram": "Sie haben das Diagramm bearbeitet."
+}
