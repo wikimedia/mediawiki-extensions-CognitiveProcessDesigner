@@ -22,5 +22,7 @@
 	"cpd-btn-label-save": "Opslaan",
 	"cpd-saved": "Opgeslagen",
 	"action-cognitiveprocessdesigner-viewspecialpage": "de speciale pagina \"{{int:cognitiveprocessdesigneredit}}\" te bekijken",
-	"specialpages-group-semantic-process": "Semantisch proces"
+	"specialpages-group-semantic-process": "Semantisch proces",
+	"cpd-ve-bpmn-name-title": "Naam",
+	"cpd-ve-bpmn-name-help": "Naam van het diagram"
 }
