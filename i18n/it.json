@@ -2,11 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Ajeje Brazorf",
-			"Beta16"
+			"Beta16",
+			"Pierpao"
 		]
 	},
 	"cpd-yes": "Sì",
 	"cpd-no": "No",
+	"cpd-keyboard-shortcuts": "Scorciatoie da tastiera",
 	"cpd-keyboard-shortcuts-select-all": "Seleziona tutto",
 	"cpd-btn-label-save": "Salva",
 	"cpd-saved": "Salvato",
