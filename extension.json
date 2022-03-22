@@ -140,7 +140,6 @@
 	],
 	"Hooks": {
 		"ParserFirstCallInit": "\\CognitiveProcessDesigner\\Hook\\ParserFirstCallInit\\RenderBPMNTag::callback",
-		"OutputPageParserOutput": "\\CognitiveProcessDesigner\\Hook\\OutputPageParserOutput\\AddModules::callback",
 		"OutputPageBeforeHTML": "\\CognitiveProcessDesigner\\Hook\\OutputPageBeforeHTML\\AddEntityHeaderFooter::callback",
 		"BSUEModulePDFBeforeCreatePDF": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeCreatePDF\\PrepareBPMNDiagramForExport::callback",
 		"BSUEModulePDFBeforeAddingStyleBlocks": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeAddingStyleBlocks\\AddCPDStyles::callback",
