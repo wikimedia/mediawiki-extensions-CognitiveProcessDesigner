@@ -71,6 +71,11 @@ class BPMNHandler {
 			return Html::errorBox( '"name" attribute of diagram must be specified!' );
 		}
 
+		$this->parser->getOutput()->addModules( [
+			'ext.cognitiveProcessDesigner.editor',
+			'ext.cognitiveProcessDesignerEdit.styles'
+		] );
+
 		$bpmnName = wfStripIllegalFilenameChars( $this->tagArgs['name'] );
 		$imgName = $bpmnName . '.' . $this->defaultImgType;
 		$img = wfFindFile( $imgName );
