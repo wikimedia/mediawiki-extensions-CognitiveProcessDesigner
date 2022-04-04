@@ -278,7 +278,9 @@
 			this.svgUploadedToWiki = false;
 
 			var bpmnElements = this.getCurrentDiagramElements();
-			var bpmnElementsTitles = Object.keys( bpmnElements ).join( '|' );
+			var bpmnElementsTitles = Object.keys( bpmnElements ).map( function( val ) {
+				return this.bpmnPagePath + '/' + val;
+			}.bind( this ) ).join( '|' );
 
 			var params = {
 				action: 'query',
@@ -293,10 +295,11 @@
 				var pages = response.query.pages;
 
 				for ( var p in pages ) {
-					var titleKey = pages[p].title.replace( ' ', '_' );
+					// In title like "CPD_diagram/Process_1" we need only the name of element - "Process_1"
+					var elementName = pages[p].title.split( '/' ).pop().replace( ' ', '_' );
 
-					var regexp = new RegExp( '(data-element-id="' + titleKey + '".*?)(<g.*?\/g>)' );
-					var replacement = '$1<a xlink:href="' + pages[p].fullurl + '">$2</a>';
+					var regexp = new RegExp( '(data-element-id="' + elementName + '".*?)(<g.*?\/g>)' );
+					var replacement = '$1<a xlink:show="new" xlink:href="' + pages[p].fullurl + '">$2</a>';
 					this.bpmnSVG = this.bpmnSVG.replace( regexp, replacement );
 				}
 
