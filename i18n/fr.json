@@ -57,5 +57,18 @@
 	"cpd-ve-bpmn-desc": "Insérer un diagramme BPMN",
 	"cpd-ve-bpmn-name-title": "Nom",
 	"cpd-ve-bpmn-name-help": "Nom de votre diagramme",
-	"cpd-ve-bpmn-name-placeholder": "Un diagramme"
+	"cpd-ve-bpmn-name-placeholder": "Un diagramme",
+	"cpd-api-save-diagram-elements-update-comment": "Mise à jour de l’élément du diagramme après l’enregistrement du diagramme.",
+	"cpd-api-save-diagram-elements-param-elements": "Tableau codé en JSON des éléments de diagramme à ajouter (ou mettre à jour si déjà existant) dans le wiki. Chaque élément doit contenir les clés « title » et « content » avec le titre et le contenu correspondants pour la page wiki.",
+	"cpd-api-delete-orphaned-elements-param-elements": "Tableau codé en JSON des éléments de diagramme à supprimer du wiki, car ils ont été retirés du diagramme. Chaque élément du tableau doit contenir le titre de la page wiki correspondante.",
+	"cpd-api-delete-orphaned-elements-update-comment": "Marquer l’élément comme orphelin pour le retirer.",
+	"cpd-diagram-save-dialog-title": "Enregistrement du diagramme...",
+	"cpd-diagram-save-dialog-span": "Enregistrement de $1 élément{{PLURAL:$1||s}}...",
+	"cpd-error-dialog-title": "Une erreur est survenue !",
+	"cpd-saving-error-svg-upload": "Échec de téléversement du SVG",
+	"cpd-saving-error-delete-orphaned-pages": "Échec de suppression des pages orphelines",
+	"cpd-saving-error-elements-save": "Échec de publication des éléments du diagramme sur le wiki",
+	"cpd-saving-error-diagram-save": "Échec de publication du diagramme sur le wiki",
+	"apihelp-cpd-save-diagram-elements-summary": "Enregistre les éléments du diagramme BPMN comme des pages wiki, ou bien les met à jour s’ils existent déjà",
+	"apihelp-cpd-delete-orphaned-elements-summary": "Supprime les éléments du diagramme BPMN qui en ont été retirés"
 }
