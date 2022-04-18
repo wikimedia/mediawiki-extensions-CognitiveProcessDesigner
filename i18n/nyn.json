@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kakonjo"
+		]
+	},
+	"cpd-api-save-diagram-elements-update-comment": "Okumanyisibwa aha obumanyiso bwa ekishushani bwanyima ya okubiika ekishushani",
+	"cpd-api-save-diagram-elements-param-elements": "JSON ekakora Kodi ey'obumanyiso bw'ebishushani obwiine ku geitwamu (ninga obutereezibwe bwaba buriho) omu Wiki. Buri kamanyiso nkatekwa ku kugira ebishumuruzo ebi; ''Title'' nana ''content'' biri kushushana  na title nana content eya wiki.",
+	"cpd-api-delete-orphaned-elements-param-elements": "JSON ekakora Kodi ey'obumanyiso bwa ebishushani ebyiine kuba nibi sangurwa aha Wiki, ahabwokuba bikiihwa omu kishushani. Buri kamanyiso akekishushani keine kuba keine omutwe mukuru oguri kushushana na Orubaju rwa Wiki.",
+	"cpd-api-delete-orphaned-elements-update-comment": "Raamba akamanyiso nka akatiine buzaare nezindi kugirabakeiheho.",
+	"cpd-diagram-save-dialog-title": "Nebiika ekishushani...",
+	"cpd-diagram-save-dialog-span": "Nihabiikwa {{PLURAL:$1|akamanyiso|obumanyiso}} $1 ...",
+	"cpd-error-dialog-title": "Enshobi yabaaho!",
+	"cpd-saving-error-svg-upload": "Kwarema Okutekayo SVG",
+	"cpd-saving-error-delete-orphaned-pages": "oku sangura embaju emfuuzi kwarema",
+	"cpd-saving-error-elements-save": "Yaremwa ku tekayo obumanyiso-bw'obushushani obwa wiki",
+	"cpd-saving-error-diagram-save": "Yaremwa kutekayo ekishushani aha wiki",
+	"apihelp-cpd-save-diagram-elements-summary": "Nebiika obumanyiso bwa ekishushani Kya BPMN nka Embaju za wiki, ninga neburabyaho bwabwa buriho",
+	"apihelp-cpd-delete-orphaned-elements-summary": "Nesangura obumanyiso bwa ekishushani Kya BPMN, obwabiire bwihirweho"
+}

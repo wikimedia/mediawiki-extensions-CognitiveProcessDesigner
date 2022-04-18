@@ -4,6 +4,13 @@
 			"DiegoAmbrocio"
 		]
 	},
+	"cpd-bpmn-diagram-header": "Diagrama BPMN",
+	"cpd-enter-bpmn-id-placeholder": "Por favor, introduzca el ID de su BPMN",
+	"cpd-load-bpmn-from-wiki-placeholder": "Cargar BPMN desde la wiki",
+	"cpd-create-bpmn-placeholder": "Crear BPMN",
+	"cpd-create-new-bpmn": "Crear un nuevo BPMN",
+	"cpd-bpmn-id-placeholder": "ID DE BPMN",
+	"cpd-overwrite-wiki-page-question": "La página Wiki ya existe. ¿Desea sobrescribirla?",
 	"cpd-yes": "Sí",
 	"cpd-no": "No",
 	"cpd-open-bpmn-from-local-file": "Abrir el diagrama BPMN desde el sistema de archivos local",

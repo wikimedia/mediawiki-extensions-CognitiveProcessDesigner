@@ -11,5 +11,9 @@
 	"cpd-btn-label-save": "Simpan",
 	"cpd-open-page-label": "Buka laman",
 	"cpd-page-forms-label": "Bentuk laman",
-	"cpd-saved": "Disimpan"
+	"cpd-saved": "Disimpan",
+	"cpd-api-save-diagram-elements-update-comment": "Kemas kini unsur gambar rajah selepas menyimpan gambar rajah.",
+	"cpd-diagram-save-dialog-title": "Menyimpan gambar rajah...",
+	"cpd-diagram-save-dialog-span": "Menyimpan $1 {{PLURAL:$1|unsur}}...",
+	"cpd-error-dialog-title": "Ralat berlaku!"
 }
