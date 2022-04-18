@@ -47,5 +47,8 @@
 	"cpd-ve-bpmn-desc": "BPMN 다이어그램 추가",
 	"cpd-ve-bpmn-name-title": "이름",
 	"cpd-ve-bpmn-name-help": "당신의 다이어그램의 이름",
-	"cpd-ve-bpmn-name-placeholder": "일부 다이어그램"
+	"cpd-ve-bpmn-name-placeholder": "일부 다이어그램",
+	"cpd-diagram-save-dialog-title": "다이어그램을 저장하는 중...",
+	"cpd-error-dialog-title": "오류가 발생했습니다!",
+	"cpd-saving-error-svg-upload": "SVG 업로드 실패"
 }
