@@ -60,7 +60,7 @@
 	"cpd-api-save-diagram-elements-update-comment": "Aktualisieren des Diagrammelements nach dem Speichern des Diagramms.",
 	"cpd-api-save-diagram-elements-param-elements": "JSON-kodierte Liste von Diagrammelementen, die zum Wiki hinzugefügt werden sollen (oder bearbeitet, falls sie bereits existieren). Jedes Element muss einen \"title\" und \"content\"-Schlüssel mit dem Titel und dem Inhalt der Wiki-Seite beinhalten.",
 	"cpd-api-delete-orphaned-elements-param-elements": "JSON-kodierte Liste von Diagrammelementen, die aus dem Wiki gelöscht werden sollen, weil sie aus dem Diagramm gelöscht wurden. Jedes Element muss den Titel der dazugehörigen Wiki-Seite beinhalten.",
-	"cpd-api-delete-orphaned-elements-update-comment": "Markiere Elemente als verwaist um sie zu entfernen.",
+	"cpd-api-delete-orphaned-elements-update-comment": "Markiere Elemente als verwaist, um sie zu entfernen.",
 	"cpd-diagram-save-dialog-title": "Speichere Diagramm...",
 	"cpd-diagram-save-dialog-span": "Speichere $1 {{PLURAL:$1|Element|Elemente}}",
 	"cpd-error-dialog-title": "Fehler aufgetreten!",
