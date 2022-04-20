@@ -3,6 +3,7 @@
 		"authors": [
 			"Ajeje Brazorf",
 			"Beta16",
+			"GpieroMW",
 			"Pierpao"
 		]
 	},
@@ -14,5 +15,6 @@
 	"cpd-saved": "Salvato",
 	"cpd-tag-bpmn-desc": "Tag BPMN",
 	"cpd-ve-bpmn-title": "BPMN",
-	"cpd-ve-bpmn-name-title": "Nome"
+	"cpd-ve-bpmn-name-title": "Nome",
+	"cpd-error-dialog-title": "Si è verificato un errore!"
 }

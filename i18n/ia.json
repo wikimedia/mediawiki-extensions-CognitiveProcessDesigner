@@ -53,5 +53,18 @@
 	"cpd-ve-bpmn-desc": "Inserer un diagramma BPMN",
 	"cpd-ve-bpmn-name-title": "Nomine",
 	"cpd-ve-bpmn-name-help": "Nomine de tu diagramma",
-	"cpd-ve-bpmn-name-placeholder": "Alcun diagramma"
+	"cpd-ve-bpmn-name-placeholder": "Alcun diagramma",
+	"cpd-api-save-diagram-elements-update-comment": "Actualisation del elemento del diagramma post salveguardar le diagramma.",
+	"cpd-api-save-diagram-elements-param-elements": "Tabella codificate in JSON del elementos de diagramma a adder (o actualisar si ja existe) in le wiki. Cata elemento debe continer claves \"title\" e \"content\" con le titulo e contento correspondente pro le pagina wiki.",
+	"cpd-api-delete-orphaned-elements-param-elements": "Tabella codificate in JSON del elementos de diagramma a deler del wiki perque illos ha essite removite del diagramma. Cata elemento del tabella debe continer le titulo del pagina wiki correspondente.",
+	"cpd-api-delete-orphaned-elements-update-comment": "Marca le elemento como orphano pro remover lo.",
+	"cpd-diagram-save-dialog-title": "Salveguarda diagramma…",
+	"cpd-diagram-save-dialog-span": "Salveguarda $1 elemento{{PLURAL:$1||s}}…",
+	"cpd-error-dialog-title": "Un error ha occurrite!",
+	"cpd-saving-error-svg-upload": "Incargamento del SVG fallite",
+	"cpd-saving-error-delete-orphaned-pages": "Deletion del paginas orphanate fallite",
+	"cpd-saving-error-elements-save": "Le publication del elementos del diagramma sur le wiki ha fallite",
+	"cpd-saving-error-diagram-save": "Le publication del diagramma sur le wiki ha fallite",
+	"apihelp-cpd-save-diagram-elements-summary": "Salveguarda le elementos del diagramma BPMN como paginas wiki o los actualisa si ja existe",
+	"apihelp-cpd-delete-orphaned-elements-summary": "Destrue le elementos del diagramma BPMN que ha essite removite"
 }

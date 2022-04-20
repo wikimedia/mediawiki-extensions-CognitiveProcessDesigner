@@ -4,6 +4,7 @@
 			"Ameisenigel",
 			"Brettchenweber",
 			"Mschlindwein",
+			"Ngschaider",
 			"Umlaut"
 		]
 	},
@@ -55,5 +56,18 @@
 	"cpd-ve-bpmn-desc": "BPMN-Diagramm einfügen",
 	"cpd-ve-bpmn-name-title": "Name",
 	"cpd-ve-bpmn-name-help": "Name des Diagramms",
-	"cpd-ve-bpmn-name-placeholder": "Ein Diagramm"
+	"cpd-ve-bpmn-name-placeholder": "Ein Diagramm",
+	"cpd-api-save-diagram-elements-update-comment": "Aktualisieren des Diagrammelements nach dem Speichern des Diagramms.",
+	"cpd-api-save-diagram-elements-param-elements": "JSON-kodierte Liste von Diagrammelementen, die zum Wiki hinzugefügt werden sollen (oder bearbeitet, falls sie bereits existieren). Jedes Element muss einen \"title\" und \"content\"-Schlüssel mit dem Titel und dem Inhalt der Wiki-Seite beinhalten.",
+	"cpd-api-delete-orphaned-elements-param-elements": "JSON-kodierte Liste von Diagrammelementen, die aus dem Wiki gelöscht werden sollen, weil sie aus dem Diagramm gelöscht wurden. Jedes Element muss den Titel der dazugehörigen Wiki-Seite beinhalten.",
+	"cpd-api-delete-orphaned-elements-update-comment": "Markiere Elemente als verwaist, um sie zu entfernen.",
+	"cpd-diagram-save-dialog-title": "Speichere Diagramm...",
+	"cpd-diagram-save-dialog-span": "Speichere $1 {{PLURAL:$1|Element|Elemente}}",
+	"cpd-error-dialog-title": "Fehler aufgetreten!",
+	"cpd-saving-error-svg-upload": "Fehler beim Hochladen einer SVG-Datei",
+	"cpd-saving-error-delete-orphaned-pages": "Fehler beim Löschen verwaister Seiten",
+	"cpd-saving-error-elements-save": "Veröffentlichen der Diagrammelemente im Wiki fehlgeschlagen",
+	"cpd-saving-error-diagram-save": "Veröffentlichen des Diagramms im Wiki fehlgeschlagen",
+	"apihelp-cpd-save-diagram-elements-summary": "Speichert Elemente des BPMN-Diagramms als Wiki-Seiten oder aktualisiert diese, wenn sie schon existieren",
+	"apihelp-cpd-delete-orphaned-elements-summary": "Löscht Elemente des BPMN-Diagramms, welche entfernt wurden"
 }
