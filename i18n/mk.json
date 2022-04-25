@@ -53,5 +53,18 @@
 	"cpd-ve-bpmn-desc": "Вметни BPMN-дијаграм",
 	"cpd-ve-bpmn-name-title": "Назив",
 	"cpd-ve-bpmn-name-help": "Назив на вашиот дијаграм",
-	"cpd-ve-bpmn-name-placeholder": "Некој дијаграм"
+	"cpd-ve-bpmn-name-placeholder": "Некој дијаграм",
+	"cpd-api-save-diagram-elements-update-comment": "Поднова на дијаграмски елемент по зачувување на дијаграм.",
+	"cpd-api-save-diagram-elements-param-elements": "Строј од дијаграмски елементи кодиран во JSON кој ќе се додаде (или поднови ако веќе постои) во викито. Секој елемент мора да содржи клучеви „title“ и „content“ со одговарачки наслов и содржина за викистраница.",
+	"cpd-api-delete-orphaned-elements-param-elements": "Строј од дијаграмски елементи кодиран во JSON кој ќе се избрише од викито бидејќи истите биле отстранети од дијаграмот. Секој елемент од стројот мора да содржи наслов на одговарачката викистраница.",
+	"cpd-api-delete-orphaned-elements-update-comment": "Означете елемент како осамен за да го отстраните.",
+	"cpd-diagram-save-dialog-title": "Го зачувувам дијаграмот...",
+	"cpd-diagram-save-dialog-span": "Зачувувам $1 {{PLURAL:$1|елемент|елементи}}...",
+	"cpd-error-dialog-title": "Се појави грешка!",
+	"cpd-saving-error-svg-upload": "Не успеав да ја подигнам SVG-податотеката",
+	"cpd-saving-error-delete-orphaned-pages": "Не успеав да ги избришам осамените страници",
+	"cpd-saving-error-elements-save": "Не успеав да ги објавам дијаграмските елементи на викито",
+	"cpd-saving-error-diagram-save": "Не успеав да го објавам дијаграмот на викито",
+	"apihelp-cpd-save-diagram-elements-summary": "Зачувува елементи на BPMN-дијаграм како викистраници, или пак ги подновува ако веќе постојат",
+	"apihelp-cpd-delete-orphaned-elements-summary": "Брише елементи од BPMN-дијаграм кои биле отстранети"
 }
