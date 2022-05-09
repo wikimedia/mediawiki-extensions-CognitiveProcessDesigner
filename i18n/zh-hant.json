@@ -1,13 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kly"
+			"Kly",
+			"Winston Sung"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "在 Semantic MediaWiki 上以圖形化使用者介面來繪製業務流程模型和標記法（BPMN）之流程",
 	"cognitiveprocessdesigneredit": "Cognitive Process Designer 編輯",
 	"cognitiveprocessdesignertestsuite": "Cognitive Process Designer 測試套件",
-	"specialpages-group-semantic-process": "Semantic 流程",
 	"cpd-loading-diagram": "示圖載入中，請耐心等待",
 	"cpd-err-display-diagram": "系統不會顯示示圖。",
 	"cpd-err-details": "問題的一些詳細資訊",
@@ -46,5 +46,7 @@
 	"action-cognitiveprocessdesigner-viewspecialpage": "查看特殊頁面「{{int:cognitiveprocessdesigneredit}}」",
 	"action-cognitiveprocessdesigner-editbpmn": "編輯 BPMN 示圖",
 	"right-cognitiveprocessdesigner-viewspecialpage": "存取 [[Special:Cognitive Process Designer Edit]] 特殊頁面",
-	"right-cognitiveprocessdesigner-editbpmn": "編輯 BPMN 流程"
+	"right-cognitiveprocessdesigner-editbpmn": "編輯 BPMN 流程",
+	"specialpages-group-semantic-process": "Semantic 流程",
+	"cpd-error-dialog-title": "發生錯誤！"
 }
