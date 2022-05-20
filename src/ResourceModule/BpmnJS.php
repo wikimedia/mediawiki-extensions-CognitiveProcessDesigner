@@ -2,16 +2,16 @@
 
 namespace CognitiveProcessDesigner\ResourceModule;
 
-use ResourceLoaderContext;
+use MediaWiki\ResourceLoader as RL;
 
-class BpmnJS extends \ResourceLoaderFileModule {
+class BpmnJS extends RL\FileModule {
 
 	/**
 	 * @inheritDoc
-	 * @param ResourceLoaderContext $context
+	 * @param RL\Context $context
 	 * @return string|array
 	 */
-	public function getScript( ResourceLoaderContext $context ) {
+	public function getScript( RL\Context $context ) {
 		if ( $context->getDebug() ) {
 			array_unshift( $this->scripts, 'bpmn-js/bpmn-modeler.development.js' );
 		} else {
@@ -24,10 +24,10 @@ class BpmnJS extends \ResourceLoaderFileModule {
 	/**
 	 * Get a list of file paths for all styles in this module, in order of proper inclusion.
 	 *
-	 * @param ResourceLoaderContext $context
+	 * @param RL\Context $context
 	 * @return array List of file paths
 	 */
-	public function getStyleFiles( ResourceLoaderContext $context ) {
+	public function getStyleFiles( RL\Context $context ) {
 		$styleFiles = parent::getStyleFiles( $context );
 		if ( !isset( $styleFiles['all'] ) ) {
 			$styleFiles['all'] = [];
