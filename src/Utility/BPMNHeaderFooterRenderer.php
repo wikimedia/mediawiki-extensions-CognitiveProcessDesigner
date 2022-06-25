@@ -41,7 +41,12 @@ class BPMNHeaderFooterRenderer {
 	 * @return string
 	 */
 	public function getHeader( Title $title ) {
-		$wikiPage = WikiPage::newFromID( $title->getArticleID() );
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $title->getArticleID() );
+		} else {
+			$wikiPage = WikiPage::newFromID( $title->getArticleID() );
+		}
 		/** @var SemanticData $smwData */
 		$smwData = $wikiPage->getContent()->getParserOutput( $title )->getExtensionData( 'smwdata' );
 		if ( !$smwData instanceof SemanticData ) {
@@ -93,7 +98,12 @@ class BPMNHeaderFooterRenderer {
 	 * @return string
 	 */
 	public function getFooter( Title $title ) {
-		$wikiPage = WikiPage::newFromID( $title->getArticleID() );
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $title->getArticleID() );
+		} else {
+			$wikiPage = WikiPage::newFromID( $title->getArticleID() );
+		}
 		/** @var SemanticData $smwData */
 		$smwData = $wikiPage->getContent()->getParserOutput( $title )->getExtensionData( 'smwdata' );
 		if ( !$smwData instanceof SemanticData ) {
@@ -173,11 +183,22 @@ class BPMNHeaderFooterRenderer {
 		}
 
 		$linkeRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
+		} else {
+			$wikiPageFactory = null;
+		}
 		/** @var DIWikiPage $entity */
 		foreach ( $entities as $entity ) {
 			if ( $entity instanceof DIWikiPage ) {
 				$title = $entity->getTitle();
-				$wikiPage = WikiPage::factory( $title );
+				if ( $wikiPageFactory !== null ) {
+					// MW 1.36+
+					$wikiPage = $wikiPageFactory->newFromTitle( $title );
+				} else {
+					$wikiPage = WikiPage::factory( $title );
+				}
 				$displayTitle = $title->getPrefixedText();
 				$content = $wikiPage->getContent();
 				if ( $content !== null ) {

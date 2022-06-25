@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\Maintenance;
 
 use LoggedUpdateMaintenance;
+use MediaWiki\MediaWikiServices;
 use Title;
 use WikiPage;
 
@@ -64,9 +65,20 @@ HERE
 	 * @inheritDoc
 	 */
 	protected function doDBUpdates() {
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
+		} else {
+			$wikiPageFactory = null;
+		}
 		foreach ( $this->pages as $pagename => $wikitextContent ) {
 			$title = Title::newFromText( $pagename );
-			$wikiPage = WikiPage::factory( $title );
+			if ( $wikiPageFactory !== null ) {
+				// MW 1.36+
+				$wikiPage = $wikiPageFactory->newFromTitle( $title );
+			} else {
+				$wikiPage = WikiPage::factory( $title );
+			}
 			if ( !$wikiPage->exists() ) {
 				$this->output( "Creating page '{$title->getPrefixedDBkey()}'... " );
 				$content = $wikiPage->getContentHandler()->makeContent( $wikitextContent, $title );

@@ -5,6 +5,7 @@ namespace CognitiveProcessDesigner\Api;
 use ApiBase;
 use CommentStoreComment;
 use ContentHandler;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use Message;
 use MWException;
@@ -48,10 +49,21 @@ class DeleteOrphanedElementsApi extends ApiBase {
 		$warnings = [];
 
 		if ( $elements ) {
+			if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+				// MW 1.36+
+				$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
+			} else {
+				$wikiPageFactory = null;
+			}
 			foreach ( $elements as $element ) {
 				$title = Title::makeTitle( NS_MAIN, $element['title'] );
 
-				$wikipage = WikiPage::factory( $title );
+				if ( $wikiPageFactory !== null ) {
+					// MW 1.36+
+					$wikipage = $wikiPageFactory->newFromTitle( $title );
+				} else {
+					$wikipage = WikiPage::factory( $title );
+				}
 
 				$updater = $wikipage->newPageUpdater( $this->getContext()->getUser() );
 
