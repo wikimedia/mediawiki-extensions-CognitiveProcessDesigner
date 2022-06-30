@@ -2,8 +2,12 @@
 
 namespace CognitiveProcessDesigner\Maintenance;
 
+use CommentStoreComment;
+use Exception;
 use LoggedUpdateMaintenance;
+use MediaWiki\Revision\SlotRecord;
 use Title;
+use User;
 use WikiPage;
 
 class AddRequiredPages extends LoggedUpdateMaintenance {
@@ -64,19 +68,27 @@ HERE
 	 * @inheritDoc
 	 */
 	protected function doDBUpdates() {
+		$user = User::newSystemUser( 'MediaWiki default' );
+		$summary = 'Createy by Cognitive Process Designer';
 		foreach ( $this->pages as $pagename => $wikitextContent ) {
 			$title = Title::newFromText( $pagename );
 			$wikiPage = WikiPage::factory( $title );
 			if ( !$wikiPage->exists() ) {
 				$this->output( "Creating page '{$title->getPrefixedDBkey()}'... " );
+				$updater = $wikiPage->newPageUpdater( $user );
 				$content = $wikiPage->getContentHandler()->makeContent( $wikitextContent, $title );
-				$summary = 'Createy by Cognitive Process Designer';
-				$status = $wikiPage->doEditContent( $content, $summary );
-				$statusText = $status->isOK() ? 'DONE' : 'FAILED';
+				$updater->setContent( SlotRecord::MAIN, $content );
+				$comment = CommentStoreComment::newUnsavedComment( $summary );
+				try {
+					$updater->saveRevision( $comment );
+				} catch ( Exception $e ) {
+					$this->error( "EXCEPTION:\n" . $e->getMessage() );
+					return false;
+				}
+				$statusText = $updater->wasSuccessful() ? 'DONE' : 'FAILED';
 				$this->output( "$statusText\n" );
 			}
 		}
-
 		return true;
 	}
 
