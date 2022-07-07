@@ -78,7 +78,7 @@ class BPMNHandler {
 
 		$bpmnName = wfStripIllegalFilenameChars( $this->tagArgs['name'] );
 		$imgName = $bpmnName . '.' . $this->defaultImgType;
-		$img = wfFindFile( $imgName );
+		$img = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $imgName );
 		if ( $img ) {
 			$imgUrl = $img->getCanonicalUrl();
 			$imgHeight = isset( $this->tagArgs['height'] ) ? $this->tagArgs['height'] : $img->getHeight();
