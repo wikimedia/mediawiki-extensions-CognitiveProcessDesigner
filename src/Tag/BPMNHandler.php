@@ -2,6 +2,7 @@
 namespace CognitiveProcessDesigner\Tag;
 
 use Html;
+use MediaWiki\MediaWikiServices;
 use Parser;
 use PPFrame;
 
