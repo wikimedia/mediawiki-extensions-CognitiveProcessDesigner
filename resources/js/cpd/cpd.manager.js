@@ -416,9 +416,43 @@
 				elements: JSON.stringify( elementsToSave ),
 				token: mw.user.tokens.get('csrfToken')
 			} ).done( function( result ) {
-				dfd.resolve();
+				var processId = result.processId;
+
+				var failedStatusCalls = 0;
+
+				var timer = setInterval( function() {
+					$.ajax( {
+						method: 'GET',
+						url: mw.util.wikiScript( 'rest' ) + '/cognitiveprocessdesigner/save_elements/status/{0}'.format( processId ),
+						data: {},
+						contentType: 'application/json',
+						dataType: 'json'
+					} ).done( function( result ) {
+						if ( result.state === 'terminated' ) {
+							if ( result.exitCode === 0 ) {
+								clearInterval( timer );
+
+								dfd.resolve();
+							} else {
+								clearInterval( timer );
+
+								dfd.reject( result.exitStatus );
+							}
+						}
+					} ).fail( function( result ) {
+						console.dir( result );
+
+						// If requests are constantly failing - then probably API is unreachable currently
+						if ( failedStatusCalls > 5 ) {
+							clearInterval( timer );
+							dfd.reject( result );
+						}
+
+						failedStatusCalls++;
+					} );
+				}, 1500 );
 			} ).fail( function( result ) {
-				dfd.reject();
+				dfd.reject( result.error );
 			} );
 
 			return dfd.promise();
@@ -549,29 +583,39 @@
 
 							mw.cpdManager.savingProgressDialog.close();
 						} ).fail( function() {
-							mw.cpdManager.savingProgressDialog.close();
-
 							var errorMessage = mw.message( 'cpd-saving-error-svg-upload' ).text();
-							mw.cpdManager.showErrorMessage( errorMessage );
+
+							mw.cpdManager.processSaveDiagramError( errorMessage );
 						} );
 					}.bind( this ) ).fail( function() {
-						mw.cpdManager.savingProgressDialog.close();
-
 						var errorMessage = mw.message( 'cpd-saving-error-delete-orphaned-pages' ).text();
-						mw.cpdManager.showErrorMessage( errorMessage );
+
+						mw.cpdManager.processSaveDiagramError( errorMessage );
 					} );
 				}.bind( this ) ).fail( function( error ) {
-					mw.cpdManager.savingProgressDialog.close();
-
 					var errorMessage = mw.message( 'cpd-saving-error-elements-save' ).text();
-					mw.cpdManager.showErrorMessage( errorMessage );
+
+					mw.cpdManager.processSaveDiagramError( errorMessage );
 				} );
 			}.bind( this ) ).fail( function( error ) {
-				mw.cpdManager.savingProgressDialog.close();
-
 				var errorMessage = mw.message( 'cpd-saving-error-diagram-save' ).text();
-				mw.cpdManager.showErrorMessage( errorMessage );
+
+				mw.cpdManager.processSaveDiagramError( errorMessage );
 			} ) ;
+		},
+
+		/**
+		 * Processes error during diagram saving.
+		 * Closes "process" dialog, shows message box with error and clears status bar.
+		 *
+		 * @param {String} errorMessage Translated error message
+		 */
+		processSaveDiagramError: function( errorMessage ) {
+			mw.cpdManager.savingProgressDialog.close();
+
+			mw.cpdManager.showErrorMessage( errorMessage );
+
+			mw.cpdManager.statusBar.text( '' );
 		},
 
 		/**
