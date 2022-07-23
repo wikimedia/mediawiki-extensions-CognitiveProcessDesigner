@@ -167,6 +167,13 @@
 		"LoadExtensionSchemaUpdates": "\\CognitiveProcessDesigner\\Hook\\LoadExtensionSchemaUpdates\\AddRequiredPages::callback",
 		"BSInsertMagicAjaxGetData": "\\CognitiveProcessDesigner\\Hook\\BSInsertMagicAjaxGetData\\AddBpmnTag::callback"
 	},
+	"RestRoutes": [
+		{
+			"path": "/cognitiveprocessdesigner/save_elements/status/{processId}",
+			"method": "GET",
+			"class": "CognitiveProcessDesigner\\Rest\\ProcessStatusHandler"
+		}
+	],
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
 		"remoteExtPath": "CognitiveProcessDesigner/resources"

@@ -33,3 +33,9 @@ ext.cpd.ProgressBarDialog.prototype.setup = function( data ) {
 ext.cpd.ProgressBarDialog.prototype.getBodyHeight = function () {
 	return this.content.$element.outerHeight( true );
 };
+
+ext.cpd.ProgressBarDialog.prototype.getTeardownProcess = function ( data ) {
+	return ext.cpd.ProgressBarDialog.super.prototype.getTeardownProcess.call( this, data ).first( function() {
+		this.content.$element.remove();
+	}, this );
+}

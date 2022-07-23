@@ -3,16 +3,11 @@
 namespace CognitiveProcessDesigner\Api;
 
 use ApiBase;
-use CommentStoreComment;
-use ContentHandler;
-use MediaWiki\Revision\SlotRecord;
-use Message;
-use MWException;
-use RuntimeException;
-use TextContent;
-use Title;
+use CognitiveProcessDesigner\Process\SaveDiagramElementsStep;
+use Exception;
+use MediaWiki\MediaWikiServices;
+use MWStake\MediaWiki\Component\ProcessManager\ManagedProcess;
 use Wikimedia\ParamValidator\ParamValidator;
-use WikiPage;
 
 class SaveDiagramElementsApi extends ApiBase {
 
@@ -44,78 +39,32 @@ class SaveDiagramElementsApi extends ApiBase {
 
 		$elements = json_decode( $params['elements'], true );
 
-		$errors = [];
-		$warnings = [];
+		$actorName = $this->getContext()->getUser()->getName();
 
-		if ( $elements ) {
-			foreach ( $elements as $element ) {
-				$new = false;
+		$process = new ManagedProcess( [
+			'save-elements-step' => [
+				'class' => SaveDiagramElementsStep::class,
+				'args' => [
+					$elements,
+					$actorName
+				]
+			]
+		], 300 );
 
-				$title = Title::makeTitle( NS_MAIN, $element['title'] );
+		/** @var \MWStake\MediaWiki\Component\ProcessManager\ProcessManager $processManager */
+		$processManager = MediaWikiServices::getInstance()->getService( 'ProcessManager' );
 
-				$wikipage = WikiPage::factory( $title );
+		try {
+			$processId = $processManager->startProcess( $process );
+		} catch ( Exception $e ) {
+			$this->getResult()->addValue( null, 'success', false );
+			$this->getResult()->addValue( null, 'error', $e->getMessage() );
 
-				$updater = $wikipage->newPageUpdater( $this->getContext()->getUser() );
-				if ( $wikipage->exists() ) {
-					$parentRevision = $updater->grabParentRevision();
-					$content = $parentRevision->getContent( SlotRecord::MAIN );
-					if ( $content instanceof TextContent ) {
-						$text = $content->getText();
-
-						$text = preg_replace( '/<div class="cdp-data".*?<\/div>/s', '', $text );
-
-						$text = '<div class="cdp-data">' . $element['content'] . '</div>' . "\n" . $text;
-
-						$content = ContentHandler::makeContent( $text, $title );
-					}
-				} else {
-					$new = true;
-
-					$content = ContentHandler::makeContent( $element['content'], $title );
-				}
-
-				$updater->setContent( SlotRecord::MAIN, $content );
-
-				$comment = Message::newFromKey( 'cpd-api-save-diagram-elements-update-comment' );
-				$commentStore = CommentStoreComment::newUnsavedComment( $comment );
-
-				$flag = ( $new ? EDIT_NEW : EDIT_UPDATE );
-				try {
-					$result = $updater->saveRevision( $commentStore, $flag );
-				} catch ( MWException | RuntimeException $e ) {
-					$errors[$element['title']] = $e->getMessage();
-
-					continue;
-				}
-
-				if ( $result === null || !$updater->wasSuccessful() ) {
-					$status = $updater->getStatus();
-
-					if ( $status->getErrors() ) {
-						// If status is okay but there are errors - they are not fatal, just warnings
-						if ( $status->isOK() ) {
-							$warnings[$element['title']] = $status->getMessage();
-						} else {
-							$errors[$element['title']] = $status->getMessage();
-						}
-					}
-				}
-			}
+			return;
 		}
 
-		$success = true;
-		if ( $errors ) {
-			$success = false;
-		}
-
-		if ( $errors ) {
-			$this->getResult()->addValue( null, 'errors', $errors );
-		}
-		if ( $warnings ) {
-			$this->getResult()->addValue( null, 'warnings', $warnings );
-		}
-
-		$this->getResult()->addValue( null, 'success', $success );
+		$this->getResult()->addValue( null, 'success', true );
+		$this->getResult()->addValue( null, 'processId', $processId );
 	}
 
 }
