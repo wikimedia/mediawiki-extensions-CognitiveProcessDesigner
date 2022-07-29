@@ -24,6 +24,11 @@ class BPMNHeaderFooterRenderer {
 	private $happyPathSMWPropertyName = null;
 
 	/**
+	 * @var MediaWikiServices
+	 */
+	private $services = null;
+
+	/**
 	 * BPMNHeaderFooter constructor.
 	 * @param array $cpdEntityElementTypes
 	 * @param null|string $happyPathSMWPropertyName
@@ -34,6 +39,7 @@ class BPMNHeaderFooterRenderer {
 	) {
 		$this->cpdEntityElementTypes = $cpdEntityElementTypes;
 		$this->happyPathSMWPropertyName = $happyPathSMWPropertyName;
+		$this->services = MediaWikiServices::getInstance();
 	}
 
 	/**
@@ -43,12 +49,14 @@ class BPMNHeaderFooterRenderer {
 	public function getHeader( Title $title ) {
 		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
 			// MW 1.36+
-			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $title->getArticleID() );
+			$wikiPage = $this->services->getWikiPageFactory()->newFromID( $title->getArticleID() );
 		} else {
 			$wikiPage = WikiPage::newFromID( $title->getArticleID() );
 		}
+		$contentRenderer = $this->services->getContentRenderer();
 		/** @var SemanticData $smwData */
-		$smwData = $wikiPage->getContent()->getParserOutput( $title )->getExtensionData( 'smwdata' );
+		$smwData = $contentRenderer->getParserOutput( $wikiPage->getContent(), $title )
+			->getExtensionData( 'smwdata' );
 		if ( !$smwData instanceof SemanticData ) {
 			return '';
 		}
@@ -100,12 +108,14 @@ class BPMNHeaderFooterRenderer {
 	public function getFooter( Title $title ) {
 		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
 			// MW 1.36+
-			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $title->getArticleID() );
+			$wikiPage = $this->services->getWikiPageFactory()->newFromID( $title->getArticleID() );
 		} else {
 			$wikiPage = WikiPage::newFromID( $title->getArticleID() );
 		}
+		$contentRenderer = $this->services->getContentRenderer();
 		/** @var SemanticData $smwData */
-		$smwData = $wikiPage->getContent()->getParserOutput( $title )->getExtensionData( 'smwdata' );
+		$smwData = $contentRenderer->getParserOutput( $wikiPage->getContent(), $title )
+			->getExtensionData( 'smwdata' );
 		if ( !$smwData instanceof SemanticData ) {
 			return '';
 		}
@@ -182,10 +192,11 @@ class BPMNHeaderFooterRenderer {
 			return $links;
 		}
 
-		$linkeRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+		$contentRenderer = $this->services->getContentRenderer();
+		$linkeRenderer = $this->services->getLinkRenderer();
 		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
 			// MW 1.36+
-			$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
+			$wikiPageFactory = $this->services->getWikiPageFactory();
 		} else {
 			$wikiPageFactory = null;
 		}
@@ -202,12 +213,13 @@ class BPMNHeaderFooterRenderer {
 				$displayTitle = $title->getPrefixedText();
 				$content = $wikiPage->getContent();
 				if ( $content !== null ) {
-					$displayTitle = $content->getParserOutput( $title )->getDisplayTitle();
+					$displayTitle = $contentRenderer->getParserOutput( $content, $title )
+						->getDisplayTitle();
 				}
 
 				$classes = [ 'cpd-entity-link' ];
 				/** @var SemanticData $smwData */
-				$linkSMWData = $wikiPage->getContent()->getParserOutput( $title )
+				$linkSMWData = $contentRenderer->getParserOutput( $content, $title )
 					->getExtensionData( 'smwdata' );
 				if ( $this->isHappyPath( $linkSMWData, $this->happyPathSMWPropertyName ) ) {
 					$classes[] = 'happy-path';

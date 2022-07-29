@@ -42,7 +42,7 @@ class PrepareBPMNDiagramForExport extends BSUEModulePDFBeforeCreatePDF {
 
 		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
 			// MW 1.36+
-			$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
+			$wikiPageFactory = $this->getServices()->getWikiPageFactory();
 		} else {
 			$wikiPageFactory = null;
 		}
@@ -59,9 +59,9 @@ class PrepareBPMNDiagramForExport extends BSUEModulePDFBeforeCreatePDF {
 			} else {
 				$bpmnWikiPage = WikiPage::newFromID( $bpmnTitle->getArticleID() );
 			}
+			$contentRenderer = $this->getServices()->getContentRenderer();
 			/** @var SemanticData $smwData */
-			$bpmnSMWData = $bpmnWikiPage->getContent()
-				->getParserOutput( $bpmnTitle )
+			$bpmnSMWData = $contentRenderer->getParserOutput( $bpmnWikiPage->getContent(), $bpmnTitle )
 				->getExtensionData( 'smwdata' );
 			if ( !array_key_exists( 'Has_element', $bpmnSMWData->getProperties() ) ) {
 				continue;
