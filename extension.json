@@ -32,6 +32,13 @@
 			"TagDefinitions": [
 				"ext.cpd.ve.tagdefinition"
 			]
+		},
+		"ContentDroplets": {
+			"Droplets": {
+				"bpmn-diagram": {
+					"class": "\\CognitiveProcessDesigner\\ContentDroplets\\BPMNDiagramDroplet"
+				}
+			}
 		}
 	},
 	"AvailableRights": [
