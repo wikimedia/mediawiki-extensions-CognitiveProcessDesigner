@@ -5,6 +5,15 @@
 			"Mohammad ebz"
 		]
 	},
+	"cpd-yes": "بله",
+	"cpd-no": "خیر",
+	"cpd-show-details": "نمایش جزئیات",
+	"cpd-keyboard-shortcuts-undo": "واگردانی",
+	"cpd-keyboard-shortcuts-redo": "انجام دوباره",
+	"cpd-keyboard-shortcuts-select-all": "انتخاب همه",
+	"cpd-keyboard-shortcuts-vscroll": "پیمایش (عمودی)",
+	"cpd-keyboard-shortcuts-hscroll": "پیمایش (افقی)",
+	"cpd-keyboard-shortcuts-direct-editing": "ویرایش مستقیم",
 	"cpd-btn-label-save": "ذخیره",
 	"cpd-open-page-label": "باز کردن صفحه",
 	"cpd-saving-process": "فرایند ذخیره‌سازی",
