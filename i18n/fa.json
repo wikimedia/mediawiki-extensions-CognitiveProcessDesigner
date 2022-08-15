@@ -10,5 +10,14 @@
 	"cpd-saving-process": "فرایند ذخیره‌سازی",
 	"cpd-saved": "ذخیره شد",
 	"cpd-ve-bpmn-name-title": "نام",
-	"cpd-error-dialog-title": "خطا رخ‌داده!"
+	"cpd-error-dialog-title": "خطا رخ‌داده!",
+	"cpd-yes": "بله",
+	"cpd-no": "خیر",
+	"cpd-show-details": "نمایش جزئیات",
+	"cpd-keyboard-shortcuts-undo": "واگردانی",
+	"cpd-keyboard-shortcuts-redo": "انجام دوباره",
+	"cpd-keyboard-shortcuts-select-all": "انتخاب همه",
+	"cpd-keyboard-shortcuts-vscroll": "پیمایش (عمودی)",
+	"cpd-keyboard-shortcuts-hscroll": "پیمایش (افقی)",
+	"cpd-keyboard-shortcuts-direct-editing": "ویرایش مستقیم"
 }
