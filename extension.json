@@ -152,6 +152,9 @@
 				"cpd-ve-bpmn-name-title",
 				"cpd-ve-bpmn-name-help",
 				"cpd-ve-bpmn-name-placeholder"
+			],
+			"dependencies":[
+				"ext.bluespice.visualEditorConnector.tags.classes"
 			]
 		}
 	},
