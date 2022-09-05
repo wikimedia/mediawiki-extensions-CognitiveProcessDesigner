@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"cpd-empty-diagram": "prazan BPMN dijagram",
+	"cpd-btn-label-save": "Sačuvaj",
+	"cpd-saved": "Sačuvano",
+	"action-cognitiveprocessdesigner-editbpmn": "uređivanje BPMN dijagrama",
+	"right-cognitiveprocessdesigner-editbpmn": "Uređivanje BPMN dijagrama",
+	"cpd-tag-bpmn-desc": "BPMN oznaka"
+}
