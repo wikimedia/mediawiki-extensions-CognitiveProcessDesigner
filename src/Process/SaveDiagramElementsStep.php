@@ -4,6 +4,7 @@ namespace CognitiveProcessDesigner\Process;
 
 use CommentStoreComment;
 use ContentHandler;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use Message;
 use MWException;
@@ -11,7 +12,6 @@ use MWStake\MediaWiki\Component\ProcessManager\IProcessStep;
 use RuntimeException;
 use TextContent;
 use Title;
-use User;
 use WikiPage;
 
 class SaveDiagramElementsStep implements IProcessStep {
@@ -43,6 +43,7 @@ class SaveDiagramElementsStep implements IProcessStep {
 		$warnings = [];
 
 		if ( $this->elements ) {
+			$userFactory = MediaWikiServices::getInstance()->getUserFactory();
 			foreach ( $this->elements as $element ) {
 				$new = false;
 
@@ -50,9 +51,7 @@ class SaveDiagramElementsStep implements IProcessStep {
 
 				$wikipage = WikiPage::factory( $title );
 
-				// TODO: Use "UserFactory" here
-				$actor = User::newFromName( $this->actorName );
-
+				$actor = $userFactory->newFromName( $this->actorName );
 				$updater = $wikipage->newPageUpdater( $actor );
 				if ( $wikipage->exists() ) {
 					$parentRevision = $updater->grabParentRevision();
