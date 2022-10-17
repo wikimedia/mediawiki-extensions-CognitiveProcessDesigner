@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Xnet1234"
 		]
 	},
-	"cpd-error-dialog-title": "אירעה שגיאה!"
+	"cpd-error-dialog-title": "אירעה שגיאה!",
+	"cpd-btn-label-save": "שמירה",
+	"cpd-saved": "נשמר"
 }
