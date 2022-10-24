@@ -9,5 +9,10 @@
 	"cpd-keyboard-shortcuts-select-all": "Vælg alle",
 	"cpd-btn-label-save": "Gem",
 	"cpd-saving-process": "Gemmer fremskridt...",
-	"cpd-saved": "Gemt"
+	"cpd-saved": "Gemt",
+	"cpd-ve-bpmn-name-title": "Navn",
+	"cpd-ve-bpmn-name-help": "Navnet på dit diagram",
+	"cpd-diagram-save-dialog-title": "Gemmer diagram...",
+	"cpd-diagram-save-dialog-span": "Gemmer $1 {{PLURAL:$1|element|elementer}}...",
+	"cpd-error-dialog-title": "Der opstod en fejl!"
 }
