@@ -103,7 +103,10 @@ class BPMNHandler {
 				->getUserPermissions( $user )
 		);
 
-		$output = Html::openElement( 'div', [ 'id' => 'cpd-' . $id ] );
+		$output = Html::openElement( 'div', [
+			'id' => 'cpd-' . $id,
+			'class' => 'cpd-wrapper'
+		] );
 
 		if ( !$readonly ) {
 			$output .= Html::openElement(

@@ -37,8 +37,6 @@
 			'cancel': mw.message( 'cancel' ),
 		},
 
-		batchSize: 5,
-
 		bpmnName: '',
 
 		bpmnPagePath: '',
@@ -285,36 +283,75 @@
 			return false;
 		},
 
+		/**
+		 * Do some specific replacements in SVG content:
+		 * * Wrap BPMN elements into links (<a xlink:href="...">) to corresponding elements' wiki pages
+		 *
+		 * @returns {jQuery.Promise}
+		 */
+		doSVGReplacements: function() {
+			var dfd = $.Deferred();
+
+			var bpmnElements = this.getCurrentDiagramElements();
+			var bpmnElementsTitlesArray = Object.keys( bpmnElements ).map( function( val ) {
+				return this.bpmnPagePath + '/' + val;
+			}.bind( this ) );
+
+			var bpmnTitlePromises = [];
+
+			// MediaWiki "query" API can give information about 50 titles maximum at once
+			var chunkSize = 50;
+			while( bpmnElementsTitlesArray.length > 0 ) {
+				var bpmnTitleChunkDeferred = $.Deferred();
+
+				bpmnTitlePromises.push( bpmnTitleChunkDeferred.promise() );
+
+				var bpmnTitlesChunk = bpmnElementsTitlesArray.splice( 0, chunkSize );
+
+				var params = {
+					action: 'query',
+					format: 'json',
+					titles: bpmnTitlesChunk.join( '|' ),
+					prop: 'info',
+					inprop: 'url'
+				};
+
+				var api = new mw.Api();
+				api.get( params ).done( function ( bpmnTitleChunkDeferred, response ) {
+					var pages = response.query.pages;
+
+					for ( var p in pages ) {
+						// In title like "CPD_diagram/Process_1" we need only the name of element - "Process_1"
+						var elementName = pages[p].title.split( '/' ).pop().replace( ' ', '_' );
+
+						var regexp = new RegExp( '(data-element-id="' + elementName + '".*?)(<g.*?\/g>)' );
+						var replacement = '$1<a xlink:show="new" xlink:href="' + pages[p].fullurl + '">$2</a>';
+						this.bpmnSVG = this.bpmnSVG.replace( regexp, replacement );
+					}
+
+					bpmnTitleChunkDeferred.resolve();
+				}.bind( this, bpmnTitleChunkDeferred ) ).fail( function( error ) {
+					dfd.reject( error );
+				} );
+			}
+
+			$.when.apply( $, bpmnTitlePromises ).then( function() {
+				dfd.resolve();
+			} );
+
+			return dfd.promise();
+		},
+
+		/**
+		 * Uploads diagram SVG to wiki
+		 *
+		 * @returns {jQuery.Promise}
+		 */
 		uploadSVGToWiki: function() {
 			var dfd = $.Deferred();
 			this.svgUploadedToWiki = false;
 
-			var bpmnElements = this.getCurrentDiagramElements();
-			var bpmnElementsTitles = Object.keys( bpmnElements ).map( function( val ) {
-				return this.bpmnPagePath + '/' + val;
-			}.bind( this ) ).join( '|' );
-
-			var params = {
-				action: 'query',
-				format: 'json',
-				titles: bpmnElementsTitles,
-				prop: 'info',
-				inprop: 'url'
-			};
-
-			var api = new mw.Api();
-			api.get( params ).done( function ( response ) {
-				var pages = response.query.pages;
-
-				for ( var p in pages ) {
-					// In title like "CPD_diagram/Process_1" we need only the name of element - "Process_1"
-					var elementName = pages[p].title.split( '/' ).pop().replace( ' ', '_' );
-
-					var regexp = new RegExp( '(data-element-id="' + elementName + '".*?)(<g.*?\/g>)' );
-					var replacement = '$1<a xlink:show="new" xlink:href="' + pages[p].fullurl + '">$2</a>';
-					this.bpmnSVG = this.bpmnSVG.replace( regexp, replacement );
-				}
-
+			this.doSVGReplacements().done( function() {
 				var data = new Uint8Array( this.bpmnSVG.length );
 				for ( var i = 0; i < this.bpmnSVG.length; i++ ) {
 					data[i] = this.bpmnSVG.charCodeAt( i );
@@ -326,22 +363,25 @@
 					format: 'json'
 				} ).done( function ( data ) {
 					if ( data.upload ) {
+						this.svgUploadedToWiki = true;
 						dfd.resolve( data.upload.imageinfo );
 					}
-				} ).fail( function ( retStatus, data ) {
+				}.bind( this ) ).fail( function ( retStatus, data ) {
 					if ( data.error ) {
 						if ( data.error.code === 'fileexists-no-change' ||
 							data.error.code === 'internal_api_error_DBTransactionStateError' ) {
 							dfd.resolve();
 						} else {
-							dfd.reject();
+							dfd.reject( data );
 						}
 					}
 					if ( data.upload ) {
 						dfd.resolve( data.upload.imageinfo );
 					}
 				} );
-			}.bind( this ) );
+			}.bind( this ) ).fail( function( error) {
+				dfd.reject( error );
+			} );
 
 			return dfd.promise();
 		},
@@ -369,6 +409,11 @@
 			}
 		},
 
+		/**
+		 * Posts diagram to wiki.
+		 *
+		 * @returns {jQuery.Promise}
+		 */
 		postDiagramToWiki: function() {
 			this.bpmnPostedToWiki = false;
 			var wikiContent = mw.cpdMapper.mapDiagramXmlToWiki(
@@ -582,25 +627,25 @@
 							mw.cpdManager.statusBar.text( mw.message( 'cpd-saved' ) );
 
 							mw.cpdManager.savingProgressDialog.close();
-						} ).fail( function() {
+						} ).fail( function( errorData ) {
 							var errorMessage = mw.message( 'cpd-saving-error-svg-upload' ).text();
 
-							mw.cpdManager.processSaveDiagramError( errorMessage );
+							mw.cpdManager.processSaveDiagramError( errorMessage, errorData );
 						} );
-					}.bind( this ) ).fail( function() {
+					}.bind( this ) ).fail( function( errorData ) {
 						var errorMessage = mw.message( 'cpd-saving-error-delete-orphaned-pages' ).text();
 
-						mw.cpdManager.processSaveDiagramError( errorMessage );
+						mw.cpdManager.processSaveDiagramError( errorMessage, errorData );
 					} );
-				}.bind( this ) ).fail( function( error ) {
+				}.bind( this ) ).fail( function( errorData ) {
 					var errorMessage = mw.message( 'cpd-saving-error-elements-save' ).text();
 
-					mw.cpdManager.processSaveDiagramError( errorMessage );
+					mw.cpdManager.processSaveDiagramError( errorMessage, errorData );
 				} );
-			}.bind( this ) ).fail( function( error ) {
+			}.bind( this ) ).fail( function( errorData ) {
 				var errorMessage = mw.message( 'cpd-saving-error-diagram-save' ).text();
 
-				mw.cpdManager.processSaveDiagramError( errorMessage );
+				mw.cpdManager.processSaveDiagramError( errorMessage, errorData );
 			} ) ;
 		},
 
@@ -609,9 +654,15 @@
 		 * Closes "process" dialog, shows message box with error and clears status bar.
 		 *
 		 * @param {String} errorMessage Translated error message
+		 * @param {String|Object} errorData Arbitrary error data
 		 */
-		processSaveDiagramError: function( errorMessage ) {
+		processSaveDiagramError: function( errorMessage, errorData ) {
 			mw.cpdManager.savingProgressDialog.close();
+
+			if ( typeof errorData !== 'undefined' ) {
+				console.log('Error data:');
+				console.dir(errorData);
+			}
 
 			mw.cpdManager.showErrorMessage( errorMessage );
 
