@@ -592,6 +592,10 @@ textarea.error-log:hover {
 	background-color: white;
 }
 
+.cpd-wrapper {
+	overflow: auto;
+}
+
 .infoBox {
 	top: 150px;
 }
