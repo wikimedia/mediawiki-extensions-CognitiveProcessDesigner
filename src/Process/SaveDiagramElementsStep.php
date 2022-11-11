@@ -46,7 +46,7 @@ class SaveDiagramElementsStep implements IProcessStep {
 			foreach ( $this->elements as $element ) {
 				$new = false;
 
-				$title = Title::makeTitle( NS_MAIN, $element['title'] );
+				$title = Title::newFromText( $element['title'] );
 
 				$wikipage = WikiPage::factory( $title );
 
