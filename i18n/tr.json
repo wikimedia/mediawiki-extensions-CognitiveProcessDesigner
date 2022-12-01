@@ -3,7 +3,8 @@
 		"authors": [
 			"Agaafd",
 			"Can",
-			"Joseph"
+			"Joseph",
+			"ToprakM"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "BPMN süreçlerini Semantic MediaWiki’de görsel kullanıcı arayüzü ile çiz",
@@ -55,5 +56,10 @@
 	"cpd-ve-bpmn-desc": "BPMN diyagramı yerleştir",
 	"cpd-ve-bpmn-name-title": "Ad",
 	"cpd-ve-bpmn-name-help": "Diyagramınızın adı",
-	"cpd-ve-bpmn-name-placeholder": "Biraz diyagram"
+	"cpd-ve-bpmn-name-placeholder": "Biraz diyagram",
+	"cpd-error-dialog-title": "Hata oluştu!",
+	"cpd-saving-error-svg-upload": "SVG yüklenirken bir hata meydana geldi",
+	"cpd-saving-error-delete-orphaned-pages": "Öksüz sayfalar silinirken bir hata meydana geldi",
+	"cpd-saving-error-elements-save": "Diyagram ögeleri vikiye gönderilirken bir hata meydana geldi",
+	"cpd-saving-error-diagram-save": "Diyagram vikiye gönderilirken bir hata meydana geldi"
 }
