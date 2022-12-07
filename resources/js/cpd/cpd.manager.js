@@ -459,43 +459,11 @@
 			new mw.Api().post( {
 				action: 'cpd-save-diagram-elements',
 				elements: JSON.stringify( elementsToSave ),
-				token: mw.user.tokens.get('csrfToken')
-			} ).done( function( result ) {
-				var processId = result.processId;
-
-				var failedStatusCalls = 0;
-
-				var timer = setInterval( function() {
-					$.ajax( {
-						method: 'GET',
-						url: mw.util.wikiScript( 'rest' ) + '/cognitiveprocessdesigner/save_elements/status/{0}'.format( processId ),
-						data: {},
-						contentType: 'application/json',
-						dataType: 'json'
-					} ).done( function( result ) {
-						if ( result.state === 'terminated' ) {
-							if ( result.exitCode === 0 ) {
-								clearInterval( timer );
-
-								dfd.resolve();
-							} else {
-								clearInterval( timer );
-
-								dfd.reject( result.exitStatus );
-							}
-						}
-					} ).fail( function( result ) {
-						console.dir( result );
-
-						// If requests are constantly failing - then probably API is unreachable currently
-						if ( failedStatusCalls > 5 ) {
-							clearInterval( timer );
-							dfd.reject( result );
-						}
-
-						failedStatusCalls++;
-					} );
-				}, 1500 );
+				token: mw.user.tokens.get('csrfToken'),
+			},{
+				timeout: 300 * 1000
+			} ).done( function() {
+				dfd.resolve();
 			} ).fail( function( result ) {
 				dfd.reject( result.error );
 			} );

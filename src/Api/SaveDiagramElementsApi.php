@@ -4,9 +4,6 @@ namespace CognitiveProcessDesigner\Api;
 
 use ApiBase;
 use CognitiveProcessDesigner\Process\SaveDiagramElementsStep;
-use Exception;
-use MediaWiki\MediaWikiServices;
-use MWStake\MediaWiki\Component\ProcessManager\ManagedProcess;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveDiagramElementsApi extends ApiBase {
@@ -41,30 +38,22 @@ class SaveDiagramElementsApi extends ApiBase {
 
 		$actorName = $this->getContext()->getUser()->getName();
 
-		$process = new ManagedProcess( [
-			'save-elements-step' => [
-				'class' => SaveDiagramElementsStep::class,
-				'args' => [
-					$elements,
-					$actorName
-				]
-			]
-		], 300 );
+		// TODO: Replace with background process after ProcessManager 2.0 will be released
+		$saveDiagramElements = new SaveDiagramElementsStep( $elements, $actorName );
+		$res = $saveDiagramElements->execute();
 
-		/** @var \MWStake\MediaWiki\Component\ProcessManager\ProcessManager $processManager */
-		$processManager = MediaWikiServices::getInstance()->getService( 'ProcessManager' );
+		$success = true;
 
-		try {
-			$processId = $processManager->startProcess( $process );
-		} catch ( Exception $e ) {
-			$this->getResult()->addValue( null, 'success', false );
-			$this->getResult()->addValue( null, 'error', $e->getMessage() );
-
-			return;
+		if ( $res['errors'] ) {
+			$success = false;
+			$this->getResult()->addValue( 'elements_save', 'errors', $res['errors'] );
 		}
 
-		$this->getResult()->addValue( null, 'success', true );
-		$this->getResult()->addValue( null, 'processId', $processId );
+		if ( $res['warnings'] ) {
+			$this->getResult()->addValue( 'elements_save', 'warnings', $res['warnings'] );
+		}
+
+		$this->getResult()->addValue( 'elements_save', 'success', $success );
 	}
 
 }
