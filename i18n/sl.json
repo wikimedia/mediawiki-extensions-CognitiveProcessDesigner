@@ -5,5 +5,9 @@
 		]
 	},
 	"cpd-saved": "Shranjeno",
-	"cpd-ve-bpmn-name-title": "Ime"
+	"cpd-ve-bpmn-name-title": "Ime",
+	"cpd-error-dialog-title": "Prišlo je do napake!",
+	"cpd-saving-error-svg-upload": "Nalaganje SVG ni uspelo",
+	"cpd-saving-error-elements-save": "Objavljanje elementov diagrama v vikiju ni uspelo",
+	"cpd-saving-error-diagram-save": "Objava diagrama v vikiju ni uspela"
 }
