@@ -9,5 +9,9 @@
 	"cpd-error-dialog-title": "Prišlo je do napake!",
 	"cpd-saving-error-svg-upload": "Nalaganje SVG ni uspelo",
 	"cpd-saving-error-elements-save": "Objavljanje elementov diagrama v vikiju ni uspelo",
-	"cpd-saving-error-diagram-save": "Objava diagrama v vikiju ni uspela"
+	"cpd-saving-error-diagram-save": "Objava diagrama v vikiju ni uspela",
+	"cpd-saving-process": "Shranjevanje postopka ...",
+	"cpd-api-save-diagram-elements-update-comment": "Posodobitev elementa diagrama po shranitvi diagrama.",
+	"cpd-diagram-save-dialog-title": "Shranjevanje diagrama ...",
+	"cpd-diagram-save-dialog-span": "Shranjevanje $1 {{PLURAL:$1|elementa|elementov}} ..."
 }

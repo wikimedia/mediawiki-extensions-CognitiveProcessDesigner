@@ -7,5 +7,7 @@
 	},
 	"cpd-error-dialog-title": "אירעה שגיאה!",
 	"cpd-btn-label-save": "שמירה",
-	"cpd-saved": "נשמר"
+	"cpd-saved": "נשמר",
+	"cpd-saving-error-elements-save": "פרסום רכיבי תרשים בוויקי נכשל",
+	"cpd-saving-error-diagram-save": "פרסום תרשים בוויקי נכשל"
 }
