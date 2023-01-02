@@ -9,5 +9,7 @@
 	"cpd-btn-label-save": "שמירה",
 	"cpd-saved": "נשמר",
 	"cpd-saving-error-elements-save": "פרסום רכיבי תרשים בוויקי נכשל",
-	"cpd-saving-error-diagram-save": "פרסום תרשים בוויקי נכשל"
+	"cpd-saving-error-diagram-save": "פרסום תרשים בוויקי נכשל",
+	"cpd-yes": "כן",
+	"cpd-ve-bpmn-name-title": "שם"
 }
