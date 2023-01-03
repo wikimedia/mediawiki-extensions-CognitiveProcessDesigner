@@ -5,8 +5,10 @@
 			"Amire80"
 		]
 	},
+	"cpd-yes": "כן",
 	"cpd-btn-label-save": "שמירה",
 	"cpd-saved": "נשמר",
+	"cpd-ve-bpmn-name-title": "שם",
 	"cpd-error-dialog-title": "אירעה שגיאה!",
 	"cpd-saving-error-elements-save": "פרסום רכיבי תרשים בוויקי נכשל",
 	"cpd-saving-error-diagram-save": "פרסום תרשים בוויקי נכשל"
