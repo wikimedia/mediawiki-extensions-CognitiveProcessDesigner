@@ -16,5 +16,6 @@
 	"cpd-diagram-save-dialog-span": "Shranjevanje $1 {{PLURAL:$1|elementa|elementov}} ...",
 	"cpd-open-page-label": "Odpri stran",
 	"cpd-page-forms-label": "Obrazci strani",
-	"cpd-create-new-bpmn": "Ustvari nov BPMN"
+	"cpd-create-new-bpmn": "Ustvari nov BPMN",
+	"cpd-show-details": "Prikaži podrobnosti"
 }
