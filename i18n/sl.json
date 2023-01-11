@@ -6,6 +6,8 @@
 	},
 	"cpd-create-new-bpmn": "Ustvari nov BPMN",
 	"cpd-show-details": "Prikaži podrobnosti",
+	"cpd-keyboard-shortcuts-undo": "Razveljavi",
+	"cpd-keyboard-shortcuts-redo": "Uveljavi",
 	"cpd-open-page-label": "Odpri stran",
 	"cpd-page-forms-label": "Obrazci strani",
 	"cpd-saving-process": "Shranjevanje postopka ...",
