@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"DiegoAmbrocio"
+			"DiegoAmbrocio",
+			"Fitoschido"
 		]
 	},
 	"cpd-bpmn-diagram-header": "Diagrama BPMN",
@@ -43,5 +44,6 @@
 	"cpd-ve-bpmn-name-placeholder": "Algún diagrama",
 	"cpd-diagram-save-dialog-title": "Guardando diagrama...",
 	"cpd-error-dialog-title": "¡Ocurrió un error!",
-	"cpd-saving-error-svg-upload": "Fallo al subir el SVG"
+	"cpd-saving-error-svg-upload": "Fallo al subir el SVG",
+	"action-cognitiveprocessdesigner-viewspecialpage": "ver página especial «{{int:cognitiveprocessdesigneredit}}»"
 }
