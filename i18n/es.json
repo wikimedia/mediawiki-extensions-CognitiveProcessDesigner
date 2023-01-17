@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"DiegoAmbrocio"
+			"DiegoAmbrocio",
+			"Fitoschido"
 		]
 	},
 	"cpd-bpmn-diagram-header": "Diagrama BPMN",
@@ -32,6 +33,7 @@
 	"cpd-warning-message-lost-data": "Los cambios realizados en el diagrama se perderán",
 	"cpd-saving-process": "Guardando proceso...",
 	"cpd-saved": "Guardado",
+	"action-cognitiveprocessdesigner-viewspecialpage": "ver página especial «{{int:cognitiveprocessdesigneredit}}»",
 	"action-cognitiveprocessdesigner-editbpmn": "editar el diagrama BPMN",
 	"right-cognitiveprocessdesigner-editbpmn": "Editar diagramas BPMN",
 	"cpd-tag-bpmn-desc": "Etiqueta BPMN",
