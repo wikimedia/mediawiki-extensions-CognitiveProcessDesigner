@@ -3,12 +3,14 @@
 		"authors": [
 			"Ameisenigel",
 			"Brettchenweber",
+			"Justman10000",
 			"Mschlindwein",
 			"Ngschaider",
 			"Umlaut"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "BPMN Prozesse mit einer grafischen Benutzeroberfläche in Semantic MediaWiki zeichnen",
+	"cognitiveprocessdesigneredit": "Kognitiver Prozess Designer Bearbeiten",
 	"cognitiveprocessdesignertestsuite": "Cognitive Process Designer Test Suite",
 	"specialpages-group-semantic-process": "Semantischer Prozess",
 	"cpd-loading-diagram": "Das Diagramm wird geladen, bitte warten.",
