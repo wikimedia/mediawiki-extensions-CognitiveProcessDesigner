@@ -3,6 +3,7 @@
 		"authors": [
 			"Ameisenigel",
 			"Brettchenweber",
+			"Justman10000",
 			"Mschlindwein",
 			"Ngschaider",
 			"Umlaut"
@@ -69,5 +70,6 @@
 	"cpd-saving-error-elements-save": "Veröffentlichen der Diagrammelemente im Wiki fehlgeschlagen",
 	"cpd-saving-error-diagram-save": "Veröffentlichen des Diagramms im Wiki fehlgeschlagen",
 	"apihelp-cpd-save-diagram-elements-summary": "Speichert Elemente des BPMN-Diagramms als Wiki-Seiten oder aktualisiert diese, wenn sie schon existieren",
-	"apihelp-cpd-delete-orphaned-elements-summary": "Löscht Elemente des BPMN-Diagramms, welche entfernt wurden"
+	"apihelp-cpd-delete-orphaned-elements-summary": "Löscht Elemente des BPMN-Diagramms, welche entfernt wurden",
+	"cognitiveprocessdesigneredit": "Kognitiver Prozess Designer Bearbeiten"
 }
