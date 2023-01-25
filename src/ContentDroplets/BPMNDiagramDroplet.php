@@ -6,34 +6,28 @@ namespace CognitiveProcessDesigner\ContentDroplets;
 
 use MediaWiki\Extension\ContentDroplets\Droplet\TagDroplet;
 use Message;
-use RawMessage;
 
 class BPMNDiagramDroplet extends TagDroplet {
-
-	/**
-	 */
-	public function __construct() {
-	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getName(): Message {
-		return new RawMessage( 'BPMN Diagram' );
+		return Message::newFromKey( 'cpd-droplet-bpmn-name' );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getDescription(): Message {
-		return new RawMessage( "Create BPMN diagram" );
+		return Message::newFromKey( 'cpd-droplet-bpmn-description' );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getIcon(): string {
-		return 'chart';
+		return 'droplet-bpmn';
 	}
 
 	/**
