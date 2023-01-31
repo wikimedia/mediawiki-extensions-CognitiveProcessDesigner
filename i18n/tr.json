@@ -4,7 +4,8 @@
 			"Agaafd",
 			"Can",
 			"Joseph",
-			"ToprakM"
+			"ToprakM",
+			"Rapsar"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "BPMN süreçlerini Semantic MediaWiki’de görsel kullanıcı arayüzü ile çiz",
@@ -49,7 +50,7 @@
 	"action-cognitiveprocessdesigner-viewspecialpage": "\"{{int:cognitiveprocessdesigneredit}}\" özel sayfasını görüntülemeye",
 	"action-cognitiveprocessdesigner-editbpmn": "BPMN çizimini değiştirmeye",
 	"right-cognitiveprocessdesigner-viewspecialpage": "[[Special:Cognitive Process Designer Edit|Kavramsal Süreç Tasarımcısı Düzenleme]] özel sayfasına eriş",
-	"right-cognitiveprocessdesigner-editbpmn": "BPMN şemalarını düzenle",
+	"right-cognitiveprocessdesigner-editbpmn": "BPMN şemalarını değiştir",
 	"cpd-tag-bpmn-desc": "BPMN etiketi",
 	"cpd-tag-bpmn-example": "İşte, BPMN etiketinin basit bir kullanım örneği",
 	"cpd-ve-bpmn-title": "BPMN",
