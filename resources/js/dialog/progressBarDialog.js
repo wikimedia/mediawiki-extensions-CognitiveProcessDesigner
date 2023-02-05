@@ -1,4 +1,5 @@
-bs.util.registerNamespace( 'ext.cpd' );
+window.ext = window.ext || {};
+ext.cpd = ext.cpd || {};
 
 ext.cpd.ProgressBarDialog = function( config ) {
     ext.cpd.ProgressBarDialog.super.call( this, config );
