@@ -7,14 +7,13 @@ use ContentHandler;
 use MediaWiki\Revision\SlotRecord;
 use Message;
 use MWException;
-use MWStake\MediaWiki\Component\ProcessManager\IProcessStep;
 use RuntimeException;
 use TextContent;
 use Title;
 use User;
 use WikiPage;
 
-class SaveDiagramElementsStep implements IProcessStep {
+class SaveDiagramElementsStep {
 
 	/**
 	 * @var array
