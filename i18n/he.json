@@ -11,5 +11,9 @@
 	"cpd-saving-error-elements-save": "פרסום רכיבי תרשים בוויקי נכשל",
 	"cpd-saving-error-diagram-save": "פרסום תרשים בוויקי נכשל",
 	"cpd-yes": "כן",
-	"cpd-ve-bpmn-name-title": "שם"
+	"cpd-ve-bpmn-name-title": "שם",
+	"cpd-no": "לא",
+	"cpd-undo-last-change": "ביטול השינוי האחרון",
+	"cpd-keyboard-shortcuts-undo": "ביטול",
+	"cpd-keyboard-shortcuts-redo": "ביצוע חוזר"
 }
