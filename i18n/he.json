@@ -6,6 +6,10 @@
 		]
 	},
 	"cpd-yes": "כן",
+	"cpd-no": "לא",
+	"cpd-undo-last-change": "ביטול השינוי האחרון",
+	"cpd-keyboard-shortcuts-undo": "ביטול",
+	"cpd-keyboard-shortcuts-redo": "ביצוע חוזר",
 	"cpd-btn-label-save": "שמירה",
 	"cpd-saved": "נשמר",
 	"cpd-ve-bpmn-name-title": "שם",
