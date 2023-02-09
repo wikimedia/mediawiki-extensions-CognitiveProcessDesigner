@@ -64,5 +64,7 @@
 	"cpd-saving-error-elements-save": "Failed posting diagram elements to wiki",
 	"cpd-saving-error-diagram-save": "Failed posting diagram to wiki",
 	"apihelp-cpd-save-diagram-elements-summary": "Saves elements of BPMN diagram as wiki pages, or updates them if already exist",
-	"apihelp-cpd-delete-orphaned-elements-summary": "Deletes elements of BPMN diagram, which were removed"
+	"apihelp-cpd-delete-orphaned-elements-summary": "Deletes elements of BPMN diagram, which were removed",
+	"cpd-droplet-bpmn-name": "BPMN diagram",
+	"cpd-droplet-bpmn-description": "Editable BPMN diagram"
 }
