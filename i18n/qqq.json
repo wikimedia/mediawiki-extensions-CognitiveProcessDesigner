@@ -69,5 +69,7 @@
 	"cpd-saving-error-elements-save": "Error message in case if elements posting to wiki fails",
 	"cpd-saving-error-diagram-save": "Error message in case if diagram posting to wiki fails",
 	"apihelp-cpd-save-diagram-elements-summary": "API endpoint summary",
-	"apihelp-cpd-delete-orphaned-elements-summary": "API endpoint summary"
+	"apihelp-cpd-delete-orphaned-elements-summary": "API endpoint summary",
+	"cpd-droplet-bpmn-name": "Title of droplet for tag BPMN",
+	"cpd-droplet-bpmn-description": "Description of droplet for tag BPMN"
 }
