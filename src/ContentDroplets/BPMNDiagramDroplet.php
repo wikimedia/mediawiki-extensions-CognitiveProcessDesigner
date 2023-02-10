@@ -39,8 +39,8 @@ class BPMNDiagramDroplet extends TagDroplet {
 	/**
 	 * @inheritDoc
 	 */
-	public function getRLModule(): string {
-		return 'ext.cpd.ve.tagdefinition';
+	public function getRLModules(): array {
+		return [ 'ext.cpd.ve.tagdefinition' ];
 	}
 
 	/**
