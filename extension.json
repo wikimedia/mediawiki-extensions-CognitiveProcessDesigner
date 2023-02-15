@@ -160,6 +160,17 @@
 		"LoadExtensionSchemaUpdates": "\\CognitiveProcessDesigner\\Hook\\LoadExtensionSchemaUpdates\\AddRequiredPages::callback",
 		"BSInsertMagicAjaxGetData": "\\CognitiveProcessDesigner\\Hook\\BSInsertMagicAjaxGetData\\AddBpmnTag::callback"
 	},
+	"RestRoutes": [
+		{
+			"path": "/cpd/save-svg/{filename}",
+			"method": "POST",
+			"class": "\\CognitiveProcessDesigner\\Rest\\SaveSvgHandler",
+			"services": [
+				"MimeAnalyzer",
+				"RepoGroup"
+			]
+		}
+	],
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
 		"remoteExtPath": "CognitiveProcessDesigner/resources"
