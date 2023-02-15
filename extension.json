@@ -175,6 +175,15 @@
 			"path": "/cognitiveprocessdesigner/save_elements/status/{processId}",
 			"method": "GET",
 			"class": "CognitiveProcessDesigner\\Rest\\ProcessStatusHandler"
+		},
+		{
+			"path": "/cpd/save-svg/{filename}",
+			"method": "POST",
+			"class": "\\CognitiveProcessDesigner\\Rest\\SaveSvgHandler",
+			"services": [
+				"MimeAnalyzer",
+				"RepoGroup"
+			]
 		}
 	],
 	"ResourceFileModulePaths": {
