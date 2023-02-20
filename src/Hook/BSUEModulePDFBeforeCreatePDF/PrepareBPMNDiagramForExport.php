@@ -6,11 +6,9 @@ use BlueSpice\UEModulePDF\Hook\BSUEModulePDFBeforeCreatePDF;
 use BsPDFPageProvider;
 use DOMElement;
 use DOMXPath;
-use MediaWiki\MediaWikiServices;
 use SMW\DIWikiPage;
 use SMW\SemanticData;
 use Title;
-use WikiPage;
 
 class PrepareBPMNDiagramForExport extends BSUEModulePDFBeforeCreatePDF {
 
@@ -40,12 +38,7 @@ class PrepareBPMNDiagramForExport extends BSUEModulePDFBeforeCreatePDF {
 		}
 		$bodyEl = $this->DOM->getElementsByTagName( 'body' )->item( 0 );
 
-		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-			// MW 1.36+
-			$wikiPageFactory = $this->getServices()->getWikiPageFactory();
-		} else {
-			$wikiPageFactory = null;
-		}
+		$wikiPageFactory = $this->getServices()->getWikiPageFactory();
 		/** @var DOMElement $editButton */
 		foreach ( $editButtons as $editButton ) {
 			if ( !$editButton->hasAttribute( $this->bpmnEditButtonBPMNNameAttribute ) ) {
@@ -53,12 +46,7 @@ class PrepareBPMNDiagramForExport extends BSUEModulePDFBeforeCreatePDF {
 			}
 			$bpmnName = $editButton->getAttribute( $this->bpmnEditButtonBPMNNameAttribute );
 			$bpmnTitle = Title::newFromText( $bpmnName );
-			if ( $wikiPageFactory !== null ) {
-				// MW 1.36+
-				$bpmnWikiPage = $wikiPageFactory->newFromID( $bpmnTitle->getArticleID() );
-			} else {
-				$bpmnWikiPage = WikiPage::newFromID( $bpmnTitle->getArticleID() );
-			}
+			$bpmnWikiPage = $wikiPageFactory->newFromID( $bpmnTitle->getArticleID() );
 			$contentRenderer = $this->getServices()->getContentRenderer();
 			/** @var SemanticData $smwData */
 			$bpmnSMWData = $contentRenderer->getParserOutput( $bpmnWikiPage->getContent(), $bpmnTitle )

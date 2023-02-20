@@ -9,7 +9,6 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use Title;
 use User;
-use WikiPage;
 
 class AddRequiredPages extends LoggedUpdateMaintenance {
 
@@ -69,22 +68,12 @@ HERE
 	 * @inheritDoc
 	 */
 	protected function doDBUpdates() {
-		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-			// MW 1.36+
-			$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
-		} else {
-			$wikiPageFactory = null;
-		}
+		$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
 		$user = User::newSystemUser( 'MediaWiki default' );
 		$summary = 'Createy by Cognitive Process Designer';
 		foreach ( $this->pages as $pagename => $wikitextContent ) {
 			$title = Title::newFromText( $pagename );
-			if ( $wikiPageFactory !== null ) {
-				// MW 1.36+
-				$wikiPage = $wikiPageFactory->newFromTitle( $title );
-			} else {
-				$wikiPage = WikiPage::factory( $title );
-			}
+			$wikiPage = $wikiPageFactory->newFromTitle( $title );
 			if ( !$wikiPage->exists() ) {
 				$this->output( "Creating page '{$title->getPrefixedDBkey()}'... " );
 				$updater = $wikiPage->newPageUpdater( $user );

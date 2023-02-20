@@ -7,7 +7,6 @@ use SMW\DIWikiPage;
 use SMW\SemanticData;
 use SMWDIBoolean;
 use Title;
-use WikiPage;
 
 class BPMNHeaderFooterRenderer {
 
@@ -47,12 +46,7 @@ class BPMNHeaderFooterRenderer {
 	 * @return string
 	 */
 	public function getHeader( Title $title ) {
-		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-			// MW 1.36+
-			$wikiPage = $this->services->getWikiPageFactory()->newFromID( $title->getArticleID() );
-		} else {
-			$wikiPage = WikiPage::newFromID( $title->getArticleID() );
-		}
+		$wikiPage = $this->services->getWikiPageFactory()->newFromID( $title->getArticleID() );
 		$contentRenderer = $this->services->getContentRenderer();
 		/** @var SemanticData $smwData */
 		$smwData = $contentRenderer->getParserOutput( $wikiPage->getContent(), $title )
@@ -106,12 +100,7 @@ class BPMNHeaderFooterRenderer {
 	 * @return string
 	 */
 	public function getFooter( Title $title ) {
-		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-			// MW 1.36+
-			$wikiPage = $this->services->getWikiPageFactory()->newFromID( $title->getArticleID() );
-		} else {
-			$wikiPage = WikiPage::newFromID( $title->getArticleID() );
-		}
+		$wikiPage = $this->services->getWikiPageFactory()->newFromID( $title->getArticleID() );
 		$contentRenderer = $this->services->getContentRenderer();
 		/** @var SemanticData $smwData */
 		$smwData = $contentRenderer->getParserOutput( $wikiPage->getContent(), $title )
@@ -194,22 +183,12 @@ class BPMNHeaderFooterRenderer {
 
 		$contentRenderer = $this->services->getContentRenderer();
 		$linkeRenderer = $this->services->getLinkRenderer();
-		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-			// MW 1.36+
-			$wikiPageFactory = $this->services->getWikiPageFactory();
-		} else {
-			$wikiPageFactory = null;
-		}
+		$wikiPageFactory = $this->services->getWikiPageFactory();
 		/** @var DIWikiPage $entity */
 		foreach ( $entities as $entity ) {
 			if ( $entity instanceof DIWikiPage ) {
 				$title = $entity->getTitle();
-				if ( $wikiPageFactory !== null ) {
-					// MW 1.36+
-					$wikiPage = $wikiPageFactory->newFromTitle( $title );
-				} else {
-					$wikiPage = WikiPage::factory( $title );
-				}
+				$wikiPage = $wikiPageFactory->newFromTitle( $title );
 				$displayTitle = $title->getPrefixedText();
 				$content = $wikiPage->getContent();
 				if ( $content !== null ) {
