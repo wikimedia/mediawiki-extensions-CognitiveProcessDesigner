@@ -90,13 +90,7 @@ class BPMNHandler {
 		}
 
 		$id = mt_rand();
-		if ( method_exists( $this->parser, 'getUserIdentity' ) ) {
-			// MW 1.36+
-			$user = $this->parser->getUserIdentity();
-		} else {
-			// @phan-suppress-next-line PhanUndeclaredMethod
-			$user = $this->parser->getUser();
-		}
+		$user = $this->parser->getUserIdentity();
 		$readonly = !in_array(
 			'cognitiveprocessdesigner-editbpmn',
 			MediaWikiServices::getInstance()->getPermissionManager()
