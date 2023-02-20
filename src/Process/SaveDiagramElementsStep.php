@@ -12,7 +12,6 @@ use MWStake\MediaWiki\Component\ProcessManager\IProcessStep;
 use RuntimeException;
 use TextContent;
 use Title;
-use WikiPage;
 
 class SaveDiagramElementsStep implements IProcessStep {
 
@@ -44,25 +43,13 @@ class SaveDiagramElementsStep implements IProcessStep {
 
 		if ( $this->elements ) {
 			$userFactory = MediaWikiServices::getInstance()->getUserFactory();
-			if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-				// MW 1.36+
-				$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
-			} else {
-				$wikiPageFactory = null;
-			}
+			$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
 
 			foreach ( $this->elements as $element ) {
 				$new = false;
 
 				$title = Title::newFromText( $element['title'] );
-
-				if ( $wikiPageFactory !== null ) {
-					// MW 1.36+
-					$wikipage = $wikiPageFactory->newFromTitle( $title );
-				} else {
-					$wikipage = WikiPage::factory( $title );
-				}
-
+				$wikipage = $wikiPageFactory->newFromTitle( $title );
 				$actor = $userFactory->newFromName( $this->actorName );
 				$updater = $wikipage->newPageUpdater( $actor );
 				if ( $wikipage->exists() ) {

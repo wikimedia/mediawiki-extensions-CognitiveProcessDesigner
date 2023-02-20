@@ -13,7 +13,6 @@ use RecentChange;
 use RuntimeException;
 use Title;
 use Wikimedia\ParamValidator\ParamValidator;
-use WikiPage;
 
 class DeleteOrphanedElementsApi extends ApiBase {
 
@@ -49,22 +48,10 @@ class DeleteOrphanedElementsApi extends ApiBase {
 		$warnings = [];
 
 		if ( $elements ) {
-			if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-				// MW 1.36+
-				$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
-			} else {
-				$wikiPageFactory = null;
-			}
+			$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
 			foreach ( $elements as $element ) {
 				$title = Title::makeTitle( NS_MAIN, $element['title'] );
-
-				if ( $wikiPageFactory !== null ) {
-					// MW 1.36+
-					$wikipage = $wikiPageFactory->newFromTitle( $title );
-				} else {
-					$wikipage = WikiPage::factory( $title );
-				}
-
+				$wikipage = $wikiPageFactory->newFromTitle( $title );
 				$updater = $wikipage->newPageUpdater( $this->getContext()->getUser() );
 
 				$content = ContentHandler::makeContent( '[[Category:Delete]]', $title );
