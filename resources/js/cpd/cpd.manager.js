@@ -352,31 +352,28 @@
 			this.svgUploadedToWiki = false;
 
 			this.doSVGReplacements().done( function() {
-				var data = new Uint8Array( this.bpmnSVG.length );
-				for ( var i = 0; i < this.bpmnSVG.length; i++ ) {
-					data[i] = this.bpmnSVG.charCodeAt( i );
-				}
-				var blob = new Blob( [ data ], { type: 'image/svg+xml' } );
-				new mw.Api().upload( blob, {
-					filename: mw.cpdManager.bpmnPagePath,
-					ignorewarnings: true,
-					format: 'json'
+				var formData = new FormData();
+				formData.append( 'svgContent', this.bpmnSVG );
+
+				var filename = encodeURIComponent( mw.cpdManager.bpmnPagePath + '.svg' );
+
+				$.ajax( {
+					method: 'POST',
+					url: mw.util.wikiScript( 'rest' ) + '/cpd/save-svg/' + filename,
+					data: formData,
+					contentType: false,
+					processData: false
 				} ).done( function ( data ) {
-					if ( data.upload ) {
+					if ( data.success === true ) {
 						this.svgUploadedToWiki = true;
-						dfd.resolve( data.upload.imageinfo );
+						dfd.resolve( data.imageInfo );
 					}
-				}.bind( this ) ).fail( function ( retStatus, data ) {
+				}.bind( this ) ).fail( function ( jqXHR ) {
+					console.error( jqXHR );
+
+					var data = jqXHR.responseJSON;
 					if ( data.error ) {
-						if ( data.error.code === 'fileexists-no-change' ||
-							data.error.code === 'internal_api_error_DBTransactionStateError' ) {
-							dfd.resolve();
-						} else {
-							dfd.reject( data );
-						}
-					}
-					if ( data.upload ) {
-						dfd.resolve( data.upload.imageinfo );
+						dfd.reject( data );
 					}
 				} );
 			}.bind( this ) ).fail( function( error) {
