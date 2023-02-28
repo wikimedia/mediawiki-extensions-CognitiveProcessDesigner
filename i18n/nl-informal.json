@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"cpd-loading-diagram": "Het diagram wordt geladen, momentje",
+	"cpd-enter-bpmn-id-placeholder": "Vul het ID van je BPMN in",
+	"cpd-overwrite-wiki-page-question": "De wiki-pagina bestaat al. Wil je die overschrijven?"
+}
