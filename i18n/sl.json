@@ -36,7 +36,7 @@
 	"cpd-yes": "Da",
 	"cpd-no": "Ne",
 	"cpd-open-bpmn-from-local-file": "Odpri diagram BPMN iz lokalnega datotečnega sistema",
-	"cpd-err-import-warning": "Diagram zaradi opozoril ob uvozu morda ne bo pravilno upodobljen.",
+	"cpd-err-import-warning": "Diagram zaradi opozoril ob uvozu mogoče ne bo pravilno upodobljen.",
 	"cpd-you-edited-diagram": "Uredili ste diagram.",
 	"cpd-undo-last-change": "Razveljavi zadnjo spremembo",
 	"cpd-download-bpmn": "Pprenesi diagram BPMN",
