@@ -7,7 +7,7 @@
 		"Oleksandr Pinchuck",
 		"Robert Vogel"
 	],
-	"url": "http://www.hallowelt.com",
+	"url": "https://en.wiki.bluespice.com/wiki/Reference:CognitiveProcessDesigner",
 	"descriptionmsg": "cognitiveprocessdesigner-desc",
 	"requires": {
 		"MediaWiki": ">= 1.35.0",
