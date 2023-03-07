@@ -6,7 +6,8 @@
 			"Mschlindwein",
 			"Ngschaider",
 			"Umlaut",
-			"Justman10000"
+			"Justman10000",
+			"McDutchie"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "BPMN Prozesse mit einer grafischen Benutzeroberfläche in Semantic MediaWiki zeichnen",
@@ -49,9 +50,9 @@
 	"cpd-saving-process": "Prozess speichern...",
 	"cpd-saved": "Gespeichert",
 	"action-cognitiveprocessdesigner-viewspecialpage": "Spezialseite \"{{int:cognitiveprocessdesigneredit}}\" ansehen",
-	"action-cognitiveprocessdesigner-editbpmn": "BPMN-Diagramm bearbeiten",
+	"action-cognitiveprocessdesigner-editbpmn": "das BPNM-Diagramm zu bearbeiten",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Zugriff auf die Spezialseite [[Special:Cognitive Process Designer Edit]]",
-	"right-cognitiveprocessdesigner-editbpmn": "BPMN Diagramme bearbeiten",
+	"right-cognitiveprocessdesigner-editbpmn": "BPMN-Diagramme bearbeiten",
 	"cpd-tag-bpmn-desc": "BPMN-Tag",
 	"cpd-tag-bpmn-example": "Hier ist ein Beispiel für die einfache Verwendung des BPMN-Tags.",
 	"cpd-ve-bpmn-title": "BPMN",
