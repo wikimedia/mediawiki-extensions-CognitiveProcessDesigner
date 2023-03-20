@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"EdoAug",
 			"Jon Harald Søby"
 		]
 	},
@@ -37,5 +38,11 @@
 	"action-cognitiveprocessdesigner-viewspecialpage": "vise spesialsiden «{{int:cognitiveprocessdesigneredit}}»",
 	"action-cognitiveprocessdesigner-editbpmn": "redigere BPMN-diagrammet",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Tilgang til spesialsiden [[Special:Cognitive Process Designer Edit]]",
-	"right-cognitiveprocessdesigner-editbpmn": "Redigere BPMN-diagrammer"
+	"right-cognitiveprocessdesigner-editbpmn": "Redigere BPMN-diagrammer",
+	"cpd-keyboard-shortcuts-lasso": "Lassoverktøy",
+	"cpd-ve-bpmn-name-title": "Navn",
+	"cpd-ve-bpmn-name-help": "Navnet på ditt diagram",
+	"cpd-ve-bpmn-name-placeholder": "Et diagram",
+	"cpd-diagram-save-dialog-title": "Lagrer diagram ...",
+	"cpd-error-dialog-title": "En feil oppsto!"
 }
