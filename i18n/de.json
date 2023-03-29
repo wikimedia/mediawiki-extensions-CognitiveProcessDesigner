@@ -72,5 +72,7 @@
 	"cpd-saving-error-diagram-save": "Veröffentlichen des Diagramms im Wiki fehlgeschlagen",
 	"apihelp-cpd-save-diagram-elements-summary": "Speichert Elemente des BPMN-Diagramms als Wiki-Seiten oder aktualisiert diese, wenn sie schon existieren",
 	"apihelp-cpd-delete-orphaned-elements-summary": "Löscht Elemente des BPMN-Diagramms, welche entfernt wurden",
-	"cognitiveprocessdesigneredit": "Kognitiver Prozess Designer Bearbeiten"
+	"cognitiveprocessdesigneredit": "Kognitiver Prozess Designer Bearbeiten",
+	"cpd-droplet-bpmn-name": "BPMN-Diagramm",
+	"cpd-droplet-bpmn-description": "Bearbeitbares BPMN-Diagramm"
 }
