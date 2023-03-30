@@ -66,5 +66,7 @@
 	"cpd-api-delete-orphaned-elements-update-comment": "Označite element kot osirotel, da ga odstranite.",
 	"cpd-saving-error-delete-orphaned-pages": "Brisanje osirotelih strani ni uspelo",
 	"apihelp-cpd-save-diagram-elements-summary": "Shrani elemente diagrama BPMN kot strani wvki ali jih posodobi, če že obstajajo",
-	"apihelp-cpd-delete-orphaned-elements-summary": "Izbriše elemente diagrama BPMN, ki so bili odstranjeni"
+	"apihelp-cpd-delete-orphaned-elements-summary": "Izbriše elemente diagrama BPMN, ki so bili odstranjeni",
+	"cpd-droplet-bpmn-name": "BPMN-diagram",
+	"cpd-droplet-bpmn-description": "BPMN-diagram, ki ga je mogoče urejati"
 }
