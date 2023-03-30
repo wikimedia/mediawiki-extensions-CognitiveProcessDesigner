@@ -66,5 +66,7 @@
 	"cpd-saving-error-elements-save": "Не успеав да ги објавам дијаграмските елементи на викито",
 	"cpd-saving-error-diagram-save": "Не успеав да го објавам дијаграмот на викито",
 	"apihelp-cpd-save-diagram-elements-summary": "Зачувува елементи на BPMN-дијаграм како викистраници, или пак ги подновува ако веќе постојат",
-	"apihelp-cpd-delete-orphaned-elements-summary": "Брише елементи од BPMN-дијаграм кои биле отстранети"
+	"apihelp-cpd-delete-orphaned-elements-summary": "Брише елементи од BPMN-дијаграм кои биле отстранети",
+	"cpd-droplet-bpmn-name": "BPMN-дијаграм",
+	"cpd-droplet-bpmn-description": "Уредлив BPMN-дијаграм"
 }
