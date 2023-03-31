@@ -146,6 +146,7 @@
 			"scripts": [
 				"js/tag/BpmnDefinition.js"
 			],
+			"styles": "styles/bpmn.droplet.css",
 			"messages": [
 				"cpd-ve-bpmn-title",
 				"cpd-ve-bpmn-desc",
