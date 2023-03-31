@@ -3,6 +3,7 @@
 		"authors": [
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad",
+			"Re demz",
 			"YuriNikolai"
 		]
 	},
@@ -51,5 +52,7 @@
 	"specialpages-group-semantic-process": "Processo semântico",
 	"cpd-diagram-save-dialog-title": "Salvando diagrama...",
 	"cpd-error-dialog-title": "Ocorreu um erro!",
-	"cpd-saving-error-elements-save": "Falha ao postar elementos do diagrama p/ wiki"
+	"cpd-saving-error-elements-save": "Falha ao postar elementos do diagrama p/ wiki",
+	"cpd-droplet-bpmn-name": "Diagrama de BPMN",
+	"cpd-droplet-bpmn-description": "Diagramas BPMN editáveis"
 }
