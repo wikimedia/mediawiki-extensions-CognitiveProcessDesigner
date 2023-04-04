@@ -66,5 +66,7 @@
 	"cpd-saving-error-elements-save": "Objavljanje elementov diagrama v vikiju ni uspelo",
 	"cpd-saving-error-diagram-save": "Objava diagrama v vikiju ni uspela",
 	"apihelp-cpd-save-diagram-elements-summary": "Shrani elemente diagrama BPMN kot strani wvki ali jih posodobi, če že obstajajo",
-	"apihelp-cpd-delete-orphaned-elements-summary": "Izbriše elemente diagrama BPMN, ki so bili odstranjeni"
+	"apihelp-cpd-delete-orphaned-elements-summary": "Izbriše elemente diagrama BPMN, ki so bili odstranjeni",
+	"cpd-droplet-bpmn-name": "BPMN-diagram",
+	"cpd-droplet-bpmn-description": "BPMN-diagram, ki ga je mogoče urejati"
 }

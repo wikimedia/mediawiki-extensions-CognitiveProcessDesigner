@@ -3,7 +3,8 @@
 		"authors": [
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad",
-			"YuriNikolai"
+			"YuriNikolai",
+			"Re demz"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Desenhe processos BPMN com uma interface gráfica de usuário no Semantic MediaWiki",
@@ -51,5 +52,7 @@
 	"right-cognitiveprocessdesigner-editbpmn": "Editar diagramas BPMN",
 	"cpd-diagram-save-dialog-title": "Salvando diagrama...",
 	"cpd-error-dialog-title": "Ocorreu um erro!",
-	"cpd-saving-error-elements-save": "Falha ao postar elementos do diagrama p/ wiki"
+	"cpd-saving-error-elements-save": "Falha ao postar elementos do diagrama p/ wiki",
+	"cpd-droplet-bpmn-name": "Diagrama de BPMN",
+	"cpd-droplet-bpmn-description": "Diagramas BPMN editáveis"
 }
