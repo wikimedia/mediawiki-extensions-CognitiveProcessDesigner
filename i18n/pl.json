@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kareyac"
+			"Kareyac",
+			"WaldiSt"
 		]
 	},
 	"cpd-yes": "Tak",
 	"cpd-no": "Nie",
-	"cpd-keyboard-shortcuts-redo": "Ponów"
+	"cpd-keyboard-shortcuts-redo": "Ponów",
+	"cpd-droplet-bpmn-name": "Diagram BPMN"
 }
