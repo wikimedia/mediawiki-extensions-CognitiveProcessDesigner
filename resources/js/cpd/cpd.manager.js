@@ -465,7 +465,7 @@
 				var timer = setInterval( function() {
 					$.ajax( {
 						method: 'GET',
-						url: mw.util.wikiScript( 'rest' ) + '/cognitiveprocessdesigner/save_elements/status/{0}'.format( processId ),
+						url: mw.util.wikiScript( 'rest' ) + '/cognitiveprocessdesigner/save_elements/status/' + processId,
 						data: {},
 						contentType: 'application/json',
 						dataType: 'json'
