@@ -3,7 +3,8 @@
 		"authors": [
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad",
-			"YuriNikolai"
+			"YuriNikolai",
+			"Re demz"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Desenhe processos BPMN com uma interface gráfica de usuário no Semantic MediaWiki",
@@ -49,7 +50,17 @@
 	"action-cognitiveprocessdesigner-editbpmn": "editar o diagrama BPMN",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Acesso a página especial [[Special:Cognitive Process Designer Edit]]",
 	"right-cognitiveprocessdesigner-editbpmn": "Editar diagramas BPMN",
+	"cpd-ve-bpmn-name-title": "Nome",
+	"cpd-ve-bpmn-name-help": "Nome do seu diagrama",
+	"cpd-ve-bpmn-name-placeholder": "Um diagrama",
+	"cpd-api-save-diagram-elements-param-elements": "Matriz codificada em JSON dos elementos de diagrama a serem adicionados (ou atualizados, se já existirem) à wiki. Cada elemento tem de conter chaves de \"título\" e \"conteúdo\" com o título e conteúdo correspondentes para a página wiki.",
+	"cpd-api-delete-orphaned-elements-param-elements": "Matriz codificada em JSON dos elementos de diagrama a serem eliminados da wiki, porque foram removidos do diagrama. Cada elemento da matriz tem de ter o título da página wiki correspondente.",
 	"cpd-diagram-save-dialog-title": "Salvando diagrama...",
+	"cpd-diagram-save-dialog-span": "Salvando $1 {{PLURAL:$1|elemento|elementos}}...",
 	"cpd-error-dialog-title": "Ocorreu um erro!",
-	"cpd-saving-error-elements-save": "Falha ao postar elementos do diagrama p/ wiki"
+	"cpd-saving-error-svg-upload": "Falha ao carregar SVG",
+	"cpd-saving-error-elements-save": "Falha ao postar elementos do diagrama p/ wiki",
+	"cpd-saving-error-diagram-save": "Falha de publicação do diagrama na wiki",
+	"apihelp-cpd-save-diagram-elements-summary": "Salve elementos do diagrama BPMN como páginas da wiki ou atualiza-os se já existirem",
+	"apihelp-cpd-delete-orphaned-elements-summary": "Elimina elementos do diagrama BPMN, que foram removidos"
 }
