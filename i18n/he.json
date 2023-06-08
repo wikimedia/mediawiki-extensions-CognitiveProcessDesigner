@@ -15,5 +15,10 @@
 	"cpd-no": "לא",
 	"cpd-undo-last-change": "ביטול השינוי האחרון",
 	"cpd-keyboard-shortcuts-undo": "ביטול",
-	"cpd-keyboard-shortcuts-redo": "ביצוע חוזר"
+	"cpd-keyboard-shortcuts-redo": "ביצוע חוזר",
+	"cpd-bpmn-id-placeholder": "מזהה BPMN",
+	"cpd-show-details": "הצגת הפרטים",
+	"cpd-keyboard-shortcuts-select-all": "לבחור הכול",
+	"cpd-ve-bpmn-title": "BPMN",
+	"cpd-droplet-bpmn-name": "תרשים BPMN"
 }
