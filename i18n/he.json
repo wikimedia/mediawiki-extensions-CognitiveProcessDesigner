@@ -5,15 +5,20 @@
 			"Xnet1234"
 		]
 	},
+	"cpd-bpmn-id-placeholder": "מזהה BPMN",
 	"cpd-yes": "כן",
 	"cpd-no": "לא",
+	"cpd-show-details": "הצגת הפרטים",
 	"cpd-undo-last-change": "ביטול השינוי האחרון",
 	"cpd-keyboard-shortcuts-undo": "ביטול",
 	"cpd-keyboard-shortcuts-redo": "ביצוע חוזר",
+	"cpd-keyboard-shortcuts-select-all": "לבחור הכול",
 	"cpd-btn-label-save": "שמירה",
 	"cpd-saved": "נשמר",
+	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-name-title": "שם",
 	"cpd-error-dialog-title": "אירעה שגיאה!",
 	"cpd-saving-error-elements-save": "פרסום רכיבי תרשים בוויקי נכשל",
-	"cpd-saving-error-diagram-save": "פרסום תרשים בוויקי נכשל"
+	"cpd-saving-error-diagram-save": "פרסום תרשים בוויקי נכשל",
+	"cpd-droplet-bpmn-name": "תרשים BPMN"
 }
