@@ -1,9 +1,20 @@
 {
 	"@metadata": {
 		"authors": [
-			"MITO"
+			"MITO",
+			"Pyscowicz"
 		]
 	},
 	"cpd-ve-bpmn-name-title": "Nimi",
-	"cpd-ve-bpmn-name-help": "Kaaviosi nimi"
+	"cpd-ve-bpmn-name-help": "Kaaviosi nimi",
+	"cpd-yes": "Kyllä",
+	"cpd-no": "Ei",
+	"cpd-keyboard-shortcuts-undo": "Kumoa",
+	"cpd-keyboard-shortcuts-redo": "Tee uudelleen",
+	"cpd-keyboard-shortcuts-select-all": "Valitse kaikki",
+	"cpd-btn-label-save": "Tallenna",
+	"cpd-open-page-label": "Avaa sivu",
+	"cpd-saved": "Tallennettu",
+	"cpd-diagram-save-dialog-title": "Tallennetaan kaaviota...",
+	"cpd-error-dialog-title": "Tapahtui virhe!"
 }
