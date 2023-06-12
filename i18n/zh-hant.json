@@ -67,5 +67,7 @@
 	"cpd-saving-error-elements-save": "將示圖元素發布到 wiki 失敗",
 	"cpd-saving-error-diagram-save": "將示圖發布到 wiki 失敗",
 	"apihelp-cpd-save-diagram-elements-summary": "將 BPMN 示圖的元素儲存為 wiki 頁面，或是更新它們（如果已存在）",
-	"apihelp-cpd-delete-orphaned-elements-summary": "刪除已被移除的 BPMN 示圖元素"
+	"apihelp-cpd-delete-orphaned-elements-summary": "刪除已被移除的 BPMN 示圖元素",
+	"cpd-droplet-bpmn-name": "BPMN 示圖",
+	"cpd-droplet-bpmn-description": "可編輯的 BPMN 示圖"
 }
