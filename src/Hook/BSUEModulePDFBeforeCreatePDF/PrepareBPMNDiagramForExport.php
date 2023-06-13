@@ -47,6 +47,9 @@ class PrepareBPMNDiagramForExport extends BSUEModulePDFBeforeCreatePDF {
 			$bpmnName = $editButton->getAttribute( $this->bpmnEditButtonBPMNNameAttribute );
 			$bpmnTitle = Title::newFromText( $bpmnName );
 			$bpmnWikiPage = $wikiPageFactory->newFromID( $bpmnTitle->getArticleID() );
+			if ( !$bpmnWikiPage ) {
+				continue;
+			}
 			$contentRenderer = $this->getServices()->getContentRenderer();
 			/** @var SemanticData $smwData */
 			$bpmnSMWData = $contentRenderer->getParserOutput( $bpmnWikiPage->getContent(), $bpmnTitle )
