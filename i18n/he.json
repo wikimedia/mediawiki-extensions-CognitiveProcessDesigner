@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
+			"Neriah",
 			"Xnet1234"
 		]
 	},
@@ -20,5 +21,10 @@
 	"cpd-show-details": "הצגת הפרטים",
 	"cpd-keyboard-shortcuts-select-all": "לבחור הכול",
 	"cpd-ve-bpmn-title": "BPMN",
-	"cpd-droplet-bpmn-name": "תרשים BPMN"
+	"cpd-droplet-bpmn-name": "תרשים BPMN",
+	"cpd-enter-bpmn-id-placeholder": "נא להזין את המזהה של ה־BPMN שלך",
+	"cpd-download-svg": "הורדה כ־SVG",
+	"cpd-keyboard-shortcuts": "קיצורי מקשים",
+	"cpd-keyboard-shortcuts-vscroll": "גלילה (אנכית)",
+	"cpd-keyboard-shortcuts-hscroll": "גלילה (אופקית)"
 }
