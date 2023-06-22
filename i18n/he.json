@@ -2,17 +2,23 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"Xnet1234"
+			"Xnet1234",
+			"Neriah"
 		]
 	},
+	"cpd-enter-bpmn-id-placeholder": "נא להזין את המזהה של ה־BPMN שלך",
 	"cpd-bpmn-id-placeholder": "מזהה BPMN",
 	"cpd-yes": "כן",
 	"cpd-no": "לא",
 	"cpd-show-details": "הצגת הפרטים",
 	"cpd-undo-last-change": "ביטול השינוי האחרון",
+	"cpd-download-svg": "הורדה כ־SVG",
+	"cpd-keyboard-shortcuts": "קיצורי מקשים",
 	"cpd-keyboard-shortcuts-undo": "ביטול",
 	"cpd-keyboard-shortcuts-redo": "ביצוע חוזר",
 	"cpd-keyboard-shortcuts-select-all": "לבחור הכול",
+	"cpd-keyboard-shortcuts-vscroll": "גלילה (אנכית)",
+	"cpd-keyboard-shortcuts-hscroll": "גלילה (אופקית)",
 	"cpd-btn-label-save": "שמירה",
 	"cpd-saved": "נשמר",
 	"cpd-ve-bpmn-title": "BPMN",
