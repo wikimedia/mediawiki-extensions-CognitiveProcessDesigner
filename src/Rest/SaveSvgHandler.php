@@ -72,7 +72,11 @@ class SaveSvgHandler extends Handler {
 		$publishOptions = [];
 		$handler = MediaHandler::getHandler( $props['mime'] );
 		if ( $handler ) {
-			$metadata = AtEase::quietCall( 'unserialize', $props['metadata'] );
+			if ( is_array( $props['metadata'] ) ) {
+				$metadata = $props['metadata'];
+			} else {
+				$metadata = AtEase::quietCall( 'unserialize', $props['metadata'] );
+			}
 
 			$publishOptions['headers'] = $handler->getContentHeaders( $metadata );
 		} else {
