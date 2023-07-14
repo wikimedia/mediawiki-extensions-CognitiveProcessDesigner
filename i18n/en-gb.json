@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Piano1forte2"
+		]
+	},
+	"action-cognitiveprocessdesigner-viewspecialpage": "view special page '{{int:cognitiveprocessdesigneredit}}'",
+	"cpd-api-save-diagram-elements-param-elements": "JSON encoded array of diagram elements to be added (or updated if already exist) into the wiki. Each element must contain 'title' and 'content' keys with corresponding title and content for wiki page."
+}
