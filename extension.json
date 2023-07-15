@@ -28,17 +28,15 @@
 				}
 			}
 		},
-		"BlueSpiceVisualEditorConnector": {
-			"TagDefinitions": [
-				"ext.cpd.ve.tagdefinition"
-			]
-		},
 		"ContentDroplets": {
 			"Droplets": {
 				"bpmn-diagram": {
 					"class": "\\CognitiveProcessDesigner\\ContentDroplets\\BPMNDiagramDroplet"
 				}
 			}
+		},
+		"CognitiveProcessDesigner": {
+			"InspectorPluginModules": []
 		}
 	},
 	"AvailableRights": [
@@ -142,9 +140,22 @@
 				"styles/cpd.entity.less"
 			]
 		},
-		"ext.cpd.ve.tagdefinition": {
+		"ext.cpd.visualEditor.bootstrap": {
+			"packageFiles": [
+				"js/ext.cpd.visualEditor.bootstrap.js",
+				{
+					"name": "js/pluginModules.json",
+					"callback": "CognitiveProcessDesigner\\CpdInspectorPluginModules::getPluginModules"
+				}
+			]
+		},
+		"ext.cpd.visualEditor": {
 			"scripts": [
-				"js/tag/BpmnDefinition.js"
+				"js/ve/ve.ce.BpmnNode.js",
+				"js/ve/ve.dm.BpmnNode.js",
+				"js/ve/ve.ui.BpmnInspector.js",
+				"js/ve/ve.ui.BpmnNodeTool.js",
+				"js/FilenameProcessor.js"
 			],
 			"styles": "styles/bpmn.droplet.css",
 			"messages": [
@@ -155,7 +166,8 @@
 				"cpd-ve-bpmn-name-placeholder"
 			],
 			"dependencies": [
-				"ext.bluespice.visualEditorConnector.tags.classes"
+				"ext.visualEditor.mwcore",
+				"oojs-ui"
 			]
 		}
 	},
