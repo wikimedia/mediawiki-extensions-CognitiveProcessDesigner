@@ -6,7 +6,10 @@
 			"Xnet1234"
 		]
 	},
+	"specialpages-group-semantic-process": "תהליך סמנטי",
 	"cpd-enter-bpmn-id-placeholder": "נא להזין את המזהה של ה־BPMN שלך",
+	"cpd-create-bpmn-placeholder": "יצירת BPMN",
+	"cpd-create-new-bpmn": "יצירת BPMN חדש",
 	"cpd-bpmn-id-placeholder": "מזהה BPMN",
 	"cpd-yes": "כן",
 	"cpd-no": "לא",
