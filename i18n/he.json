@@ -27,5 +27,8 @@
 	"cpd-keyboard-shortcuts": "קיצורי מקשים",
 	"cpd-keyboard-shortcuts-vscroll": "גלילה (אנכית)",
 	"cpd-keyboard-shortcuts-hscroll": "גלילה (אופקית)",
-	"cpd-tag-bpmn-desc": "תג BPMN"
+	"cpd-tag-bpmn-desc": "תג BPMN",
+	"specialpages-group-semantic-process": "תהליך סמנטי",
+	"cpd-create-bpmn-placeholder": "יצירת BPMN",
+	"cpd-create-new-bpmn": "יצירת BPMN חדש"
 }
