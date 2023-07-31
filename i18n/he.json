@@ -3,7 +3,8 @@
 		"authors": [
 			"Amire80",
 			"Neriah",
-			"Xnet1234"
+			"Xnet1234",
+			"מקף"
 		]
 	},
 	"cpd-error-dialog-title": "אירעה שגיאה!",
@@ -30,5 +31,14 @@
 	"cpd-tag-bpmn-desc": "תג BPMN",
 	"specialpages-group-semantic-process": "תהליך סמנטי",
 	"cpd-create-bpmn-placeholder": "יצירת BPMN",
-	"cpd-create-new-bpmn": "יצירת BPMN חדש"
+	"cpd-create-new-bpmn": "יצירת BPMN חדש",
+	"cpd-loading-diagram": "מתבצעת טעינת תרשים, נא להמתין בסבלנות",
+	"cpd-err-display-diagram": "המערכת לא הצליחה להציג את התרשים.",
+	"cpd-keyboard-shortcuts-direct-editing": "עריכה ישירה",
+	"cpd-keyboard-shortcuts-lasso": "כלי לאסו",
+	"cpd-keyboard-shortcuts-space": "כלי שטח",
+	"cpd-empty-diagram": "תרשים bpmn ריק",
+	"cpd-open-page-label": "פתיחת דף",
+	"cpd-saving-process": "תהליך שמירה...",
+	"cpd-diagram-save-dialog-title": "מתבצעת שמירת תרשים..."
 }
