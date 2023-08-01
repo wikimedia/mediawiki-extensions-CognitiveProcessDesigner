@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Winston Sung"
+		]
+	},
+	"cognitiveprocessdesigner-desc": "Nacrtavanje BPMN procesa s grafičkim korisničkim sučeljem u Semantic MediaWiki",
+	"cpd-create-bpmn-placeholder": "Napravi BPMN",
+	"cpd-create-new-bpmn": "Napravi novi BPMN",
+	"cpd-bpmn-id-placeholder": "BPMN naznaka",
+	"cpd-overwrite-wiki-page-question": "Wiki stranica već postoji. Želite li prepisati?",
+	"cpd-yes": "Da",
+	"cpd-no": "Ne",
+	"cpd-undo-last-change": "Otkaži zadnju promjenu",
+	"cpd-download-svg": "Preuzmi kao SVG",
+	"cpd-keyboard-shortcuts": "Prečice na tastaturi",
+	"cpd-keyboard-shortcuts-undo": "Vrati",
+	"cpd-keyboard-shortcuts-redo": "Ponovi",
+	"cpd-keyboard-shortcuts-select-all": "Izaberi sve",
+	"cpd-empty-diagram": "prazan BPMN dijagram",
+	"cpd-btn-label-save": "Sačuvaj",
+	"cpd-saved": "Sačuvano",
+	"action-cognitiveprocessdesigner-editbpmn": "uređivanje BPMN dijagrama",
+	"right-cognitiveprocessdesigner-editbpmn": "Uređivanje BPMN dijagrama",
+	"cpd-tag-bpmn-desc": "BPMN oznaka",
+	"cpd-ve-bpmn-title": "BPMN"
+}
