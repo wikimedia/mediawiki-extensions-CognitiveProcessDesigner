@@ -3,10 +3,16 @@
 		"authors": [
 			"Amire80",
 			"Xnet1234",
-			"Neriah"
+			"Neriah",
+			"מקף"
 		]
 	},
+	"specialpages-group-semantic-process": "תהליך סמנטי",
+	"cpd-loading-diagram": "מתבצעת טעינת תרשים, נא להמתין בסבלנות",
+	"cpd-err-display-diagram": "המערכת לא הצליחה להציג את התרשים.",
 	"cpd-enter-bpmn-id-placeholder": "נא להזין את המזהה של ה־BPMN שלך",
+	"cpd-create-bpmn-placeholder": "יצירת BPMN",
+	"cpd-create-new-bpmn": "יצירת BPMN חדש",
 	"cpd-bpmn-id-placeholder": "מזהה BPMN",
 	"cpd-yes": "כן",
 	"cpd-no": "לא",
@@ -19,11 +25,18 @@
 	"cpd-keyboard-shortcuts-select-all": "לבחור הכול",
 	"cpd-keyboard-shortcuts-vscroll": "גלילה (אנכית)",
 	"cpd-keyboard-shortcuts-hscroll": "גלילה (אופקית)",
+	"cpd-keyboard-shortcuts-direct-editing": "עריכה ישירה",
+	"cpd-keyboard-shortcuts-lasso": "כלי לאסו",
+	"cpd-keyboard-shortcuts-space": "כלי שטח",
+	"cpd-empty-diagram": "תרשים bpmn ריק",
 	"cpd-btn-label-save": "שמירה",
+	"cpd-open-page-label": "פתיחת דף",
+	"cpd-saving-process": "תהליך שמירה...",
 	"cpd-saved": "נשמר",
 	"cpd-tag-bpmn-desc": "תג BPMN",
 	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-name-title": "שם",
+	"cpd-diagram-save-dialog-title": "מתבצעת שמירת תרשים...",
 	"cpd-error-dialog-title": "אירעה שגיאה!",
 	"cpd-saving-error-elements-save": "פרסום רכיבי תרשים בוויקי נכשל",
 	"cpd-saving-error-diagram-save": "פרסום תרשים בוויקי נכשל"
