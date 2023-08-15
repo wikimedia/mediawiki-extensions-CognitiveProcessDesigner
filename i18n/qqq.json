@@ -5,7 +5,8 @@
 			"HalloWelt! GmbH",
 			"Robby",
 			"Umherirrender",
-			"McDutchie"
+			"McDutchie",
+			"Amire80"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "{{desc|name=Cognitive Process Designer|url=https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer}}",
@@ -53,7 +54,7 @@
 	"right-cognitiveprocessdesigner-editbpmn": "Grants access to BPMN diagram edit interface.\n{{doc-right|cognitiveprocessdesigner-editbpmn}}",
 	"cpd-tag-bpmn-desc": "Title in magic words menu",
 	"cpd-tag-bpmn-example": "Magic word usage example",
-	"cpd-ve-bpmn-title": "Title of inspector dialog",
+	"cpd-ve-bpmn-title": "{{optional}}\nTitle of inspector dialog",
 	"cpd-ve-bpmn-desc": "Description of inspector dialog",
 	"cpd-ve-bpmn-name-title": "Title of attribute field in inspector\n\n{{Identical|Name}}",
 	"cpd-ve-bpmn-name-help": "Help span for attribute field in inspector",
