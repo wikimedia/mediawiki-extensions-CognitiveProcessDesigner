@@ -180,8 +180,7 @@
 		"BSUEModulePDFBeforeCreatePDF": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeCreatePDF\\PrepareBPMNDiagramForExport::callback",
 		"BSUEModulePDFBeforeAddingStyleBlocks": "\\CognitiveProcessDesigner\\Hook\\BSUEModulePDFBeforeAddingStyleBlocks\\AddCPDStyles::callback",
 		"MakeGlobalVariablesScript": "\\CognitiveProcessDesigner\\Hook\\MakeGlobalVariablesScript\\AddConfigVars::callback",
-		"LoadExtensionSchemaUpdates": "\\CognitiveProcessDesigner\\Hook\\LoadExtensionSchemaUpdates\\AddRequiredPages::callback",
-		"BSInsertMagicAjaxGetData": "\\CognitiveProcessDesigner\\Hook\\BSInsertMagicAjaxGetData\\AddBpmnTag::callback"
+		"LoadExtensionSchemaUpdates": "\\CognitiveProcessDesigner\\Hook\\LoadExtensionSchemaUpdates\\AddRequiredPages::callback"
 	},
 	"RestRoutes": [
 		{
