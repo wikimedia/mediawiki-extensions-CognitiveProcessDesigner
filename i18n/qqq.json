@@ -52,8 +52,6 @@
 	"action-cognitiveprocessdesigner-editbpmn": "Label for denied action\n{{doc-action|cognitiveprocessdesigner-editbpmn}}",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Grants access to the [[Special:CognitiveProcessDesignerEdit]] special page.\n{{doc-right|cognitiveprocessdesigner-viewspecialpage}}",
 	"right-cognitiveprocessdesigner-editbpmn": "Grants access to BPMN diagram edit interface.\n{{doc-right|cognitiveprocessdesigner-editbpmn}}",
-	"cpd-tag-bpmn-desc": "Title in magic words menu",
-	"cpd-tag-bpmn-example": "Magic word usage example",
 	"cpd-ve-bpmn-title": "{{optional}}\nTitle of inspector dialog",
 	"cpd-ve-bpmn-desc": "Description of inspector dialog",
 	"cpd-ve-bpmn-name-title": "Title of attribute field in inspector\n\n{{Identical|Name}}",
