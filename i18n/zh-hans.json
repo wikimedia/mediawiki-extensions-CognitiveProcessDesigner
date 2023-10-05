@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Colathewikian",
-			"Lakejason0"
+			"Lakejason0",
+			"LittlePaw365"
 		]
 	},
 	"cpd-loading-diagram": "加载图表中，请稍等勿躁",
@@ -22,10 +23,10 @@
 	"cpd-keyboard-shortcuts-undo": "撤销",
 	"cpd-keyboard-shortcuts-redo": "重做",
 	"cpd-keyboard-shortcuts-select-all": "点选所有",
-	"cpd-btn-label-save": "储存",
+	"cpd-btn-label-save": "保存",
 	"cpd-open-page-label": "开启页面",
 	"cpd-warning-message-lost-data": "你将失去你对图表做出的更改",
-	"cpd-saved": "已储存",
+	"cpd-saved": "已保存",
 	"action-cognitiveprocessdesigner-editbpmn": "编辑BPMN图表",
 	"right-cognitiveprocessdesigner-editbpmn": "编辑BPMN图表"
 }
