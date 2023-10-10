@@ -47,8 +47,6 @@
 	"action-cognitiveprocessdesigner-editbpmn": "urejanje diagrama BPMN",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Dostop do posebne strani [[Special:Cognitive Process Designer Edit]].",
 	"right-cognitiveprocessdesigner-editbpmn": "Urejanje diagramov BPMN",
-	"cpd-tag-bpmn-desc": "Oznaka BPMN",
-	"cpd-tag-bpmn-example": "Tu je zgled preproste uporabe oznake BPMN",
 	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-desc": "Vstavi diagram BPMN",
 	"cpd-ve-bpmn-name-title": "Ime",

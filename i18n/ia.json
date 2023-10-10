@@ -47,8 +47,6 @@
 	"action-cognitiveprocessdesigner-editbpmn": "modificar le diagramma BPMN",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Accesso al pagina special [[Special:Cognitive Process Designer Edit]]",
 	"right-cognitiveprocessdesigner-editbpmn": "Modificar diagrammas BPMN",
-	"cpd-tag-bpmn-desc": "Etiquetta BPMN",
-	"cpd-tag-bpmn-example": "Ecce un exemplo de un uso simple del etiquetta BPMN",
 	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-desc": "Inserer un diagramma BPMN",
 	"cpd-ve-bpmn-name-title": "Nomine",

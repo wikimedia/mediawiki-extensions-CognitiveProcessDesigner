@@ -50,8 +50,6 @@
 	"action-cognitiveprocessdesigner-editbpmn": "het BPMN-diagram te bewerken",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Toegang tot de speciale pagina [[Special:Cognitive Process Designer Edit]]",
 	"right-cognitiveprocessdesigner-editbpmn": "BPMN-diagrammen bewerken",
-	"cpd-tag-bpmn-desc": "BPMN-tag",
-	"cpd-tag-bpmn-example": "Hier is een voorbeeld van eenvoudig gebruik van de BPMN-tag",
 	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-desc": "BPMN-diagram invoegen",
 	"cpd-ve-bpmn-name-title": "Naam",

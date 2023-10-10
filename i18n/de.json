@@ -53,8 +53,6 @@
 	"action-cognitiveprocessdesigner-editbpmn": "das BPNM-Diagramm zu bearbeiten",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Zugriff auf die Spezialseite [[Special:Cognitive Process Designer Edit]]",
 	"right-cognitiveprocessdesigner-editbpmn": "BPMN-Diagramme bearbeiten",
-	"cpd-tag-bpmn-desc": "BPMN-Tag",
-	"cpd-tag-bpmn-example": "Hier ist ein Beispiel für die einfache Verwendung des BPMN-Tags.",
 	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-desc": "BPMN-Diagramm einfügen",
 	"cpd-ve-bpmn-name-title": "Name",

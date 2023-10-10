@@ -50,8 +50,6 @@
 	"action-cognitiveprocessdesigner-editbpmn": "قم بتحرير مخطط BPMN",
 	"right-cognitiveprocessdesigner-viewspecialpage": "الوصول إلى الصفحة الخاصة [[Special: Cognitive Process Designer Edit]]",
 	"right-cognitiveprocessdesigner-editbpmn": "تحرير مخططات BPMN",
-	"cpd-tag-bpmn-desc": "وسم BPMN",
-	"cpd-tag-bpmn-example": "فيما يلي مثال على الاستخدام البسيط لعلامة BPMN",
 	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-desc": "أدخل مخطط BPMN",
 	"cpd-ve-bpmn-name-title": "الاسم",
