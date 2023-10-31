@@ -75,16 +75,20 @@ class AddEntityHeaderFooter {
 	 * @return bool
 	 */
 	private function skipProcessing() {
-		if ( $this->out->getRequest()->getVal( 'action', 'view' ) !== 'view' ) {
+		$request = $this->out->getRequest();
+		$title = $this->out->getTitle();
+
+		if ( $request->getVal( 'action', 'view' ) !== 'view' ) {
 			return true;
 		}
-		if ( !$this->out->getTitle() instanceof Title ) {
+		if ( !$title instanceof Title ) {
 			return true;
 		}
-		if ( $this->out->getTitle()->isSpecialPage() ) {
+		if ( $title->isSpecialPage() ) {
 			return true;
 		}
-		if ( !$this->out->getWikiPage()->getContent() instanceof Content ) {
+		$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+		if ( !$wikiPage->getContent() instanceof Content ) {
 			return true;
 		}
 		return false;
