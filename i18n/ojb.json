@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Aandeginini"
+			"Aandeginini",
+			"Amire80"
 		]
 	},
 	"cognitiveprocessdesigneredit": "Aanji' maaminonendam dibenim giin-ozhitoon",
@@ -23,7 +24,7 @@
 	"cpd-page-forms-label": "Mazina'igan mooshkinebii'ige",
 	"cpd-warning-message-lost-data": "aanji' giin ozhitoon bindiig mazinibii'igan waa-awaan wanisin",
 	"cpd-saved": "Ayaa aanji'",
-	"action-cognitiveprocessdesigner-viewspecialpage": "Waabam gichi-apiitendaagwad mazina'igan  \"{{int:cognitiveprocessdesigneredit}}\"",
+	"action-cognitiveprocessdesigner-viewspecialpage": "Waabam gichi-apiitendaagwad mazina'igan \"{{int:cognitiveprocessdesigneredit}}\"",
 	"action-cognitiveprocessdesigner-editbpmn": "Aanji' BPMN mazinibii'igan",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Biindigaw bindiig [[Special:Cognitive Process Designer Edit]] gichi-apiitendaagwad mazina'igan",
 	"right-cognitiveprocessdesigner-editbpmn": "Aanji' BPMN mazinibii'igan"

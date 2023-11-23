@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"MathXplore",
+			"Shirayuki",
 			"Tmv"
 		]
 	},
@@ -10,5 +11,7 @@
 	"cpd-btn-label-save": "保存",
 	"cpd-saved": "保存",
 	"cpd-diagram-save-dialog-title": "図形を保存する",
-	"cpd-error-dialog-title": "エラーが発生しました"
+	"cpd-error-dialog-title": "エラーが発生しました",
+	"action-cognitiveprocessdesigner-editbpmn": "BPMN ダイアグラムの編集",
+	"right-cognitiveprocessdesigner-editbpmn": "BPMN ダイアグラムを編集"
 }

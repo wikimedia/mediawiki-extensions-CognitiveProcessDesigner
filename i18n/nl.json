@@ -2,9 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Mainframe98",
+			"McDutchie",
 			"Romaine",
-			"SPQRobin",
-			"McDutchie"
+			"SPQRobin"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "BPMN-processen tekenen met een grafische gebruikersinterface in Semantic MediaWiki",
@@ -69,5 +69,7 @@
 	"cpd-saving-error-elements-save": "Het plaatsen van diagramelementen op de wiki is mislukt",
 	"cpd-saving-error-diagram-save": "Het plaatsen van het diagram op de wiki is mislukt",
 	"apihelp-cpd-save-diagram-elements-summary": "Slaat elementen van het BPMN-diagram op als wikipagina's, of werkt ze bij als ze al bestaan",
-	"apihelp-cpd-delete-orphaned-elements-summary": "Wist elementen van het BPMN-diagram die zijn verwijderd"
+	"apihelp-cpd-delete-orphaned-elements-summary": "Wist elementen van het BPMN-diagram die zijn verwijderd",
+	"cpd-droplet-bpmn-name": "BPMN-diagram",
+	"cpd-droplet-bpmn-description": "Bewerkbaar BPMN-diagram"
 }
