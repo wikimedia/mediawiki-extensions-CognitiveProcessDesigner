@@ -48,7 +48,6 @@
 	"action-cognitiveprocessdesigner-editbpmn": "編輯 BPMN 示圖",
 	"right-cognitiveprocessdesigner-viewspecialpage": "存取 [[Special:Cognitive Process Designer Edit]] 特殊頁面",
 	"right-cognitiveprocessdesigner-editbpmn": "編輯 BPMN 示圖",
-	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-desc": "插入 BPMN 示圖",
 	"cpd-ve-bpmn-name-title": "名稱",
 	"cpd-ve-bpmn-name-help": "您的示圖名稱",

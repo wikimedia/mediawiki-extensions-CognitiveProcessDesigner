@@ -41,7 +41,6 @@
 	"action-cognitiveprocessdesigner-viewspecialpage": "특수 문서 \"{{int:cognitiveprocessdesigneredit}}\" 보기",
 	"action-cognitiveprocessdesigner-editbpmn": "BPMN 다이어그램 편집",
 	"right-cognitiveprocessdesigner-editbpmn": "BPMN 다이어그램 편집",
-	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-desc": "BPMN 다이어그램 추가",
 	"cpd-ve-bpmn-name-title": "이름",
 	"cpd-ve-bpmn-name-help": "당신의 다이어그램의 이름",

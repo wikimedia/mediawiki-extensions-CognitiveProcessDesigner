@@ -49,7 +49,6 @@
 	"action-cognitiveprocessdesigner-editbpmn": "编辑BPMN图",
 	"right-cognitiveprocessdesigner-viewspecialpage": "访问[[Special:Cognitive Process Designer Edit]]特殊页面",
 	"right-cognitiveprocessdesigner-editbpmn": "编辑BPMN图",
-	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-desc": "插入BPMN图",
 	"cpd-ve-bpmn-name-title": "名称",
 	"cpd-ve-bpmn-name-help": "您的简图的名称",

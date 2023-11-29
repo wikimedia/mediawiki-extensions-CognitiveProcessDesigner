@@ -47,7 +47,6 @@
 	"action-cognitiveprocessdesigner-editbpmn": "editar o diagrama BPMN",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Acesso à página especial [[Special:Cognitive Process Designer Edit|Especial:Edição do Desenhador de Processos Cognitivos]]",
 	"right-cognitiveprocessdesigner-editbpmn": "Editar diagramas BPMN",
-	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-desc": "Inserir diagrama BPMN",
 	"cpd-ve-bpmn-name-title": "Nome",
 	"cpd-ve-bpmn-name-help": "Nome do seu diagrama",
