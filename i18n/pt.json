@@ -63,5 +63,7 @@
 	"cpd-saving-error-elements-save": "Falha de publicação de elementos do diagrama na wiki",
 	"cpd-saving-error-diagram-save": "Falha de publicação do diagrama na wiki",
 	"apihelp-cpd-save-diagram-elements-summary": "Grava elementos do diagrama BPMN como páginas wiki ou atualiza-os se já existirem",
-	"apihelp-cpd-delete-orphaned-elements-summary": "Elimina elementos do diagrama BPMN, que foram removidos"
+	"apihelp-cpd-delete-orphaned-elements-summary": "Elimina elementos do diagrama BPMN, que foram removidos",
+	"cpd-droplet-bpmn-name": "Diagrama BPMN",
+	"cpd-droplet-bpmn-description": "Diagrama BPMN editável"
 }
