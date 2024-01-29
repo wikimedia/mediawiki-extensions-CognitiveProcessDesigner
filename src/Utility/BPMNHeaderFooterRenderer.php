@@ -194,6 +194,7 @@ class BPMNHeaderFooterRenderer {
 				if ( $content !== null ) {
 					$displayTitle = $contentRenderer->getParserOutput( $content, $title )
 						->getDisplayTitle();
+					$displayTitle = strip_tags( $displayTitle );
 				}
 
 				$classes = [ 'cpd-entity-link' ];
