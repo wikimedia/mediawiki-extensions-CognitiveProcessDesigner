@@ -30,7 +30,10 @@
 					}
 					var dataArray = data.query.allpages;
 					for (var i = 0; i < dataArray.length; i++) {
-						var labelEntry = dataArray[i].title.replace( 'Form:', '' );
+						var prefixedTitle = dataArray[i].title;
+						var labelParts = prefixedTitle.split( ':' );
+						labelParts.shift(); // Remove namespace
+						var labelEntry = labelParts.join( ':' );
 						var dataEntry = {
 							label: labelEntry,
 							id: dataArray[i].pageid,
@@ -41,7 +44,7 @@
 							action: {
 								call: function(x, event, element) {
 									var formPage = element.label.replace(' ', '_');
-									var pagePath = mw.cpdManager.bpmnPagePath + ':' +
+									var pagePath = mw.cpdManager.bpmnPagePath + '/' +
 										mw.cpdSemanticForms.currentElement.id;
 									window.ext.popupform.handlePopupFormLink(
 										mw.config.get( 'wgScriptPath') +
