@@ -81,7 +81,7 @@ class AddEntityHeaderFooter {
 		if ( $request->getVal( 'action', 'view' ) !== 'view' ) {
 			return true;
 		}
-		if ( !$title instanceof Title ) {
+		if ( !$title instanceof Title || !$title->canExist() ) {
 			return true;
 		}
 		if ( $title->isSpecialPage() ) {
