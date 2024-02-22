@@ -7,6 +7,8 @@ OO.inheritClass( ve.ui.BpmnNodeTool, ve.ui.FragmentInspectorTool );
 ve.ui.BpmnNodeTool.static.name = 'bpmnTool';
 ve.ui.BpmnNodeTool.static.group = 'none';
 ve.ui.BpmnNodeTool.static.autoAddToCatchall = false;
+ve.ui.BpmnNodeTool.static.title = mw.message( 'cpd-ve-bpmn-title' ).text();
+ve.ui.BpmnNodeTool.static.icon = 'bpmn';
 ve.ui.BpmnNodeTool.static.modelClasses = [ ve.dm.BpmnNode ];
 ve.ui.BpmnNodeTool.static.commandName = 'bpmnCommand';
 
