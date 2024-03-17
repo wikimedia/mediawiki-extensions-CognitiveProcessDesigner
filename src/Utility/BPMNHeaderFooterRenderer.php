@@ -116,7 +116,7 @@ class BPMNHeaderFooterRenderer {
 				ucfirst( $this->happyPathSMWPropertyName )
 			);
 		}
-		$footerLinks = $this->getLinksFromSMWData( $smwData,  'TargetEntities' );
+		$footerLinks = $this->getLinksFromSMWData( $smwData, 'TargetEntities' );
 		if ( count( $footerLinks ) > 0 ) {
 			return $this->generateFooterHTML( $footerLinks, $isHappyPath );
 		}

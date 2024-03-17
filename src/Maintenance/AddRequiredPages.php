@@ -39,7 +39,8 @@ class AddRequiredPages extends LoggedUpdateMaintenance {
  |label={{{label|}}}
  |has_element={{{has_element|}}}|+sep=,
 }}
-HERE,
+HERE
+,
 		'Template:BPMN_Element' => <<<HERE
 {{#if:{{{label|}}}|{{DISPLAYTITLE:{{{label|}}}}}}}
 {{#set:Element
