@@ -9,6 +9,8 @@
 	],
 	"url": "https://www.hallowelt.com",
 	"descriptionmsg": "cognitiveprocessdesigner-desc",
+	"load_composer_autoloader": true,
+	"callback": "mwsInitComponents",
 	"requires": {
 		"MediaWiki": ">= 1.39.0",
 		"extensions": {
