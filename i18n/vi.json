@@ -7,15 +7,15 @@
 			"Nghiemtrongdai VN"
 		]
 	},
-	"cpd-yes": "Có",
-	"cpd-no": "Không",
-	"cpd-show-details": "Hiện chi tiết",
-	"cpd-keyboard-shortcuts-undo": "Lùi lại",
-	"cpd-keyboard-shortcuts-select-all": "Chọn tất cả",
-	"cpd-btn-label-save": "Lưu",
-	"cpd-open-page-label": "Mở trang",
-	"cpd-saved": "Đã lưu",
-	"cpd-tag-bpmn-desc": "thẻ BPMN",
+	"cpd-yes": "C\u00f3",
+	"cpd-no": "Kh\u00f4ng",
+	"cpd-show-details": "Hi\u1ec7n chi ti\u1ebft",
+	"cpd-keyboard-shortcuts-undo": "L\u00f9i l\u1ea1i",
+	"cpd-keyboard-shortcuts-select-all": "Ch\u1ecdn t\u1ea5t c\u1ea3",
+	"cpd-btn-label-save": "L\u01b0u",
+	"cpd-open-page-label": "M\u1edf trang",
+	"cpd-saved": "\u0110\u00e3 l\u01b0u",
+	"cpd-tag-bpmn-desc": "th\u1ebb BPMN",
 	"cpd-ve-bpmn-title": "BPMN",
-	"cpd-ve-bpmn-name-title": "Tên"
+	"cpd-ve-bpmn-name-title": "T\u00ean"
 }
