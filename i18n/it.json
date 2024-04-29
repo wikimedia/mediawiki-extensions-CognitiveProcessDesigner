@@ -7,7 +7,7 @@
 			"Pierpao"
 		]
 	},
-	"cpd-yes": "Sì",
+	"cpd-yes": "S\u00ec",
 	"cpd-no": "No",
 	"cpd-keyboard-shortcuts": "Scorciatoie da tastiera",
 	"cpd-keyboard-shortcuts-select-all": "Seleziona tutto",
@@ -16,6 +16,6 @@
 	"cpd-tag-bpmn-desc": "Tag BPMN",
 	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-name-title": "Nome",
-	"cpd-error-dialog-title": "Si è verificato un errore!",
+	"cpd-error-dialog-title": "Si \u00e8 verificato un errore!",
 	"cpd-droplet-bpmn-name": "Diagramma BPMN"
 }

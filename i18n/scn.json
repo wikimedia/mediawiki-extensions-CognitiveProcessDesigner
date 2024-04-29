@@ -4,14 +4,14 @@
 			"Ajeje Brazorf"
 		]
 	},
-	"cpd-yes": "Sì",
+	"cpd-yes": "S\u00ec",
 	"cpd-no": "No",
-	"cpd-show-details": "Ammustra li dittagghî",
-	"cpd-undo-last-change": "Annulla l'ùrtimu canciamentu",
+	"cpd-show-details": "Ammustra li dittaggh\u00ee",
+	"cpd-undo-last-change": "Annulla l'\u00f9rtimu canciamentu",
 	"cpd-keyboard-shortcuts-undo": "Annulla",
 	"cpd-btn-label-save": "Sarva",
 	"cpd-saved": "Sarvatu",
-	"action-cognitiveprocessdesigner-viewspecialpage": "taliari la pàggina spiciali \"{{int:cognitiveprocessdesigneredit}}\"",
+	"action-cognitiveprocessdesigner-viewspecialpage": "taliari la p\u00e0ggina spiciali \"{{int:cognitiveprocessdesigneredit}}\"",
 	"cpd-tag-bpmn-desc": "Tag BPMN",
 	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-name-title": "Nomu"
