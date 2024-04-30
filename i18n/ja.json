@@ -6,12 +6,12 @@
 			"Tmv"
 		]
 	},
-	"cpd-bpmn-id-placeholder": "BPMN\u306eID",
-	"cpd-yes": "\u306f\u3044",
-	"cpd-btn-label-save": "\u4fdd\u5b58",
-	"cpd-saved": "\u4fdd\u5b58",
-	"cpd-diagram-save-dialog-title": "\u56f3\u5f62\u3092\u4fdd\u5b58\u3059\u308b",
-	"cpd-error-dialog-title": "\u30a8\u30e9\u30fc\u304c\u767a\u751f\u3057\u307e\u3057\u305f",
-	"action-cognitiveprocessdesigner-editbpmn": "BPMN \u30c0\u30a4\u30a2\u30b0\u30e9\u30e0\u306e\u7de8\u96c6",
-	"right-cognitiveprocessdesigner-editbpmn": "BPMN \u30c0\u30a4\u30a2\u30b0\u30e9\u30e0\u3092\u7de8\u96c6"
+	"cpd-bpmn-id-placeholder": "BPMNのID",
+	"cpd-yes": "はい",
+	"cpd-btn-label-save": "保存",
+	"cpd-saved": "保存",
+	"cpd-diagram-save-dialog-title": "図形を保存する",
+	"cpd-error-dialog-title": "エラーが発生しました",
+	"action-cognitiveprocessdesigner-editbpmn": "BPMN ダイアグラムの編集",
+	"right-cognitiveprocessdesigner-editbpmn": "BPMN ダイアグラムを編集"
 }
