@@ -2,11 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"MITO",
-			"Pyscowicz"
+			"Pyscowicz",
+			"Samoasambia"
 		]
 	},
 	"cpd-yes": "Kyllä",
 	"cpd-no": "Ei",
+	"cpd-keyboard-shortcuts": "Pikanäppäimet",
 	"cpd-keyboard-shortcuts-undo": "Kumoa",
 	"cpd-keyboard-shortcuts-redo": "Tee uudelleen",
 	"cpd-keyboard-shortcuts-select-all": "Valitse kaikki",
