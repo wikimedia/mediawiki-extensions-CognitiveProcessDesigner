@@ -11,17 +11,18 @@ use SMW\SemanticData;
 use Title;
 
 class PrepareBPMNDiagramForExport extends BSUEModulePDFBeforeCreatePDF {
-
+	/** @var string[] */
 	protected $classesToRemove = [
 		'cpd-toolbar',
 		'cpd-js-drop-zone'
 	];
 
+	/** @var string */
 	protected $bpmnEditButtonClass = 'cpd-edit-bpmn';
+	/** @var string */
 	protected $bpmnEditButtonBPMNNameAttribute = 'data-bpmn-name';
 
 	/**
-	 *
 	 * @return bool
 	 */
 	protected function doProcess() {
