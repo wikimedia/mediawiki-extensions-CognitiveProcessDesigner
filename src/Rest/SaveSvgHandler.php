@@ -40,11 +40,12 @@ class SaveSvgHandler extends Handler {
 	 */
 	public function execute() {
 		$params = $this->getValidatedParams();
+		$body = $this->getValidatedBody();
 
 		$user = RequestContext::getMain()->getUser();
 
 		$tempFilePath = TempFSFile::getUsableTempDirectory() . '/' . $params['filename'];
-		if ( !file_put_contents( $tempFilePath, $params['svgContent'] ) ) {
+		if ( !file_put_contents( $tempFilePath, $body['svgContent'] ) ) {
 			return $this->getResponseFactory()->createJson( [
 				'success' => false,
 				'error' => "Could not create temporary file: '$tempFilePath'"
@@ -129,11 +130,26 @@ class SaveSvgHandler extends Handler {
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true
 			],
+		];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getBodyParamSettings(): array {
+		return [
 			'svgContent' => [
-				static::PARAM_SOURCE => 'post',
+				static::PARAM_SOURCE => 'body',
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true
 			]
+		];
+	}
+
+	public function getSupportedRequestTypes(): array {
+		return [
+			'application/x-www-form-urlencoded',
+			'multipart/form-data',
 		];
 	}
 }
