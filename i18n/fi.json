@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"MITO",
-			"Pyscowicz"
+			"Pyscowicz",
+			"Samoasambia"
 		]
 	},
 	"cpd-ve-bpmn-name-title": "Nimi",
@@ -16,5 +17,6 @@
 	"cpd-open-page-label": "Avaa sivu",
 	"cpd-saved": "Tallennettu",
 	"cpd-diagram-save-dialog-title": "Tallennetaan kaaviota...",
-	"cpd-error-dialog-title": "Tapahtui virhe!"
+	"cpd-error-dialog-title": "Tapahtui virhe!",
+	"cpd-keyboard-shortcuts": "Pikanäppäimet"
 }

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
 	"specialpages-group-semantic-process": "Semantesche Prozess",
@@ -14,5 +15,9 @@
 	"cpd-open-page-label": "Säit opmaachen",
 	"cpd-saved": "Gespäichert",
 	"cpd-ve-bpmn-title": "BPMN",
-	"cpd-ve-bpmn-name-title": "Numm"
+	"cpd-ve-bpmn-name-title": "Numm",
+	"cpd-download-svg": "Als SVG eroflueden",
+	"cpd-ve-bpmn-name-help": "Numm vun Ärem Diagramm",
+	"cpd-error-dialog-title": "Feeler opgetrueden!",
+	"cpd-droplet-bpmn-name": "BPMN-Diagramm"
 }

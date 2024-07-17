@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"MathXplore",
+			"Omotecho",
 			"Shirayuki",
 			"Tmv"
 		]
@@ -13,5 +14,7 @@
 	"cpd-diagram-save-dialog-title": "図形を保存する",
 	"cpd-error-dialog-title": "エラーが発生しました",
 	"action-cognitiveprocessdesigner-editbpmn": "BPMN ダイアグラムの編集",
-	"right-cognitiveprocessdesigner-editbpmn": "BPMN ダイアグラムを編集"
+	"right-cognitiveprocessdesigner-editbpmn": "BPMN ダイアグラムを編集",
+	"action-cognitiveprocessdesigner-viewspecialpage": "特別ページ「{{int:cognitiveprocessdesigneredit}}」を表示",
+	"right-cognitiveprocessdesigner-viewspecialpage": "[[Special:Cognitive Process Designer Edit]] 特別ページにアクセス"
 }
