@@ -27,6 +27,11 @@ class AddEntityHeaderFooter {
 	private $text = '';
 
 	/**
+	 * @var array
+	 */
+	private static $cache = [];
+
+	/**
 	 *
 	 * @param \OutputPage &$out
 	 * @param string &$text
@@ -60,8 +65,18 @@ class AddEntityHeaderFooter {
 		}
 		/** @var BPMNHeaderFooterRenderer $renderer */
 		$renderer = MediaWikiServices::getInstance()->getService( 'BPMNHeaderFooterRenderer' );
-		$header = $renderer->getHeader( $this->out->getTitle() );
-		$footer = $renderer->getFooter( $this->out->getTitle() );
+		$cacheKey = $this->out->getTitle()->getPrefixedDBkey();
+		if ( isset( static::$cache[$cacheKey] ) ) {
+			$header = static::$cache[$cacheKey]['header'];
+			$footer = static::$cache[$cacheKey]['footer'];
+		} else {
+			$header = $renderer->getHeader( $this->out->getTitle() );
+			$footer = $renderer->getFooter( $this->out->getTitle() );
+			static::$cache[$cacheKey] = [
+				'header' => $header,
+				'footer' => $footer
+			];
+		}
 		if ( empty( $header ) && empty( $footer ) ) {
 			return true;
 		}
