@@ -22,7 +22,7 @@
 	"cpd-no": "Не",
 	"cpd-open-bpmn-from-local-file": "Отвори BPMN-дијаграм од месен податочен систем",
 	"cpd-err-import-warning": "Дијаграмот може да не се исцрта правилно поради предупредувањата од извозот.",
-	"cpd-show-details": "Покажи подробности",
+	"cpd-show-details": "Покажи поединости",
 	"cpd-you-edited-diagram": "Го уредивте дијаграмот.",
 	"cpd-undo-last-change": "Откажи последна промена",
 	"cpd-download-bpmn": "Преземи BPMN-дијаграм",
