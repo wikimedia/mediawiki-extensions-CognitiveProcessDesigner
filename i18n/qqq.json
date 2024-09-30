@@ -6,6 +6,7 @@
 			"HalloWelt! GmbH",
 			"McDutchie",
 			"Robby",
+			"Special Naa",
 			"Umherirrender"
 		]
 	},
@@ -23,7 +24,7 @@
 	"cpd-create-new-bpmn": "Create new BPMN message",
 	"cpd-bpmn-id-placeholder": "BPMN ID placeholder",
 	"cpd-overwrite-wiki-page-question": "Question to the user does he want to overwrite existing wiki page",
-	"cpd-yes": "Yes\n{{identical|Yes}}",
+	"cpd-yes": "Hɛɛ",
 	"cpd-no": "No\n{{identical|No}}",
 	"cpd-open-bpmn-from-local-file": "Open BPMN diagram from local file system title",
 	"cpd-err-import-warning": "Error message about BPMN import warnings",
