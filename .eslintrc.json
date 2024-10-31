@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2017
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "wikimedia/client-es6",
+    "wikimedia/jquery",
+    "wikimedia/mediawiki"
+  ],
+  "rules": {
+    "no-implicit-globals": "off",
+    "quotes": "off",
+    "no-use-before-define": "off",
+    "no-restricted-syntax": "off"
+  }
+}

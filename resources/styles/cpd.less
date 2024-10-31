@@ -1,0 +1,101 @@
+@space: 12px;
+.mw-body-content {
+  .cpd-canvas {
+    height: 100%;
+  }
+
+  .cpd-link {
+    display: block;
+
+    &[disabled] {
+      color: #ccc;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .cpd-toolbar {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+
+    a, button {
+      margin-bottom: @space;
+      display: block;
+    }
+  }
+
+  div.hidden, a.hidden, button.hidden {
+    display: none;
+  }
+
+  .cpd-message-box {
+    margin: @space 0;
+    padding: @space;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background-color: #f9f9f9;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /**
+   * Fix position of color picker
+   * Overwritten from workflows extension
+   */
+
+  .djs-popup-backdrop {
+    position: initial;
+  }
+
+  a[aria-disabled="true"] {
+    pointer-events: none;
+  }
+}
+
+// Save dialog
+.oo-ui-window-body {
+  div.cpd-validation-container {
+    color: #d33;
+
+    h3 {
+      color: #d33;
+    }
+  }
+
+  span.cpd-inline-svg {
+    svg {
+      width: 40px;
+    }
+
+    &.large {
+      svg {
+        width: 180px;
+      }
+    }
+  }
+
+  .cpd-validation-content:not(:empty) {
+    margin-top: 15px;
+    color: #d33;
+  }
+
+  .error {
+    color: #d33;
+  }
+}
+
+// Hide contentSub div if empty
+#contentSub:empty {
+  display: none;
+}

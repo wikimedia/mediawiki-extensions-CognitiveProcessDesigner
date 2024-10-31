@@ -1,0 +1,12 @@
+*~
+*.kate-swp
+*.swp
+node_modules/**
+vendor/**
+/.eslintcache
+
+composer.lock
+composer.phar
+
+resources/js/cpd.modeler.bundle.js
+resources/js/cpd.viewer.bundle.js
