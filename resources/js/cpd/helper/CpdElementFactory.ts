@@ -56,7 +56,11 @@ export class CpdElementFactory {
 		return cpdElement;
 	}
 
-	public createElementsForDescriptionPages(): CpdElement[] {
+	public createElements(): CpdElement[] {
+		return this.elementRegistry.getAll().map( ( element: Element ) => CpdElement.init( element ) );
+	}
+
+	public createDescriptionPageEligibleElements(): CpdElement[] {
 		const cpdElements = this.findDescriptionPageEligibleElements( this.subpageTypes ).map(
 			( element: Element ): CpdElement => {
 				const cpdElement = CpdElement.init( element );
@@ -72,7 +76,7 @@ export class CpdElementFactory {
 	}
 
 	public findElementsWithExistingDescriptionPage(): CpdElement[] {
-		return this.createElementsForDescriptionPages()
+		return this.createDescriptionPageEligibleElements()
 			.filter( ( element: CpdElement ) => element.descriptionPage?.exists );
 	}
 

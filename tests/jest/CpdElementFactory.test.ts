@@ -10,46 +10,53 @@ describe( "CpdElementFactory", () => {
 	const descriptionPages = [
 		{ dbKey: "process/a", isNew: false },
 		{ dbKey: "process/b", isNew: true }
-	]
+	];
 
-	test( "createElementsForDescriptionPages", () => {
+	test( "createElements", () => {
 		const registry = new ElementRegistry( eventBus );
 		const factory = new CpdElementFactory( registry, "process", descriptionPages );
 
-		// Valid
+		// Description page eligible
 		registry.add( createElementFixture( "a", "task" ), createSvgFixture() );
 		registry.add( createElementFixture( "b", "event" ), createSvgFixture() );
 		registry.add( createElementFixture( "c", "event" ), createSvgFixture() );
 
-		// Invalid
+		// Not description page eligible
 		registry.add( createElementFixture( "d" ), createSvgFixture() );
 		registry.add( createElementFixture( "e", "not supported" ), createSvgFixture() );
 
-		const elements = factory.createElementsForDescriptionPages();
+		const elements = factory.createElements();
+		const descriptionPageElements = factory.createDescriptionPageEligibleElements();
 
-		expect( elements ).toHaveLength( 3 );
-		expect( elements.some( ( element ) => element.id === "a" ) ).toBe( true );
-		expect( elements.some( ( element ) => element.id === "b" ) ).toBe( true );
-		expect( elements.some( ( element ) => element.id === "c" ) ).toBe( true );
-		expect( elements.every( ( element ) => element.id !== "d" ) ).toBe( true );
-		expect( elements.every( ( element ) => element.id !== "e" ) ).toBe( true );
+		expect( elements ).toHaveLength( 5 );
+		expect( descriptionPageElements ).toHaveLength( 3 );
 
-		expect( elements.every( ( element ) => element.descriptionPage ) ).toBe( true );
-		expect( elements.find( ( element ) => element.id === "a" ) ).toMatchObject( {
+		expect( elements.some( ( element ) => element.id == "e" ) ).toBe( true );
+		expect( elements.some( ( element ) => element.id == "d" ) ).toBe( true );
+		expect( elements.every( ( element ) => element.descriptionPage ) ).toBe( false );
+
+		expect( descriptionPageElements.some( ( element ) => element.id === "a" ) ).toBe( true );
+		expect( descriptionPageElements.some( ( element ) => element.id === "b" ) ).toBe( true );
+		expect( descriptionPageElements.some( ( element ) => element.id === "c" ) ).toBe( true );
+		expect( descriptionPageElements.every( ( element ) => element.id !== "d" ) ).toBe( true );
+		expect( descriptionPageElements.every( ( element ) => element.id !== "e" ) ).toBe( true );
+
+		expect( descriptionPageElements.every( ( element ) => element.descriptionPage ) ).toBe( true );
+		expect( descriptionPageElements.find( ( element ) => element.id === "a" ) ).toMatchObject( {
 			descriptionPage: {
 				dbKey: "process/a",
 				isNew: false,
 				exists: true
 			}
 		} );
-		expect( elements.find( ( element ) => element.id === "b" ) ).toMatchObject( {
+		expect( descriptionPageElements.find( ( element ) => element.id === "b" ) ).toMatchObject( {
 			descriptionPage: {
 				dbKey: "process/b",
 				isNew: true,
 				exists: true
 			}
 		} );
-		expect( elements.find( ( element ) => element.id === "c" ) ).toMatchObject( {
+		expect( descriptionPageElements.find( ( element ) => element.id === "c" ) ).toMatchObject( {
 			descriptionPage: {
 				dbKey: "process/c",
 				isNew: false,
@@ -70,34 +77,34 @@ describe( "CpdElementFactory", () => {
 			source: a,
 			target: b
 		} as unknown as Connection;
-		a.outgoing = [outgoingConnection];
+		a.outgoing = [ outgoingConnection ];
 		outgoingConnection = {
 			source: b,
 			target: c
 		} as unknown as Connection;
-		b.outgoing = [outgoingConnection];
+		b.outgoing = [ outgoingConnection ];
 		outgoingConnection = {
 			source: c,
 			target: d
 		} as unknown as Connection;
-		c.outgoing = [outgoingConnection];
+		c.outgoing = [ outgoingConnection ];
 
 		registry.add( a, createSvgFixture() );
 		registry.add( b, createSvgFixture() );
 		registry.add( c, createSvgFixture() );
 		registry.add( d, createSvgFixture() );
 
-		const elements = factory.createElementsForDescriptionPages();
+		const elements = factory.createElements();
 		expect( elements ).toHaveLength( 2 );
-		elements.forEach((cpdElement: CpdElement) => {
-			if (cpdElement.id === 'a') {
+		elements.forEach( ( cpdElement: CpdElement ) => {
+			if ( cpdElement.id === 'a' ) {
 				expect( cpdElement.outgoingLinks ).toHaveLength( 1 );
-				expect(cpdElement.outgoingLinks[0].id).toBe('d');
+				expect( cpdElement.outgoingLinks[ 0 ].id ).toBe( 'd' );
 			}
-			if (cpdElement.id === 'd') {
+			if ( cpdElement.id === 'd' ) {
 				expect( cpdElement.outgoingLinks ).toHaveLength( 0 );
 			}
-		})
+		} )
 	} );
 } );
 

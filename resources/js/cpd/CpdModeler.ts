@@ -12,6 +12,7 @@ import CpdInlineSvgRenderer from "./helper/CpdInlineSvgRenderer";
 import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
 import bpmnlintConfig from "../../../bpmn-lint.config";
 import lintModule from 'bpmn-js-bpmnlint';
+import EventBus from "diagram-js/lib/core/EventBus";
 
 class CpdModeler extends CpdTool {
 	private bpmnModeler: BpmnModeler;
@@ -51,6 +52,12 @@ class CpdModeler extends CpdTool {
 		this.validator = new CpdValidator( svgRenderer );
 		this.elementFactory = new CpdElementFactory( elementRegistry, process, this.descriptionPages );
 		this.changeLogger = new CpdChangeLogger( this.bpmnModeler.get( "eventBus" ), this.elementFactory, svgRenderer );
+
+		// TODO: remove type logging
+		const eventBus = this.bpmnModeler.get( "eventBus" ) as unknown as EventBus;
+		eventBus.on( "element.click", ( e ) => {
+			console.log(e.element.type);
+		} );
 
 		if ( !this.xml ) {
 			try {
@@ -125,7 +132,7 @@ class CpdModeler extends CpdTool {
 	}
 
 	private async updateElementDescriptionPages(): Promise<void> {
-		const elements = this.elementFactory.createElementsForDescriptionPages();
+		const elements = this.elementFactory.createDescriptionPageEligibleElements();
 		this.applyDescriptionPageChanges( elements );
 
 		const result = await this.api.saveDescriptionPages( elements );
@@ -157,8 +164,10 @@ class CpdModeler extends CpdTool {
 	}
 
 	private onOpenDialog(): void {
-		this.applyDescriptionPageChanges( this.elementFactory.createElementsForDescriptionPages() );
-		this.dom.setDialogValidation( this.validator.validate( this.elementFactory.createElementsForDescriptionPages() ) );
+		const descriptionPageElements = this.elementFactory.createDescriptionPageEligibleElements();
+
+		this.applyDescriptionPageChanges( descriptionPageElements );
+		this.dom.setDialogValidation( this.validator.validate( descriptionPageElements ) );
 		this.dom.setDialogChangelog( this.changeLogger.getMessages() );
 	}
 
@@ -168,7 +177,7 @@ class CpdModeler extends CpdTool {
 				return;
 			}
 
-			const initialElement = this.initialElements.find( ( initialElement: CpdElement ): boolean => initialElement.id === element.id );
+			const initialElement = this.initialElements.find( ( el: CpdElement ): boolean => el.id === element.id );
 			if ( !initialElement ) {
 				this.changeLogger.addDescriptionPageChange( element );
 				return;
