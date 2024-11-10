@@ -3,6 +3,7 @@
 		"authors": [
 			"Alshamiri1",
 			"FiberAhmed",
+			"Meno25",
 			"أَحمد",
 			"محمد أحمد عبد الفتاح"
 		]
@@ -49,7 +50,7 @@
 	"cpd-saved": "محفوظة",
 	"action-cognitiveprocessdesigner-viewspecialpage": "عرض الصفحة الخاصة \"{{int: cognitiveprocessdesigneredit}}\"",
 	"action-cognitiveprocessdesigner-editbpmn": "قم بتحرير مخطط BPMN",
-	"right-cognitiveprocessdesigner-viewspecialpage": "الوصول إلى الصفحة الخاصة [[Special: Cognitive Process Designer Edit]]",
+	"right-cognitiveprocessdesigner-viewspecialpage": "الوصول إلى الصفحة الخاصة [[Special:Cognitive Process Designer Edit]]",
 	"right-cognitiveprocessdesigner-editbpmn": "تحرير مخططات BPMN",
 	"cpd-ve-bpmn-title": "BPMN",
 	"cpd-ve-bpmn-desc": "أدخل مخطط BPMN",
