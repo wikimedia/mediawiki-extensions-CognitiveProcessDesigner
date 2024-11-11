@@ -78,7 +78,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		$this->diagramPageUtil->setJsConfigVars( $output, $page->getDBkey() );
 		$output->addModules( [ 'ext.cognitiveProcessDesigner.viewer' ] );
 
-		$process = $this->diagramPageUtil->getProcessFromTitle( $page );
+		$process = CpdDiagramPageUtil::getProcessFromTitle( $page );
 		$html = $this->getDiagramUsageHtml( $process );
 
 		$output->setText( $html );

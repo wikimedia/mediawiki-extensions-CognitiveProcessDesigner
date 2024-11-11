@@ -53,12 +53,6 @@ class CpdModeler extends CpdTool {
 		this.elementFactory = new CpdElementFactory( elementRegistry, process, this.descriptionPages );
 		this.changeLogger = new CpdChangeLogger( this.bpmnModeler.get( "eventBus" ), this.elementFactory, svgRenderer );
 
-		// TODO: remove type logging
-		const eventBus = this.bpmnModeler.get( "eventBus" ) as unknown as EventBus;
-		eventBus.on( "element.click", ( e ) => {
-			console.log(e.element.type);
-		} );
-
 		if ( !this.xml ) {
 			try {
 				await this.createDiagram();

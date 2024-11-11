@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\Tests;
 
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
+use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use Config;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
@@ -40,6 +41,7 @@ class CpdDescriptionPageUtilTest extends TestCase {
 			$this->createMock( ILoadBalancer::class ),
 			$this->createMock( WikiPageFactory::class ),
 			$this->createMock( Config::class ),
+			$this->createMock( CpdElementConnectionUtil::class ),
 		);
 	}
 

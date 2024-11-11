@@ -29,7 +29,7 @@ return [
 	},
 	'CpdElementConnectionUtil' => static function ( MediaWikiServices $services ) {
 		return new CpdElementConnectionUtil(
-			$services->getDBLoadBalancer(), $services->getMainConfig(),
+			$services->getDBLoadBalancer()
 		);
 	},
 	'CpdElementFactory' => static function ( MediaWikiServices $services ) {

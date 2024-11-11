@@ -3,7 +3,8 @@
 namespace CognitiveProcessDesigner\Util;
 
 use CognitiveProcessDesigner\CpdElement;
-use Config;
+use CognitiveProcessDesigner\CpdNavigationConnection;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use Title;
 use Wikimedia\Rdbms\ILoadBalancer;
 
@@ -11,19 +12,13 @@ class CpdElementConnectionUtil {
 	/** @var ILoadBalancer */
 	private ILoadBalancer $loadBalancer;
 
-	/** @var Config */
-	private Config $config;
-
 	/**
 	 * @param ILoadBalancer $loadBalancer
-	 * @param Config $config
 	 */
 	public function __construct(
-		ILoadBalancer $loadBalancer,
-		Config $config,
+		ILoadBalancer $loadBalancer
 	) {
 		$this->loadBalancer = $loadBalancer;
-		$this->config = $config;
 	}
 
 	/**
@@ -60,7 +55,8 @@ class CpdElementConnectionUtil {
 	/**
 	 * @param Title $title
 	 *
-	 * @return string[] dbkeys
+	 * @return CpdNavigationConnection[]
+	 * @throws CpdInvalidNamespaceException
 	 */
 	public function getIncomingConnections( Title $title ): array {
 		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
@@ -76,13 +72,16 @@ class CpdElementConnectionUtil {
 			$links[] = $row->from_page;
 		}
 
-		return $links;
+		return array_map( function ( $link ) use ( $title ) {
+			return $this->createNavigationConnection( $link, $title );
+		}, $links );
 	}
 
 	/**
 	 * @param Title $title
 	 *
-	 * @return string[] dbkeys
+	 * @return CpdNavigationConnection[]
+	 * @throws CpdInvalidNamespaceException
 	 */
 	public function getOutgoingConnections( Title $title ): array {
 		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
@@ -98,6 +97,29 @@ class CpdElementConnectionUtil {
 			$links[] = $row->to_page;
 		}
 
-		return $links;
+		return array_map( function ( $link ) use ( $title ) {
+			return $this->createNavigationConnection( $link, $title );
+		}, $links );
+	}
+
+	/**
+	 * @param string $dbKey
+	 * @param Title $source
+	 *
+	 * @return CpdNavigationConnection
+	 * @throws CpdInvalidNamespaceException
+	 */
+	private function createNavigationConnection( string $dbKey, Title $source ): CpdNavigationConnection {
+		// TODO ERM34757 implement provide type of connection
+		$isEnd = false;
+
+		$target = Title::newFromDBkey( $dbKey );
+		$isLaneChange = CpdDiagramPageUtil::getLanesFromTitle( $source ) !==
+			CpdDiagramPageUtil::getLanesFromTitle( $target );
+
+		$title = $target->getSubpageText();
+		$link = $target->getFullURL();
+
+		return new CpdNavigationConnection( $title, $link, $isLaneChange, $isEnd );
 	}
 }

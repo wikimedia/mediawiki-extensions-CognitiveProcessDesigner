@@ -2,10 +2,14 @@
 
 namespace CognitiveProcessDesigner\HookHandler;
 
+use CognitiveProcessDesigner\CpdNavigationConnection;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
+use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use MediaWiki\Hook\OutputPageBeforeHTMLHook;
 use MediaWiki\Linker\LinkRenderer;
 use OutputPage;
+use TemplateParser;
 use Title;
 
 class AddDescriptionPageDiagramNavigationLinks implements OutputPageBeforeHTMLHook {
@@ -17,16 +21,28 @@ class AddDescriptionPageDiagramNavigationLinks implements OutputPageBeforeHTMLHo
 	/** @var LinkRenderer */
 	private LinkRenderer $linkRenderer;
 
+	/** @var TemplateParser */
+	private TemplateParser $templateParser;
+
+	/** @var CpdElementConnectionUtil */
+	private CpdElementConnectionUtil $connectionUtil;
+
 	/**
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
+	 * @param CpdElementConnectionUtil $connectionUtil
 	 * @param LinkRenderer $linkRenderer
 	 */
 	public function __construct(
 		CpdDescriptionPageUtil $descriptionPageUtil,
+		CpdElementConnectionUtil $connectionUtil,
 		LinkRenderer $linkRenderer
 	) {
 		$this->descriptionPageUtil = $descriptionPageUtil;
 		$this->linkRenderer = $linkRenderer;
+		$this->templateParser = new TemplateParser(
+			dirname( __DIR__, 2 ) . '/resources/templates'
+		);
+		$this->connectionUtil = $connectionUtil;
 	}
 
 	/**
@@ -34,6 +50,7 @@ class AddDescriptionPageDiagramNavigationLinks implements OutputPageBeforeHTMLHo
 	 * @param string &$text
 	 *
 	 * @return void
+	 * @throws CpdInvalidNamespaceException
 	 */
 	public function onOutputPageBeforeHTML( $out, &$text ): void {
 		$title = $out->getTitle();
@@ -57,28 +74,21 @@ class AddDescriptionPageDiagramNavigationLinks implements OutputPageBeforeHTMLHo
 			);
 		}
 
-		$text = $this->createLinkList( $this->descriptionPageUtil->getIncomingPages( $title ) ) . $text;
-		$text = $text . $this->createLinkList( $this->descriptionPageUtil->getOutgoingPages( $title ) );
+		$text = $this->createNavigation( $this->connectionUtil->getIncomingConnections( $title ) ) . $text;
+		$text = $text . $this->createNavigation( $this->connectionUtil->getOutgoingConnections( $title ) );
 	}
 
 	/**
-	 * @param array $links
+	 * @param CpdNavigationConnection[] $connections
 	 *
 	 * @return string
 	 */
-	private function createLinkList( array $links ): string {
-		$html = '<ul>';
-		foreach ( $links as $link ) {
-			$html .= '<li>';
-			$html .= $this->linkRenderer->makeLink(
-				$link,
-				$link->getText()
-			);
-			$html .= '</li>';
-		}
-
-		$html .= '</ul>';
-
-		return $html;
+	private function createNavigation( array $connections ): string {
+		return $this->templateParser->processTemplate(
+			'DescriptionPageNavigation', [
+				'connections' => array_map( fn( CpdNavigationConnection $connection ) => $connection->toArray(),
+					$connections )
+			]
+		);
 	}
 }

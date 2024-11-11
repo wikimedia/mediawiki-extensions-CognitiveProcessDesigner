@@ -325,6 +325,7 @@
             "class": "\\CognitiveProcessDesigner\\HookHandler\\AddDescriptionPageDiagramNavigationLinks",
             "services": [
                 "CpdDescriptionPageUtil",
+                "CpdElementConnectionUtil",
                 "LinkRenderer"
             ]
         },
@@ -334,8 +335,7 @@
         "onPageDeleteComplete": {
             "class": "\\CognitiveProcessDesigner\\HookHandler\\OnPageDeleteComplete",
             "services": [
-                "CpdDescriptionPageUtil",
-                "CpdDiagramPageUtil"
+                "CpdDescriptionPageUtil"
             ]
         },
         "commonUserInterface": {

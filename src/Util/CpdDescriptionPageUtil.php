@@ -7,7 +7,6 @@ use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use Config;
 use Content;
-use MediaWiki\Page\PageReference;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
 use Title;
@@ -184,27 +183,5 @@ class CpdDescriptionPageUtil {
 	 */
 	public function updateElementConnections( array $elements, string $process ): void {
 		$this->connectionUtil->updateElementConnections( $elements, $process );
-	}
-
-	/**
-	 * @param Title $title
-	 *
-	 * @return PageReference[]
-	 */
-	public function getIncomingPages( Title $title ): array {
-		return array_map( static function ( string $incomingPage ) {
-			return Title::newFromDBkey( $incomingPage );
-		}, $this->connectionUtil->getIncomingConnections( $title ) );
-	}
-
-	/**
-	 * @param Title $title
-	 *
-	 * @return PageReference[] html links
-	 */
-	public function getOutgoingPages( Title $title ): array {
-		return array_map( static function ( string $outgoingPage ) {
-			return Title::newFromDBkey( $outgoingPage );
-		}, $this->connectionUtil->getOutgoingConnections( $title ) );
 	}
 }

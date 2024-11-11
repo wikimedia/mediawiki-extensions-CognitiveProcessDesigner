@@ -17,16 +17,11 @@ class OnPageDeleteComplete implements PageDeleteCompleteHook {
 	/** @var CpdDescriptionPageUtil */
 	private CpdDescriptionPageUtil $descriptionPageUtil;
 
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $diagramPageUtil;
-
 	/**
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
-	 * @param CpdDiagramPageUtil $diagramPageUtil
 	 */
-	public function __construct( CpdDescriptionPageUtil $descriptionPageUtil, CpdDiagramPageUtil $diagramPageUtil ) {
+	public function __construct( CpdDescriptionPageUtil $descriptionPageUtil ) {
 		$this->descriptionPageUtil = $descriptionPageUtil;
-		$this->diagramPageUtil = $diagramPageUtil;
 	}
 
 	/**
@@ -42,7 +37,7 @@ class OnPageDeleteComplete implements PageDeleteCompleteHook {
 		int $archivedRevisionCount
 	) {
 		try {
-			$process = $this->diagramPageUtil->getProcessFromTitle(
+			$process = CpdDiagramPageUtil::getProcessFromTitle(
 				Title::newFromText( $page->getDBkey(), $page->getNamespace() )
 			);
 			$this->descriptionPageUtil->updateOrphanedDescriptionPages( [], $process );

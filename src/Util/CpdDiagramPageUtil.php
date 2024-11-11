@@ -85,12 +85,31 @@ class CpdDiagramPageUtil {
 	 * @return string
 	 * @throws CpdInvalidNamespaceException
 	 */
-	public function getProcessFromTitle( PageReference $title ): string {
+	public static function getProcessFromTitle( PageReference $title ): string {
 		if ( $title->getNamespace() !== NS_PROCESS ) {
 			throw new CpdInvalidNamespaceException( 'Page not in CPD namespace' );
 		}
 
 		return explode( '/', $title->getText() )[0];
+	}
+
+	/**
+	 * @param PageReference $title
+	 *
+	 * @return array
+	 * @throws CpdInvalidNamespaceException
+	 */
+	public static function getLanesFromTitle( PageReference $title ): array {
+		if ( $title->getNamespace() !== NS_PROCESS ) {
+			throw new CpdInvalidNamespaceException( 'Page not in CPD namespace' );
+		}
+
+		$lanes = explode( '/', $title->getBaseText() );
+
+		// Remove process
+		array_shift( $lanes );
+
+		return $lanes;
 	}
 
 	/**
