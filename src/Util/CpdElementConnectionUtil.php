@@ -110,9 +110,6 @@ class CpdElementConnectionUtil {
 	 * @throws CpdInvalidNamespaceException
 	 */
 	private function createNavigationConnection( string $dbKey, Title $source ): CpdNavigationConnection {
-		// TODO ERM34757 implement provide type of connection
-		$isEnd = false;
-
 		$target = Title::newFromDBkey( $dbKey );
 		$isLaneChange = CpdDiagramPageUtil::getLanesFromTitle( $source ) !==
 			CpdDiagramPageUtil::getLanesFromTitle( $target );
@@ -120,6 +117,6 @@ class CpdElementConnectionUtil {
 		$title = $target->getSubpageText();
 		$link = $target->getFullURL();
 
-		return new CpdNavigationConnection( $title, $link, $isLaneChange, $isEnd );
+		return new CpdNavigationConnection( $title, $link, $isLaneChange );
 	}
 }

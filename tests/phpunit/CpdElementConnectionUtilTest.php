@@ -56,7 +56,6 @@ class CpdElementConnectionUtilTest extends TestCase {
 			$this->assertNotEmpty( $data['link'] );
 			$this->assertEquals( $expected[$i]['title'], $data['title'] );
 			$this->assertEquals( $expected[$i]['isLaneChange'], $data['isLaneChange'] );
-			$this->assertEquals( $expected[$i]['isEnd'], $data['isEnd'] );
 		}
 	}
 
@@ -71,13 +70,11 @@ class CpdElementConnectionUtilTest extends TestCase {
 				[
 					[
 						'title' => 'b',
-						'isLaneChange' => true,
-						'isEnd' => false
+						'isLaneChange' => true
 					],
 					[
 						'title' => 'c',
-						'isLaneChange' => false,
-						'isEnd' => false
+						'isLaneChange' => false
 					],
 				]
 			],
@@ -91,18 +88,15 @@ class CpdElementConnectionUtilTest extends TestCase {
 				[
 					[
 						'title' => 'b',
-						'isLaneChange' => false,
-						'isEnd' => false
+						'isLaneChange' => false
 					],
 					[
 						'title' => 'c',
-						'isLaneChange' => true,
-						'isEnd' => false
+						'isLaneChange' => true
 					],
 					[
 						'title' => 'd',
-						'isLaneChange' => true,
-						'isEnd' => false
+						'isLaneChange' => true
 					],
 				]
 			]
