@@ -4,7 +4,8 @@
 			"Alshamiri1",
 			"FiberAhmed",
 			"أَحمد",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Meno25"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "ارسم عمليات BPMN بواجهة مستخدم رسومية في Semantic MediaWiki",
@@ -48,7 +49,7 @@
 	"cpd-saved": "محفوظة",
 	"action-cognitiveprocessdesigner-viewspecialpage": "عرض الصفحة الخاصة \"{{int: cognitiveprocessdesigneredit}}\"",
 	"action-cognitiveprocessdesigner-editbpmn": "قم بتحرير مخطط BPMN",
-	"right-cognitiveprocessdesigner-viewspecialpage": "الوصول إلى الصفحة الخاصة [[Special: Cognitive Process Designer Edit]]",
+	"right-cognitiveprocessdesigner-viewspecialpage": "الوصول إلى الصفحة الخاصة [[Special:Cognitive Process Designer Edit]]",
 	"right-cognitiveprocessdesigner-editbpmn": "تحرير مخططات BPMN",
 	"cpd-ve-bpmn-desc": "أدخل مخطط BPMN",
 	"cpd-ve-bpmn-name-title": "الاسم",
