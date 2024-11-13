@@ -39,7 +39,7 @@
 				}
 
 				const $description = $( '<p>' );
-				$description.text( mw.message( 'cpd-diagram-usage-description' ).plain() + ":" );
+				$description.text( mw.message( 'cpd-process-usage-description' ).plain() + ":" );
 				this.$diagramUsageHtml.append( $description );
 
 				const $linkList = $( '<ul>' );

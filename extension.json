@@ -300,9 +300,9 @@
             ],
             "messages": [
                 "bs-cpd-info-dialog",
-                "cpd-diagram-usage-description",
-                "cpd-diagram-no-usage-description",
-                "cpd-diagram-no-process-description"
+                "cpd-process-usage-description",
+                "cpd-process-no-usage-description",
+                "cpd-process-no-process-description"
             ],
             "dependencies": [
                 "ext.bluespice",
