@@ -1,9 +1,6 @@
 .mw-body-content {
   .cpd-navigation-connections {
-    @incoming-connection-color: #EAECF0;
-    @outgoing-connection-color: #F8F9FA;
     @color-base: #202122;
-    @border-color: #54595D;
     @width: 320px;
     @height: 143px;
     @space: 20px;
@@ -11,8 +8,10 @@
     display: flex;
     justify-content: space-evenly;
     gap: @space;
+    overflow-x: auto;
 
     > div {
+      flex: @width 0 0;
       width: @width;
       height: @height;
 
@@ -27,7 +26,6 @@
         text-align: center;
         background: transparent none no-repeat center;
         background-size: contain;
-
       }
 
       a:visited, a:hover {
