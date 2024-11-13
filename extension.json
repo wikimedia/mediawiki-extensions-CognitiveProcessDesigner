@@ -129,7 +129,16 @@
         },
         "cpd-process-overview-store": {
             "class": "\\CognitiveProcessDesigner\\Api\\Store\\ProcessesOverviewStore",
-            "services": [ "DBLoadBalancer", "CpdDiagramPageUtil" ]
+            "services": [
+                "DBLoadBalancer",
+                "CpdDiagramPageUtil"
+            ]
+        },
+        "cpd-diagram-usage": {
+            "class": "\\CognitiveProcessDesigner\\Api\\GetDiagramUsage",
+            "services": [
+                "CpdDiagramPageUtil"
+            ]
         }
     },
     "ResourceModules": {
@@ -284,6 +293,21 @@
             "styles": [
                 "styles/cps.navigation.connections.less"
             ]
+        },
+        "ext.cpd.dialoginfo.pages": {
+            "scripts": [
+                "js/ext.cpd.DiagramUsageInformationPage.js"
+            ],
+            "messages": [
+                "bs-cpd-info-dialog",
+                "cpd-diagram-usage-description",
+                "cpd-diagram-no-usage-description",
+                "cpd-diagram-no-process-description"
+            ],
+            "dependencies": [
+                "ext.bluespice",
+                "mediawiki.api"
+            ]
         }
     },
     "ServiceWiringFiles": [
@@ -299,7 +323,8 @@
         "OutputPageBeforeHTML": "addDescriptionPageDiagramNavigationLinks",
         "LoadExtensionSchemaUpdates": "addTables",
         "PageDeleteComplete": "onPageDeleteComplete",
-        "MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface"
+        "MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface",
+        "StandardDialogsRegisterPageInfoPanelModules": "standardDialogs"
     },
     "HookHandlers": {
         "tag": {
@@ -348,6 +373,9 @@
             "services": [
                 "MainConfig"
             ]
+        },
+        "standardDialogs": {
+            "class": "\\CognitiveProcessDesigner\\HookHandler\\StandardDialogs"
         }
     },
     "ResourceFileModulePaths": {

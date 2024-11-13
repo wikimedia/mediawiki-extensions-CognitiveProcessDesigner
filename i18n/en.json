@@ -55,8 +55,9 @@
 	"cpd-validation-missing-label": "$1 has no label",
 	"cpd-validation-duplicate-label": "$1 is used multiple times in $2",
 	"cpd-log-no-changes": "No changes",
-	"cpd-diagram-usage-label": "Diagram usage",
-	"cpd-diagram-usage-description": "The following pages uses this diagram",
+	"cpd-diagram-usage-description": "The following pages embedding this diagram",
+	"cpd-diagram-no-usage-description": "No pages are embedding this diagram yet",
+	"cpd-diagram-no-process-description": "No diagram is embedded in this page",
 	"cpd-dialog-save-changes-headline": "Save changes",
 	"cpd-dialog-save-label-description-pages-checkbox": "Save changes and create all description pages",
 	"cpd-dialog-save-label-review": "Review your changes",
@@ -73,5 +74,6 @@
 	"bs-cpd-process-overview-aria-live-filtered-rows": "{{PLURAL:$1|One process|$1 processes}} found",
 	"bs-cpd-process-overview-edit-action-text": "Edit",
 	"bs-cpd-process-overview-edit-action-title": "Edit process $1",
-	"bs-cpd-process-overview-card-title": "Open process $1"
+	"bs-cpd-process-overview-card-title": "Open process $1",
+	"bs-cpd-info-dialog": "BPMN diagram usage"
 }
