@@ -1,6 +1,8 @@
-<div>
+<div class="cpd-navigation-connections {{connectionsCls}}">
     {{#connections}}
-        <div class="{{#isLaneChange}}lane-change{{/isLaneChange}}"><a
-                href="{{link}}">{{title}}</a></div>
+        <div class="{{#isLaneChange}}lane-change{{/isLaneChange}}">
+            <a href="{{link}}">{{{text}}}</a>
+        </div>
     {{/connections}}
 </div>
+{{#headline}}<h3 class="cpd-navigation-connections-headline">{{{headline}}}</h3>{{/headline}}

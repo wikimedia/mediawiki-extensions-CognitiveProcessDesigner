@@ -279,6 +279,11 @@
             "styles": [
                 "styles/cpd.overview.special.css"
             ]
+        },
+        "cps.navigation.connections": {
+            "styles": [
+                "styles/cps.navigation.connections.less"
+            ]
         }
     },
     "ServiceWiringFiles": [

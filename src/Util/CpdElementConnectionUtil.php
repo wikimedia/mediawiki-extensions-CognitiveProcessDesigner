@@ -111,12 +111,28 @@ class CpdElementConnectionUtil {
 	 */
 	private function createNavigationConnection( string $dbKey, Title $source ): CpdNavigationConnection {
 		$target = Title::newFromDBkey( $dbKey );
-		$isLaneChange = CpdDiagramPageUtil::getLanesFromTitle( $source ) !==
-			CpdDiagramPageUtil::getLanesFromTitle( $target );
-
-		$title = $target->getSubpageText();
+		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $target );
+		$isLaneChange = $lanes !== CpdDiagramPageUtil::getLanesFromTitle( $source );
 		$link = $target->getFullURL();
 
-		return new CpdNavigationConnection( $title, $link, $isLaneChange );
+		return new CpdNavigationConnection( self::createConnectionText( $target ), $link, $isLaneChange );
+	}
+
+	/**
+	 * Include last lane in the connection text
+	 *
+	 * @param Title $title
+	 *
+	 * @return string
+	 * @throws CpdInvalidNamespaceException
+	 */
+	public static function createConnectionText( Title $title ): string {
+		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $title );
+		$lastLane = array_pop( $lanes );
+		if ( !$lastLane ) {
+			return $title->getSubpageText();
+		}
+
+		return sprintf( '%s:</br>%s', $lastLane, $title->getSubpageText() );
 	}
 }

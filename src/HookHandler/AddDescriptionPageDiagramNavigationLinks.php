@@ -74,20 +74,32 @@ class AddDescriptionPageDiagramNavigationLinks implements OutputPageBeforeHTMLHo
 			);
 		}
 
-		$text = $this->createNavigation( $this->connectionUtil->getIncomingConnections( $title ) ) . $text;
-		$text = $text . $this->createNavigation( $this->connectionUtil->getOutgoingConnections( $title ) );
+		// Navigation links on top with headline
+		$text = $this->createNavigation(
+				'incoming',
+				$this->connectionUtil->getIncomingConnections( $title ),
+				CpdElementConnectionUtil::createConnectionText( $title )
+			) . $text;
+
+		// Navigation links on bottom
+		$text = $text . $this->createNavigation( 'outgoing', $this->connectionUtil->getOutgoingConnections( $title ) );
+		$out->addModuleStyles( 'cps.navigation.connections' );
 	}
 
 	/**
+	 * @param string $cls
 	 * @param CpdNavigationConnection[] $connections
+	 * @param string|null $headline
 	 *
 	 * @return string
 	 */
-	private function createNavigation( array $connections ): string {
+	private function createNavigation( string $cls, array $connections, ?string $headline = null ): string {
 		return $this->templateParser->processTemplate(
 			'DescriptionPageNavigation', [
 				'connections' => array_map( fn( CpdNavigationConnection $connection ) => $connection->toArray(),
-					$connections )
+					$connections ),
+				'headline' => $headline,
+				'connectionsCls' => $cls
 			]
 		);
 	}

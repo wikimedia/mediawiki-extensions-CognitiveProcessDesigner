@@ -5,7 +5,7 @@ namespace CognitiveProcessDesigner;
 class CpdNavigationConnection {
 
 	/** @var string */
-	private string $title;
+	private string $text;
 
 	/** @var string */
 	private string $link;
@@ -14,12 +14,12 @@ class CpdNavigationConnection {
 	private bool $isLaneChange;
 
 	/**
-	 * @param string $title
+	 * @param string $text
 	 * @param string $link
 	 * @param bool $isLaneChange
 	 */
-	public function __construct( string $title, string $link, bool $isLaneChange ) {
-		$this->title = $title;
+	public function __construct( string $text, string $link, bool $isLaneChange ) {
+		$this->text = $text;
 		$this->link = $link;
 		$this->isLaneChange = $isLaneChange;
 	}
@@ -29,7 +29,7 @@ class CpdNavigationConnection {
 	 */
 	public function toArray(): array {
 		return [
-			'title' => $this->title,
+			'text' => $this->text,
 			'link' => $this->link,
 			'isLaneChange' => $this->isLaneChange
 		];
