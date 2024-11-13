@@ -7,6 +7,7 @@ use ApiMain;
 use ApiUsageException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use Status;
 use Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -66,7 +67,13 @@ class LoadCpdDiagram extends ApiBase {
 			'descriptionPages',
 			$this->splitDescriptionPagesStatus( $this->descriptionPageUtil->findDescriptionPages( $process ) )
 		);
-		$result->addValue( null, 'svgFile', $this->diagramPageUtil->getSvgFilePage( $process )->getFullURL() );
+
+		$svgFile = $this->diagramPageUtil->getSvgFile( $process );
+		if ( !$svgFile ) {
+			throw new ApiUsageException( null, Status::newFatal( "Diagram svg file does not exist" ) );
+		}
+
+		$result->addValue( null, 'svgFile', $svgFile->getUrl() );
 	}
 
 	/**
