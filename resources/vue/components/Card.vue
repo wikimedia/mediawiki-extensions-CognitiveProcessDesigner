@@ -31,7 +31,8 @@ module.exports = {
     title: String,
     url: String,
     image_url: String,
-    edit_url: String
+    edit_url: String,
+    is_new: Boolean
   },
   components: {
     'action': Action
@@ -39,9 +40,11 @@ module.exports = {
   data: function () {
     const primaryActions = [];
     if ( this.edit_url ) {
+      const textMsgKey = this.is_new ? 'bs-cpd-process-overview-create-action-text' : 'bs-cpd-process-overview-edit-action-text';
+      const titleMsgKey = this.is_new ? 'bs-cpd-process-overview-create-action-title' : 'bs-cpd-process-overview-edit-action-title';
       primaryActions.push( {
-        text: mw.message( 'bs-cpd-process-overview-edit-action-text' ).escaped(),
-        title: mw.message( 'bs-cpd-process-overview-edit-action-title', this.title ).escaped(),
+        text: mw.message( textMsgKey ).escaped(),
+        title: mw.message( titleMsgKey, this.title ).escaped(),
         href: this.edit_url,
         class: 'bs-card-edit-action',
         iconClass: 'icon-edit'
@@ -100,8 +103,9 @@ module.exports = {
 .bs-card-image {
   width: 100%;
   height: 220px;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .bs-card-body {
@@ -117,11 +121,6 @@ module.exports = {
   font-weight: bold;
   font-size: 1.4em;
   margin-bottom: 5px;
-}
-
-.bs-card-subtitle {
-  width: 100%;
-  font-size: 1.1em;
 }
 
 .bs-card-footer {

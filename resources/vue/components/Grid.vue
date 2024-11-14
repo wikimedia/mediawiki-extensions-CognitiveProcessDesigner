@@ -6,6 +6,7 @@
           v-bind:url="card.url"
           v-bind:edit_url="card.edit_url"
           v-bind:image_url="card.image_url"
+          v-bind:is_new="card.is_new"
     ></card>
   </div>
 </template>

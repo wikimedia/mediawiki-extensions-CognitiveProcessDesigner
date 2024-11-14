@@ -71,7 +71,6 @@ class CpdDiagramPageUtil {
 		$this->linkRenderer = $linkRenderer;
 	}
 
-
 	/**
 	 * @param PageReference $title
 	 *

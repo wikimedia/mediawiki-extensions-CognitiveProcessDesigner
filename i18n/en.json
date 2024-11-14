@@ -79,6 +79,8 @@
 	"bs-cpd-process-overview-aria-live-filtered-rows": "{{PLURAL:$1|One process|$1 processes}} found",
 	"bs-cpd-process-overview-edit-action-text": "Edit",
 	"bs-cpd-process-overview-edit-action-title": "Edit process $1",
+	"bs-cpd-process-overview-create-action-text": "Create",
+	"bs-cpd-process-overview-create-action-title": "Create process $1",
 	"bs-cpd-process-overview-card-title": "Open process $1",
 	"bs-cpd-info-dialog": "Process usage",
 	"bs-cpd-process-overview-info-action-text": "Page information",

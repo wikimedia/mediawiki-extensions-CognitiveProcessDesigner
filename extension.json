@@ -280,6 +280,8 @@
                 "bs-cpd-process-overview-aria-live-filtered-rows",
                 "bs-cpd-process-overview-edit-action-text",
                 "bs-cpd-process-overview-edit-action-title",
+                "bs-cpd-process-overview-create-action-text",
+                "bs-cpd-process-overview-create-action-title",
                 "bs-cpd-process-overview-card-title",
                 "bs-cpd-process-overview-info-action-text",
                 "bs-cpd-process-overview-info-action-title"
