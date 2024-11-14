@@ -5,6 +5,7 @@ namespace CognitiveProcessDesigner\Api;
 use ApiBase;
 use ApiMain;
 use ApiUsageException;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use Status;
@@ -47,23 +48,9 @@ class LoadCpdDiagram extends ApiBase {
 		$process = $params['process'];
 		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
 
-		$content = $diagramPage->getContent();
-
-		if ( !$diagramPage->exists() || !$content ) {
-			$result->addValue( null, 'exists', 0 );
-			$result->addValue( null, 'xml', null );
-			$result->addValue( null, 'descriptionPages', [
-				'new' => [],
-				'edited' => []
-			] );
-			$result->addValue( null, 'svgFile', null );
-
-			return;
-		}
-
-		$textContent = $content->getText();
-
-		if ( empty( $textContent ) ) {
+		try {
+			$this->diagramPageUtil->validateContent( $diagramPage );
+		} catch ( CpdInvalidContentException $e ) {
 			$result->addValue( null, 'exists', 0 );
 			$result->addValue( null, 'xml', null );
 			$result->addValue( null, 'descriptionPages', [
@@ -76,7 +63,7 @@ class LoadCpdDiagram extends ApiBase {
 		}
 
 		$result->addValue( null, 'exists', 1 );
-		$result->addValue( null, 'xml', $textContent );
+		$result->addValue( null, 'xml', $diagramPage->getContent()->getText() );
 		$result->addValue(
 			null,
 			'descriptionPages',

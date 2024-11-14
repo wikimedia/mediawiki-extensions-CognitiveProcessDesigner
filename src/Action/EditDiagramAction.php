@@ -2,6 +2,8 @@
 
 namespace CognitiveProcessDesigner\Action;
 
+use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
+use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use EditAction;
 use MediaWiki\MediaWikiServices;
 
@@ -18,6 +20,7 @@ class EditDiagramAction extends EditAction {
 	 * @return void
 	 */
 	public function show() {
+		/** @var CpdDiagramPageUtil $diagramPageUtil */
 		$diagramPageUtil = MediaWikiServices::getInstance()->getService( 'CpdDiagramPageUtil' );
 
 		$this->useTransactionalTimeLimit();
@@ -29,7 +32,10 @@ class EditDiagramAction extends EditAction {
 		$outputPage->addBacklinkSubtitle( $this->getTitle() );
 
 		$headlineMsg = 'cpd-editor-title';
-		if ( empty( $this->getWikiPage()->getContent()->getText() ) ) {
+
+		try {
+			$diagramPageUtil->validateContent( $this->getWikiPage() );
+		} catch ( CpdInvalidContentException $e ) {
 			$headlineMsg .= '-create';
 		}
 

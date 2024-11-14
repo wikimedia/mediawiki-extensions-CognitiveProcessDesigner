@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\Util;
 
 use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\HookHandler\AddDescriptionPageDiagramNavigationLinks;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
@@ -70,14 +71,6 @@ class CpdDiagramPageUtil {
 		$this->linkRenderer = $linkRenderer;
 	}
 
-	/**
-	 * @param string $process
-	 *
-	 * @return WikiPage
-	 */
-	public function getDiagramPage( string $process ): WikiPage {
-		return $this->wikiPageFactory->newFromTitle( Title::newFromText( $process, NS_PROCESS ) );
-	}
 
 	/**
 	 * @param PageReference $title
@@ -110,6 +103,15 @@ class CpdDiagramPageUtil {
 		array_shift( $lanes );
 
 		return $lanes;
+	}
+
+	/**
+	 * @param string $process
+	 *
+	 * @return WikiPage
+	 */
+	public function getDiagramPage( string $process ): WikiPage {
+		return $this->wikiPageFactory->newFromTitle( Title::newFromText( $process, NS_PROCESS ) );
 	}
 
 	/**
@@ -180,6 +182,33 @@ class CpdDiagramPageUtil {
 	public function validateNamespace( Title $title ): void {
 		if ( $title->getNamespace() !== NS_PROCESS ) {
 			throw new CpdInvalidNamespaceException( 'CPD page not in correct namespace' );
+		}
+	}
+
+	/**
+	 * @param WikiPage $page
+	 *
+	 * @return void
+	 * @throws CpdInvalidContentException
+	 */
+	public function validateContent( WikiPage $page ): void {
+		if ( !$page->exists() ) {
+			throw new CpdInvalidContentException( 'Process page does not exist' );
+		}
+
+		$content = $page->getContent();
+		if ( !$content ) {
+			throw new CpdInvalidContentException( 'Process page does not have content' );
+		}
+
+		$xml = $content->getText();
+		if ( empty( $xml ) ) {
+			throw new CpdInvalidContentException( 'Process page does not have content' );
+		}
+
+		$domXml = new DOMDocument( '1.0' );
+		if ( !$domXml->loadXML( $xml ) ) {
+			throw new CpdInvalidContentException( 'Process page does not have valid xml' );
 		}
 	}
 
