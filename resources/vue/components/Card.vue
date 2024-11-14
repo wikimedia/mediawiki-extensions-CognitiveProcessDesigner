@@ -2,7 +2,7 @@
   <div v-bind:class="cardClass">
     <a class="bs-card-anchor" v-bind:href="href" v-bind:aria-label="cardTitle" v-bind:title="cardTitle"
        rel="nofollow noindex">
-      <div class="bs-card-image" v-bind:style="{ backgroundImage: 'url(' + image_url + ')' }"></div>
+      <div class="bs-card-image" v-bind:style="image_url ? { backgroundImage: 'url(' + image_url + ')' }  : {}"></div>
       <div class="bs-card-body">
         <div class="bs-card-title">{{ title }}</div>
       </div>
@@ -106,6 +106,7 @@ module.exports = {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  background-image: url('../../img/default-diagram.svg');
 }
 
 .bs-card-body {

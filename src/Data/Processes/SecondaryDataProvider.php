@@ -38,9 +38,8 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 		$dataSet->set( Record::URL, $diagramPage->getTitle()->getLocalURL() );
 		$dataSet->set( Record::EDIT_URL, $diagramPage->getTitle()->getEditURL() );
 
-		$dataSet->set(
-			Record::IMAGE_URL,
-			$svgFile ? $svgFile->getUrl() : ""
-		);
+		if ( $svgFile ) {
+			$dataSet->set( Record::IMAGE_URL, $svgFile->getUrl() );
+		}
 	}
 }
