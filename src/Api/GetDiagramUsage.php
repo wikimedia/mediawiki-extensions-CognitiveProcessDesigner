@@ -40,24 +40,40 @@ class GetDiagramUsage extends ApiBase {
 	 * @throws CpdInvalidArgumentException
 	 */
 	public function execute() {
+		$result = $this->getResult();
 		$params = $this->extractRequestParams();
 		$page = $params['page'];
 		$title = Title::newFromDBkey( $page );
 
+		// Special pages do not have diagrams
+		if ( $title->isSpecialPage() ) {
+			$result->addValue( null, 'error', 'isSpecial' );
+
+			return;
+		}
+
 		try {
-			$process = CpdDiagramPageUtil::getProcessFromTitle( $title );
+			// Process pages can only have one process
+			$processes = [ CpdDiagramPageUtil::getProcessFromTitle( $title ) ];
 		} catch ( CpdInvalidNamespaceException $e ) {
 			$services = MediaWikiServices::getInstance();
 			$pageFactory = $services->getWikiPageFactory();
 			$page = $pageFactory->newFromTitle( $title );
-			$process = $page->getParserOutput()->getPageProperty( BpmnTag::PROCESS_PROP_NAME );
+			$processes = $page->getParserOutput()->getPageProperty( BpmnTag::PROCESS_PROP_NAME );
 		}
 
-		$result = $this->getResult();
-		if ( $process ) {
-			$links = $this->diagramPageUtil->getDiagramUsageLinks( $process );
-			$result->addValue( null, 'links', $links );
+		if ( !$processes ) {
+			$result->addValue( null, 'error', 'noProcess' );
+
+			return;
 		}
+
+		$links = [];
+		foreach ( $processes as $process ) {
+			$links[$process] = $this->diagramPageUtil->getDiagramUsageLinks( $process );
+		}
+
+		$result->addValue( null, 'links', $links );
 	}
 
 	/**

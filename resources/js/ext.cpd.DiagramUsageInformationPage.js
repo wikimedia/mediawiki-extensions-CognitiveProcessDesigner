@@ -33,19 +33,17 @@
 					return;
 				}
 
-				if ( data.links.length === 0 ) {
+				const links = Object.entries( data.links );
+
+				if ( links.length === 0 ) {
 					this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-no-pages-description' ).plain() + "." );
 					return;
 				}
 
-				const $description = $( '<p>' );
-				$description.text( mw.message( 'cpd-process-usage-description' ).plain() + ":" );
-				this.$diagramUsageHtml.append( $description );
-
-				const $linkList = $( '<ul>' );
-				this.$diagramUsageHtml.append( $linkList );
-
-				data.links.forEach( ( link ) => $linkList.append( $( '<li>' ).append( link ) ) );
+				links.forEach( ( data ) => {
+					const [process, processLinks] = data;
+					this.addDiagramUsageLinkList( process, processLinks );
+				} );
 			} ).fail( ( errorType, data ) => {
 				if ( data.error === 'isSpecial' ) {
 					this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-special-page-description' ).plain() + "." );
@@ -62,6 +60,21 @@
 
 			this.$element.append( this.$diagramUsageHtml );
 		}
+	};
+
+	bs.cpd.info.DiagramUsageInformationPage.prototype.addDiagramUsageLinkList = function ( process, links ) {
+		if ( !this.$diagramUsageHtml ) {
+			return;
+		}
+
+		const $description = $( '<p>' );
+		$description.text( mw.message( 'cpd-process-usage-description', process ).plain() + ":" );
+		this.$diagramUsageHtml.append( $description );
+
+		const $linkList = $( '<ul>' );
+		this.$diagramUsageHtml.append( $linkList );
+
+		links.forEach( ( link ) => $linkList.append( $( '<li>' ).append( link ) ) );
 	};
 
 	registryPageInformation.register( 'diagram_usage_infos', bs.cpd.info.DiagramUsageInformationPage ); // eslint-disable-line no-undef
