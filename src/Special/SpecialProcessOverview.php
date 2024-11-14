@@ -8,6 +8,7 @@ use TemplateParser;
 class SpecialProcessOverview extends SpecialPage {
 	/** @var TemplateParser */
 	private TemplateParser $templateParser;
+
 	public function __construct() {
 		parent::__construct( 'ProcessOverview' );
 

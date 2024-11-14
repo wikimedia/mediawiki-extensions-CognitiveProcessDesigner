@@ -7,6 +7,7 @@ use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MWException;
 use Parser;
+use ParserOutput;
 use PPFrame;
 
 class BpmnTag implements ParserFirstCallInitHook {
@@ -67,10 +68,28 @@ class BpmnTag implements ParserFirstCallInitHook {
 		$process = str_replace( ' ', '_', $args['process'] );
 
 		$output = $parser->getOutput();
-		$output->setPageProperty( self::PROCESS_PROP_NAME, $process );
+		$this->addProcessPageProperty( $output, $process );
 		$this->diagramPageUtil->setJsConfigVars( $output, $process );
 		$output->addModules( [ 'ext.cognitiveProcessDesigner.viewer' ] );
 
 		return '';
+	}
+
+	/**
+	 * @param ParserOutput $output
+	 * @param string $process
+	 *
+	 * @return void
+	 */
+	private function addProcessPageProperty( ParserOutput $output, string $process ): void {
+		$processes = $output->getPageProperty( self::PROCESS_PROP_NAME );
+
+		if ( $processes ) {
+			$processes[] = $process;
+		} else {
+			$processes = [ $process ];
+		}
+
+		$output->setPageProperty( self::PROCESS_PROP_NAME, $processes );
 	}
 }

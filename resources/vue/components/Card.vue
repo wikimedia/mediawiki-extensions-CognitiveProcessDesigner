@@ -5,10 +5,6 @@
       <div class="bs-card-image" v-bind:style="{ backgroundImage: 'url(' + image_url + ')' }"></div>
       <div class="bs-card-body">
         <div class="bs-card-title">{{ title }}</div>
-        <div class="bs-card-subtitle">Verwendet in</div>
-        <ul>
-          <li v-for="usedIn in used_in_urls"><div v-html="usedIn"></div></li>
-        </ul>
       </div>
     </a>
     <div class="bs-card-footer">
@@ -19,6 +15,7 @@
                 v-bind:href="primaryAction.href"
                 v-bind:actionclass="primaryAction.class"
                 v-bind:iconclass="primaryAction.iconClass"
+                v-bind:info="primaryAction.info"
         ></action>
     </div>
   </div>
@@ -34,15 +31,13 @@ module.exports = {
     title: String,
     url: String,
     image_url: String,
-    edit_url: String,
-    used_in_urls: Array
+    edit_url: String
   },
   components: {
     'action': Action
   },
   data: function () {
     const primaryActions = [];
-    console.log(this.used_in_urls);
     if ( this.edit_url ) {
       primaryActions.push( {
         text: mw.message( 'bs-cpd-process-overview-edit-action-text' ).escaped(),
@@ -52,6 +47,16 @@ module.exports = {
         iconClass: 'icon-edit'
       } );
     }
+
+    // Add the info action
+    primaryActions.push( {
+      text: mw.message( 'bs-cpd-process-overview-info-action-text' ).escaped(),
+      title: mw.message( 'bs-cpd-process-overview-info-action-title', this.title ).escaped(),
+      href: "",
+      class: 'bs-card-info-action',
+      iconClass: 'bs-icon-info',
+      info: 't-info'
+    } );
 
     return {
       cardClass: "bs-card",

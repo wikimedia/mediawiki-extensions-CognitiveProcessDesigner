@@ -206,6 +206,7 @@
                 "cpd-api-load-diagram-success-message",
                 "cpd-api-load-diagram-error-message",
                 "cpd-api-load-diagram-missingtitle-error-message",
+                "cpd-error-message-not-process",
                 "cpd-error-message-missing-config",
                 "cpd-error-message-missing-element-link",
                 "cpd-error-message-mismatched-element-link",
@@ -260,11 +261,6 @@
         },
         "ext.cpd.special.vue": {
             "es6": true,
-            "dependencies": [
-                "mediawiki.api",
-                "vue",
-                "@wikimedia/codex"
-            ],
             "packageFiles": [
                 "vue/init.js",
                 "vue/components/App.vue",
@@ -283,10 +279,18 @@
                 "bs-cpd-process-overview-aria-live-filtered-rows",
                 "bs-cpd-process-overview-edit-action-text",
                 "bs-cpd-process-overview-edit-action-title",
-                "bs-cpd-process-overview-card-title"
+                "bs-cpd-process-overview-card-title",
+                "bs-cpd-process-overview-info-action-text",
+                "bs-cpd-process-overview-info-action-title"
             ],
             "styles": [
                 "styles/cpd.overview.special.css"
+            ],
+            "dependencies": [
+                "mediawiki.api",
+                "vue",
+                "@wikimedia/codex",
+                "ext.standardDialogs"
             ]
         },
         "cps.navigation.connections": {
@@ -301,8 +305,10 @@
             "messages": [
                 "bs-cpd-info-dialog",
                 "cpd-process-usage-description",
-                "cpd-process-no-usage-description",
-                "cpd-process-no-process-description"
+                "cpd-process-usage-no-pages-description",
+                "cpd-process-usage-not-embedded-description",
+                "cpd-process-usage-special-page-description",
+                "cpd-process-usage-undocumented-error"
             ],
             "dependencies": [
                 "ext.bluespice",

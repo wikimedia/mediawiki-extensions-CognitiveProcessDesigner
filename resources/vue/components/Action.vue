@@ -1,11 +1,5 @@
 <template>
-  <li><a
-      v-bind:href="href"
-      v-bind:class="actionclass"
-      v-bind:title="title"
-      rel="nofollow noindex">
-        <i v-bind:class="iconclass"></i><span>{{ text }}</span>
-  </a></li>
+  <li><a v-bind:href="href" v-bind:class="actionclass" v-bind:title="title" v-bind:id="info" rel="nofollow noindex"><i v-bind:class="iconclass"></i><span>{{ text }}</span></a></li>
 </template>
 
 <script>
@@ -16,7 +10,11 @@ module.exports = {
     title: String,
     href: String,
     actionclass: String,
-    iconclass: String
+    iconclass: String,
+    info: {
+      type: String,
+      required: false
+    }
   }
 }
 </script>

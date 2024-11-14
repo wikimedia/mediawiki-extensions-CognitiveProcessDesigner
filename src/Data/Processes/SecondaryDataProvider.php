@@ -3,9 +3,9 @@
 namespace CognitiveProcessDesigner\Data\Processes;
 
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
-use MWStake\MediaWiki\Component\DataStore\ISecondaryDataProvider;
+use MWStake\MediaWiki\Component\DataStore\IRecord;
 
-class SecondaryDataProvider implements ISecondaryDataProvider {
+class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\SecondaryDataProvider {
 
 	/** @var CpdDiagramPageUtil */
 	private CpdDiagramPageUtil $util;
@@ -18,28 +18,20 @@ class SecondaryDataProvider implements ISecondaryDataProvider {
 	}
 
 	/**
-	 * @param Record[] $dataSets
+	 * @param IRecord &$dataSet
 	 *
-	 * @return Record[]
+	 * @return void
 	 */
-	public function extend( $dataSets ) {
-		foreach ( $dataSets as $dataSet ) {
-			$process = $dataSet->get( Record::TITLE );
-			$diagramPage = $this->util->getDiagramPage( $process );
-			$svgFile = $this->util->getSvgFile( $process );
+	protected function doExtend( &$dataSet ) {
+		$process = $dataSet->get( Record::TITLE );
+		$diagramPage = $this->util->getDiagramPage( $process );
+		$svgFile = $this->util->getSvgFile( $process );
 
-			$dataSet->set( Record::URL, $diagramPage->getTitle()->getLocalURL() );
-			$dataSet->set( Record::EDIT_URL, $diagramPage->getTitle()->getEditURL() );
-			$dataSet->set(
-				Record::IMAGE_URL,
-				$svgFile ? $svgFile->getUrl() : ""
-			);
-			$dataSet->set(
-				Record::USED_IN_URLS,
-				$this->util->getDiagramUsageLinks( $process )
-			);
-		}
-
-		return $dataSets;
+		$dataSet->set( Record::URL, $diagramPage->getTitle()->getLocalURL() );
+		$dataSet->set( Record::EDIT_URL, $diagramPage->getTitle()->getEditURL() );
+		$dataSet->set(
+			Record::IMAGE_URL,
+			$svgFile ? $svgFile->getUrl() : ""
+		);
 	}
 }

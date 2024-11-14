@@ -26,11 +26,6 @@ class Schema extends \MWStake\MediaWiki\Component\DataStore\Schema {
 				self::FILTERABLE => false,
 				self::SORTABLE => false,
 				self::TYPE => FieldType::STRING
-			],
-			Record::USED_IN_URLS => [
-				self::FILTERABLE => false,
-				self::SORTABLE => false,
-				self::TYPE => FieldType::LISTVALUE
 			]
 		] );
 	}
