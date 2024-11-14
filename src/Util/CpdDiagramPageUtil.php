@@ -189,22 +189,28 @@ class CpdDiagramPageUtil {
 	 *
 	 * @return void
 	 */
-	public function setJsConfigVars( ParserOutput|OutputPage $output, string $process ): void {
-		$setterFunction = $output instanceof OutputPage ? 'addJsConfigVars' : 'setJsConfigVar';
+	public function setJsConfigVars( ParserOutput|OutputPage $output, $process ): void {
+		if ( $output instanceof OutputPage ) {
+			$output->addJsConfigVars( 'cpdProcess', $process );
+		} else {
+			$output->appendJsConfigVar( 'cpdProcesses', $process );
+		}
 
-		$output->$setterFunction( 'cpdProcess', $process );
-		$output->$setterFunction( 'cpdProcessNamespace', NS_PROCESS );
+		$output->addJsConfigVars( 'cpdProcessNamespace', NS_PROCESS );
 
 		if ( $this->config->has( 'CPDLaneTypes' ) ) {
-			$output->$setterFunction( 'cpdLaneTypes', $this->config->get( 'CPDLaneTypes' ) );
+			$output->addJsConfigVars( 'cpdLaneTypes', $this->config->get( 'CPDLaneTypes' ) );
 		}
 		if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
-			$output->$setterFunction( 'cpdDedicatedSubpageTypes', $this->config->get( 'CPDDedicatedSubpageTypes' ) );
+			$output->addJsConfigVars(
+				'cpdDedicatedSubpageTypes',
+				$this->config->get( 'CPDDedicatedSubpageTypes' )
+			);
 		}
 		if ( $this->config->has( 'CPDCanvasHeight' ) ) {
-			$output->$setterFunction( 'cpdCanvasHeight', $this->config->get( 'CPDCanvasHeight' ) );
+			$output->addJsConfigVars( 'cpdCanvasHeight', $this->config->get( 'CPDCanvasHeight' ) );
 		}
-		$output->$setterFunction(
+		$output->addJsConfigVars(
 			'cpdReturnToQueryParam',
 			AddDescriptionPageDiagramNavigationLinks::RETURN_TO_QUERY_PARAM
 		);

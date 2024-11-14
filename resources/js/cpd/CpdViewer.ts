@@ -122,5 +122,6 @@ export default class CpdViewer extends CpdTool {
 		this.dom.showXml( syntaxHighlightedXml );
 	}
 }
-
-new CpdViewer( mw.config.get( "cpdProcess" ) );
+Object.keys( mw.config.get( "cpdProcesses" ) ).forEach( ( process: string ): void => {
+	new CpdViewer( process );
+} );

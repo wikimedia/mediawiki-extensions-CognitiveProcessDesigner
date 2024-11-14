@@ -29,12 +29,12 @@
 				page: this.pageName
 			} ).done( ( data ) => {
 				if ( !data.links ) {
-					this.$diagramUsageHtml.text( mw.message( 'cpd-diagram-no-process-description' ).plain() + "." );
+					this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-undocumented-error' ).plain() + "." );
 					return;
 				}
 
 				if ( data.links.length === 0 ) {
-					this.$diagramUsageHtml.text( mw.message( 'cpd-diagram-no-usage-description' ).plain() + "." );
+					this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-no-pages-description' ).plain() + "." );
 					return;
 				}
 
@@ -45,8 +45,19 @@
 				const $linkList = $( '<ul>' );
 				this.$diagramUsageHtml.append( $linkList );
 
-
 				data.links.forEach( ( link ) => $linkList.append( $( '<li>' ).append( link ) ) );
+			} ).fail( ( errorType, data ) => {
+				if ( data.error === 'isSpecial' ) {
+					this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-special-page-description' ).plain() + "." );
+					return;
+				}
+
+				if ( data.error === 'noProcess' ) {
+					this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-not-embedded-description' ).plain() + "." );
+					return;
+				}
+
+				this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-undocumented-error' ).plain() + "." );
 			} );
 
 			this.$element.append( this.$diagramUsageHtml );
