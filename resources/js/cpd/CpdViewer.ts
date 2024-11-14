@@ -47,13 +47,7 @@ export default class CpdViewer extends CpdTool {
 		this.elementFactory = new CpdElementFactory( this.bpmnViewer.get( "elementRegistry" ), process, this.descriptionPages );
 
 		if ( !this.xml ) {
-			this.dom.showWarning( mw.message(
-				"cpd-warning-message-diagram-not-initialized",
-				this.diagramPage.getUrl( {} ) ).text()
-			);
-			this.dom.disableShowXmlButton();
-			this.dom.disableSvgLink();
-
+			this.handleNotInitializedDiagram( process );
 			return;
 		}
 
@@ -120,6 +114,28 @@ export default class CpdViewer extends CpdTool {
 	private async onShowXml(): Promise<void> {
 		const syntaxHighlightedXml = await this.api.fetchSyntaxHighlightedXml( this.xml );
 		this.dom.showXml( syntaxHighlightedXml );
+	}
+
+	private handleNotInitializedDiagram( process: string ): void {
+		this.dom.disableShowXmlButton();
+		this.dom.disableSvgLink();
+
+		const currentPage = mw.Title.newFromText( mw.config.get( "wgPageName" ) );
+
+		if ( currentPage.getPrefixedDb() !== this.diagramPage.getPrefixedDb() ) {
+			this.dom.showWarning( mw.message(
+				"cpd-warning-message-diagram-not-initialized",
+				process,
+				this.diagramPage.getUrl( {} ) ).text()
+			);
+
+			return;
+		}
+
+		this.dom.showWarning( mw.message(
+			"cpd-warning-message-diagram-not-initialized-create-it",
+			this.diagramPage.getUrl( { action: 'edit' } ) ).text()
+		);
 	}
 }
 Object.keys( mw.config.get( "cpdProcesses" ) ).forEach( ( process: string ): void => {

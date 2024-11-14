@@ -28,8 +28,13 @@ class EditDiagramAction extends EditAction {
 		$outputPage->setRobotPolicy( 'noindex,nofollow' );
 		$outputPage->addBacklinkSubtitle( $this->getTitle() );
 
+		$headlineMsg = 'cpd-editor-title';
+		if ( empty( $this->getWikiPage()->getContent()->getText() ) ) {
+			$headlineMsg .= '-create';
+		}
+
 		$outputPage->setPageTitle(
-			$this->getContext()->msg( 'cpd-editor-title' )->params( $title->getText() )->text()
+			$this->getContext()->msg( $headlineMsg )->params( $title->getText() )->text()
 		);
 
 		$diagramPageUtil->setJsConfigVars( $outputPage, $title->getDBkey() );

@@ -33,14 +33,7 @@
 					return;
 				}
 
-				const links = Object.entries( data.links );
-
-				if ( links.length === 0 ) {
-					this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-no-pages-description' ).plain() + "." );
-					return;
-				}
-
-				links.forEach( ( data ) => {
+				Object.entries( data.links ).forEach( ( data ) => {
 					const [process, processLinks] = data;
 					this.addDiagramUsageLinkList( process, processLinks );
 				} );
@@ -67,12 +60,21 @@
 			return;
 		}
 
+		const $container = $( '<div>' );
+		this.$diagramUsageHtml.append( $container );
+
 		const $description = $( '<p>' );
+		$container.append( $description );
+
+		if ( links.length === 0 ) {
+			$description.text( mw.message( 'cpd-process-usage-no-pages-description', process ).plain() + "." );
+			return;
+		}
+
 		$description.text( mw.message( 'cpd-process-usage-description', process ).plain() + ":" );
-		this.$diagramUsageHtml.append( $description );
 
 		const $linkList = $( '<ul>' );
-		this.$diagramUsageHtml.append( $linkList );
+		$container.append( $linkList );
 
 		links.forEach( ( link ) => $linkList.append( $( '<li>' ).append( link ) ) );
 	};

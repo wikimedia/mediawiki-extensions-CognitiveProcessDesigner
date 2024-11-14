@@ -42,11 +42,12 @@ class LoadCpdDiagram extends ApiBase {
 	 * @throws ApiUsageException
 	 */
 	public function execute() {
+		$result = $this->getResult();
 		$params = $this->extractRequestParams();
 		$process = $params['process'];
 		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+
 		$content = $diagramPage->getContent();
-		$result = $this->getResult();
 
 		if ( !$diagramPage->exists() || !$content ) {
 			$result->addValue( null, 'exists', 0 );
@@ -60,8 +61,22 @@ class LoadCpdDiagram extends ApiBase {
 			return;
 		}
 
+		$textContent = $content->getText();
+
+		if ( empty( $textContent ) ) {
+			$result->addValue( null, 'exists', 0 );
+			$result->addValue( null, 'xml', null );
+			$result->addValue( null, 'descriptionPages', [
+				'new' => [],
+				'edited' => []
+			] );
+			$result->addValue( null, 'svgFile', null );
+
+			return;
+		}
+
 		$result->addValue( null, 'exists', 1 );
-		$result->addValue( null, 'xml', $content->getText() );
+		$result->addValue( null, 'xml', $textContent );
 		$result->addValue(
 			null,
 			'descriptionPages',

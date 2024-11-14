@@ -174,6 +174,7 @@
                 "cpd-error-message-missing-root-element",
                 "cpd-error-message-invalid-xml",
                 "cpd-warning-message-diagram-not-initialized",
+                "cpd-warning-message-diagram-not-initialized-create-it",
                 "cpd-link-svg-title",
                 "cpd-link-diagram-page-title",
                 "cpd-button-show-xml",
