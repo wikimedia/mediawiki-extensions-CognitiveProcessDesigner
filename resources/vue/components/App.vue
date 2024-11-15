@@ -67,10 +67,6 @@ function updateAriaLiveSection( count ) {
   $( '#bs-books-aria-lve' ).html( text );
 }
 
-function foo() {
-  console.log($( '[data-processs]' ));
-}
-
 </script>
 
 <style lang="css">

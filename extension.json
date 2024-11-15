@@ -293,7 +293,7 @@
                 "mediawiki.api",
                 "vue",
                 "@wikimedia/codex",
-                "ext.standardDialogs"
+                "ext.standardDialogs.allpages"
             ]
         },
         "cps.navigation.connections": {
