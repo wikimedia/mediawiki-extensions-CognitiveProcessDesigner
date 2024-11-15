@@ -31,7 +31,7 @@ module.exports = {
 }
 
 .bs-card-actions > li > a:focus-visible {
-  outline: var(--bs-books-overview-page-focus-visible-color) solid 1px;
+  outline: var(--bs-process-overview-page-focus-visible-color) solid 1px;
 }
 
 .bs-card-actions > li > a i {

@@ -1,5 +1,5 @@
 <template>
-  <div class="bs-books-search">
+  <div class="bs-process-search">
     <cdx-search-input
         :clearable="true"
         :placeholder="searchPlaceholderLabel"
@@ -10,11 +10,11 @@
   <div class="bs-grid" v-if="hasData">
     <grid v-bind:cards="cards"></grid>
   </div>
-  <div class="bs-books-bookshelfs-empty" v-else>
+  <div class="bs-grid-empty" v-else>
     {{ emptyMsg }}
   </div>
   <div
-      id="bs-books-aria-lve"
+      id="bs-process-aria-live"
       aria-live="polite"
   >{{ ariaLiveInitial }}
   </div>
@@ -63,34 +63,34 @@ module.exports = exports = {
 };
 
 function updateAriaLiveSection( count ) {
-  text = mw.message( 'bs-books-overview-page-aria-live-filtered-rows', count ).toString();
-  $( '#bs-books-aria-lve' ).html( text );
+  text = mw.message( 'bs-cpd-process-overview-aria-live-filtered-rows', count ).toString();
+  $( '#bs-process-aria-live' ).html( text );
 }
 
 </script>
 
 <style lang="css">
 :root {
-  --bs-books-overview-page-focus-visible-color: #3E5389;
-  --bs-books-overview-page-book-new: #BD1D1D;
+  --bs-process-overview-page-focus-visible-color: #3E5389;
+  --bs-process-overview-page-new: #BD1D1D;
 }
 
-.bs-books-search {
+.bs-process-search {
   width: 50%;
   margin-left: 20px;
 }
 
-.bs-books-bookshelfs-empty {
+.bs-grid-empty {
   padding: 20px;
 }
 
-#bs-books-aria-lve {
+#bs-process-aria-live {
   height: 0;
   overflow: hidden;
 }
 
 @media ( max-width: 768px ) {
-  .bs-books-search {
+  .bs-process-search {
     width: 100%;
     margin-left: 0;
   }

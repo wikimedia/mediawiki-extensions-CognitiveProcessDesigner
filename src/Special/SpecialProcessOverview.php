@@ -27,7 +27,7 @@ class SpecialProcessOverview extends SpecialPage {
 		$out = $this->getOutput();
 
 		$out->setPageTitle( $this->msg( 'processoverview' )->text() );
-		$out->addModules( "ext.cpd.special.vue" );
+		$out->addModules( "ext.cpd.special.processoverview" );
 
 		$html = $this->templateParser->processTemplate(
 			'cpd.vue', [

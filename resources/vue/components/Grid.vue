@@ -32,12 +32,12 @@ module.exports = exports = {
 </script>
 
 <style lang="css">
-.bs-bookshelf > h2 {
+.bs-process-overview > h2 {
   padding: 0 26px;
 }
 
-.bs-bookshelf > h2:focus-visible {
-  outline: 1px solid var(--bs-books-overview-page-focus-visible-color);
+.bs-process-overview > h2:focus-visible {
+  outline: 1px solid var(--bs-process-overview-page-focus-visible-color);
 }
 
 .bs-cards-container {
@@ -47,7 +47,7 @@ module.exports = exports = {
 }
 
 @media ( max-width: 768px ) {
-  .bs-bookshelf > h2 {
+  .bs-process-overview > h2 {
     padding: 0;
   }
 

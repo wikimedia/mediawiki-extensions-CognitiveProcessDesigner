@@ -41,7 +41,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 		}
 		$dataSet->set( Record::IS_NEW, $isNew );
 
-		if ( $svgFile ) {
+		if ( $svgFile && !$isNew ) {
 			$dataSet->set( Record::IMAGE_URL, $svgFile->getUrl() );
 		}
 	}

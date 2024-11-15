@@ -4,7 +4,7 @@
        rel="nofollow noindex">
       <div class="bs-card-image" v-bind:style="image_url ? { backgroundImage: 'url(' + image_url + ')' }  : {}"></div>
       <div class="bs-card-body">
-        <div class="bs-card-title">{{ title }}</div>
+        <div class="bs-card-title">{{ process }}</div>
       </div>
     </a>
     <div class="bs-card-footer">
@@ -64,10 +64,12 @@ module.exports = {
       dataTitle: this.db_key
     } );
 
+    const cardClass = this.is_new ? 'bs-card new' : 'bs-card';
+
     return {
-      cardClass: "bs-card",
+      cardClass,
       cardTitle: mw.message( 'bs-cpd-process-overview-card-title', this.process ).escaped(),
-      primaryActions: primaryActions,
+      primaryActions,
       href: this.url
     };
   },
@@ -84,7 +86,7 @@ module.exports = {
 }
 
 .bs-card.new {
-  outline: var(--bs-books-overview-page-book-new) solid 3px;
+  outline: var(--bs-process-overview-page-new) solid 3px;
 }
 
 .bs-card.new .bs-card-anchor {
@@ -100,7 +102,7 @@ module.exports = {
 }
 
 .bs-card:focus-within {
-  outline: var(--bs-books-overview-page-focus-visible-color) solid 3px;
+  outline: var(--bs-process-overview-page-focus-visible-color) solid 3px;
 }
 
 .bs-card-image {
