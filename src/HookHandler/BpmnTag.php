@@ -70,7 +70,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 		$output = $parser->getOutput();
 		$this->addProcessPageProperty( $output, $process );
 		$this->diagramPageUtil->setJsConfigVars( $output, $process );
-		$output->addModules( [ 'ext.cognitiveProcessDesigner.viewer' ] );
+		$output->addModules( [ 'ext.cpd.viewer' ] );
 
 		return '';
 	}

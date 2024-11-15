@@ -6,6 +6,9 @@ use Html;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\Title;
 use Message;
+use OOUI\Exception;
+use OOUI\FieldLayout;
+use OOUI\SearchInputWidget;
 use SpecialPage;
 use Wikimedia\Rdbms\ILoadBalancer;
 
@@ -34,15 +37,21 @@ class SpecialOrphanedDescriptionPages extends SpecialPage {
 	 * @param string|null $subPage
 	 *
 	 * @return void
+	 * @throws Exception
 	 */
 	public function execute( $subPage ) {
+		parent::execute( $subPage );
+
 		$out = $this->getOutput();
+		$out->enableOOUI();
 		$out->setPageTitle( $this->msg( 'orphanedprocessdescriptionpages' )->text() );
+		$out->addModules( 'ext.cpd.special.orphanedpages' );
 		$out->addHTML( $this->getHtml() );
 	}
 
 	/**
 	 * @return string
+	 * @throws Exception
 	 */
 	private function getHtml(): string {
 		$links = $this->getOrphanedPagesLinks();
@@ -51,7 +60,9 @@ class SpecialOrphanedDescriptionPages extends SpecialPage {
 			return Message::newFromKey( "cpd-empty-orphaned-description-pages-list" );
 		}
 
-		$html = Html::openElement( 'div', [ 'class' => 'cpd-special-orphaned-pages' ] );
+		$html = Html::openElement( 'div', [ 'id' => 'cpd-special-orphaned-pages' ] );
+		$html .= $this->getSearchWidget();
+
 		$html .= Html::openElement( 'ul' );
 		foreach ( $links as $link ) {
 			$html .= Html::rawElement( 'li', [], $link );
@@ -84,6 +95,29 @@ class SpecialOrphanedDescriptionPages extends SpecialPage {
 		}
 
 		return $links;
+	}
+
+	/**
+	 * @return string
+	 *
+	 * @throws Exception
+	 */
+	private function getSearchWidget(): string {
+		$searchInput = new SearchInputWidget( [
+			'infusable' => true,
+			'id' => 'cpd-ui-orphanedpages-filter',
+			'icon' => 'search'
+		] );
+		$search = Html::openElement( 'div', [
+			'class' => 'allpages-filter-cnt'
+		] );
+		$search .= new FieldLayout( $searchInput, [
+			'label' => $this->msg( 'bs-cpd-process-search-placeholder' )->text(),
+			'align' => 'left'
+		] );
+		$search .= Html::closeElement( 'div' );
+
+		return $search;
 	}
 
 	/**

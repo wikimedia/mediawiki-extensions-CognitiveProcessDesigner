@@ -44,6 +44,6 @@ class EditDiagramAction extends EditAction {
 		);
 
 		$diagramPageUtil->setJsConfigVars( $outputPage, $title->getDBkey() );
-		$outputPage->addModules( [ 'ext.cognitiveProcessDesigner.modeler' ] );
+		$outputPage->addModules( [ 'ext.cpd.modeler' ] );
 	}
 }

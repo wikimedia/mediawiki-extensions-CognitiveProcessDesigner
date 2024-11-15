@@ -1,13 +1,14 @@
-var path = require('path');
+var path = require( 'path' );
 
 module.exports = {
 	mode: 'development',
 	entry: {
 		viewer: './resources/js/cpd/CpdViewer.ts',
-		modeler: './resources/js/cpd/CpdModeler.ts'
+		modeler: './resources/js/cpd/CpdModeler.ts',
+		orphaneddescriptionpages: './resources/js/special/orphaned-pages/OrphanedDescriptionPages.ts'
 	},
 	output: {
-		path: path.resolve(__dirname, 'resources/js/dist'),
+		path: path.resolve( __dirname, 'resources/js/dist' ),
 		filename: 'cpd.[name].bundle.js'
 	},
 	resolve: {
@@ -17,7 +18,7 @@ module.exports = {
 		rules: [{
 			test: /\.bpmn$/,
 			type: 'asset/source'
-		},{
+		}, {
 			test: /\.ts?$/,
 			exclude: /node_modules/,
 			loader: 'ts-loader'

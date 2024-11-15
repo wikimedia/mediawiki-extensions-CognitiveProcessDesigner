@@ -86,7 +86,7 @@
         "cpdCreateDescriptionPage": "\\CognitiveProcessDesigner\\Job\\SaveDescriptionPage"
     },
     "SpecialPages": {
-        "OrphanedProcessDescriptionPages": {
+        "OrphanedDescriptionPages": {
             "class": "\\CognitiveProcessDesigner\\Special\\SpecialOrphanedDescriptionPages",
             "services": [
                 "DBLoadBalancer",
@@ -142,7 +142,7 @@
         }
     },
     "ResourceModules": {
-        "ext.cognitiveProcessDesigner.viewer": {
+        "ext.cpd.viewer": {
             "localBasePath": "",
             "scripts": [
                 "resources/js/dist/cpd.viewer.bundle.js"
@@ -181,7 +181,7 @@
                 "cpd-button-hide-xml"
             ]
         },
-        "ext.cognitiveProcessDesigner.modeler": {
+        "ext.cpd.modeler": {
             "localBasePath": "",
             "scripts": [
                 "resources/js/dist/cpd.modeler.bundle.js"
@@ -260,7 +260,13 @@
                 "mediawiki.widgets"
             ]
         },
-        "ext.cpd.special.vue": {
+        "ext.cpd.special.orphaneddescriptionpages": {
+            "localBasePath": "",
+            "scripts": [
+                "resources/js/dist/cpd.orphaneddescriptionpages.bundle.js"
+            ]
+        },
+        "ext.cpd.special.processoverview": {
             "es6": true,
             "packageFiles": [
                 "vue/init.js",
@@ -275,7 +281,7 @@
             ],
             "messages": [
                 "bs-cpd-process-overview-loading-text",
-                "bs-cpd-process-overview-search-placeholder",
+                "bs-cpd-process-search-placeholder",
                 "bs-cpd-process-overview-no-results",
                 "bs-cpd-process-overview-aria-live-filtered-rows",
                 "bs-cpd-process-overview-edit-action-text",

@@ -74,7 +74,7 @@
 	"bs-config-mainlinks-cpd-label": "Show entrypoint \"Processes\"",
 	"bs-config-mainlinks-cpd-help": "Show entrypoint \"Processes\" link in the left navigation",
 	"bs-cpd-process-overview-loading-text": "Process overview is loading ...",
-	"bs-cpd-process-overview-search-placeholder": "Search processes",
+	"bs-cpd-process-search-placeholder": "Search processes",
 	"bs-cpd-process-overview-no-results": "No processes found",
 	"bs-cpd-process-overview-aria-live-filtered-rows": "{{PLURAL:$1|One process|$1 processes}} found",
 	"bs-cpd-process-overview-edit-action-text": "Edit",
