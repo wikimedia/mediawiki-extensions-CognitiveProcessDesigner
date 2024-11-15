@@ -42,7 +42,7 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 		$records = [];
 		foreach ( $res as $row ) {
 			$data = new stdClass();
-			$data->title = $row->page_title;
+			$data->process = $row->page_title;
 			$records[] = new Record( $data );
 		}
 

@@ -4,7 +4,7 @@
        rel="nofollow noindex">
       <div class="bs-card-image" v-bind:style="image_url ? { backgroundImage: 'url(' + image_url + ')' }  : {}"></div>
       <div class="bs-card-body">
-        <div class="bs-card-title">{{ title }}</div>
+        <div class="bs-card-title">{{ process }}</div>
       </div>
     </a>
     <div class="bs-card-footer">
@@ -15,7 +15,7 @@
                 v-bind:href="primaryAction.href"
                 v-bind:actionclass="primaryAction.class"
                 v-bind:iconclass="primaryAction.iconClass"
-                v-bind:info="primaryAction.info"
+                v-bind:datatitle="primaryAction.dataTitle"
         ></action>
     </div>
   </div>
@@ -28,7 +28,8 @@ const {toRaw} = Vue;
 module.exports = {
   name: 'Card',
   props: {
-    title: String,
+    process: String,
+    db_key: String,
     url: String,
     image_url: String,
     edit_url: String,
@@ -44,7 +45,7 @@ module.exports = {
       const titleMsgKey = this.is_new ? 'bs-cpd-process-overview-create-action-title' : 'bs-cpd-process-overview-edit-action-title';
       primaryActions.push( {
         text: mw.message( textMsgKey ).escaped(),
-        title: mw.message( titleMsgKey, this.title ).escaped(),
+        title: mw.message( titleMsgKey, this.process ).escaped(),
         href: this.edit_url,
         class: 'bs-card-edit-action',
         iconClass: 'icon-edit'
@@ -54,17 +55,21 @@ module.exports = {
     // Add the info action
     primaryActions.push( {
       text: mw.message( 'bs-cpd-process-overview-info-action-text' ).escaped(),
-      title: mw.message( 'bs-cpd-process-overview-info-action-title', this.title ).escaped(),
-      href: "",
-      class: 'bs-card-info-action',
+      title: mw.message( 'bs-cpd-process-overview-info-action-title', this.process ).escaped(),
+      href: mw.util.getUrl( this.db_key, {
+        action: 'info'
+      } ),
+      class: 'bs-card-info-action page-tree-action-info',
       iconClass: 'bs-icon-info',
-      info: 't-info'
+      dataTitle: this.db_key
     } );
 
+    const cardClass = this.is_new ? 'bs-card new' : 'bs-card';
+
     return {
-      cardClass: "bs-card",
-      cardTitle: mw.message( 'bs-cpd-process-overview-card-title', this.title ).escaped(),
-      primaryActions: primaryActions,
+      cardClass,
+      cardTitle: mw.message( 'bs-cpd-process-overview-card-title', this.process ).escaped(),
+      primaryActions,
       href: this.url
     };
   },
@@ -81,7 +86,7 @@ module.exports = {
 }
 
 .bs-card.new {
-  outline: var(--bs-books-overview-page-book-new) solid 3px;
+  outline: var(--bs-process-overview-page-new) solid 3px;
 }
 
 .bs-card.new .bs-card-anchor {
@@ -97,7 +102,7 @@ module.exports = {
 }
 
 .bs-card:focus-within {
-  outline: var(--bs-books-overview-page-focus-visible-color) solid 3px;
+  outline: var(--bs-process-overview-page-focus-visible-color) solid 3px;
 }
 
 .bs-card-image {

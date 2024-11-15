@@ -24,21 +24,24 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 	 * @return void
 	 */
 	protected function doExtend( &$dataSet ) {
-		$process = $dataSet->get( Record::TITLE );
+		$process = $dataSet->get( Record::PROCESS );
 		$diagramPage = $this->util->getDiagramPage( $process );
 		$svgFile = $this->util->getSvgFile( $process );
 
-		try {
-			$this->util->validateContent( $diagramPage );
-			$dataSet->set( Record::IS_NEW, false );
-		} catch ( CpdInvalidContentException $e ) {
-			$dataSet->set( Record::IS_NEW, true );
-		}
-
+		$dataSet->set( Record::DB_KEY, $diagramPage->getTitle()->getPrefixedDBkey() );
 		$dataSet->set( Record::URL, $diagramPage->getTitle()->getLocalURL() );
 		$dataSet->set( Record::EDIT_URL, $diagramPage->getTitle()->getEditURL() );
 
-		if ( $svgFile ) {
+		$isNew = false;
+		// Check if the content is invalid or if there is no content. Then the page is new.
+		try {
+			$this->util->validateContent( $diagramPage );
+		} catch ( CpdInvalidContentException $e ) {
+			$isNew = true;
+		}
+		$dataSet->set( Record::IS_NEW, $isNew );
+
+		if ( $svgFile && !$isNew ) {
 			$dataSet->set( Record::IMAGE_URL, $svgFile->getUrl() );
 		}
 	}
