@@ -45,7 +45,7 @@ class SpecialOrphanedDescriptionPages extends SpecialPage {
 		$out = $this->getOutput();
 		$out->enableOOUI();
 		$out->setPageTitle( $this->msg( 'orphanedprocessdescriptionpages' )->text() );
-		$out->addModules( 'ext.cpd.special.orphanedpages' );
+		$out->addModules( 'ext.cpd.special.orphaneddescriptionpages' );
 		$out->addHTML( $this->getHtml() );
 	}
 

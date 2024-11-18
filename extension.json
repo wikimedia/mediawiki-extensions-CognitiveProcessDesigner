@@ -13,7 +13,10 @@
     "load_composer_autoloader": true,
     "callback": "mwsInitComponents",
     "requires": {
-        "MediaWiki": ">= 1.39.0"
+        "MediaWiki": ">= 1.39.0",
+        "extensions": {
+            "OOJSPlus": ">= 2.0.0"
+        }
     },
     "attributes": {
         "BlueSpiceFoundation": {
@@ -86,7 +89,7 @@
         "cpdCreateDescriptionPage": "\\CognitiveProcessDesigner\\Job\\SaveDescriptionPage"
     },
     "SpecialPages": {
-        "OrphanedDescriptionPages": {
+        "OrphanedProcessDescriptionPages": {
             "class": "\\CognitiveProcessDesigner\\Special\\SpecialOrphanedDescriptionPages",
             "services": [
                 "DBLoadBalancer",
@@ -129,6 +132,13 @@
         },
         "cpd-process-overview-store": {
             "class": "\\CognitiveProcessDesigner\\Api\\Store\\ProcessesOverviewStore",
+            "services": [
+                "DBLoadBalancer",
+                "CpdDiagramPageUtil"
+            ]
+        },
+        "cpd-orphaned-description-pages-store": {
+            "class": "\\CognitiveProcessDesigner\\Api\\Store\\OrphanedDescriptionPagesStore",
             "services": [
                 "DBLoadBalancer",
                 "CpdDiagramPageUtil"
@@ -261,9 +271,11 @@
             ]
         },
         "ext.cpd.special.orphaneddescriptionpages": {
-            "localBasePath": "",
             "scripts": [
-                "resources/js/dist/cpd.orphaneddescriptionpages.bundle.js"
+                "js/ext.cpd.special.OrphanedDescriptionPagesGrid.js"
+            ],
+            "dependencies": [
+                "oojs"
             ]
         },
         "ext.cpd.special.processoverview": {

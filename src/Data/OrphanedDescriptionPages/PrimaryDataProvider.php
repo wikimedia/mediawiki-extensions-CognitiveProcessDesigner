@@ -1,8 +1,7 @@
 <?php
 
-namespace CognitiveProcessDesigner\Data\Processes;
+namespace CognitiveProcessDesigner\Data\OrphanedDescriptionPages;
 
-use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
 use MWStake\MediaWiki\Component\DataStore\IPrimaryDataProvider;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 use stdClass;
@@ -30,19 +29,18 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 	public function makeData( $params ): array {
 		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
 
-		$cpdContentModel = CognitiveProcessDesignerContent::MODEL;
-
 		$rows = $dbr->select(
-			[ 'p' => 'page' ],
-			[ 'p.page_title', 'p.page_namespace' ],
-			[ "p.page_content_model = '$cpdContentModel'" ],
-			__METHOD__
+			'cpd_orphaned_description_pages', [
+				'page_title',
+				'process'
+			]
 		);
 
 		$records = [];
 		foreach ( $rows as $row ) {
 			$data = new stdClass();
-			$data->process = $row->page_title;
+			$data->process = $row->process;
+			$data->db_key = $row->page_title;
 			$records[] = new Record( $data );
 		}
 
