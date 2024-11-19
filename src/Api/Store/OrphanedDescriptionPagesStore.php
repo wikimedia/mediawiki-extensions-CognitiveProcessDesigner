@@ -6,8 +6,8 @@ use ApiBase;
 use ApiMain;
 use ApiUsageException;
 use CognitiveProcessDesigner\Data\OrphanedDescriptionPages\Store;
-use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
+use Wikimedia\ParamValidator\ParamValidator;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 /**
@@ -23,16 +23,14 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 	 * @param ApiMain $main
 	 * @param string $action
 	 * @param ILoadBalancer $loadBalancer
-	 * @param CpdDiagramPageUtil $util
 	 */
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		ILoadBalancer $loadBalancer,
-		CpdDiagramPageUtil $util,
+		ILoadBalancer $loadBalancer
 	) {
 		parent::__construct( $main, $action );
-		$this->store = new Store( $loadBalancer, $util );
+		$this->store = new Store( $loadBalancer );
 	}
 
 	/**
@@ -41,10 +39,72 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 	 */
 	public function execute() {
 		$params = $this->extractRequestParams();
-		$params = new ReaderParams( $params );
-		$res = $this->store->getReader()->read( $params );
+		$readerParams = new ReaderParams( [
+			'start' => $this->getStart( $params ),
+			'limit' => $this->getLimit( $params ),
+			'filter' => $this->getFilter( $params ),
+			'sort' => $this->getSort( $params )
+		] );
+
+		$res = $this->store->getReader()->read( $readerParams );
+		$records = $res->getRecords();
 		$result = $this->getResult();
-		$result->addValue( null, 'results', json_encode( $res->getRecords() ) );
+
+		$result->addValue(
+			null,
+			'results',
+			array_map( fn( $record ) => $record->getData(), $records )
+		);
+
+		$result->addValue(
+			null,
+			'total',
+			count( $records )
+		);
+	}
+
+	/**
+	 * @param array $params
+	 *
+	 * @return int
+	 */
+	private function getStart( array $params ): int {
+		return (int)$params['start'];
+	}
+
+	/**
+	 * @param array $params
+	 *
+	 * @return int
+	 */
+	private function getLimit( array $params ): int {
+		return (int)$params['limit'];
+	}
+
+	/**
+	 * @param array $params
+	 *
+	 * @return array
+	 */
+	private function getFilter( array $params ): array {
+		if ( is_array( $params ) && isset( $params['filter'] ) ) {
+			return json_decode( $params['filter'], 1 );
+		}
+
+		return [];
+	}
+
+	/**
+	 * @param array $params
+	 *
+	 * @return array
+	 */
+	private function getSort( array $params ): array {
+		if ( is_array( $params ) && isset( $params['sort'] ) ) {
+			return json_decode( $params['sort'], 1 );
+		}
+
+		return [];
 	}
 
 	/**
@@ -52,5 +112,39 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 	 */
 	protected function getRequiredPermissions() {
 		return [ 'read' ];
+	}
+
+	/**
+	 * Called by ApiMain
+	 *
+	 * @return array
+	 */
+	public function getAllowedParams() {
+		return parent::getAllowedParams() + [
+				'sort' => [
+					ParamValidator::PARAM_TYPE => 'string',
+					ParamValidator::PARAM_REQUIRED => false,
+					ParamValidator::PARAM_DEFAULT => '[]'
+				],
+				'filter' => [
+					ParamValidator::PARAM_TYPE => 'string',
+					ParamValidator::PARAM_REQUIRED => false,
+					ParamValidator::PARAM_DEFAULT => '[]'
+				],
+				'limit' => [
+					ParamValidator::PARAM_TYPE => 'integer',
+					ParamValidator::PARAM_REQUIRED => false,
+					ParamValidator::PARAM_DEFAULT => 25
+				],
+				'start' => [
+					ParamValidator::PARAM_TYPE => 'integer',
+					ParamValidator::PARAM_REQUIRED => false,
+					ParamValidator::PARAM_DEFAULT => 0
+				],
+				'query' => [
+					ParamValidator::PARAM_TYPE => 'string',
+					ParamValidator::PARAM_REQUIRED => false
+				]
+			];
 	}
 }

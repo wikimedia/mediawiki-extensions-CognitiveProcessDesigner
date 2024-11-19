@@ -9,12 +9,22 @@ class Schema extends \MWStake\MediaWiki\Component\DataStore\Schema {
 		parent::__construct( [
 			Record::PROCESS => [
 				self::FILTERABLE => true,
+				self::SORTABLE => false,
+				self::TYPE => FieldType::STRING
+			],
+			Record::TITLE => [
+				self::FILTERABLE => false,
 				self::SORTABLE => true,
 				self::TYPE => FieldType::STRING
 			],
-			Record::DB_KEY => [
-				self::FILTERABLE => true,
-				self::SORTABLE => true,
+			Record::TITLE_URL => [
+				self::FILTERABLE => false,
+				self::SORTABLE => false,
+				self::TYPE => FieldType::STRING
+			],
+			Record::PROCESS_URL => [
+				self::FILTERABLE => false,
+				self::SORTABLE => false,
 				self::TYPE => FieldType::STRING
 			]
 		] );

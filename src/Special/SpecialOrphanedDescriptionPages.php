@@ -4,11 +4,7 @@ namespace CognitiveProcessDesigner\Special;
 
 use Html;
 use MediaWiki\Linker\LinkRenderer;
-use MediaWiki\Title\Title;
-use Message;
 use OOUI\Exception;
-use OOUI\FieldLayout;
-use OOUI\SearchInputWidget;
 use SpecialPage;
 use Wikimedia\Rdbms\ILoadBalancer;
 
@@ -54,70 +50,7 @@ class SpecialOrphanedDescriptionPages extends SpecialPage {
 	 * @throws Exception
 	 */
 	private function getHtml(): string {
-		$links = $this->getOrphanedPagesLinks();
-
-		if ( empty( $links ) ) {
-			return Message::newFromKey( "cpd-empty-orphaned-description-pages-list" );
-		}
-
-		$html = Html::openElement( 'div', [ 'id' => 'cpd-special-orphaned-pages' ] );
-		$html .= $this->getSearchWidget();
-
-		$html .= Html::openElement( 'ul' );
-		foreach ( $links as $link ) {
-			$html .= Html::rawElement( 'li', [], $link );
-		}
-		$html .= Html::closeElement( 'ul' );
-		$html .= Html::closeElement( 'div' );
-
-		return $html;
-	}
-
-	/**
-	 * @return string[]
-	 */
-	private function getOrphanedPagesLinks(): array {
-		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
-		$rows = $dbr->select(
-			'cpd_orphaned_description_pages', [
-				'page_title',
-				'process'
-			]
-		);
-
-		$links = [];
-		foreach ( $rows as $row ) {
-			$title = Title::newFromDBkey( $row->page_title );
-			$links[] = $this->linkRenderer->makeLink(
-				$title,
-				$title->getText()
-			);
-		}
-
-		return $links;
-	}
-
-	/**
-	 * @return string
-	 *
-	 * @throws Exception
-	 */
-	private function getSearchWidget(): string {
-		$searchInput = new SearchInputWidget( [
-			'infusable' => true,
-			'id' => 'cpd-ui-orphanedpages-filter',
-			'icon' => 'search'
-		] );
-		$search = Html::openElement( 'div', [
-			'class' => 'allpages-filter-cnt'
-		] );
-		$search .= new FieldLayout( $searchInput, [
-			'label' => $this->msg( 'bs-cpd-process-search-placeholder' )->text(),
-			'align' => 'left'
-		] );
-		$search .= Html::closeElement( 'div' );
-
-		return $search;
+		return Html::element( 'div', [ 'id' => 'cpd-special-orphaned-pages' ] );
 	}
 
 	/**
