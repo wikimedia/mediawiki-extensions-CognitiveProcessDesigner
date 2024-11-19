@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Milicevic01"
+		]
+	},
+	"cpd-button-cancel-title": "Откажи",
+	"cpd-shape-rename-message": "$1 преименован у $2",
+	"bs-cpd-process-overview-create-action-text": "Направи"
+}

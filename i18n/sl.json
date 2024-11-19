@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"cognitiveprocessdesigner-desc": "Risanje procesov BPMN z grafičnim uporabniškim vmesnikom v Semantičnem MediaWikiju",
+	"cpd-droplet-description": "BPMN-diagram, ki ga je mogoče urejati"
+}

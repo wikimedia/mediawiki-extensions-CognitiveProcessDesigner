@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Florian COLLIN"
+		]
+	},
+	"cognitiveprocessdesigner-desc": "Dessinez des processus BPMN avec une interface utilisateur graphique dans Semantic MediaWiki",
+	"cpd-droplet-description": "Diagramme BPMN modifiable"
+}

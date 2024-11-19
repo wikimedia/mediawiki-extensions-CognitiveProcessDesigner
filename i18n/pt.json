@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hamilton Abreu"
+		]
+	},
+	"cognitiveprocessdesigner-desc": "Desenhar processos BPMN com uma interface de utilizador gráfica no MediaWiki Semântico",
+	"cpd-droplet-description": "Diagrama BPMN editável"
+}

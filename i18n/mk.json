@@ -1,0 +1,37 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"orphanedprocessdescriptionpages": "Осамени процесноописни страници",
+	"processoverview": "Процеси",
+	"cpd-empty-orphaned-description-pages-list": "Нема осамени процесноописни страници",
+	"cognitiveprocessdesigner-desc": "Исцртување на BPMN-постапки со графички кориснички посредник во Семантички МедијаВики",
+	"cpd-ui-action-edit": "Уреди дијаграм",
+	"cpd-ui-action-edit-xml": "Уреди XML",
+	"cpd-button-cancel-title": "Откажи",
+	"cpd-button-show-xml": "Прикажи сиров XML",
+	"cpd-button-hide-xml": "Скриј сиров XML",
+	"cpd-link-diagram-page-title": "Оди на страницата на дијаграмот",
+	"cpd-link-svg-title": "Преземи го дијаграмот како SVG",
+	"cpd-api-save-diagram-param-svg": "SVG кодиран во JSON што ќе се подигне на викито",
+	"cpd-api-save-diagram-param-xml": "XML кодиран во JSON што ќе се подигне на викито",
+	"cpd-api-save-diagram-param-process-id": "Назнака на BPMN-дијаграмот",
+	"cpd-api-save-diagram-success-message": "Дијаграмот е зачуван",
+	"cpd-api-save-diagram-error-message": "Грешка при зачувување на дијаграмот: $1",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|$1|$1|0=Не}} зачував нидна описна страница",
+	"cpd-description-page-saved-message": "Зачувана описната страница $1",
+	"cpd-api-save-description-pages-error-message": "Грешка при зачувување на описните страници: $1",
+	"cpd-api-load-diagram-missing-message": "Нема вчитано дијаграм",
+	"cpd-api-load-diagram-error-message": "Грешка при вчитувањето на дијаграмот: $1",
+	"cpd-api-load-diagram-missingtitle-error-message": "Не го најдов $1",
+	"cpd-error-message-not-process": "Страницата $1 не е процес",
+	"cpd-error-message-missing-config": "Недостасува поставка: „$1“",
+	"cpd-error-message-missing-element-link": "Не го најдов елементот за врската „$1“",
+	"cpd-error-message-mismatched-element-link": "Не одговара елементот за врската „$1“",
+	"cpd-error-message-missing-element": "Не го најдов елементот „$1“",
+	"cpd-error-message-missing-label": "Не го најдов натписот „$1“",
+	"cpd-error-message-saving-diagram": "Грешка при зачувување на дијаграмот: $1",
+	"cpd-droplet-description": "Уредлив BPMN-дијаграм"
+}
