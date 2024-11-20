@@ -4,8 +4,7 @@ window.ext.cpd.special = window.ext.cpd.special || {};
 ( ( mw, $ ) => {
 	ext.cpd.special.OrphanedDescriptionPageGrid = function ( cfg ) {
 		const store = new OOJSPlus.ui.data.store.RemoteStore( {
-			action: 'cpd-orphaned-description-pages-store',
-			pageSize: 3
+			action: 'cpd-orphaned-description-pages-store'
 		} );
 
 		ext.cpd.special.OrphanedDescriptionPageGrid.parent.call( this, {

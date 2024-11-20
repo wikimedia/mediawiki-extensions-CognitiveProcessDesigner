@@ -59,7 +59,7 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 		$result->addValue(
 			null,
 			'total',
-			count( $records )
+			$res->getTotal()
 		);
 	}
 
