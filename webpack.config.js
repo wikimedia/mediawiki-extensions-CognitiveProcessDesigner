@@ -4,8 +4,7 @@ module.exports = {
 	mode: 'development',
 	entry: {
 		viewer: './resources/js/cpd/CpdViewer.ts',
-		modeler: './resources/js/cpd/CpdModeler.ts',
-		orphaneddescriptionpages: './resources/js/special/orphaned-pages/OrphanedDescriptionPages.ts'
+		modeler: './resources/js/cpd/CpdModeler.ts'
 	},
 	output: {
 		path: path.resolve( __dirname, 'resources/js/dist' ),
