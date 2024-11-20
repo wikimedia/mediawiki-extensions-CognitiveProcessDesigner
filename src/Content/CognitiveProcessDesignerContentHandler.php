@@ -61,6 +61,6 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		);
 
 		$this->diagramPageUtil->setJsConfigVars( $output, $page->getDBkey() );
-		$output->addModules( [ 'ext.cognitiveProcessDesigner.viewer' ] );
+		$output->addModules( [ 'ext.cpd.viewer' ] );
 	}
 }

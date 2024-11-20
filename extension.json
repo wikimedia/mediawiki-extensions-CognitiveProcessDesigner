@@ -13,7 +13,10 @@
     "load_composer_autoloader": true,
     "callback": "mwsInitComponents",
     "requires": {
-        "MediaWiki": ">= 1.39.0"
+        "MediaWiki": ">= 1.39.0",
+        "extensions": {
+            "OOJSPlus": ">= 2.0.0"
+        }
     },
     "attributes": {
         "BlueSpiceFoundation": {
@@ -134,6 +137,12 @@
                 "CpdDiagramPageUtil"
             ]
         },
+        "cpd-orphaned-description-pages-store": {
+            "class": "\\CognitiveProcessDesigner\\Api\\Store\\OrphanedDescriptionPagesStore",
+            "services": [
+                "DBLoadBalancer"
+            ]
+        },
         "cpd-diagram-usage": {
             "class": "\\CognitiveProcessDesigner\\Api\\GetDiagramUsage",
             "services": [
@@ -142,7 +151,7 @@
         }
     },
     "ResourceModules": {
-        "ext.cognitiveProcessDesigner.viewer": {
+        "ext.cpd.viewer": {
             "localBasePath": "",
             "scripts": [
                 "resources/js/dist/cpd.viewer.bundle.js"
@@ -181,7 +190,7 @@
                 "cpd-button-hide-xml"
             ]
         },
-        "ext.cognitiveProcessDesigner.modeler": {
+        "ext.cpd.modeler": {
             "localBasePath": "",
             "scripts": [
                 "resources/js/dist/cpd.modeler.bundle.js"
@@ -260,6 +269,19 @@
                 "mediawiki.widgets"
             ]
         },
+        "ext.cpd.special.orphaneddescriptionpages": {
+            "scripts": [
+                "js/ext.cpd.special.OrphanedDescriptionPagesGrid.js"
+            ],
+            "messages": [
+                "cpd-orphaned-description-pages-column-process-title",
+                "cpd-orphaned-description-pages-column-dbkey-title"
+            ],
+            "dependencies": [
+                "oojs-ui",
+                "ext.oOJSPlus.data"
+            ]
+        },
         "ext.cpd.special.processoverview": {
             "es6": true,
             "packageFiles": [
@@ -275,7 +297,7 @@
             ],
             "messages": [
                 "bs-cpd-process-overview-loading-text",
-                "bs-cpd-process-overview-search-placeholder",
+                "bs-cpd-process-search-placeholder",
                 "bs-cpd-process-overview-no-results",
                 "bs-cpd-process-overview-aria-live-filtered-rows",
                 "bs-cpd-process-overview-edit-action-text",

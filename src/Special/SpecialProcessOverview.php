@@ -24,13 +24,15 @@ class SpecialProcessOverview extends SpecialPage {
 	 * @return void
 	 */
 	public function execute( $subPage ) {
+		parent::execute( $subPage );
+
 		$out = $this->getOutput();
 
 		$out->setPageTitle( $this->msg( 'processoverview' )->text() );
 		$out->addModules( "ext.cpd.special.processoverview" );
 
 		$html = $this->templateParser->processTemplate(
-			'cpd.vue', [
+			'SpecialProcessOverview', [
 				'loading-text' => $this->msg( 'bs-cpd-process-overview-loading-text' )->escaped()
 			]
 		);

@@ -1,4 +1,4 @@
-var path = require('path');
+var path = require( 'path' );
 
 module.exports = {
 	mode: 'development',
@@ -7,7 +7,7 @@ module.exports = {
 		modeler: './resources/js/cpd/CpdModeler.ts'
 	},
 	output: {
-		path: path.resolve(__dirname, 'resources/js/dist'),
+		path: path.resolve( __dirname, 'resources/js/dist' ),
 		filename: 'cpd.[name].bundle.js'
 	},
 	resolve: {
@@ -17,7 +17,7 @@ module.exports = {
 		rules: [{
 			test: /\.bpmn$/,
 			type: 'asset/source'
-		},{
+		}, {
 			test: /\.ts?$/,
 			exclude: /node_modules/,
 			loader: 'ts-loader'

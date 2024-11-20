@@ -28,11 +28,11 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 	 * @return Record[]
 	 */
 	public function makeData( $params ): array {
-		$db = $this->loadBalancer->getConnection( DB_REPLICA );
+		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
 
 		$cpdContentModel = CognitiveProcessDesignerContent::MODEL;
 
-		$res = $db->select(
+		$rows = $dbr->select(
 			[ 'p' => 'page' ],
 			[ 'p.page_title', 'p.page_namespace' ],
 			[ "p.page_content_model = '$cpdContentModel'" ],
@@ -40,7 +40,7 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 		);
 
 		$records = [];
-		foreach ( $res as $row ) {
+		foreach ( $rows as $row ) {
 			$data = new stdClass();
 			$data->process = $row->page_title;
 			$records[] = new Record( $data );

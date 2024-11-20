@@ -4,8 +4,7 @@ namespace CognitiveProcessDesigner\Special;
 
 use Html;
 use MediaWiki\Linker\LinkRenderer;
-use MediaWiki\Title\Title;
-use Message;
+use OOUI\Exception;
 use SpecialPage;
 use Wikimedia\Rdbms\ILoadBalancer;
 
@@ -34,56 +33,24 @@ class SpecialOrphanedDescriptionPages extends SpecialPage {
 	 * @param string|null $subPage
 	 *
 	 * @return void
+	 * @throws Exception
 	 */
 	public function execute( $subPage ) {
+		parent::execute( $subPage );
+
 		$out = $this->getOutput();
+		$out->enableOOUI();
 		$out->setPageTitle( $this->msg( 'orphanedprocessdescriptionpages' )->text() );
+		$out->addModules( 'ext.cpd.special.orphaneddescriptionpages' );
 		$out->addHTML( $this->getHtml() );
 	}
 
 	/**
 	 * @return string
+	 * @throws Exception
 	 */
 	private function getHtml(): string {
-		$links = $this->getOrphanedPagesLinks();
-
-		if ( empty( $links ) ) {
-			return Message::newFromKey( "cpd-empty-orphaned-description-pages-list" );
-		}
-
-		$html = Html::openElement( 'div', [ 'class' => 'cpd-special-orphaned-pages' ] );
-		$html .= Html::openElement( 'ul' );
-		foreach ( $links as $link ) {
-			$html .= Html::rawElement( 'li', [], $link );
-		}
-		$html .= Html::closeElement( 'ul' );
-		$html .= Html::closeElement( 'div' );
-
-		return $html;
-	}
-
-	/**
-	 * @return string[]
-	 */
-	private function getOrphanedPagesLinks(): array {
-		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
-		$rows = $dbr->select(
-			'cpd_orphaned_description_pages', [
-				'page_title',
-				'process'
-			]
-		);
-
-		$links = [];
-		foreach ( $rows as $row ) {
-			$title = Title::newFromDBkey( $row->page_title );
-			$links[] = $this->linkRenderer->makeLink(
-				$title,
-				$title->getText()
-			);
-		}
-
-		return $links;
+		return Html::element( 'div', [ 'id' => 'cpd-special-orphaned-pages' ] );
 	}
 
 	/**

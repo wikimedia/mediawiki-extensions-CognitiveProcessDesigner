@@ -43,7 +43,7 @@ module.exports = exports = {
       cards: this.items,
       hasData: this.items.length > 0,
       emptyMsg: mw.message( 'bs-cpd-process-overview-no-results' ).text(),
-      searchPlaceholderLabel: mw.message( 'bs-cpd-process-overview-search-placeholder' ).text(),
+      searchPlaceholderLabel: mw.message( 'bs-cpd-process-search-placeholder' ).text(),
       ariaLiveInitial: mw.message( 'bs-cpd-process-overview-aria-live-filtered-rows', this.items.length ).text()
     };
   },

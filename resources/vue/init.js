@@ -12,7 +12,7 @@
 				mounted: function () {
 					deferred.resolve( this.$el );
 				}, render: function () {
-					return h( App, { items } );
+					return h( App, {items} );
 				}
 			} );
 
@@ -29,7 +29,7 @@
 		mw.loader.using( 'mediawiki.api' ).done( function () {
 			const api = new mw.Api();
 			api.abort();
-			api.get( {action: "cpd-process-overview-store"} )
+			api.get( { action: "cpd-process-overview-store" } )
 				.done( function ( response ) {
 					dfd.resolve( JSON.parse( response.results ) );
 				} ).fail( function () {
