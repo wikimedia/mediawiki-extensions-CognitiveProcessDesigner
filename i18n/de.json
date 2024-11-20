@@ -38,7 +38,7 @@
 	"cpd-error-message-invalid-xml": "Ungültiges XML",
 	"cpd-error-message-missing-xml": "Fehlendes XML",
 	"cpd-error-message-missing-diagram-page": "Fehlende Diagrammseite",
-	"cpd-warning-message-diagram-not-initialized": "Prozess $1 wurde noch nicht erstellt. Bitte gehee zur <a href='$2'>Prozessseite</a> und erstelle ihn.",
+	"cpd-warning-message-diagram-not-initialized": "Prozess $1 wurde noch nicht erstellt. Bitte gehe zur <a href='$2'>Prozessseite</a> und erstelle ihn.",
 	"cpd-warning-message-diagram-not-initialized-create-it": "Das Diagramm wurde noch nicht erstellt. Bitte <a href='$1'>erstelle </a> es.",
 	"cpd-editor-title": "Bearbeiten von $1",
 	"cpd-editor-title-create": "$1 erstellen",

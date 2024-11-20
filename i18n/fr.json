@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Florian COLLIN"
+			"Florian COLLIN",
+			"SleaY"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Dessinez des processus BPMN avec une interface utilisateur graphique dans Semantic MediaWiki",
-	"cpd-droplet-description": "Diagramme BPMN modifiable"
+	"cpd-button-cancel-title": "Annuler",
+	"cpd-droplet-description": "Diagramme BPMN modifiable",
+	"cpd-dialog-save-label-changes-with-error": "Une erreur est survenue"
 }

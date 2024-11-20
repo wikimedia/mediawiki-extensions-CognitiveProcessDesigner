@@ -39,6 +39,7 @@
 	"cpd-validation-missing-label": "$1에 레이블이 없습니다",
 	"cpd-log-no-changes": "변경사항 없음",
 	"cpd-process-usage-not-embedded-description": "이 문서에는 프로세스가 포함되어 있지 않습니다",
+	"cpd-process-usage-special-page-description": "특수 문서에는 프로세스를 포함할 수 없습니다",
 	"cpd-process-usage-undocumented-error": "문서화되지 않은 오류가 발생했습니다",
 	"cpd-dialog-save-changes-headline": "변경사항 저장",
 	"cpd-dialog-save-label-review": "바뀐 내용 검토",
