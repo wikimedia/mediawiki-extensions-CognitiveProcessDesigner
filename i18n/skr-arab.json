@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saraiki"
+		]
+	},
+	"cpd-button-cancel-title": "منسوخ",
+	"cpd-api-load-diagram-missingtitle-error-message": "$1 کائنی لبھا",
+	"cpd-editor-title": "تساں $1 لکھدے پئے ہو",
+	"cpd-shape-deletion-message": "$1 مٹ ڳیا",
+	"cpd-droplet-name": "پراسس",
+	"cpd-droplet-process-field-label": "پراسس",
+	"cpd-dialog-save-label-changes-with-error": "خرابی تھی ڳئی ہے",
+	"bs-cpd-process-overview-edit-action-text": "لکھو",
+	"bs-cpd-process-overview-create-action-text": "بݨاؤ"
+}

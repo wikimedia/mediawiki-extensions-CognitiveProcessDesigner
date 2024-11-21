@@ -5,6 +5,8 @@
 		]
 	},
 	"processoverview": "프로세스",
+	"cpd-orphaned-description-pages-column-process-title": "프로세스",
+	"cpd-orphaned-description-pages-column-dbkey-title": "제목",
 	"cpd-ui-action-edit": "다이어그램 편집",
 	"cpd-ui-action-edit-xml": "XML 편집",
 	"cpd-button-cancel-title": "취소",

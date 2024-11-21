@@ -41,7 +41,7 @@
 	"cpd-dialog-save-label-changes": "Ännerunge gespäichert",
 	"cpd-dialog-save-label-resume-editing": "Virufuere mat Änneren",
 	"bs-cpd-mainlinks-label": "Prozesser",
-	"bs-cpd-process-overview-search-placeholder": "Prozesser sichen",
+	"bs-cpd-process-search-placeholder": "Prozesser sichen",
 	"bs-cpd-process-overview-no-results": "Keng Prozesser fonnt",
 	"bs-cpd-process-overview-aria-live-filtered-rows": "{{PLURAL:$1|Ee Prozess|$1 Prozesser}} fonnt",
 	"bs-cpd-process-overview-edit-action-text": "Änneren",
