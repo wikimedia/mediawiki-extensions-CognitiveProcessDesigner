@@ -114,7 +114,7 @@ export class CpdElementFactory {
 				element.descriptionPage = { dbKey: madeDbKey, isNew: false, exists: false };
 			}
 		} catch ( error ) {
-			console.error( error );
+			console.warn( error );
 			element.descriptionPage = null;
 		}
 	}

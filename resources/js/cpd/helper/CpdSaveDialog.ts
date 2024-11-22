@@ -1,5 +1,4 @@
 import EventEmitter from "events";
-import { ValidationState } from "./CpdValidator";
 import SaveDialog, { Mode } from "../oojs-ui/SaveDialog";
 import { ChangeLogMessages } from "./CpdChangeLogger";
 
@@ -51,10 +50,6 @@ export default class CpdSaveDialog extends EventEmitter {
 
 	public addPostSaveMessage( message: HTMLParagraphElement ): void {
 		this.dialog.addPostSaveMessage( message );
-	}
-
-	public setDescriptionPageValidation( state: ValidationState ): void {
-		this.dialog.updateValidationState( state );
 	}
 
 	public setChangelog( messages: ChangeLogMessages ): void {

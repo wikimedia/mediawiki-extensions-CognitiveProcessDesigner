@@ -17,7 +17,6 @@ import EventBus from "diagram-js/lib/core/EventBus";
 class CpdModeler extends CpdTool {
 	private bpmnModeler: BpmnModeler;
 	private changeLogger: CpdChangeLogger;
-	private validator: CpdValidator;
 	private initialElements: CpdElement[] = [];
 
 	public constructor( process: string ) {
@@ -49,9 +48,12 @@ class CpdModeler extends CpdTool {
 
 		const elementRegistry = this.bpmnModeler.get( "elementRegistry" ) as ElementRegistry;
 		const svgRenderer = new CpdInlineSvgRenderer( elementRegistry );
-		this.validator = new CpdValidator( svgRenderer );
+		const eventBus = this.bpmnModeler.get( "eventBus" ) as EventBus;
+
 		this.elementFactory = new CpdElementFactory( elementRegistry, process, this.descriptionPages );
-		this.changeLogger = new CpdChangeLogger( this.bpmnModeler.get( "eventBus" ), this.elementFactory, svgRenderer );
+		this.changeLogger = new CpdChangeLogger( eventBus, this.elementFactory, svgRenderer );
+		const validator = new CpdValidator( eventBus );
+		validator.on( CpdValidator.VALIDATION_EVENT, this.onValidation.bind( this ) );
 
 		if ( !this.xml ) {
 			try {
@@ -104,6 +106,10 @@ class CpdModeler extends CpdTool {
 
 	public async getSVG(): Promise<SaveSVGResult> {
 		return this.bpmnModeler.saveSVG();
+	}
+
+	private onValidation( isValid: boolean ): void {
+		this.dom.disableSaveButton( isValid );
 	}
 
 	private onCancel(): void {
@@ -161,7 +167,6 @@ class CpdModeler extends CpdTool {
 		const descriptionPageElements = this.elementFactory.createDescriptionPageEligibleElements();
 
 		this.applyDescriptionPageChanges( descriptionPageElements );
-		this.dom.setDialogValidation( this.validator.validate( descriptionPageElements ) );
 		this.dom.setDialogChangelog( this.changeLogger.getMessages() );
 	}
 

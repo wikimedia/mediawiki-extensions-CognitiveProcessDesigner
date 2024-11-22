@@ -4,7 +4,6 @@ import util from "types-mediawiki/mw/util";
 // noinspection ES6UnusedImports
 import Title from "types-mediawiki/mw/Title";
 import CpdSaveDialog from "./CpdSaveDialog";
-import { ValidationState } from "./CpdValidator";
 import Button from "../oojs-ui/Button";
 import ShowXmlButton from "../oojs-ui/ShowXmlButton";
 import LinkButton from "../oojs-ui/LinkButton";
@@ -119,8 +118,9 @@ export default class CpdDom extends EventEmitter {
 		this.showXmlBtn?.setDisabled( true );
 	}
 
-	public setDialogValidation( state: ValidationState ): void {
-		this.saveDialog?.setDescriptionPageValidation( state );
+	public disableSaveButton( isValid: boolean ): void {
+		console.log( "isValid", isValid );
+		this.openDialogBtn?.setDisabled( !isValid );
 	}
 
 	public setDialogChangelog( messages: ChangeLogMessages ): void {

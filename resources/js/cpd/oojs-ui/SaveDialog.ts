@@ -1,4 +1,3 @@
-import { ValidationState } from "../helper/CpdValidator";
 import { ChangeLogMessages, MessageObject } from "../helper/CpdChangeLogger";
 
 export enum Mode {
@@ -8,7 +7,6 @@ export enum Mode {
 }
 
 export default class SaveDialog extends OO.ui.ProcessDialog {
-	private validationContentContainer: HTMLDivElement;
 	private panels: OO.ui.StackLayout;
 	private savePanel: OO.ui.PanelLayout;
 	private reviewPanel: OO.ui.PanelLayout;
@@ -16,7 +14,6 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	// Displays changes after saving
 	private changesPanel: OO.ui.PanelLayout;
 	private postSaveMessages: HTMLDivElement;
-	private isValid: boolean = true;
 	private changeLogMessages: ChangeLogMessages;
 	private saveWithPages: boolean = false;
 
@@ -87,14 +84,14 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	}
 
 	public pushPending(): this {
-		this.getActions().setAbilities( { review: false, save: this.saveWithPages ? this.isValid : true } );
+		this.getActions().setAbilities( { review: false, save: false } );
 		return super.pushPending.call( this );
 	}
 
 	public popPending(): this {
 		const parent = super.popPending.call( this );
 		if ( !this.isPending() ) {
-			this.getActions().setAbilities( { review: true, save: this.saveWithPages ? this.isValid : true } );
+			this.getActions().setAbilities( { review: true, save: true } );
 		}
 		return parent;
 	}
@@ -106,17 +103,6 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	public getSetupProcess( data: any ): OO.ui.Process {
 		data = data || {};
 		return super.getSetupProcess.call( this, data ).next( this.onSetup.bind( this ) );
-	}
-
-	public updateValidationState( state: ValidationState ): void {
-		this.isValid = state.isValid;
-
-		let validationContent = "";
-		if ( Object.keys( state.messages ).length !== 0 ) {
-			validationContent = state.messages.map( ( message: string ) => `<p>${ message }</p>` ).join( "" );
-		}
-
-		this.validationContentContainer.innerHTML = validationContent;
 	}
 
 	public setChangelogMessages( messages: ChangeLogMessages ): void {
@@ -138,7 +124,6 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	}
 
 	private onSetup(): void {
-		this.updateValidation();
 		this.updateReviewContent();
 		this.setMode( Mode.SAVE );
 	}
@@ -173,11 +158,7 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 			label: mw.msg( "cpd-dialog-save-label-description-pages-checkbox" )
 		} );
 
-		this.validationContentContainer = document.createElement( "div" );
-		this.validationContentContainer.classList.add( "cpd-validation-content" );
-
 		panel.$element.append( fieldLayout.$element );
-		panel.$element.append( this.validationContentContainer );
 
 		return panel;
 	}
@@ -215,16 +196,8 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		} );
 	}
 
-	private updateValidation(): void {
-		this.validationContentContainer.style.display = this.saveWithPages ? "block" : "none";
-		const actions = this.getActions();
-		actions.setAbilities( { save: this.saveWithPages ? this.isValid : true } );
-		this.updateSize();
-	}
-
 	private onSavePagesCheckboxChange( selected: boolean ): void {
 		this.saveWithPages = selected;
 		this.updateReviewContent();
-		this.updateValidation();
 	}
 }
