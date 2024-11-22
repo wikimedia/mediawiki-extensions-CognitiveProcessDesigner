@@ -5,6 +5,8 @@
 		]
 	},
 	"processoverview": "Prozesser",
+	"cpd-orphaned-description-pages-column-process-title": "Prozess",
+	"cpd-orphaned-description-pages-column-dbkey-title": "Titel",
 	"cpd-ui-action-edit": "Diagramm änneren",
 	"cpd-ui-action-edit-xml": "XML änneren",
 	"cpd-button-cancel-title": "Ofbriechen",
