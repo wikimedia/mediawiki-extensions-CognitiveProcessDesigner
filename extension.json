@@ -349,7 +349,10 @@
         "ParserFirstCallInit": "tag",
         "ContentHandlerDefaultModelFor": "setCPDContentType",
         "BlueSpiceDiscoveryTemplateDataProviderAfterInit": "addEditLink",
-        "SkinTemplateNavigation::Universal": "addActions",
+        "SkinTemplateNavigation::Universal": [
+            "addActions",
+            "addNewProcess"
+        ],
         "CodeEditorGetPageLanguage": "integrateCodeEditor",
         "OutputPageBeforeHTML": "addDescriptionPageDiagramNavigationLinks",
         "LoadExtensionSchemaUpdates": "addTables",
@@ -378,6 +381,9 @@
         },
         "addActions": {
             "class": "\\CognitiveProcessDesigner\\HookHandler\\AddActions"
+        },
+        "addNewProcess": {
+            "class": "\\CognitiveProcessDesigner\\HookHandler\\AddNewProcess"
         },
         "integrateCodeEditor": {
             "class": "\\CognitiveProcessDesigner\\HookHandler\\IntegrateCodeEditor"

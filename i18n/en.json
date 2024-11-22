@@ -85,5 +85,6 @@
 	"bs-cpd-process-overview-card-title": "Open process $1",
 	"bs-cpd-info-dialog": "Process usage",
 	"bs-cpd-process-overview-info-action-text": "Page information",
-	"bs-cpd-process-overview-info-action-title": "Page information for process $1"
+	"bs-cpd-process-overview-info-action-title": "Page information for process $1",
+	"bs-cpd-actionmenuentry-new-process": "New process"
 }

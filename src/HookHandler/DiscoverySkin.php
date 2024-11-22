@@ -14,5 +14,6 @@ class DiscoverySkin implements BlueSpiceDiscoveryTemplateDataProviderAfterInit {
 	 */
 	public function onBlueSpiceDiscoveryTemplateDataProviderAfterInit( $registry ): void {
 		$registry->register( 'panel/edit', 'ca-editxml' );
+		$registry->register( 'panel/create', 'ca-cpd-create-process' );
 	}
 }
