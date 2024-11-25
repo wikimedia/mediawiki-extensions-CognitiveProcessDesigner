@@ -6,6 +6,9 @@
 	},
 	"cpd-orphaned-description-pages-column-dbkey-title": "Наслов",
 	"cpd-button-cancel-title": "Откажи",
+	"cpd-editor-title": "Уређивање $1",
+	"cpd-editor-title-create": "Направи $1",
 	"cpd-shape-rename-message": "$1 преименован у $2",
-	"bs-cpd-process-overview-create-action-text": "Направи"
+	"bs-cpd-process-overview-create-action-text": "Направи",
+	"bs-cpd-process-overview-info-action-text": "Информације о страници"
 }

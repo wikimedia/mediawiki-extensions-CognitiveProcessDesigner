@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mschlindwein"
+			"Mschlindwein",
+			"Mukeber"
 		]
 	},
 	"orphanedprocessdescriptionpages": "Verwaiste Prozessbeschreibungsseiten",
@@ -84,5 +85,6 @@
 	"bs-cpd-process-overview-card-title": "Prozess $1 öffnen",
 	"bs-cpd-info-dialog": "Prozessnutzung",
 	"bs-cpd-process-overview-info-action-text": "Seiteninformationen",
-	"bs-cpd-process-overview-info-action-title": "Seiteninformationen für Prozess $1"
+	"bs-cpd-process-overview-info-action-title": "Seiteninformationen für Prozess $1",
+	"bs-cpd-actionmenuentry-new-process": "Neues Verfahren"
 }
