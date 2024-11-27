@@ -56,5 +56,6 @@
 	"bs-cpd-process-overview-create-action-title": "프로세스 $1 만들기",
 	"bs-cpd-process-overview-card-title": "프로세스 $1 열기",
 	"bs-cpd-process-overview-info-action-text": "문서 정보",
-	"bs-cpd-process-overview-info-action-title": "프로세스 $1의 문서 정보"
+	"bs-cpd-process-overview-info-action-title": "프로세스 $1의 문서 정보",
+	"bs-cpd-actionmenuentry-new-process": "새 프로세스"
 }
