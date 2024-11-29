@@ -158,6 +158,11 @@ export default class CpdChangeLogger extends EventEmitter {
 	}
 
 	private appendMessage( messages: ChangeLogMessages, element: CpdElement, message: string, onlyWithPages: boolean = false ): void {
+		// Append message to the messages object only if element is eligible for description page
+		if ( !this.factory.isDescriptionPageEligible( element ) ) {
+			return;
+		}
+
 		if ( !messages[ element.id ] ) {
 			messages[ element.id ] = [];
 		}

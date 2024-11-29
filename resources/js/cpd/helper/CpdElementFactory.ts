@@ -94,6 +94,10 @@ export class CpdElementFactory {
 		return this.elementRegistry.getGraphics( element.bpmnElement );
 	}
 
+	public isDescriptionPageEligible( element: CpdElement ): boolean {
+		return this.subpageTypes.includes( element.type );
+	}
+
 	private addDescriptionPageProperty( element: CpdElement ): void {
 		if ( !this.subpageTypes.includes( element.type ) ) {
 			element.descriptionPage = null;
