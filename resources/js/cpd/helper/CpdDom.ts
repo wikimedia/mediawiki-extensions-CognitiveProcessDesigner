@@ -119,7 +119,6 @@ export default class CpdDom extends EventEmitter {
 	}
 
 	public disableSaveButton( isValid: boolean ): void {
-		console.log( "isValid", isValid );
 		this.openDialogBtn?.setDisabled( !isValid );
 	}
 

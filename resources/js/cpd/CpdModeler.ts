@@ -13,6 +13,7 @@ import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
 import bpmnlintConfig from "../../../bpmn-lint.config";
 import lintModule from 'bpmn-js-bpmnlint';
 import EventBus from "diagram-js/lib/core/EventBus";
+import Modeling from "bpmn-js/lib/features/modeling/Modeling";
 
 class CpdModeler extends CpdTool {
 	private bpmnModeler: BpmnModeler;
@@ -52,7 +53,7 @@ class CpdModeler extends CpdTool {
 
 		this.elementFactory = new CpdElementFactory( elementRegistry, process, this.descriptionPages );
 		this.changeLogger = new CpdChangeLogger( eventBus, this.elementFactory, svgRenderer );
-		const validator = new CpdValidator( eventBus );
+		const validator = new CpdValidator( eventBus, elementRegistry );
 		validator.on( CpdValidator.VALIDATION_EVENT, this.onValidation.bind( this ) );
 
 		if ( !this.xml ) {
