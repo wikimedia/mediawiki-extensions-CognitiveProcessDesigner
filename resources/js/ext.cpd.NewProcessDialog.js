@@ -18,7 +18,8 @@ ext.cpd.NewProcessDialog.prototype.getFormItems = function () {
 		id: this.elementId + '-tf-target',
 		$overlay: this.$overlay,
 		mustExist: false,
-		contentPagesOnly: false
+		contentPagesOnly: false,
+		namespaces: [ 1530 ]
 	} );
 
 	return [
@@ -38,7 +39,7 @@ ext.cpd.NewProcessDialog.prototype.makeDoneActionProcess = function () {
 	return new OO.ui.Process( function () {}, this );
 };
 
-$( document ).on( 'click', '#ca-cpd-create-process', function ( e ) {
+$( document ).on( 'click', '#ca-cpd-create-new-process', function ( e ) {
 	const diag = new ext.cpd.NewProcessDialog( {
 		proc: 'standarddialogs-dlg-new-page',
 		namespace: 1530
