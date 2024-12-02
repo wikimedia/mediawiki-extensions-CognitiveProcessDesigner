@@ -37,7 +37,10 @@ module.exports = exports = {
     CdxSearchInput: CdxSearchInput
   },
   data: function () {
-    this.items.forEach( ( card ) => card.isVisible = true );
+    this.items.forEach( ( card ) => {
+      card.title = mw.Title.newFromText( card.process ).getMainText();
+      card.isVisible = true
+    } );
 
     return {
       cards: this.items,
@@ -55,7 +58,6 @@ module.exports = exports = {
 
       search = search.toLowerCase();
       this.cards.forEach( ( card ) => card.isVisible = !!card.title.toLowerCase().includes( search ) );
-
       let visibleItems = this.cards.filter( card => card.isVisible === true );
       updateAriaLiveSection( visibleItems.length );
     }

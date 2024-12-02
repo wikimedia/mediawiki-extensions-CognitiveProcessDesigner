@@ -4,7 +4,7 @@
        rel="nofollow noindex">
       <div class="bs-card-image" v-bind:style="image_url ? { backgroundImage: 'url(' + image_url + ')' }  : {}"></div>
       <div class="bs-card-body">
-        <div class="bs-card-title">{{ process }}</div>
+        <div class="bs-card-title">{{ title }}</div>
       </div>
     </a>
     <div class="bs-card-footer">
@@ -28,6 +28,7 @@ const {toRaw} = Vue;
 module.exports = {
   name: 'Card',
   props: {
+    title: String,
     process: String,
     db_key: String,
     url: String,

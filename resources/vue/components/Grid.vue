@@ -2,6 +2,7 @@
   <div class="bs-cards-container">
     <card v-for="card in cards"
           v-show="card.isVisible"
+          v-bind:title="card.title"
           v-bind:process="card.process"
           v-bind:db_key="card.db_key"
           v-bind:url="card.url"

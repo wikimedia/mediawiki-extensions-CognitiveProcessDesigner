@@ -339,6 +339,18 @@
                 "ext.bluespice",
                 "mediawiki.api"
             ]
+        },
+        "ext.cpd.newprocessdialog": {
+            "scripts": [
+                "js/ext.cpd.NewProcessDialog.js"
+            ],
+            "messages": [
+                "bs-cpd-actionmenuentry-new-process",
+                "bs-cpd-actionmenuentry-new-process-input-label"
+            ],
+            "dependencies": [
+                "ext.standardDialogs.ui.NewPageDialog"
+            ]
         }
     },
     "ServiceWiringFiles": [
