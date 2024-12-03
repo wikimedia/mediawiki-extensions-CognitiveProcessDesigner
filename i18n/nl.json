@@ -86,5 +86,6 @@
 	"bs-cpd-info-dialog": "Procesgebruik",
 	"bs-cpd-process-overview-info-action-text": "Pagina-informatie",
 	"bs-cpd-process-overview-info-action-title": "Pagina-informatie voor proces $1",
-	"bs-cpd-actionmenuentry-new-process": "Nieuw proces"
+	"bs-cpd-actionmenuentry-new-process": "Nieuw proces",
+	"bs-cpd-actionmenuentry-new-process-input-label": "Procesnaam"
 }
