@@ -15,7 +15,9 @@ use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use Exception;
 use JobQueueGroup;
+use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\User\UserIdentity;
+use Message;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveCpdDescriptionPages extends ApiBase {
@@ -44,6 +46,9 @@ class SaveCpdDescriptionPages extends ApiBase {
 	 */
 	private UserIdentity $user;
 
+	/** @var LinkRenderer */
+	private LinkRenderer $linkRenderer;
+
 	/**
 	 * @param ApiMain $main
 	 * @param string $action
@@ -51,6 +56,7 @@ class SaveCpdDescriptionPages extends ApiBase {
 	 * @param CpdDiagramPageUtil $diagramPageUtil
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 * @param JobQueueGroup $jobQueueGroup
+	 * @param LinkRenderer $linkRenderer
 	 */
 	public function __construct(
 		ApiMain $main,
@@ -58,7 +64,8 @@ class SaveCpdDescriptionPages extends ApiBase {
 		CpdElementFactory $cpdElementFactory,
 		CpdDiagramPageUtil $diagramPageUtil,
 		CpdDescriptionPageUtil $descriptionPageUtil,
-		JobQueueGroup $jobQueueGroup
+		JobQueueGroup $jobQueueGroup,
+		LinkRenderer $linkRenderer
 	) {
 		parent::__construct( $main, $action );
 
@@ -66,6 +73,7 @@ class SaveCpdDescriptionPages extends ApiBase {
 		$this->jobQueueGroup = $jobQueueGroup;
 		$this->diagramPageUtil = $diagramPageUtil;
 		$this->descriptionPageUtil = $descriptionPageUtil;
+		$this->linkRenderer = $linkRenderer;
 	}
 
 	/**
@@ -154,7 +162,10 @@ class SaveCpdDescriptionPages extends ApiBase {
 
 		$descriptionPage = $element->getDescriptionPage();
 		if ( !$descriptionPage ) {
-			$warnings[] = "Element {$element->getId()} has no description page property";
+			$warnings[] = Message::newFromKey(
+				'cpd-description-page-has-no-property-warning',
+				$element->getId()
+			)->text();
 
 			return $warnings;
 		}
@@ -169,7 +180,14 @@ class SaveCpdDescriptionPages extends ApiBase {
 		if ( $oldDescriptionPage ) {
 			// If the old description page does not exist, add a warning and create the new description page
 			if ( !$oldDescriptionPage->exists() ) {
-				$warnings[] = "Description page {$oldDescriptionPage->getPrefixedDBkey()} does not exist anymore";
+				$warnings[] = Message::newFromKey(
+					'cpd-description-page-does-not-exist-anymore-warning',
+					$this->linkRenderer->makeLink(
+						$oldDescriptionPage,
+						$oldDescriptionPage->getSubpageText()
+					)
+				)->text();
+
 			} else {
 				$this->moveDescriptionPage( $element );
 
@@ -178,7 +196,13 @@ class SaveCpdDescriptionPages extends ApiBase {
 		}
 
 		if ( $descriptionPage->exists() ) {
-			$warnings[] = "Description page {$descriptionPage->getPrefixedDBkey()} already exists";
+			$warnings[] = Message::newFromKey(
+				'cpd-description-page-already-exists-warning',
+				$this->linkRenderer->makeLink(
+					$descriptionPage,
+					$descriptionPage->getSubpageText()
+				)
+			)->text();
 
 			return $warnings;
 		}

@@ -121,7 +121,8 @@
                 "CpdElementFactory",
                 "CpdDiagramPageUtil",
                 "CpdDescriptionPageUtil",
-                "JobQueueGroup"
+                "JobQueueGroup",
+                "LinkRenderer"
             ]
         },
         "cpd-syntax-highlight-xml": {
