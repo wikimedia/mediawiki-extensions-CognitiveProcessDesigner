@@ -50,5 +50,6 @@
 	"bs-cpd-process-overview-edit-action-title": "Prozess $1 änneren",
 	"bs-cpd-process-overview-card-title": "Prozess $1 opmaachen",
 	"bs-cpd-process-overview-info-action-text": "Informatiounen iwwer d'Säit",
-	"bs-cpd-actionmenuentry-new-process": "Neie Prozess"
+	"bs-cpd-actionmenuentry-new-process": "Neie Prozess",
+	"bs-cpd-actionmenuentry-new-process-input-label": "Prozessnumm"
 }
