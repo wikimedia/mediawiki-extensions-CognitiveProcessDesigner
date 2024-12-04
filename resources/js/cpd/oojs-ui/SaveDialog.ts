@@ -10,7 +10,7 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	private panels: OO.ui.StackLayout;
 	private savePanel: OO.ui.PanelLayout;
 	private reviewPanel: OO.ui.PanelLayout;
-	private reviewContent: HTMLDivElement;
+	private reviewContent: HTMLUListElement;
 	// Displays changes after saving
 	private changesPanel: OO.ui.PanelLayout;
 	private postSaveMessages: HTMLDivElement;
@@ -166,7 +166,7 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	private initReviewPanel(): OO.ui.PanelLayout {
 		const panel = new OO.ui.PanelLayout( { padded: true, expanded: false } );
 
-		this.reviewContent = document.createElement( "div" );
+		this.reviewContent = document.createElement( "ul" );
 		panel.$element.append( this.reviewContent );
 
 		return panel;
@@ -183,16 +183,27 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 
 	private updateReviewContent(): void {
 		this.reviewContent.innerHTML = "";
+		const changeLogMessages = [];
 		Object.values( this.changeLogMessages ).forEach( ( messages: MessageObject[] ) => {
-			messages.filter( ( message: MessageObject ) => {
+			const filtered = messages.filter( ( message: MessageObject ) => {
 				if ( this.saveWithPages ) {
 					return true;
 				}
 
 				return !message.onlyWithPages;
-			} ).forEach( ( message: MessageObject ) => {
-				this.reviewContent.innerHTML += `<p>${ message.message }</p>`;
 			} );
+
+			// Merge messages
+			changeLogMessages.push( ...filtered );
+		} );
+
+		if ( changeLogMessages.length === 0 ) {
+			this.reviewContent.innerHTML = mw.message( "cpd-log-no-changes" ).plain();
+			return;
+		}
+
+		changeLogMessages.forEach( ( message: MessageObject ) => {
+			this.reviewContent.innerHTML += `<li>${ message.message }</li>`;
 		} );
 	}
 

@@ -123,16 +123,6 @@ export default class CpdDom extends EventEmitter {
 	}
 
 	public setDialogChangelog( messages: ChangeLogMessages ): void {
-		// Set no changes message if there are no changes
-		if ( Object.keys( messages ).length === 0 ) {
-			messages = {
-				unknown: [ {
-					message: mw.message( "cpd-log-no-changes" ).plain(),
-					onlyWithPages: false
-				} ]
-			};
-		}
-
 		this.saveDialog?.setChangelog( messages );
 	}
 

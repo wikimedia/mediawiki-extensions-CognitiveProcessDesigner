@@ -35,7 +35,10 @@ export default class CpdInlineSvgRenderer {
 		width += 15;
 		height += 15;
 
-		const type = element.type;
+		let type = element.type;
+		// ERM39844 remove the "bpmn:" prefix from the type
+		type = element.type.replace( "bpmn:", "" );
+
 		const largeCls = this.largeTypes.includes(type) ? "large" : "";
 
 		return `<span class="cpd-inline-svg ${largeCls}" title="${type + " " + element.id}">${type} <svg viewBox="-5 -5 ${width} ${height}">${result}</svg></span>`;

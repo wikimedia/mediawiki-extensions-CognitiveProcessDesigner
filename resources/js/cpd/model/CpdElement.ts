@@ -69,7 +69,9 @@ export default class CpdElement {
 			return null;
 		}
 
-		return `<a target="_blank" href="${ mw.util.getUrl( this.descriptionPage.dbKey ) }">${ this.descriptionPage.dbKey }</a>`;
+		const linkText = this.descriptionPage.dbKey.split( '/' ).pop();
+
+		return `<a target="_blank" href="${ mw.util.getUrl( this.descriptionPage.dbKey ) }">${ linkText }</a>`;
 	}
 
 	public getOldDescriptionPageUrl(): string | null {
