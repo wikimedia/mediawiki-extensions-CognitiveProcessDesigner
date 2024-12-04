@@ -159,7 +159,8 @@ class CpdModeler extends CpdTool {
 			}
 
 			const title = mw.Title.newFromText( descriptionPage.page );
-			const link = `<a href="${ mw.util.getUrl( title.getPrefixedText() ) }" target="_blank">${ title.getPrefixedText() }</a>`;
+			const linkText = title.getNameText().split( '/' ).pop();
+			const link = `<a href="${ mw.util.getUrl( title.getPrefixedText() ) }" target="_blank">${ linkText }</a>`;
 			this.dom.showMessage( mw.message( "cpd-description-page-saved-message", link ).text() );
 		} );
 	}
