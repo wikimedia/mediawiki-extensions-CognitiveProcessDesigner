@@ -55,7 +55,7 @@ class SaveDescriptionPage extends Job {
 	public function run() {
 		$this->updater->setContent( SlotRecord::MAIN, $this->content );
 
-		$comment = Message::newFromKey( 'cpd-api-save-diagram-elements-update-comment' );
+		$comment = Message::newFromKey( 'cpd-api-save-description-page-comment' );
 		$commentStore = CommentStoreComment::newUnsavedComment( $comment );
 
 		try {

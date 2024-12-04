@@ -7,6 +7,7 @@ use Job;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\MovePageFactory;
 use MediaWiki\User\UserIdentity;
+use Message;
 use Title;
 
 class MoveDescriptionPage extends Job {
@@ -65,7 +66,7 @@ class MoveDescriptionPage extends Job {
 
 		$this->movePageFactory->newMovePage( $this->existingTitle, $this->newTitle )->move(
 			$this->actor,
-			'Cpd Element has changed',
+			Message::newFromKey( 'cpd-api-move-description-page-comment' )->escaped(),
 			false
 		);
 	}
