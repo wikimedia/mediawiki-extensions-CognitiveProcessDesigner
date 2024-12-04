@@ -58,6 +58,10 @@ class AddDescriptionPageDiagramNavigationLinks implements OutputPageBeforeHTMLHo
 			return;
 		}
 
+		if ( !$title->exists() ) {
+			return;
+		}
+
 		if ( !$this->descriptionPageUtil->isDescriptionPage( $title ) ) {
 			return;
 		}
