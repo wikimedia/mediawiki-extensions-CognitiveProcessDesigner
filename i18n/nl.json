@@ -22,7 +22,7 @@
 	"cpd-api-save-diagram-param-process-id": "ID van het BPMN-diagram",
 	"cpd-api-save-diagram-success-message": "Diagram opgeslagen",
 	"cpd-api-save-diagram-error-message": "Fout bij het opslaan van het diagram: $1",
-	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|Één|$1|0=Geen}} beschrijvings{{PLURAL:$1|pagina|pagina's}} opgeslagen",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|De volgende beschrijvingspagina is|De volgende $1 beschrijvingspagina’s zijn|0=Er zijn geen beschrijvingspagina’s}} opgeslagen:",
 	"cpd-description-page-saved-message": "Beschrijvingspagina $1 opgeslagen",
 	"cpd-api-save-description-pages-error-message": "Fout bij het opslaan van beschrijvingspagina's: $1",
 	"cpd-api-load-diagram-missing-message": "Geen diagram geladen",
