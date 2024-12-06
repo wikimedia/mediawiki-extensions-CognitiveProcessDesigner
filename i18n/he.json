@@ -23,6 +23,9 @@
 	"cpd-api-save-diagram-error-message": "שגיאה בעת שמירת התרשים: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|נשמר דף תיאור אחד|נשמרו $1 דפי תיאור|0=לא נשמר שום דף תיאור}}",
 	"cpd-description-page-saved-message": "דף התיאור $1 נשמר",
+	"cpd-description-page-already-exists-warning": "דף התיאור $1 כבר קיים",
+	"cpd-description-page-does-not-exist-anymore-warning": "דף התיאור $1 אינו קיים יותר",
+	"cpd-description-page-has-no-property-warning": "לרכיב $1 אין מאפיין של דף תיאור",
 	"cpd-api-save-description-pages-error-message": "שגיאה בעת שמירת דפי תיאור: $1",
 	"cpd-api-load-diagram-missing-message": "לא נטען תרשים",
 	"cpd-api-load-diagram-error-message": "שגיאה בעת טעינת התרשים: $1",
@@ -85,5 +88,8 @@
 	"bs-cpd-info-dialog": "שימוש בתהליך",
 	"bs-cpd-process-overview-info-action-text": "מידע על הדף",
 	"bs-cpd-process-overview-info-action-title": "מידע על הדף עבור התהליך $1",
-	"bs-cpd-actionmenuentry-new-process": "תהליך חדש"
+	"bs-cpd-actionmenuentry-new-process": "תהליך חדש",
+	"bs-cpd-actionmenuentry-new-process-input-label": "שם התהליך",
+	"cpd-api-save-description-page-comment": "דף התיאור נשמר",
+	"cpd-api-move-description-page-comment": "דף התיאור הועבר"
 }

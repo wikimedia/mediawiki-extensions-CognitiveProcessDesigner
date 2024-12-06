@@ -24,6 +24,9 @@
 	"cpd-api-save-diagram-error-message": "Fout bij het opslaan van het diagram: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|De volgende beschrijvingspagina is|De volgende $1 beschrijvingspagina’s zijn|0=Er zijn geen beschrijvingspagina’s}} opgeslagen:",
 	"cpd-description-page-saved-message": "Beschrijvingspagina $1 opgeslagen",
+	"cpd-description-page-already-exists-warning": "Beschrijvingspagina $1 bestaat al",
+	"cpd-description-page-does-not-exist-anymore-warning": "Beschrijvingspagina $1 bestaat niet meer",
+	"cpd-description-page-has-no-property-warning": "Element $1 heeft geen beschrijvingspagina-eigenschap",
 	"cpd-api-save-description-pages-error-message": "Fout bij het opslaan van beschrijvingspagina's: $1",
 	"cpd-api-load-diagram-missing-message": "Geen diagram geladen",
 	"cpd-api-load-diagram-error-message": "Fout bij het laden van het diagram: $1",
@@ -87,5 +90,7 @@
 	"bs-cpd-process-overview-info-action-text": "Pagina-informatie",
 	"bs-cpd-process-overview-info-action-title": "Pagina-informatie voor proces $1",
 	"bs-cpd-actionmenuentry-new-process": "Nieuw proces",
-	"bs-cpd-actionmenuentry-new-process-input-label": "Procesnaam"
+	"bs-cpd-actionmenuentry-new-process-input-label": "Procesnaam",
+	"cpd-api-save-description-page-comment": "Beschrijvingspagina opgeslagen",
+	"cpd-api-move-description-page-comment": "Beschrijvingspagina hernoemd"
 }
