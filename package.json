@@ -5,7 +5,8 @@
 	"scripts": {
 		"test": "jest && grunt test",
 		"start": "webpack --watch",
-		"build": "webpack --mode production"
+		"build": "webpack --mode production",
+		"postinstall": "cp node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css resources/styles/ext && cp node_modules/bpmn-js/dist/assets/bpmn-js.css resources/styles/ext && cp node_modules/bpmn-js/dist/assets/diagram-js.css resources/styles/ext && cp node_modules/bpmn-js-color-picker/colors/color-picker.css resources/styles/ext && cp node_modules/bpmn-js-bpmnlint/dist/assets/css/bpmn-js-bpmnlint.css resources/styles/ext"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.23.4",

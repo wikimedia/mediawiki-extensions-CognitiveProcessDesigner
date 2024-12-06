@@ -166,9 +166,9 @@
                 "oojs-ui"
             ],
             "styles": [
-                "node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css",
-                "node_modules/bpmn-js/dist/assets/bpmn-js.css",
-                "node_modules/bpmn-js/dist/assets/diagram-js.css",
+                "resources/styles/ext/bpmn-embedded.css",
+                "resources/styles/ext/bpmn-js.css",
+                "resources/styles/ext/diagram-js.css",
                 "resources/styles/pygments.generated.css",
                 "resources/styles/cpd.less"
             ],
@@ -202,11 +202,11 @@
                 "oojs-ui"
             ],
             "styles": [
-                "node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css",
-                "node_modules/bpmn-js/dist/assets/bpmn-js.css",
-                "node_modules/bpmn-js/dist/assets/diagram-js.css",
-                "node_modules/bpmn-js-color-picker/colors/color-picker.css",
-                "node_modules/bpmn-js-bpmnlint/dist/assets/css/bpmn-js-bpmnlint.css",
+                "resources/styles/ext/bpmn-embedded.css",
+                "resources/styles/ext/bpmn-js.css",
+                "resources/styles/ext/diagram-js.css",
+                "resources/styles/ext/color-picker.css",
+                "resources/styles/ext/bpmn-js-bpmnlint.css",
                 "resources/styles/cpd.less"
             ],
             "messages": [
