@@ -44,7 +44,9 @@ class CpdElementConnectionUtil {
 					[
 						'process' => $process,
 						'from_page' => $element->getDescriptionPage()->getPrefixedDBkey(),
+						'from_tpye' => $element->getType(),
 						'to_page' => $outgoingLink,
+						'type' => $element->getType(),
 					],
 					__METHOD__
 				);
