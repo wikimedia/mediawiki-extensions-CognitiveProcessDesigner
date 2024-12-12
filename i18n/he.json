@@ -21,7 +21,7 @@
 	"cpd-api-save-diagram-param-process-id": "מזהה תרשים ה־BPMN",
 	"cpd-api-save-diagram-success-message": "התרשים נשמר",
 	"cpd-api-save-diagram-error-message": "שגיאה בעת שמירת התרשים: $1",
-	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|נשמר דף תיאור אחד|נשמרו $1 דפי תיאור|0=לא נשמר שום דף תיאור}}",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|דף התיאור הבא נשמר|$1 דפי התיאור הבאים נשמרו|0=לא נשמרו דפי תיאור}}:",
 	"cpd-description-page-saved-message": "דף התיאור $1 נשמר",
 	"cpd-description-page-already-exists-warning": "דף התיאור $1 כבר קיים",
 	"cpd-description-page-does-not-exist-anymore-warning": "דף התיאור $1 אינו קיים יותר",

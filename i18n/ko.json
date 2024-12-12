@@ -16,6 +16,9 @@
 	"cpd-api-save-diagram-success-message": "다이어그램이 저장되었습니다",
 	"cpd-api-save-diagram-error-message": "다이어그램을 저장하는 동안 오류가 발생했습니다: $1",
 	"cpd-description-page-saved-message": "$1 설명 문서를 저장했습니다",
+	"cpd-description-page-already-exists-warning": "$1 설명 문서가 이미 존재합니다",
+	"cpd-description-page-does-not-exist-anymore-warning": "$1 설명 문서가 더 이상 존재하지 않습니다",
+	"cpd-description-page-has-no-property-warning": "$1 요소에 설명 문서 속성이 없습니다",
 	"cpd-api-save-description-pages-error-message": "설명 문서를 저장하는 동안 오류가 발생했습니다: $1",
 	"cpd-api-load-diagram-missing-message": "다이어그램이 로드되지 않았습니다",
 	"cpd-api-load-diagram-error-message": "다이어그램을 불러오는 동안 오류가 발생했습니다: $1",
@@ -58,5 +61,7 @@
 	"bs-cpd-process-overview-info-action-text": "문서 정보",
 	"bs-cpd-process-overview-info-action-title": "프로세스 $1의 문서 정보",
 	"bs-cpd-actionmenuentry-new-process": "새 프로세스",
-	"bs-cpd-actionmenuentry-new-process-input-label": "프로세스 이름"
+	"bs-cpd-actionmenuentry-new-process-input-label": "프로세스 이름",
+	"cpd-api-save-description-page-comment": "설명 문서가 저장되었습니다",
+	"cpd-api-move-description-page-comment": "설명 문서가 이동되었습니다"
 }
