@@ -126,7 +126,7 @@ export default class CpdViewer extends CpdTool {
 			this.dom.showWarning( mw.message(
 				"cpd-warning-message-diagram-not-initialized",
 				process,
-				this.diagramPage.getUrl( {} ) ).text()
+				this.diagramPage.getUrl( { action: 'edit' } ) ).text()
 			);
 
 			return;
