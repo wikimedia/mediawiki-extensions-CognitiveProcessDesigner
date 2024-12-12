@@ -4,6 +4,23 @@
 			"Cabal"
 		]
 	},
+	"cpd-ui-action-edit-xml": "XML ਸੋਧੋ",
+	"cpd-description-page-saved-message": "ਵੇਰਵਾ ਸਫ਼ਾ $1 ਸਾੰਭਿਆ ਗਿਆ",
+	"cpd-api-save-description-pages-error-message": "ਵੇਰਵਾ ਸਫ਼ਿਆਂ ਨੂੰ ਸਾੰਭਣ ਵੇਲੇ ਗਲਤੀ ਆਈ: $1",
+	"cpd-api-load-diagram-missingtitle-error-message": "$1 ਨਹੀਂ ਲੱਭਿਆ",
+	"cpd-error-message-not-process": "ਸਫ਼ਾ $1 ਇੱਕ ਕਾਰਵਾਈ ਨਹੀਂ ਹੈ",
+	"cpd-no-changes-warning-message": "ਸਾੰਭਣ ਲਈ ਕੁਝ ਵੀ ਨਹੀਂ",
+	"cpd-shape-deletion-page-referenced-message": "ਸਫ਼ੇ ਦਾ ਹਵਾਲਾ ਦਿੱਤਾ ਗਿਆ ਹੈ: $1",
+	"cpd-description-page-creation-message": "ਸਫ਼ਾ ਬਣਾਇਆ ਜਾਵੇਗਾ: $1",
+	"cpd-shape-rename-message": "$1 ਦਾ ਨਾਂ ਬਦਲ ਕੇ $2 ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ",
+	"cpd-droplet-name": "ਕਾਰਵਾਈ",
+	"cpd-droplet-process-field-label": "ਕਾਰਵਾਈ",
+	"cpd-validation-duplicate-label": "$1 ਨੂੰ $2 ਵਿੱਚ ਕਈ ਵਾਰ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ",
+	"cpd-dialog-save-label-review": "ਆਪਣੀਆਂ ਤਬਦੀਲੀਆਂ ਦੀ ਪਰਖ ਕਰੋ",
+	"cpd-dialog-save-label-changes": "ਤਬਦੀਲੀਆਂ ਸਾੰਭਿਆਂ ਗਈਆਂ ਹਨ।",
+	"cpd-dialog-save-label-resume-editing": "ਸੋਧਣਾ ਮੁਡ਼ ਸ਼ੁਰੂ ਕਰੋ",
+	"bs-cpd-process-overview-edit-action-text": "ਸੋਧੋ",
+	"bs-cpd-process-overview-info-action-title": "ਕਾਰਵਾਈ $1 ਲਈ ਸਫ਼ੇ ਦੀ ਜਾਣਕਾਰੀ",
 	"cpd-api-save-description-page-comment": "ਵੇਰਵਾ ਸਫ਼ਾ ਸੰਭਾਲਿਆ ਗਿਆ",
 	"cpd-api-move-description-page-comment": "ਵੇਰਵਾ ਸਫ਼ਾ ਹਟਾਇਆ ਗਿਆ"
 }
