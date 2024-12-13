@@ -51,7 +51,7 @@
 	"cpd-no-changes-warning-message": "Rien à sauvegarder",
 	"cpd-shape-deletion-message": "$1 supprimé",
 	"cpd-shape-deletion-page-referenced-message": "La page est référencée : $1",
-	"cpd-shape-creation-message": "$1 créée",
+	"cpd-shape-creation-message": "$1 créé",
 	"cpd-description-page-creation-message": "La page sera créée : $1",
 	"cpd-shape-rename-with-description-page-message": "La page sera déplacée de $1 à $2",
 	"cpd-shape-rename-message": "$1 renommée en $2",
