@@ -26,7 +26,20 @@ class CpdNavigationConnection {
 		$this->text = $text;
 		$this->link = $link;
 		$this->isLaneChange = $isLaneChange;
-		$this->type = $type;
+		$this->type = $this->mapTypeToCls( $type );
+	}
+
+	/**
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	private function mapTypeToCls( string $type ): string {
+		return match ( $type ) {
+			'bpmn:StartEvent' => 'start',
+			'bpmn:EndEvent' => 'end',
+			default => '',
+		};
 	}
 
 	/**

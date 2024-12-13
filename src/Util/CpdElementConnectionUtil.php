@@ -120,21 +120,27 @@ class CpdElementConnectionUtil {
 		$isLaneChange = $lanes !== CpdDiagramPageUtil::getLanesFromTitle( $source );
 		$link = $target->getFullURL();
 
-		return new CpdNavigationConnection( self::createConnectionText( $target ), $link, $type, $isLaneChange );
+		return new CpdNavigationConnection(
+			self::createConnectionText( $target, $isLaneChange ),
+			$link,
+			$type,
+			$isLaneChange
+		);
 	}
 
 	/**
-	 * Include last lane in the connection text
+	 * Include last lane in the connection text when it is a lane change
 	 *
 	 * @param Title $title
+	 * @param bool $isLaneChange
 	 *
 	 * @return string
 	 * @throws CpdInvalidNamespaceException
 	 */
-	public static function createConnectionText( Title $title ): string {
+	public static function createConnectionText( Title $title, bool $isLaneChange = true ): string {
 		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $title );
 		$lastLane = array_pop( $lanes );
-		if ( !$lastLane ) {
+		if ( !$lastLane || !$isLaneChange ) {
 			return $title->getSubpageText();
 		}
 
