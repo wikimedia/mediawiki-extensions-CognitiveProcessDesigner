@@ -38,12 +38,12 @@ class CpdElement implements JsonSerializable {
 	private ?Title $oldDescriptionPage;
 
 	/**
-	 * @var array
+	 * @var CpdElement[]
 	 */
 	private array $incomingLinks;
 
 	/**
-	 * @var array
+	 * @var CpdElement[]
 	 */
 	private array $outgoingLinks;
 
@@ -84,6 +84,8 @@ class CpdElement implements JsonSerializable {
 	 */
 	public static function fromElementJson( array $element ): CpdElement {
 		$parent = $element['parent'] ? self::fromElementJson( $element['parent'] ) : null;
+        $incomingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
+        $outgoingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
 
 		return new CpdElement(
 			$element['id'],
@@ -91,8 +93,8 @@ class CpdElement implements JsonSerializable {
 			$element['label'],
 			$element['descriptionPage'] ? Title::newFromDBkey( $element['descriptionPage'] ) : null,
 			$element['oldDescriptionPage'] ? Title::newFromDBkey( $element['oldDescriptionPage'] ) : null,
-			$element['incomingLinks'],
-			$element['outgoingLinks'],
+            $incomingLinks,
+            $outgoingLinks,
 			$parent
 		);
 	}
@@ -140,14 +142,14 @@ class CpdElement implements JsonSerializable {
 	}
 
 	/**
-	 * @return array dbkeys
+	 * @return CpdElement[]
 	 */
 	public function getIncomingLinks(): array {
 		return $this->incomingLinks;
 	}
 
 	/**
-	 * @return array dbkeys
+	 * @return CpdElement[]
 	 */
 	public function getOutgoingLinks(): array {
 		return $this->outgoingLinks;
