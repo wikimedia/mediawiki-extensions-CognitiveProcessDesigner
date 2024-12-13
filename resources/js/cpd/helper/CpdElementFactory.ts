@@ -1,7 +1,7 @@
 import ElementRegistry, { ElementRegistryFilterCallback } from "diagram-js/lib/core/ElementRegistry";
 import { ElementLike } from "diagram-js/lib/core/Types";
 import { Element, Shape } from "bpmn-js/lib/model/Types";
-import CpdElement from "../model/CpdElement";
+import CpdElement, { CpdElementJson } from "../model/CpdElement";
 import { ExistingDescriptionPage } from "../CpdTool";
 import { CpdConnectionFinder } from "./CpdConnectionFinder";
 
@@ -129,14 +129,18 @@ export class CpdElementFactory {
 		this.connectionFinder.findIncomingConnections( cpdElement.bpmnElement, incomingLinks );
 		this.connectionFinder.findOutgoingConnections( cpdElement.bpmnElement, outgoingLinks );
 
-		const linkToCpdElement = ( link: string ): CpdElement => {
-			const foundElement = cpdElements.find( ( cpdElement: CpdElement ) => cpdElement.id === link );
+		const linkToCpdElement = ( link: string ): CpdElementJson => {
+			const foundElement = cpdElements.find( ( el: CpdElement ) => el.id === link );
 			if ( !foundElement ) {
 				throw new Error( mw.message( "cpd-error-message-missing-element", link ).text() );
 			}
 
-			return foundElement;
-		}
+			const foundElementJson = foundElement.toJSON();
+			foundElementJson.incomingLinks = [];
+			foundElementJson.outgoingLinks = [];
+
+			return foundElementJson;
+		};
 
 		cpdElement.incomingLinks = incomingLinks.map( linkToCpdElement );
 		cpdElement.outgoingLinks = outgoingLinks.map( linkToCpdElement );

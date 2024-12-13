@@ -1,5 +1,5 @@
-import {Element} from "bpmn-js/lib/model/Types";
-import {ExistingDescriptionPage} from "../CpdTool";
+import { Element } from "bpmn-js/lib/model/Types";
+import { ExistingDescriptionPage } from "../CpdTool";
 
 export interface CpdElementJson {
 	id: string;
@@ -8,8 +8,8 @@ export interface CpdElementJson {
 	parent: CpdElement | null;
 	descriptionPage: string | null;
 	oldDescriptionPage: string | null;
-	incomingLinks: CpdElement[];
-	outgoingLinks: CpdElement[];
+	incomingLinks: CpdElementJson[];
+	outgoingLinks: CpdElementJson[];
 }
 
 interface ElementDescriptionPage extends ExistingDescriptionPage {
@@ -20,8 +20,8 @@ interface ElementDescriptionPage extends ExistingDescriptionPage {
 export default class CpdElement {
 	public readonly bpmnElement: Element;
 	public descriptionPage: ElementDescriptionPage | null = null;
-	public incomingLinks: CpdElement[] = [];
-	public outgoingLinks: CpdElement[] = [];
+	public incomingLinks: CpdElementJson[] = [];
+	public outgoingLinks: CpdElementJson[] = [];
 
 	private constructor( bpmnElement: Element ) {
 		this.bpmnElement = bpmnElement;
@@ -71,7 +71,7 @@ export default class CpdElement {
 
 		const linkText = this.descriptionPage.dbKey.split( '/' ).pop();
 
-		return `<a target="_blank" href="${mw.util.getUrl( this.descriptionPage.dbKey )}">${linkText}</a>`;
+		return `<a target="_blank" href="${ mw.util.getUrl( this.descriptionPage.dbKey ) }">${ linkText }</a>`;
 	}
 
 	public getOldDescriptionPageUrl(): string | null {
@@ -79,7 +79,7 @@ export default class CpdElement {
 			return null;
 		}
 
-		return `<a target="_blank" href="${mw.util.getUrl( this.descriptionPage.oldDbKey )}">${this.descriptionPage.oldDbKey}</a>`;
+		return `<a target="_blank" href="${ mw.util.getUrl( this.descriptionPage.oldDbKey ) }">${ this.descriptionPage.oldDbKey }</a>`;
 	}
 
 	public toJSON(): CpdElementJson {
@@ -90,16 +90,8 @@ export default class CpdElement {
 			parent: this.parent,
 			descriptionPage: this.descriptionPage?.dbKey,
 			oldDescriptionPage: this.descriptionPage?.oldDbKey,
-			incomingLinks: this.incomingLinks.map( ( link: CpdElement ) => {
-				// Prevent circular references
-				link.outgoingLinks = [];
-				return link;
-			} ),
-			outgoingLinks: this.outgoingLinks.map( ( link: CpdElement ) => {
-				// Prevent circular references
-				link.incomingLinks = [];
-				return link;
-			} )
+			incomingLinks: this.incomingLinks,
+			outgoingLinks: this.outgoingLinks
 		};
 	}
 }
