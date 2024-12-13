@@ -188,7 +188,10 @@ export default class CpdDom extends EventEmitter {
 		this.canvas = document.createElement( "div" ) as unknown as HtmlElement;
 		declareMethods( this.canvas );
 		const canvasHeight = mw.config.get( "cpdCanvasHeight" ) || CANVAS_HEIGHT;
+		const canvasWidth = mw.config.get( "cpdCanvasWidth" );
+		console.log(canvasHeight, canvasWidth);
 		this.canvas.style.height = canvasHeight + "px";
+		this.canvas.style.width = canvasWidth;
 
 		this.xmlContainer = document.createElement( "div" ) as unknown as HtmlElement;
 		declareMethods( this.xmlContainer );

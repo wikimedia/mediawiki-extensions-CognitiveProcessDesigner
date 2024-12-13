@@ -59,6 +59,10 @@
 	"cpd-droplet-description": "Editable BPMN diagram",
 	"cpd-droplet-process-field-label-help": "Find existing processes by typing the name of the process",
 	"cpd-droplet-process-field-label": "Process",
+	"cpd-droplet-width-field-label-help": "Set fixed width for diagram. Leave empty for auto width",
+	"cpd-droplet-width-field-label": "Width",
+	"cpd-droplet-height-field-label-help": "Set fixed height for diagram",
+	"cpd-droplet-height-field-label": "Height",
 	"cpd-validation-missing-label": "$1 has no label",
 	"cpd-validation-duplicate-label": "$1 is used multiple times in $2",
 	"cpd-log-no-changes": "No changes",
@@ -92,5 +96,7 @@
 	"bs-cpd-actionmenuentry-new-process": "New process",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Process name",
 	"cpd-api-save-description-page-comment": "Description page saved",
-	"cpd-api-move-description-page-comment": "Description page moved"
+	"cpd-api-move-description-page-comment": "Description page moved",
+	"cpd-config-canvas-process-height-msg": "Set the height of the diagram canvas on the process page and in edit mode",
+	"cpd-config-canvas-embedded-height-msg": "Set the height of the diagram canvas while its embedded in other pages"
 }

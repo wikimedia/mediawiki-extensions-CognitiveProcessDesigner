@@ -7,7 +7,9 @@ bs.cpd.util.tag.BpmnDefinition = function BsVecUtilTagBpmnDefinition() {
 OO.inheritClass( bs.cpd.util.tag.BpmnDefinition, bs.vec.util.tag.Definition );
 
 bs.cpd.util.tag.BpmnDefinition.prototype.getCfg = function () {
-	var cfg = bs.cpd.util.tag.BpmnDefinition.super.prototype.getCfg.call( this );
+	const cfg = bs.cpd.util.tag.BpmnDefinition.super.prototype.getCfg.call( this );
+	const defaultHeight = mw.config.get( 'cpdCanvasHeight' );
+
 	return $.extend( cfg, {
 		classname: "BpmnDiagram",
 		name: "bpmn",
@@ -21,6 +23,19 @@ bs.cpd.util.tag.BpmnDefinition.prototype.getCfg = function () {
 			type: "custom",
 			default: "",
 			widgetClass: bs.cpd.ui.ProcessInputWidget
+		}, {
+			name: "width",
+			labelMsg: "cpd-droplet-width-field-label",
+			helpMsg: "cpd-droplet-width-field-label-help",
+			type: "number",
+			required: false
+		}, {
+			name: "height",
+			labelMsg: "cpd-droplet-height-field-label",
+			helpMsg: "cpd-droplet-height-field-label-help",
+			type: "number",
+			default: defaultHeight,
+			required: true
 		} ]
 	} );
 };

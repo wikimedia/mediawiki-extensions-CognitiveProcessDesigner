@@ -5,6 +5,7 @@ namespace CognitiveProcessDesigner\Content;
 use CognitiveProcessDesigner\Action\EditDiagramAction;
 use CognitiveProcessDesigner\Action\EditDiagramXmlAction;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use Config;
 use Content;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\MediaWikiServices;
@@ -15,6 +16,9 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	/** @var CpdDiagramPageUtil */
 	private CpdDiagramPageUtil $diagramPageUtil;
 
+	/** @var Config */
+	private Config $config;
+
 	/**
 	 * @param string $modelId
 	 */
@@ -23,6 +27,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 
 		$services = MediaWikiServices::getInstance();
 		$this->diagramPageUtil = $services->getService( 'CpdDiagramPageUtil' );
+		$this->config = $services->getService( 'MainConfig' );
 	}
 
 	/**
@@ -53,6 +58,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		ParserOutput &$output
 	): void {
 		$page = $cpoParams->getPage();
+		$canvasHeight = $this->config->get( 'CPDCanvasProcessHeight' );
 
 		$output = MediaWikiServices::getInstance()->getParser()->parse(
 			null,
@@ -60,7 +66,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 			$cpoParams->getParserOptions()
 		);
 
-		$this->diagramPageUtil->setJsConfigVars( $output, $page->getDBkey() );
+		$this->diagramPageUtil->setJsConfigVars( $output, $page->getDBkey(), $canvasHeight );
 		$output->addModules( [ 'ext.cpd.viewer' ] );
 	}
 }

@@ -37,7 +37,6 @@ class GetDiagramUsage extends ApiBase {
 	 * @inheritDoc
 	 *
 	 * @throws ApiUsageException
-	 * @throws CpdInvalidArgumentException
 	 */
 	public function execute() {
 		$result = $this->getResult();

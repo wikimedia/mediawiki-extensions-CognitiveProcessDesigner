@@ -4,7 +4,7 @@ bs.cpd.ui.ProcessInputWidget = function ( cfg ) {
 	cfg.namespace = 1530;
 	cfg.icon = "search";
 	cfg.required = true;
-	cfg.$overlay = true
+	cfg.$overlay = true;
 	bs.cpd.ui.ProcessInputWidget.super.call( this, cfg );
 };
 

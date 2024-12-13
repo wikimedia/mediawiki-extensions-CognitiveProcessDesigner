@@ -214,10 +214,17 @@ class CpdDiagramPageUtil {
 	/**
 	 * @param ParserOutput|OutputPage $output
 	 * @param string $process
+	 * @param int $canvasHeight
+	 * @param int|null $canvasWidth
 	 *
 	 * @return void
 	 */
-	public function setJsConfigVars( ParserOutput|OutputPage $output, $process ): void {
+	public function setJsConfigVars(
+		ParserOutput|OutputPage $output,
+		string $process,
+		int $canvasHeight,
+		?int $canvasWidth = null
+	): void {
 		if ( $output instanceof OutputPage ) {
 			$output->addJsConfigVars( 'cpdProcess', $process );
 		} else {
@@ -235,9 +242,11 @@ class CpdDiagramPageUtil {
 				$this->config->get( 'CPDDedicatedSubpageTypes' )
 			);
 		}
-		if ( $this->config->has( 'CPDCanvasHeight' ) ) {
-			$output->addJsConfigVars( 'cpdCanvasHeight', $this->config->get( 'CPDCanvasHeight' ) );
-		}
+
+		// Add the width and height to the config
+		$output->addJsConfigVars( 'cpdCanvasHeight', $canvasHeight );
+		$output->addJsConfigVars( 'cpdCanvasWidth', $canvasWidth ?? '100%' );
+
 		$output->addJsConfigVars(
 			'cpdReturnToQueryParam',
 			AddDescriptionPageDiagramNavigationLinks::RETURN_TO_QUERY_PARAM
@@ -250,6 +259,9 @@ class CpdDiagramPageUtil {
 	 * @return string[]
 	 */
 	public function getDiagramUsageLinks( string $process ): array {
+		// Sanitize the process parameter as db key. Replace spaces with underscores.
+		$process = str_replace( ' ', '_', $process );
+
 		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
 		$rows = $dbr->select(
 			'page_props',

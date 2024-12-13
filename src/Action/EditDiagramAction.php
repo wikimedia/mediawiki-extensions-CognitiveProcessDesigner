@@ -20,8 +20,10 @@ class EditDiagramAction extends EditAction {
 	 * @return void
 	 */
 	public function show() {
+		$services = MediaWikiServices::getInstance();
 		/** @var CpdDiagramPageUtil $diagramPageUtil */
-		$diagramPageUtil = MediaWikiServices::getInstance()->getService( 'CpdDiagramPageUtil' );
+		$diagramPageUtil = $services->getService( 'CpdDiagramPageUtil' );
+		$canvasHeight = $services->getService( 'MainConfig' )->get( 'CPDCanvasProcessHeight' );
 
 		$this->useTransactionalTimeLimit();
 
@@ -43,7 +45,7 @@ class EditDiagramAction extends EditAction {
 			$this->getContext()->msg( $headlineMsg )->params( $title->getText() )->text()
 		);
 
-		$diagramPageUtil->setJsConfigVars( $outputPage, $title->getDBkey() );
+		$diagramPageUtil->setJsConfigVars( $outputPage, $title->getDBkey(), $canvasHeight );
 		$outputPage->addModules( [ 'ext.cpd.modeler' ] );
 	}
 }

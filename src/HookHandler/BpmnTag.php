@@ -64,12 +64,16 @@ class BpmnTag implements ParserFirstCallInitHook {
 			throw new CpdInvalidArgumentException( 'Missing required parameter "process"' );
 		}
 
+		if ( !isset( $args['height'] ) ) {
+			throw new CpdInvalidArgumentException( 'Missing required parameter "height"' );
+		}
+
 		// Sanitize the process parameter as db key. Replace spaces with underscores.
 		$process = str_replace( ' ', '_', $args['process'] );
 
 		$output = $parser->getOutput();
 		$this->addProcessPageProperty( $output, $process );
-		$this->diagramPageUtil->setJsConfigVars( $output, $process );
+		$this->diagramPageUtil->setJsConfigVars( $output, $process, $args['height'], $args['width'] );
 		$output->addModules( [ 'ext.cpd.viewer' ] );
 
 		return '';
