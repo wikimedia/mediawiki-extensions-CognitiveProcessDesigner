@@ -13,15 +13,33 @@ class CpdNavigationConnection {
 	/** @var bool */
 	private bool $isLaneChange;
 
+	/** @var string */
+	private string $type;
+
 	/**
 	 * @param string $text
 	 * @param string $link
+	 * @param string $type
 	 * @param bool $isLaneChange
 	 */
-	public function __construct( string $text, string $link, bool $isLaneChange ) {
+	public function __construct( string $text, string $link, string $type, bool $isLaneChange ) {
 		$this->text = $text;
 		$this->link = $link;
 		$this->isLaneChange = $isLaneChange;
+		$this->type = $this->mapTypeToCls( $type );
+	}
+
+	/**
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	private function mapTypeToCls( string $type ): string {
+		return match ( $type ) {
+			'bpmn:StartEvent' => 'start',
+			'bpmn:EndEvent' => 'end',
+			default => '',
+		};
 	}
 
 	/**
@@ -31,6 +49,7 @@ class CpdNavigationConnection {
 		return [
 			'text' => $this->text,
 			'link' => $this->link,
+			'type' => $this->type,
 			'isLaneChange' => $this->isLaneChange
 		];
 	}

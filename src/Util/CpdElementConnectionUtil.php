@@ -44,7 +44,9 @@ class CpdElementConnectionUtil {
 					[
 						'process' => $process,
 						'from_page' => $element->getDescriptionPage()->getPrefixedDBkey(),
-						'to_page' => $outgoingLink,
+						'from_type' => $element->getType(),
+						'to_page' => $outgoingLink->getDescriptionPage()->getPrefixedDBkey(),
+						'to_type' => $outgoingLink->getType()
 					],
 					__METHOD__
 				);
@@ -62,19 +64,20 @@ class CpdElementConnectionUtil {
 		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
 		$rows = $dbr->select(
 			'cpd_element_connections',
-			[ 'from_page' ],
+			[
+				'from_page',
+				'from_type'
+			],
 			[ 'to_page' => $title->getPrefixedDBkey() ],
 			__METHOD__
 		);
 
-		$links = [];
+		$connections = [];
 		foreach ( $rows as $row ) {
-			$links[] = $row->from_page;
+			$connections[] = $this->createNavigationConnection( $row->from_page, $row->from_type, $title );
 		}
 
-		return array_map( function ( $link ) use ( $title ) {
-			return $this->createNavigationConnection( $link, $title );
-		}, $links );
+		return $connections;
 	}
 
 	/**
@@ -87,49 +90,57 @@ class CpdElementConnectionUtil {
 		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
 		$rows = $dbr->select(
 			'cpd_element_connections',
-			[ 'to_page' ],
+			[
+				'to_page',
+				'to_type'
+			],
 			[ 'from_page' => $title->getPrefixedDBkey() ],
 			__METHOD__
 		);
 
-		$links = [];
+		$connections = [];
 		foreach ( $rows as $row ) {
-			$links[] = $row->to_page;
+			$connections[] = $this->createNavigationConnection( $row->to_page, $row->to_type, $title );
 		}
 
-		return array_map( function ( $link ) use ( $title ) {
-			return $this->createNavigationConnection( $link, $title );
-		}, $links );
+		return $connections;
 	}
 
 	/**
 	 * @param string $dbKey
+	 * @param string $type
 	 * @param Title $source
 	 *
 	 * @return CpdNavigationConnection
 	 * @throws CpdInvalidNamespaceException
 	 */
-	private function createNavigationConnection( string $dbKey, Title $source ): CpdNavigationConnection {
+	private function createNavigationConnection( string $dbKey, string $type, Title $source ): CpdNavigationConnection {
 		$target = Title::newFromDBkey( $dbKey );
 		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $target );
 		$isLaneChange = $lanes !== CpdDiagramPageUtil::getLanesFromTitle( $source );
 		$link = $target->getFullURL();
 
-		return new CpdNavigationConnection( self::createConnectionText( $target ), $link, $isLaneChange );
+		return new CpdNavigationConnection(
+			self::createConnectionText( $target, $isLaneChange ),
+			$link,
+			$type,
+			$isLaneChange
+		);
 	}
 
 	/**
-	 * Include last lane in the connection text
+	 * Include last lane in the connection text when it is a lane change
 	 *
 	 * @param Title $title
+	 * @param bool $isLaneChange
 	 *
 	 * @return string
 	 * @throws CpdInvalidNamespaceException
 	 */
-	public static function createConnectionText( Title $title ): string {
+	public static function createConnectionText( Title $title, bool $isLaneChange = true ): string {
 		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $title );
 		$lastLane = array_pop( $lanes );
-		if ( !$lastLane ) {
+		if ( !$lastLane || !$isLaneChange ) {
 			return $title->getSubpageText();
 		}
 

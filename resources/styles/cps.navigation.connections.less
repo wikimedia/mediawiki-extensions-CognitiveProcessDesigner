@@ -1,24 +1,58 @@
 .mw-body-content {
   .cpd-navigation-connections {
     @color-base: #202122;
+    @color-light: #F8F9FA;
+    @color-dark: #EAECF0;
     @width: 320px;
-    @height: 143px;
+    @rectangle-height: 90px;
+    @arrow-height: 53px;
     @space: 20px;
+
 
     display: flex;
     justify-content: space-evenly;
     gap: @space;
     overflow-x: auto;
 
+    .rectangle(@background-color, @with-border: false) {
+      height: @rectangle-height;
+
+      a {
+        background-color: @background-color;
+
+        & when (@with-border = true) {
+          border: 1px solid #000;
+        }
+      }
+    }
+
+    .pentagon(@background-color, @with-border: false) {
+      height: @rectangle-height + @arrow-height;
+      @percentage: (@arrow-height / @rectangle-height) * 100%;
+
+      & when (@with-border = true) {
+        background-color: #000;
+        clip-path: polygon(100% 0, 100% @percentage, 50% 100%, 0 @percentage, 0 0);
+        padding-top: 1px;
+        padding-left: 1px;
+      }
+
+      a {
+        width: @width - 2;
+        height: (@rectangle-height + @arrow-height) - 2;
+        background-color: @background-color;
+        clip-path: polygon(100% 0, 100% @percentage, 50% 100%, 0 @percentage, 0 0);
+      }
+    }
+
     > div {
       flex: @width 0 0;
       width: @width;
-      height: @height;
 
       a {
         width: 100%;
         height: 100%;
-        padding: @space;
+        padding: (@rectangle-height / 2 - 12px) @space @space @space;
         position: relative;
         font-weight: bold;
         display: block;
@@ -28,7 +62,7 @@
         background-size: contain;
       }
 
-      a:visited, a:hover {
+      a:visited, a:hover, a:focus {
         color: @color-base;
         text-decoration: none;
       }
@@ -38,12 +72,20 @@
       margin-bottom: 60px;
 
       > div {
-        a {
-          background-image: url("./../img/pentagon-dark.svg");
+        &:not(.start) {
+          .pentagon(@color-light);
+
+          &.lane-change {
+            .pentagon(#fff, true);
+          }
         }
 
-        &.lane-change a {
-          background-image: url("./../img/dotted-pentagon-dark.svg");
+        &.start {
+          .rectangle(@color-light);
+
+          &.lane-change {
+            .rectangle(#fff, true);
+          }
         }
       }
 
@@ -53,12 +95,21 @@
       margin-top: 100px;
 
       > div {
-        a {
-          background-image: url("./../img/pentagon-light.svg");
+
+        &:not(.end) {
+          .pentagon(@color-dark);
+
+          &.lane-change {
+            .pentagon(#fff, true);
+          }
         }
 
-        &.lane-change a {
-          background-image: url("./../img/dotted-pentagon-light.svg");
+        &.end {
+          .rectangle(@color-dark);
+
+          &.lane-change {
+            .rectangle(#fff, true);
+          }
         }
       }
     }

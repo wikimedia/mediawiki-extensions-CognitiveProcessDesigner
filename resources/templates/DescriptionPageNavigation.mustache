@@ -1,6 +1,6 @@
-<div class="cpd-navigation-connections {{connectionsCls}}">
+<div class="cpd-navigation-connections {{connectionDirection}}">
     {{#connections}}
-        <div class="{{#isLaneChange}}lane-change{{/isLaneChange}}">
+        <div class="{{type}}{{#isLaneChange}} lane-change{{/isLaneChange}}">
             <a href="{{link}}">{{{text}}}</a>
         </div>
     {{/connections}}

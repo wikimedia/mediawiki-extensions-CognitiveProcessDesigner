@@ -1,4 +1,4 @@
-import { Connection, Element } from "bpmn-js/lib/model/Types";
+import { Element } from "bpmn-js/lib/model/Types";
 import { ExistingDescriptionPage } from "../CpdTool";
 
 export interface CpdElementJson {
@@ -8,8 +8,8 @@ export interface CpdElementJson {
 	parent: CpdElement | null;
 	descriptionPage: string | null;
 	oldDescriptionPage: string | null;
-	incomingLinks: string[];
-	outgoingLinks: string[];
+	incomingLinks: CpdElementJson[];
+	outgoingLinks: CpdElementJson[];
 }
 
 interface ElementDescriptionPage extends ExistingDescriptionPage {
@@ -20,8 +20,8 @@ interface ElementDescriptionPage extends ExistingDescriptionPage {
 export default class CpdElement {
 	public readonly bpmnElement: Element;
 	public descriptionPage: ElementDescriptionPage | null = null;
-	public incomingLinks: CpdElement[] = [];
-	public outgoingLinks: CpdElement[] = [];
+	public incomingLinks: CpdElementJson[] = [];
+	public outgoingLinks: CpdElementJson[] = [];
 
 	private constructor( bpmnElement: Element ) {
 		this.bpmnElement = bpmnElement;
@@ -90,8 +90,8 @@ export default class CpdElement {
 			parent: this.parent,
 			descriptionPage: this.descriptionPage?.dbKey,
 			oldDescriptionPage: this.descriptionPage?.oldDbKey,
-			incomingLinks: this.incomingLinks.map( ( link: CpdElement ) => link.descriptionPage?.dbKey ),
-			outgoingLinks: this.outgoingLinks.map( ( link: CpdElement ) => link.descriptionPage?.dbKey )
+			incomingLinks: this.incomingLinks,
+			outgoingLinks: this.outgoingLinks
 		};
 	}
 }
