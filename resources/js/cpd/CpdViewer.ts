@@ -22,8 +22,8 @@ export default class CpdViewer extends CpdTool {
 	private bpmnViewer: BpmnViewer;
 	private eventBus: EventBus;
 
-	public constructor( process: string ) {
-		super( process );
+	public constructor( process: string, container: HTMLElement ) {
+		super( process, container );
 
 		this.dom.initDomElements( false );
 		this.dom.on( "showXml", this.onShowXml.bind( this ) );
@@ -125,7 +125,7 @@ export default class CpdViewer extends CpdTool {
 		if ( currentPage.getPrefixedDb() !== this.diagramPage.getPrefixedDb() ) {
 			this.dom.showWarning( mw.message(
 				"cpd-warning-message-diagram-not-initialized",
-				process,
+				process.replace( /_/g, " " ),
 				this.diagramPage.getUrl( { action: 'edit' } ) ).text()
 			);
 
@@ -139,5 +139,7 @@ export default class CpdViewer extends CpdTool {
 	}
 }
 Object.keys( mw.config.get( "cpdProcesses" ) ).forEach( ( process: string ): void => {
-	new CpdViewer( process );
+	document.querySelectorAll( `[data-process=${ process }]` ).forEach( ( container: HTMLElement ): void => {
+		new CpdViewer( process, container );
+	} );
 } );

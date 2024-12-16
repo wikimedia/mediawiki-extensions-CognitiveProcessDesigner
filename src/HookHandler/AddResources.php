@@ -24,6 +24,6 @@ class AddResources implements OutputPageBeforeHTMLHook {
 	 * @return void
 	 */
 	public function onOutputPageBeforeHTML( $out, &$text ): void {
-		$out->addJsConfigVars( 'cpdCanvasHeight', $this->config->get( 'CPDCanvasEmbeddedHeight' ) );
+		$out->addJsConfigVars( 'cpdCanvasDefaultHeight', $this->config->get( 'CPDCanvasEmbeddedHeight' ) );
 	}
 }

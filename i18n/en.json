@@ -63,6 +63,8 @@
 	"cpd-droplet-width-field-label": "Width",
 	"cpd-droplet-height-field-label-help": "Set fixed height for diagram",
 	"cpd-droplet-height-field-label": "Height",
+	"cpd-droplet-show-toolbar-field-label-help": "Enable or disable toolbar",
+	"cpd-droplet-show-toolbar-field-label": "Show toolbar",
 	"cpd-validation-missing-label": "$1 has no label",
 	"cpd-validation-duplicate-label": "$1 is used multiple times in $2",
 	"cpd-log-no-changes": "No changes",

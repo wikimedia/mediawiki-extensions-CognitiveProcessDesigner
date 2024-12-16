@@ -6,6 +6,7 @@ use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use EditAction;
 use MediaWiki\MediaWikiServices;
+use TemplateParser;
 
 class EditDiagramAction extends EditAction {
 
@@ -28,6 +29,7 @@ class EditDiagramAction extends EditAction {
 		$this->useTransactionalTimeLimit();
 
 		$title = $this->getTitle();
+		$process = $title->getDBkey();
 
 		$outputPage = $this->getOutput();
 		$outputPage->setRobotPolicy( 'noindex,nofollow' );
@@ -45,7 +47,19 @@ class EditDiagramAction extends EditAction {
 			$this->getContext()->msg( $headlineMsg )->params( $title->getText() )->text()
 		);
 
-		$diagramPageUtil->setJsConfigVars( $outputPage, $title->getDBkey(), $canvasHeight );
+		$diagramPageUtil->setJsConfigVars( $outputPage, $process );
 		$outputPage->addModules( [ 'ext.cpd.modeler' ] );
+
+		$templateParser = new TemplateParser(
+			dirname( __DIR__, 2 ) . '/resources/templates'
+		);
+		$outputPage->addHTML( $templateParser->processTemplate(
+			'CpdContainer', [
+				'process' => $process,
+				'showToolbar' => true,
+				'width' => '100%',
+				'height' => $canvasHeight . 'px'
+			]
+		) );
 	}
 }

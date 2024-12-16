@@ -266,7 +266,9 @@
                 "cpd-droplet-width-field-label",
                 "cpd-droplet-width-field-label-help",
                 "cpd-droplet-height-field-label",
-                "cpd-droplet-height-field-label-help"
+                "cpd-droplet-height-field-label-help",
+                "cpd-droplet-show-toolbar-field-label",
+                "cpd-droplet-show-toolbar-field-label-help"
             ],
             "dependencies": [
                 "ext.visualEditor.mwcore",

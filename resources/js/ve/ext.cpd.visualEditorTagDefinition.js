@@ -8,7 +8,7 @@ OO.inheritClass( bs.cpd.util.tag.BpmnDefinition, bs.vec.util.tag.Definition );
 
 bs.cpd.util.tag.BpmnDefinition.prototype.getCfg = function () {
 	const cfg = bs.cpd.util.tag.BpmnDefinition.super.prototype.getCfg.call( this );
-	const defaultHeight = mw.config.get( 'cpdCanvasHeight' );
+	const defaultHeight = mw.config.get( 'cpdCanvasDefaultHeight' );
 
 	return $.extend( cfg, {
 		classname: "BpmnDiagram",
@@ -35,6 +35,13 @@ bs.cpd.util.tag.BpmnDefinition.prototype.getCfg = function () {
 			helpMsg: "cpd-droplet-height-field-label-help",
 			type: "number",
 			default: defaultHeight,
+			required: true
+		}, {
+			name: "toolbar",
+			labelMsg: "cpd-droplet-show-toolbar-field-label",
+			helpMsg: "cpd-droplet-show-toolbar-field-label-help",
+			type: "toggle",
+			default: true,
 			required: true
 		} ]
 	} );

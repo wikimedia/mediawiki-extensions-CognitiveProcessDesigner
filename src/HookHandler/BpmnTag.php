@@ -9,6 +9,7 @@ use MWException;
 use Parser;
 use ParserOutput;
 use PPFrame;
+use TemplateParser;
 
 class BpmnTag implements ParserFirstCallInitHook {
 	public const PROCESS_PROP_NAME = 'cpd-process';
@@ -60,6 +61,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 		Parser $parser,
 		PPFrame $frame
 	): string {
+		// Validate required parameters
 		if ( !isset( $args['process'] ) ) {
 			throw new CpdInvalidArgumentException( 'Missing required parameter "process"' );
 		}
@@ -73,10 +75,20 @@ class BpmnTag implements ParserFirstCallInitHook {
 
 		$output = $parser->getOutput();
 		$this->addProcessPageProperty( $output, $process );
-		$this->diagramPageUtil->setJsConfigVars( $output, $process, $args['height'], $args['width'] );
+		$this->diagramPageUtil->setJsConfigVars( $output, $process );
 		$output->addModules( [ 'ext.cpd.viewer' ] );
 
-		return '';
+		$templateParser = new TemplateParser(
+			dirname( __DIR__, 2 ) . '/resources/templates'
+		);
+		return $templateParser->processTemplate(
+			'CpdContainer', [
+				'process' => $process,
+				'showToolbar' => !( $args['toolbar'] === "false" ),
+				'width' => $args['width'] ? $args['width'] . 'px' : '100%',
+				'height' => $args['height'] ? $args['height'] . 'px' : '100%'
+			]
+		);
 	}
 
 	/**

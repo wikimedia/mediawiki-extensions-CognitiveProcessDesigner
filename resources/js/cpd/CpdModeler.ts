@@ -13,15 +13,14 @@ import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
 import bpmnlintConfig from "../../../bpmn-lint.config";
 import lintModule from 'bpmn-js-bpmnlint';
 import EventBus from "diagram-js/lib/core/EventBus";
-import Modeling from "bpmn-js/lib/features/modeling/Modeling";
 
 class CpdModeler extends CpdTool {
 	private bpmnModeler: BpmnModeler;
 	private changeLogger: CpdChangeLogger;
 	private initialElements: CpdElement[] = [];
 
-	public constructor( process: string ) {
-		super( process );
+	public constructor( process: string, container: HTMLElement ) {
+		super( process, container );
 
 		this.bpmnModeler = new BpmnModeler( {
 			linting: {
@@ -192,4 +191,4 @@ class CpdModeler extends CpdTool {
 	}
 }
 
-new CpdModeler( mw.config.get( "cpdProcess" ) );
+new CpdModeler( mw.config.get( "cpdProcess" ), document.querySelector( "[data-process]" ) );

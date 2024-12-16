@@ -17,9 +17,12 @@ export abstract class CpdTool {
 	protected elementFactory: CpdElementFactory;
 	protected diagramPage: mw.Title;
 
-	protected constructor( process: string ) {
+	protected constructor( process: string, container: HTMLElement ) {
 		if ( !process ) {
-			throw new Error( mw.message( "cpd-error-message-missing-config", "data-process" ).text() );
+			throw new Error( mw.message( "cpd-error-message-missing-config", "process" ).text() );
+		}
+		if ( !container ) {
+			throw new Error( mw.message( "cpd-error-message-missing-config", "container" ).text() );
 		}
 
 		const processNamespace = mw.config.get( "cpdProcessNamespace" );
@@ -29,7 +32,7 @@ export abstract class CpdTool {
 
 		this.diagramPage = mw.Title.newFromText( process, processNamespace );
 
-		this.dom = new CpdDom( this.diagramPage );
+		this.dom = new CpdDom( container, process, this.diagramPage );
 		this.xmlHelper = new CpdXml();
 
 		this.api = new CpdApi( process );

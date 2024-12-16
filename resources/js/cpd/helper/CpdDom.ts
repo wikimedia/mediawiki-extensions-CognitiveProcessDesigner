@@ -25,9 +25,11 @@ enum ViewMode {
 	Xml,
 }
 
-const CANVAS_HEIGHT: number = 600;
+const NARROW_WIDTH = 300;
 
 export default class CpdDom extends EventEmitter {
+	private readonly container: HTMLElement;
+	private readonly process: string;
 	private readonly diagramPage: mw.Title;
 	private messageBox: HtmlElement;
 	private saveDialog: CpdSaveDialog | undefined;
@@ -41,8 +43,10 @@ export default class CpdDom extends EventEmitter {
 	private viewMode: ViewMode;
 	private isEdit: boolean = false;
 
-	public constructor( diagramPage: mw.Title ) {
+	public constructor( container: HTMLElement, process: string, diagramPage: mw.Title ) {
 		super();
+		this.container = container;
+		this.process = process;
 		this.diagramPage = diagramPage;
 	}
 
@@ -168,49 +172,35 @@ export default class CpdDom extends EventEmitter {
 
 	public initDomElements( isEdit: boolean ): void {
 		this.isEdit = isEdit;
-		const pageContentContainer: HTMLElement = document.getElementById( "mw-content-text" );
-		if ( !pageContentContainer ) {
-			throw new Error( "mw-content-text not found" );
-		}
-
-		const declareMethods = ( element: HtmlElement ): void => {
-			element.hide = () => element.classList.add( "hidden" );
-			element.show = () => element.classList.remove( "hidden" );
-			element.addClass = ( className: string ) => element.classList.add( className );
-			element.removeClass = ( className: string ) => element.classList.remove( className );
-		};
 
 		this.messageBox = document.createElement( "div" ) as unknown as HtmlElement;
-		declareMethods( this.messageBox );
+		this.declareMethods( this.messageBox );
 		this.messageBox.addClass( "cpd-message-box" );
 		this.messageBox.hide();
 
 		this.canvas = document.createElement( "div" ) as unknown as HtmlElement;
-		declareMethods( this.canvas );
-		const canvasHeight = mw.config.get( "cpdCanvasHeight" ) || CANVAS_HEIGHT;
-		const canvasWidth = mw.config.get( "cpdCanvasWidth" );
-		console.log(canvasHeight, canvasWidth);
-		this.canvas.style.height = canvasHeight + "px";
-		this.canvas.style.width = canvasWidth;
+		this.declareMethods( this.canvas );
+		this.canvas.addClass( "cpd-canvas" );
 
 		this.xmlContainer = document.createElement( "div" ) as unknown as HtmlElement;
-		declareMethods( this.xmlContainer );
+		this.declareMethods( this.xmlContainer );
 
-		const toolbar = this.createToolbar();
-		const cpdContainer = document.createElement( "div" );
+		const showToolbar = this.container.dataset.toolbar;
+		if ( showToolbar ) {
+			const toolbar = this.createToolbar();
+			this.container.append( toolbar );
+		}
 
-		cpdContainer.append(
-			toolbar.$element.get( 0 ) as HTMLElement,
+		this.container.append(
 			this.messageBox,
 			this.canvas,
 			this.xmlContainer
 		);
-		pageContentContainer.prepend( cpdContainer );
 
 		this.viewMode = ViewMode.Modeler;
 	}
 
-	private createToolbar(): OO.ui.Toolbar {
+	private createToolbar(): HtmlElement {
 		const toolFactory = new OO.ui.ToolFactory();
 		const toolbar = new OO.ui.Toolbar( toolFactory, new OO.ui.ToolGroupFactory() );
 		const primaryBarButtons = [
@@ -289,6 +279,19 @@ export default class CpdDom extends EventEmitter {
 
 		toolbar.initialize();
 
-		return toolbar;
+		if ( this.container.clientWidth < NARROW_WIDTH ) {
+			toolbar.setNarrow( true );
+		} else {
+			toolbar.setNarrow( false );
+		}
+
+		return toolbar.$element.get( 0 ) as HtmlElement;
+	}
+
+	private declareMethods( element: HtmlElement ): void {
+		element.hide = () => element.classList.add( "hidden" );
+		element.show = () => element.classList.remove( "hidden" );
+		element.addClass = ( className: string ) => element.classList.add( className );
+		element.removeClass = ( className: string ) => element.classList.remove( className );
 	}
 }
