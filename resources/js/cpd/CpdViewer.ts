@@ -138,8 +138,14 @@ export default class CpdViewer extends CpdTool {
 		);
 	}
 }
-Object.keys( mw.config.get( "cpdProcesses" ) ).forEach( ( process: string ): void => {
-	document.querySelectorAll( `[data-process=${ process }]` ).forEach( ( container: HTMLElement ): void => {
-		new CpdViewer( process, container );
+
+const init = () => {
+	Object.keys( mw.config.get( "cpdProcesses" ) ).forEach( ( process: string ): void => {
+		document.querySelectorAll( `[data-process=${ process }]` ).forEach( ( container: HTMLElement ): void => {
+			new CpdViewer( process, container );
+		} );
 	} );
-} );
+};
+
+init();
+mw.hook( 've.activationComplete' ).add( init );

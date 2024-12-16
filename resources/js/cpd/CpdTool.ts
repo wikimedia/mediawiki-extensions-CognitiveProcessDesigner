@@ -32,7 +32,7 @@ export abstract class CpdTool {
 
 		this.diagramPage = mw.Title.newFromText( process, processNamespace );
 
-		this.dom = new CpdDom( container, process, this.diagramPage );
+		this.dom = new CpdDom( container, this.diagramPage );
 		this.xmlHelper = new CpdXml();
 
 		this.api = new CpdApi( process );

@@ -5,7 +5,8 @@ jest.mock("../../resources/js/cpd/helper/CpdApi");
 jest.mock("../../resources/js/cpd/helper/CpdXml");
 
 describe( "CpdViewer", () => {
-	const cpdViewer = new CpdViewer( 'process' );
+	const container = document.createElement( "div" );
+	const cpdViewer = new CpdViewer( 'process', container );
 
 	test( "CpdViewer", () => {
 		expect( cpdViewer ).toBeTruthy();

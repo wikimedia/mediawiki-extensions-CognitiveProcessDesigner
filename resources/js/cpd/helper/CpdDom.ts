@@ -29,7 +29,6 @@ const NARROW_WIDTH = 300;
 
 export default class CpdDom extends EventEmitter {
 	private readonly container: HTMLElement;
-	private readonly process: string;
 	private readonly diagramPage: mw.Title;
 	private messageBox: HtmlElement;
 	private saveDialog: CpdSaveDialog | undefined;
@@ -43,10 +42,9 @@ export default class CpdDom extends EventEmitter {
 	private viewMode: ViewMode;
 	private isEdit: boolean = false;
 
-	public constructor( container: HTMLElement, process: string, diagramPage: mw.Title ) {
+	public constructor( container: HTMLElement, diagramPage: mw.Title ) {
 		super();
 		this.container = container;
-		this.process = process;
 		this.diagramPage = diagramPage;
 	}
 
@@ -185,6 +183,8 @@ export default class CpdDom extends EventEmitter {
 		this.xmlContainer = document.createElement( "div" ) as unknown as HtmlElement;
 		this.declareMethods( this.xmlContainer );
 
+		// Reset container if it was already initialized
+		this.container.textContent = "";
 		const showToolbar = this.container.dataset.toolbar;
 		if ( showToolbar ) {
 			const toolbar = this.createToolbar();
