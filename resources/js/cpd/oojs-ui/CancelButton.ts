@@ -7,8 +7,8 @@ export default class CancelButton extends Button {
 			label: mw.msg( "cpd-button-cancel-title" ),
 			title: mw.msg( "cpd-button-cancel-title" ),
 			displayBothIconAndLabel: false,
-			icon: "cancel",
-			flags: [ "destructive" ]
+			icon: "close",
+			flags: []
 		}
 	};
 }
