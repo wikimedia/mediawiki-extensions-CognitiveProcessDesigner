@@ -12,6 +12,7 @@ import CancelButton from "../oojs-ui/CancelButton";
 import DiagramPageLinkButton from "../oojs-ui/DiagramPageLinkButton";
 import SvgFileLinkButton from "../oojs-ui/SvgFileLinkButton";
 import { ChangeLogMessages } from "./CpdChangeLogger";
+import { MessageType } from "../oojs-ui/SaveDialog";
 
 interface HtmlElement extends HTMLElement {
 	hide: () => void;
@@ -132,16 +133,14 @@ export default class CpdDom extends EventEmitter {
 		this.saveDialog?.showChanges();
 	}
 
-	public showMessage( message: string | null, cls: string = null ): void {
+	public showMessage( message: string | null, type: MessageType ): void {
 		if ( !message ) {
 			return;
 		}
 
 		const messageParagraph = document.createElement( "p" );
 		messageParagraph.innerHTML = message;
-		if ( cls ) {
-			messageParagraph.classList.add( cls );
-		}
+		messageParagraph.classList.add( type );
 
 		if ( !this.isEdit ) {
 			this.messageBox.append( messageParagraph );
@@ -149,20 +148,20 @@ export default class CpdDom extends EventEmitter {
 			return;
 		}
 
-		this.saveDialog?.addPostSaveMessage( messageParagraph );
+		this.saveDialog?.addPostSaveMessage( messageParagraph, type );
 		this.showDialogChangesPanel();
 	}
 
 	public showSuccess( message: string ): void {
-		this.showMessage( message );
+		this.showMessage( message, MessageType.MESSAGE );
 	}
 
 	public showWarning( message: string ): void {
-		this.showMessage( message );
+		this.showMessage( message, MessageType.WARNING );
 	}
 
 	public showError( message: string ): void {
-		this.showMessage( message, "error" );
+		this.showMessage( message, MessageType.ERROR );
 		this.diagramPageLink?.setDisabled( true );
 		this.svgFileLink?.setDisabled( true );
 		this.showXmlBtn?.setDisabled( true );

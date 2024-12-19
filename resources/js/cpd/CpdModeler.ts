@@ -13,6 +13,7 @@ import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
 import bpmnlintConfig from "../../../bpmn-lint.config";
 import lintModule from 'bpmn-js-bpmnlint';
 import EventBus from "diagram-js/lib/core/EventBus";
+import { MessageType } from "./oojs-ui/SaveDialog";
 
 class CpdModeler extends CpdTool {
 	private bpmnModeler: BpmnModeler;
@@ -160,7 +161,7 @@ class CpdModeler extends CpdTool {
 			const title = mw.Title.newFromText( descriptionPage.page );
 			const linkText = title.getNameText().split( '/' ).pop();
 			const link = `<a href="${ mw.util.getUrl( title.getPrefixedText() ) }" target="_blank">${ linkText }</a>`;
-			this.dom.showMessage( mw.message( "cpd-description-page-saved-message", link ).text() );
+			this.dom.showMessage( mw.message( "cpd-description-page-saved-message", link ).text(), MessageType.MESSAGE );
 		} );
 	}
 

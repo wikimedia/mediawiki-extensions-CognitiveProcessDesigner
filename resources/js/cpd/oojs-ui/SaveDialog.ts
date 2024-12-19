@@ -6,14 +6,19 @@ export enum Mode {
 	CHANGES = "changes"
 }
 
+export enum MessageType {
+	MESSAGE = "message",
+	WARNING = "warning",
+	ERROR = "error"
+}
+
 export default class SaveDialog extends OO.ui.ProcessDialog {
 	private panels: OO.ui.StackLayout;
 	private savePanel: OO.ui.PanelLayout;
 	private reviewPanel: OO.ui.PanelLayout;
 	private reviewContent: HTMLUListElement;
 	// Displays changes after saving
-	private changesPanel: OO.ui.PanelLayout;
-	private postSaveMessages: HTMLDivElement;
+	private changesPanel: OO.ui.IndexLayout;
 	private changeLogMessages: ChangeLogMessages;
 	private saveWithPages: boolean = false;
 
@@ -58,6 +63,8 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		this.savePanel = this.initSavePanel();
 		this.reviewPanel = this.initReviewPanel();
 		this.changesPanel = this.initChangesPanel();
+
+		this.updateSize();
 
 		this.panels.addItems( [ this.savePanel, this.reviewPanel, this.changesPanel ] );
 
@@ -109,18 +116,21 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		this.changeLogMessages = messages;
 	}
 
-	public addPostSaveMessage( message: HTMLParagraphElement ): void {
-		this.postSaveMessages.append( message );
+	public addPostSaveMessage( message: HTMLParagraphElement, type: MessageType ): void {
+		this.changesPanel.getTabPanel( type ).$element.append( message );
 		this.updateSize();
 	}
 
 	public clearPostSaveMessages(): void {
-		this.postSaveMessages.innerHTML = "";
+		this.changesPanel.getTabPanel( MessageType.MESSAGE ).$element.empty();
+		this.changesPanel.getTabPanel( MessageType.WARNING ).$element.empty();
+		this.changesPanel.getTabPanel( MessageType.ERROR ).$element.empty();
 		this.updateSize();
 	}
 
 	public hasPostSaveErrors(): boolean {
-		return this.postSaveMessages.querySelectorAll( ".error" ).length > 0;
+		const errorPanel = this.changesPanel.getTabPanel( MessageType.ERROR );
+		return errorPanel.$element.children().length > 0;
 	}
 
 	private onSetup(): void {
@@ -172,12 +182,25 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		return panel;
 	}
 
-	private initChangesPanel(): OO.ui.PanelLayout {
-		const panel = new OO.ui.PanelLayout( { padded: true, expanded: false } );
+	private initChangesPanel(): OO.ui.IndexLayout {
+		const panel = new OO.ui.IndexLayout( {
+			expanded: false,
+			framed: true
+		} );
 
-		this.postSaveMessages = document.createElement( "div" );
-		panel.$element.append( this.postSaveMessages );
+		const messages = new OO.ui.TabPanelLayout( MessageType.MESSAGE, { label: 'Messages', expanded: true, scrollable: false } );
+		const warnings = new OO.ui.TabPanelLayout( MessageType.WARNING, { label: 'Warnings', expanded: true, scrollable: false } );
+		const errors = new OO.ui.TabPanelLayout( MessageType.ERROR, { label: 'Errors', expanded: true, scrollable: false } );
 
+		// @ts-ignore Does addTabPanels really require 2 arguments?
+		panel.addTabPanels( [ messages, warnings, errors ], 0 );
+		panel.connect( this, {
+			set: function () {
+				console.log( "set" );
+				this.updateSize();
+			}
+		} );
+		this.updateSize();
 		return panel;
 	}
 
