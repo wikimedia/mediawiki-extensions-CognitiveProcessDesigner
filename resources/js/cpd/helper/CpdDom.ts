@@ -204,10 +204,10 @@ export default class CpdDom extends EventEmitter {
 		const toolFactory = new OO.ui.ToolFactory();
 		const toolbar = new OO.ui.Toolbar( toolFactory, new OO.ui.ToolGroupFactory() );
 		const primaryBarButtons = [
-			CancelButton.static.name,
 			OpenDialogButton.static.name
 		];
 		const secondaryBarButtons = [
+			CancelButton.static.name,
 			DiagramPageLinkButton.static.name,
 			SvgFileLinkButton.static.name
 		];
