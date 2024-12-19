@@ -1,7 +1,6 @@
 import BpmnModeler from "bpmn-js/lib/Modeler";
 import BpmnColorPickerModule from "../../../node_modules/bpmn-js-color-picker/colors/index";
 import { SaveSVGResult } from "bpmn-js/lib/BaseViewer";
-import Canvas from "diagram-js/lib/core/Canvas";
 import { ElementDescriptionPage } from "./helper/CpdApi";
 import { CpdTool } from "./CpdTool";
 import CpdElement from "./model/CpdElement";
@@ -65,17 +64,7 @@ class CpdModeler extends CpdTool {
 			return;
 		}
 
-		this.bpmnModeler.attachTo( this.dom.getCanvas() );
-
-		try {
-			await this.bpmnModeler.importXML( this.xml );
-		} catch ( e ) {
-			this.dom.showError( e );
-		}
-
-		const canvas = this.bpmnModeler.get( "canvas" ) as Canvas;
-		canvas.zoom( "fit-viewport" );
-
+		await this.attachToCanvas( this.bpmnModeler );
 		await this.initDescriptionPageElements();
 	}
 

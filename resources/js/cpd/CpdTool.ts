@@ -2,11 +2,15 @@ import CpdDom from "./helper/CpdDom";
 import CpdXml from "./helper/CpdXml";
 import CpdApi, { LoadDiagramResult } from "./helper/CpdApi";
 import { CpdElementFactory } from "./helper/CpdElementFactory";
+import BaseViewer from "bpmn-js/lib/BaseViewer";
+import Canvas from "diagram-js/lib/core/Canvas";
 
 export interface ExistingDescriptionPage {
 	dbKey: string;
 	isNew: boolean;
 }
+
+const SCROLL_OUT_OF_VIEW_THRESHOLD = -2000;
 
 export abstract class CpdTool {
 	protected dom: CpdDom;
@@ -49,6 +53,35 @@ export abstract class CpdTool {
 	}
 
 	protected abstract renderDiagram( diagramXml: string ): Promise<void>;
+
+	protected async attachToCanvas( diagram: BaseViewer ): Promise<void> {
+		diagram.attachTo( this.dom.getCanvas() );
+
+		try {
+			await diagram.importXML( this.xml );
+		} catch ( e ) {
+			this.dom.showError( e );
+		}
+
+		const canvas = diagram.get( "canvas" ) as Canvas;
+		canvas.zoom( "fit-viewport" );
+		const initialY = canvas.viewbox().y;
+
+		// ERM39856: Prevent the diagram from being scrolled out of view
+		diagram.on( 'canvas.viewbox.changed', ( event: { viewbox: { height: number, y: number } } ) => {
+			const height = event.viewbox.height;
+			const y = event.viewbox.y;
+
+			const upperBound = height + y;
+			const lowerBound = height - y;
+
+			if ( upperBound < SCROLL_OUT_OF_VIEW_THRESHOLD || lowerBound < SCROLL_OUT_OF_VIEW_THRESHOLD ) {
+				const viewbox = canvas.viewbox();
+				viewbox.y = initialY;
+				canvas.viewbox( viewbox );
+			}
+		} );
+	}
 
 	protected throwError( message: string ): void {
 		this.dom.showError( message );

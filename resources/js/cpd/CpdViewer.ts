@@ -4,7 +4,6 @@ import { ModdleElement } from "bpmn-js/lib/model/Types";
 // noinspection ES6UnusedImports
 import config from "types-mediawiki/mw/config";
 import EventBus from "diagram-js/lib/core/EventBus";
-import Canvas from "diagram-js/lib/core/Canvas";
 import { CpdTool } from "./CpdTool";
 import NavigatedViewer from "bpmn-js/lib/NavigatedViewer";
 import HighlightUndescribedElementsRenderer from "./renderer/HighlightUndescribedElementsRenderer";
@@ -51,18 +50,8 @@ export default class CpdViewer extends CpdTool {
 			return;
 		}
 
-		this.bpmnViewer.attachTo( this.dom.getCanvas() );
-
-		try {
-			await this.bpmnViewer.importXML( this.xml );
-		} catch ( e ) {
-			this.dom.showError( e );
-		}
-
-		const canvas = this.bpmnViewer.get( "canvas" ) as Canvas;
-		canvas.zoom( "fit-viewport" );
-
-		this.initDescriptionPageElements();
+		await this.attachToCanvas( this.bpmnViewer );
+		await this.initDescriptionPageElements();
 	}
 
 	private async initDescriptionPageElements(): Promise<void> {
