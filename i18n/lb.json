@@ -36,6 +36,8 @@
 	"cpd-shape-remove-label-message": "$1 Etikett ewechgeholl",
 	"cpd-droplet-name": "Prozess",
 	"cpd-droplet-process-field-label": "Prozess",
+	"cpd-droplet-width-field-label": "Breet",
+	"cpd-droplet-height-field-label": "Héicht",
 	"cpd-validation-missing-label": "$1 huet keng Etikett",
 	"cpd-log-no-changes": "Keng Ännerungen",
 	"cpd-process-usage-undocumented-error": "Et ass en ondokumentéierte Feeler geschitt",
