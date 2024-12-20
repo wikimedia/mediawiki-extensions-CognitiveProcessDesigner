@@ -12,6 +12,7 @@ import CancelButton from "../oojs-ui/CancelButton";
 import DiagramPageLinkButton from "../oojs-ui/DiagramPageLinkButton";
 import SvgFileLinkButton from "../oojs-ui/SvgFileLinkButton";
 import { ChangeLogMessages } from "./CpdChangeLogger";
+import CenterViewportButton from "../oojs-ui/CenterViewportButton";
 
 interface HtmlElement extends HTMLElement {
 	hide: () => void;
@@ -41,6 +42,8 @@ export default class CpdDom extends EventEmitter {
 	private cancelBtn: Button | undefined;
 
 	private showXmlBtn: ShowXmlButton;
+
+	private centerViewportBtn: CenterViewportButton;
 
 	private svgFileLink: LinkButton;
 
@@ -102,15 +105,21 @@ export default class CpdDom extends EventEmitter {
 		this.showXmlBtn?.setShowLabelAndIcon();
 	}
 
+	private centerViewport(): void {
+		this.emit( "centerViewport" );
+	}
+
 	public setLoading( loading: boolean ): void {
 		if ( loading ) {
 			this.saveDialog?.pushPending();
 			this.showXmlBtn?.setDisabled( true );
+			this.centerViewportBtn?.setDisabled( true );
 			this.openDialogBtn?.setDisabled( true );
 			this.cancelBtn?.setDisabled( true );
 		} else {
 			this.saveDialog?.popPending();
 			this.showXmlBtn?.setDisabled( false );
+			this.centerViewportBtn?.setDisabled( false );
 			this.openDialogBtn?.setDisabled( false );
 			this.cancelBtn?.setDisabled( false );
 		}
@@ -178,6 +187,7 @@ export default class CpdDom extends EventEmitter {
 		this.diagramPageLink?.setDisabled( true );
 		this.svgFileLink?.setDisabled( true );
 		this.showXmlBtn?.setDisabled( true );
+		this.centerViewportBtn?.setDisabled( true );
 	}
 
 	public initDomElements( isEdit: boolean ): void {
@@ -221,10 +231,12 @@ export default class CpdDom extends EventEmitter {
 		const secondaryBarButtons = [
 			CancelButton.static.name,
 			DiagramPageLinkButton.static.name,
-			SvgFileLinkButton.static.name
+			SvgFileLinkButton.static.name,
+			CenterViewportButton.static.name
 		];
 
 		toolFactory.register( ShowXmlButton );
+		toolFactory.register( CenterViewportButton );
 
 		const withDiagramPageLink = mw.config.get( "wgPageName" ) !== this.diagramPage.getPrefixedDb();
 		if ( !this.isEdit ) {
@@ -275,6 +287,11 @@ export default class CpdDom extends EventEmitter {
 			if ( item.constructor === ShowXmlButton ) {
 				this.showXmlBtn = item;
 				this.showXmlBtn.onSelect = this.toggleView.bind( this );
+			}
+
+			if ( item.constructor === CenterViewportButton ) {
+				this.centerViewportBtn = item;
+				this.centerViewportBtn.onSelect = this.centerViewport.bind( this );
 			}
 
 			if ( item.constructor === DiagramPageLinkButton ) {

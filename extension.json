@@ -188,7 +188,8 @@
                 "cpd-link-svg-title",
                 "cpd-link-diagram-page-title",
                 "cpd-button-show-xml",
-                "cpd-button-hide-xml"
+                "cpd-button-hide-xml",
+                "cpd-button-center-viewport"
             ]
         },
         "ext.cpd.modeler": {

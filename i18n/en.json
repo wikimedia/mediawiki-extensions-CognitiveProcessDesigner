@@ -15,6 +15,7 @@
 	"cpd-button-cancel-title": "Cancel",
 	"cpd-button-show-xml": "Show raw XML",
 	"cpd-button-hide-xml": "Hide raw XML",
+	"cpd-button-center-viewport": "Center diagram",
 	"cpd-link-diagram-page-title": "Go to the diagram page",
 	"cpd-link-svg-title": "Download the diagram as SVG",
 	"cpd-api-save-diagram-param-svg": "JSON encoded SVG to be uploaded to wiki",

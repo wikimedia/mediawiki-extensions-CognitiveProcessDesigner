@@ -16,6 +16,7 @@
 	"cpd-button-cancel-title": "Abbrechen",
 	"cpd-button-show-xml": "XML-Rohdaten anzeigen",
 	"cpd-button-hide-xml": "XML-Rohdaten ausblenden",
+	"cpd-button-center-viewport": "Diagramm zentrieren",
 	"cpd-link-diagram-page-title": "Zur Diagrammseite",
 	"cpd-link-svg-title": "Das Diagramm als SVG herunterladen",
 	"cpd-api-save-diagram-param-svg": "JSON-kodiertes SVG zum Hochladen ins Wiki",
