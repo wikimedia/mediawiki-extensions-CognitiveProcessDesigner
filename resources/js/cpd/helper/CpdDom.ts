@@ -20,7 +20,7 @@ interface HtmlElement extends HTMLElement {
 	removeClass: ( className: string ) => void;
 }
 
-enum ViewMode {
+enum ViewModes {
 	Modeler,
 	Xml,
 }
@@ -29,17 +29,29 @@ const NARROW_WIDTH = 300;
 
 export default class CpdDom extends EventEmitter {
 	private readonly container: HTMLElement;
+
 	private readonly diagramPage: mw.Title;
+
 	private messageBox: HtmlElement;
+
 	private saveDialog: CpdSaveDialog | undefined;
+
 	private openDialogBtn: Button | undefined;
+
 	private cancelBtn: Button | undefined;
+
 	private showXmlBtn: ShowXmlButton;
+
 	private svgFileLink: LinkButton;
+
 	private diagramPageLink: LinkButton | undefined;
+
 	private canvas: HtmlElement;
+
 	private xmlContainer: HtmlElement;
-	private viewMode: ViewMode;
+
+	private viewMode: ViewModes;
+
 	private isEdit: boolean = false;
 
 	public constructor( container: HTMLElement, diagramPage: mw.Title ) {
@@ -66,15 +78,15 @@ export default class CpdDom extends EventEmitter {
 	}
 
 	public toggleView(): void {
-		if ( this.viewMode === ViewMode.Modeler ) {
-			this.viewMode = ViewMode.Xml;
+		if ( this.viewMode === ViewModes.Modeler ) {
+			this.viewMode = ViewModes.Xml;
 			this.emit( "showXml" );
 
 			return;
 		}
 
 		this.showCanvas();
-		this.viewMode = ViewMode.Modeler;
+		this.viewMode = ViewModes.Modeler;
 	}
 
 	public showXml( xml: string ): void {
@@ -197,7 +209,7 @@ export default class CpdDom extends EventEmitter {
 			this.xmlContainer
 		);
 
-		this.viewMode = ViewMode.Modeler;
+		this.viewMode = ViewModes.Modeler;
 	}
 
 	private createToolbar(): HtmlElement {

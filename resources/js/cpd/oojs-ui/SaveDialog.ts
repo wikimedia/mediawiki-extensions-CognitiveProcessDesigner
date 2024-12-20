@@ -8,13 +8,20 @@ export enum Mode {
 
 export default class SaveDialog extends OO.ui.ProcessDialog {
 	private panels: OO.ui.StackLayout;
+
 	private savePanel: OO.ui.PanelLayout;
+
 	private reviewPanel: OO.ui.PanelLayout;
+
 	private reviewContent: HTMLUListElement;
+
 	// Displays changes after saving
 	private changesPanel: OO.ui.PanelLayout;
+
 	private postSaveMessages: HTMLDivElement;
+
 	private changeLogMessages: ChangeLogMessages;
+
 	private saveWithPages: boolean = false;
 
 	static readonly static = {

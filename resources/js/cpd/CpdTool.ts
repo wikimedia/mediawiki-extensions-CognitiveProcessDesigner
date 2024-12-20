@@ -14,11 +14,17 @@ const SCROLL_OUT_OF_VIEW_THRESHOLD = -2000;
 
 export abstract class CpdTool {
 	protected dom: CpdDom;
+
 	protected api: CpdApi;
+
 	protected xmlHelper: CpdXml;
+
 	protected xml: string;
+
 	protected descriptionPages: ExistingDescriptionPage[];
+
 	protected elementFactory: CpdElementFactory;
+
 	protected diagramPage: mw.Title;
 
 	protected constructor( process: string, container: HTMLElement ) {
@@ -52,6 +58,7 @@ export abstract class CpdTool {
 		this.setDescriptionPages( pageContent.descriptionPages );
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	protected abstract renderDiagram( diagramXml: string ): Promise<void>;
 
 	protected async attachToCanvas( diagram: BaseViewer ): Promise<void> {
@@ -75,7 +82,9 @@ export abstract class CpdTool {
 			const upperBound = height + y;
 			const lowerBound = height - y;
 
-			if ( upperBound < SCROLL_OUT_OF_VIEW_THRESHOLD || lowerBound < SCROLL_OUT_OF_VIEW_THRESHOLD ) {
+			if ( upperBound < SCROLL_OUT_OF_VIEW_THRESHOLD ||
+				lowerBound < SCROLL_OUT_OF_VIEW_THRESHOLD
+			) {
 				const viewbox = canvas.viewbox();
 				viewbox.y = initialY;
 				canvas.viewbox( viewbox );

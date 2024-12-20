@@ -15,7 +15,9 @@ import EventBus from "diagram-js/lib/core/EventBus";
 
 class CpdModeler extends CpdTool {
 	private bpmnModeler: BpmnModeler;
+
 	private changeLogger: CpdChangeLogger;
+
 	private initialElements: CpdElement[] = [];
 
 	public constructor( process: string, container: HTMLElement ) {
@@ -49,7 +51,11 @@ class CpdModeler extends CpdTool {
 		const svgRenderer = new CpdInlineSvgRenderer( elementRegistry );
 		const eventBus = this.bpmnModeler.get( "eventBus" ) as EventBus;
 
-		this.elementFactory = new CpdElementFactory( elementRegistry, process, this.descriptionPages );
+		this.elementFactory = new CpdElementFactory(
+			elementRegistry,
+			process,
+			this.descriptionPages
+		);
 		this.changeLogger = new CpdChangeLogger( eventBus, this.elementFactory, svgRenderer );
 		const validator = new CpdValidator( eventBus, elementRegistry );
 		validator.on( CpdValidator.VALIDATION_EVENT, this.onValidation.bind( this ) );
@@ -133,10 +139,12 @@ class CpdModeler extends CpdTool {
 			return;
 		}
 
-		const descriptionPages = result.descriptionPages.map( ( descriptionPage: string ): ElementDescriptionPage => JSON.parse( descriptionPage ) );
+		const descriptionPages = result.descriptionPages.map(
+			( descriptionPage: string ): ElementDescriptionPage => JSON.parse( descriptionPage )
+		);
 		descriptionPages.forEach( ( descriptionPage: ElementDescriptionPage ): void => {
 			const element: CpdElement | undefined = elements
-				.find( ( element: CpdElement ): boolean => element.id === descriptionPage.elementId );
+				.find( ( el: CpdElement ): boolean => el.id === descriptionPage.elementId );
 
 			if ( !element ) {
 				this.throwError( mw.message( "cpd-error-message-missing-element-link", descriptionPage.elementId ).text() );
@@ -166,7 +174,9 @@ class CpdModeler extends CpdTool {
 				return;
 			}
 
-			const initialElement = this.initialElements.find( ( el: CpdElement ): boolean => el.id === element.id );
+			const initialElement = this.initialElements.find(
+				( el: CpdElement ): boolean => el.id === element.id
+			);
 			if ( !initialElement ) {
 				this.changeLogger.addDescriptionPageChange( element );
 				return;

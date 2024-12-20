@@ -19,8 +19,11 @@ interface ElementDescriptionPage extends ExistingDescriptionPage {
 
 export default class CpdElement {
 	public readonly bpmnElement: Element;
+
 	public descriptionPage: ElementDescriptionPage | null = null;
+
 	public incomingLinks: CpdElementJson[] = [];
+
 	public outgoingLinks: CpdElementJson[] = [];
 
 	private constructor( bpmnElement: Element ) {

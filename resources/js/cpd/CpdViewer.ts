@@ -1,8 +1,9 @@
 import BpmnViewer from "bpmn-js/lib/Viewer";
 import { ModdleElement } from "bpmn-js/lib/model/Types";
 // eslint-disable-next-line no-unused-vars
-// noinspection ES6UnusedImports
 import config from "types-mediawiki/mw/config";
+// eslint-disable-next-line no-unused-vars
+import hook from "types-mediawiki/mw/hook";
 import EventBus from "diagram-js/lib/core/EventBus";
 import { CpdTool } from "./CpdTool";
 import NavigatedViewer from "bpmn-js/lib/NavigatedViewer";
@@ -19,6 +20,7 @@ interface InternalEvent {
 
 export default class CpdViewer extends CpdTool {
 	private bpmnViewer: BpmnViewer;
+
 	private eventBus: EventBus;
 
 	public constructor( process: string, container: HTMLElement ) {

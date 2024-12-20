@@ -1,4 +1,6 @@
-import ElementRegistry, { ElementRegistryFilterCallback } from "diagram-js/lib/core/ElementRegistry";
+import ElementRegistry, {
+	ElementRegistryFilterCallback
+} from "diagram-js/lib/core/ElementRegistry";
 import { ElementLike } from "diagram-js/lib/core/Types";
 import { Element, Shape } from "bpmn-js/lib/model/Types";
 import CpdElement, { CpdElementJson } from "../model/CpdElement";
@@ -7,11 +9,17 @@ import { CpdConnectionFinder } from "./CpdConnectionFinder";
 
 export class CpdElementFactory {
 	private readonly subpageTypes: Array<string>;
+
 	private readonly cpdLaneTypes: Array<string>;
+
 	private readonly processNamespace: number;
+
 	private readonly process: string;
+
 	private elementRegistry: ElementRegistry;
+
 	private readonly existingDescriptionPages: ExistingDescriptionPage[];
+
 	private readonly connectionFinder: CpdConnectionFinder;
 
 	public constructor(
@@ -57,7 +65,9 @@ export class CpdElementFactory {
 	}
 
 	public createElements(): CpdElement[] {
-		return this.elementRegistry.getAll().map( ( element: Element ) => CpdElement.init( element ) );
+		return this.elementRegistry.getAll().map(
+			( element: Element ) => CpdElement.init( element )
+		);
 	}
 
 	public createDescriptionPageEligibleElements(): CpdElement[] {
@@ -70,7 +80,9 @@ export class CpdElementFactory {
 			}
 		);
 
-		cpdElements.forEach( ( element: CpdElement ) => this.addConnections( element, cpdElements ) );
+		cpdElements.forEach(
+			( element: CpdElement ) => this.addConnections( element, cpdElements )
+		);
 
 		return cpdElements;
 	}
@@ -106,7 +118,9 @@ export class CpdElementFactory {
 
 		try {
 			const madeDbKey = this.makeDescriptionPageTitle( element ).getPrefixedDb();
-			const existingDescriptionPage = this.existingDescriptionPages.find( ( page: ExistingDescriptionPage ) => page.dbKey === madeDbKey );
+			const existingDescriptionPage = this.existingDescriptionPages.find(
+				( page: ExistingDescriptionPage ) => page.dbKey === madeDbKey
+			);
 
 			if ( existingDescriptionPage ) {
 				element.descriptionPage = {
@@ -118,7 +132,6 @@ export class CpdElementFactory {
 				element.descriptionPage = { dbKey: madeDbKey, isNew: false, exists: false };
 			}
 		} catch ( error ) {
-			console.warn( error );
 			element.descriptionPage = null;
 		}
 	}

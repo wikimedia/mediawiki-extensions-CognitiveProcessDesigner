@@ -8,7 +8,6 @@ export default abstract class Button extends OO.ui.Tool {
 		}
 	};
 
-
 	onUpdateState() {
 	}
 

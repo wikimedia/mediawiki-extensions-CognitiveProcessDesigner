@@ -8,7 +8,7 @@ export default class ShowXmlButton extends Button {
 			title: mw.msg( "cpd-button-show-xml" ),
 			icon: "eye",
 			flags: [ "progressive" ],
-			displayBothIconAndLabel: false,
+			displayBothIconAndLabel: false
 		}
 	};
 

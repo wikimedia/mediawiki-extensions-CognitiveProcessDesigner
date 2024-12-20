@@ -9,7 +9,7 @@ export default class CpdXml {
 		let isValid = false;
 		if ( xml ) {
 			const dom = this.domParser.parseFromString( xml, "text/xml" );
-			isValid = dom.documentElement.nodeName != "parsererror";
+			isValid = dom.documentElement.nodeName !== "parsererror";
 		}
 
 		if ( !isValid ) {

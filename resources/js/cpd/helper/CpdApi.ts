@@ -1,8 +1,8 @@
-// noinspection ES6UnusedImports
+// eslint-disable-next-line no-unused-vars
 import user from "types-mediawiki/mw/user";
-// noinspection ES6UnusedImports
+// eslint-disable-next-line no-unused-vars
 import message from "types-mediawiki/mw/message";
-// noinspection ES6UnusedImports
+// eslint-disable-next-line no-unused-vars
 import Api from "types-mediawiki/mw/Api";
 import EventEmitter from "events";
 import { SaveSVGResult } from "bpmn-js/lib/BaseViewer";
@@ -35,9 +35,13 @@ export interface ElementDescriptionPage {
 
 export default class CpdApi extends EventEmitter {
 	public static readonly STATUS_REQUEST_STARTED: string = "requestStarted";
+
 	public static readonly STATUS_REQUEST_FINISHED: string = "requestFinished";
+
 	public static readonly STATUS_REQUEST_FAILED: string = "requestFailed";
+
 	private readonly process: string;
+
 	private readonly api: mw.Api;
 
 	public constructor( process: string ) {

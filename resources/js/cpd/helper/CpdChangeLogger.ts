@@ -16,21 +16,42 @@ export type ChangeLogMessages = {
 
 export default class CpdChangeLogger extends EventEmitter {
 	private static readonly ELEMENT_CREATE: string = "commandStack.elements.create.postExecute";
+
 	private static readonly ELEMENT_DELETE: string = "commandStack.elements.delete.preExecute";
+
 	private static readonly ELEMENT_RENAME: string = "commandStack.element.updateLabel.executed";
+
 	private static readonly DIAGRAM_CHANGED: string = "commandStack.changed";
+
 	private deletions: ChangeLogMessages;
+
 	private creations: ChangeLogMessages;
+
 	private renames: ChangeLogMessages;
+
 	private factory: CpdElementFactory;
+
 	private svgRenderer: CpdInlineSvgRenderer;
 
-	public constructor( eventBus: EventBus, factory: CpdElementFactory, svgRenderer: CpdInlineSvgRenderer ) {
+	public constructor(
+		eventBus: EventBus,
+		factory: CpdElementFactory,
+		svgRenderer: CpdInlineSvgRenderer
+	) {
 		super();
 
-		eventBus.on( CpdChangeLogger.ELEMENT_CREATE, this.onElementsChanged.bind( this, CpdChangeLogger.ELEMENT_CREATE ) );
-		eventBus.on( CpdChangeLogger.ELEMENT_DELETE, this.onElementsChanged.bind( this, CpdChangeLogger.ELEMENT_DELETE ) );
-		eventBus.on( CpdChangeLogger.ELEMENT_RENAME, this.onElementChanged.bind( this, CpdChangeLogger.ELEMENT_RENAME ) );
+		eventBus.on( CpdChangeLogger.ELEMENT_CREATE, this.onElementsChanged.bind(
+			this,
+			CpdChangeLogger.ELEMENT_CREATE
+		) );
+		eventBus.on( CpdChangeLogger.ELEMENT_DELETE, this.onElementsChanged.bind(
+			this,
+			CpdChangeLogger.ELEMENT_DELETE
+		) );
+		eventBus.on( CpdChangeLogger.ELEMENT_RENAME, this.onElementChanged.bind(
+			this,
+			CpdChangeLogger.ELEMENT_RENAME
+		) );
 		eventBus.on( CpdChangeLogger.DIAGRAM_CHANGED, this.onDiagramChanged.bind( this ) );
 
 		this.svgRenderer = svgRenderer;
@@ -50,8 +71,8 @@ export default class CpdChangeLogger extends EventEmitter {
 		return this.mergeMessages( this.creations, this.deletions, this.renames );
 	}
 
-	public addCreation( CpdElement: CpdElement ): void {
-		this.onElementCreated( CpdElement );
+	public addCreation( element: CpdElement ): void {
+		this.onElementCreated( element );
 	}
 
 	public addDescriptionPageChange( element: CpdElement ) {
@@ -157,7 +178,12 @@ export default class CpdChangeLogger extends EventEmitter {
 		}
 	}
 
-	private appendMessage( messages: ChangeLogMessages, element: CpdElement, message: string, onlyWithPages: boolean = false ): void {
+	private appendMessage(
+		messages: ChangeLogMessages,
+		element: CpdElement,
+		message: string,
+		onlyWithPages: boolean = false
+	): void {
 		// Append message to the messages object only if element is eligible for description page
 		if ( !this.factory.isDescriptionPageEligible( element ) ) {
 			return;
@@ -168,8 +194,8 @@ export default class CpdChangeLogger extends EventEmitter {
 		}
 
 		messages[ element.id ].push( {
-			"message": message,
-			"onlyWithPages": onlyWithPages
+			message: message,
+			onlyWithPages: onlyWithPages
 		} );
 	}
 
@@ -184,13 +210,15 @@ export default class CpdChangeLogger extends EventEmitter {
 	private mergeMessages( ...messages: ChangeLogMessages[] ): ChangeLogMessages {
 		const mergedMessages: ChangeLogMessages = {};
 
-		messages.forEach( obj => {
-			Object.keys( obj ).forEach( elementId => {
+		messages.forEach( ( obj ) => {
+			Object.keys( obj ).forEach( ( elementId ) => {
 				if ( !mergedMessages[ elementId ] ) {
 					mergedMessages[ elementId ] = [];
 				}
 
-				mergedMessages[ elementId ] = mergedMessages[ elementId ].concat( obj[ elementId ] );
+				mergedMessages[ elementId ] = mergedMessages[ elementId ].concat(
+					obj[ elementId ]
+				);
 			} );
 		} );
 
@@ -199,28 +227,22 @@ export default class CpdChangeLogger extends EventEmitter {
 
 	private sanitizeMessages(): void {
 		// If element has been deleted, it should not be in creations and renames
-		Object.keys( this.deletions ).forEach( key => {
+		Object.keys( this.deletions ).forEach( ( key ) => {
 			delete this.creations[ key ];
 			delete this.renames[ key ];
 		} );
 
 		// Remove duplicates
-		Object.keys( this.creations ).forEach( key => {
-			this.creations[ key ] = this.creations[ key ].filter( ( message, index, self ) => {
-				return self.findIndex( m => m.message === message.message ) === index;
-			} );
+		Object.keys( this.creations ).forEach( ( key ) => {
+			this.creations[ key ] = this.creations[ key ].filter( ( message, index, self ) => self.findIndex( ( m ) => m.message === message.message ) === index );
 		} );
 
-		Object.keys( this.deletions ).forEach( key => {
-			this.deletions[ key ] = this.deletions[ key ].filter( ( message, index, self ) => {
-				return self.findIndex( m => m.message === message.message ) === index;
-			} );
+		Object.keys( this.deletions ).forEach( ( key ) => {
+			this.deletions[ key ] = this.deletions[ key ].filter( ( message, index, self ) => self.findIndex( ( m ) => m.message === message.message ) === index );
 		} );
 
-		Object.keys( this.renames ).forEach( key => {
-			this.renames[ key ] = this.renames[ key ].filter( ( message, index, self ) => {
-				return self.findIndex( m => m.message === message.message ) === index;
-			} );
+		Object.keys( this.renames ).forEach( ( key ) => {
+			this.renames[ key ] = this.renames[ key ].filter( ( message, index, self ) => self.findIndex( ( m ) => m.message === message.message ) === index );
 		} );
 	}
 }

@@ -17,6 +17,7 @@ interface LinterIssue {
 
 export default class CpdValidator extends EventEmitter {
 	public static readonly VALIDATION_EVENT: string = "validation";
+
 	private static readonly ELEMENT_PRE_RENAME: string = "commandStack.element.updateLabel.preExecute";
 
 	private readonly elementRegistry: ElementRegistry;
@@ -39,24 +40,20 @@ export default class CpdValidator extends EventEmitter {
 			return true;
 		}
 
-		return issues.every( ( elementIssues: LinterIssue[] ) => {
-			return elementIssues.every( ( issue: LinterIssue ) => {
-				return issue.category !== "error";
-			} );
-		} );
+		return issues.every( ( elementIssues: LinterIssue[] ) => elementIssues.every(
+			( issue: LinterIssue ) => issue.category !== "error" )
+		);
 	}
 
 	/**
 	 * ERM39691 Modify duplicate label until proposed linter rule change is accepted by bpmn-io
-	 *
 	 * @param event
-	 * @private
 	 */
 	private handleDuplicateLabel( event: Event ): void {
 		const newLabel = event[ 'context' ].newLabel;
 
-		const existingElements = this.elementRegistry.filter( ( element ) =>
-			element.businessObject.name === newLabel
+		const existingElements = this.elementRegistry.filter(
+			( element ) => element.businessObject.name === newLabel
 		);
 
 		if ( existingElements.length === 0 ) {

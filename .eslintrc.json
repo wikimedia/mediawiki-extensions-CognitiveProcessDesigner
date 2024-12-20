@@ -17,6 +17,16 @@
     "no-implicit-globals": "off",
     "quotes": "off",
     "no-use-before-define": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "es-x/no-class-fields": "off",
+    "es-x/no-async-functions": "off",
+    "no-new": "off",
+    "mediawiki/no-nodelist-unsupported-methods": "off",
+    "no-unsafe-optional-chaining": "off",
+    "es-x/no-optional-chaining": "off",
+    "es-x/no-rest-spread-properties": "off",
+    "es-x/no-object-values-entries": "off",
+    "es-x/no-object-values": "off",
+    "es-x/no-array-prototype-includes": "off"
   }
 }
