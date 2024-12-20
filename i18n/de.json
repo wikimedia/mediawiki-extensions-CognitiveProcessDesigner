@@ -25,7 +25,6 @@
 	"cpd-api-save-diagram-success-message": "Diagramm gespeichert",
 	"cpd-api-save-diagram-error-message": "Fehler beim Speichern des Diagramms: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|Die folgende $1|Die folgenden $1|0=Keine}} {{PLURAL:$1|Beschreibungsseite wurde|Beschreibungsseiten wurden}} gespeichert:",
-	"cpd-description-page-saved-message": "Beschreibungsseite $1 gespeichert",
 	"cpd-description-page-already-exists-warning": "Beschreibungsseite $1 existiert bereits",
 	"cpd-description-page-does-not-exist-anymore-warning": "Beschreibungsseite $1 existiert nicht mehr",
 	"cpd-description-page-has-no-property-warning": "Element $1 hat keine Beschreibungsseiteneigenschaft",

@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-import SaveDialog, { Mode } from "../oojs-ui/SaveDialog";
+import SaveDialog, { Mode, MessageType } from "../oojs-ui/SaveDialog";
 import { ChangeLogMessages } from "./CpdChangeLogger";
 
 export default class CpdSaveDialog extends EventEmitter {
@@ -48,8 +48,8 @@ export default class CpdSaveDialog extends EventEmitter {
 		}
 	}
 
-	public addPostSaveMessage( message: HTMLParagraphElement ): void {
-		this.dialog.addPostSaveMessage( message );
+	public addPostSaveMessage( message: HTMLDivElement | string, type: MessageType ): void {
+		this.dialog.addPostSaveMessage( message, type );
 	}
 
 	public setChangelog( messages: ChangeLogMessages ): void {

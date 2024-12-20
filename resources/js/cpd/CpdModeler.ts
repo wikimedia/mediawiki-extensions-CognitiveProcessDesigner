@@ -12,6 +12,7 @@ import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
 import bpmnlintConfig from "../../../bpmn-lint.config";
 import lintModule from 'bpmn-js-bpmnlint';
 import EventBus from "diagram-js/lib/core/EventBus";
+import { MessageType } from "./oojs-ui/SaveDialog";
 
 class CpdModeler extends CpdTool {
 	private bpmnModeler: BpmnModeler;
@@ -142,6 +143,15 @@ class CpdModeler extends CpdTool {
 		const descriptionPages = result.descriptionPages.map(
 			( descriptionPage: string ): ElementDescriptionPage => JSON.parse( descriptionPage )
 		);
+
+		if ( descriptionPages.length === 0 ) {
+			return;
+		}
+
+		const messageDiv = document.createElement( "div" );
+		const list = document.createElement( "ul" );
+		messageDiv.appendChild( list );
+
 		descriptionPages.forEach( ( descriptionPage: ElementDescriptionPage ): void => {
 			const element: CpdElement | undefined = elements
 				.find( ( el: CpdElement ): boolean => el.id === descriptionPage.elementId );
@@ -157,8 +167,13 @@ class CpdModeler extends CpdTool {
 			const title = mw.Title.newFromText( descriptionPage.page );
 			const linkText = title.getNameText().split( '/' ).pop();
 			const link = `<a href="${ mw.util.getUrl( title.getPrefixedText() ) }" target="_blank">${ linkText }</a>`;
-			this.dom.showMessage( mw.message( "cpd-description-page-saved-message", link ).text() );
+
+			const listItem = document.createElement( "li" );
+			listItem.innerHTML = link;
+			list.appendChild( listItem );
 		} );
+
+		this.dom.showMessage( messageDiv, MessageType.MESSAGE );
 	}
 
 	private onOpenDialog(): void {

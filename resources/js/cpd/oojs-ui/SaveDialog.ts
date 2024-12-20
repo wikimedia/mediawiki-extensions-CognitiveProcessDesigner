@@ -1,9 +1,16 @@
 import { ChangeLogMessages, MessageObject } from "../helper/CpdChangeLogger";
+import ErrorsContainer from "./ErrorsContainer";
 
 export enum Mode {
 	SAVE = "save",
 	REVIEW = "review",
 	CHANGES = "changes"
+}
+
+export enum MessageType {
+	MESSAGE = "message",
+	WARNING = "warning",
+	ERROR = "error"
 }
 
 export default class SaveDialog extends OO.ui.ProcessDialog {
@@ -19,6 +26,10 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	private changesPanel: OO.ui.PanelLayout;
 
 	private postSaveMessages: HTMLDivElement;
+
+	private postSaveWarnings: HTMLDivElement;
+
+	private postSaveErrors: ErrorsContainer;
 
 	private changeLogMessages: ChangeLogMessages;
 
@@ -118,18 +129,34 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		this.changeLogMessages = messages;
 	}
 
-	public addPostSaveMessage( message: HTMLParagraphElement ): void {
-		this.postSaveMessages.append( message );
+	public addPostSaveMessage( message: HTMLDivElement | string, type: MessageType ): void {
+		if ( type === MessageType.ERROR ) {
+			this.postSaveErrors.addError( message as string );
+		}
+
+		if ( type === MessageType.WARNING ) {
+			const warningWidget = new OO.ui.MessageWidget( { type: "warning" } );
+			warningWidget.setLabel( message );
+			this.postSaveWarnings.append( warningWidget.$element.get( 0 ) );
+		}
+
+		if ( type === MessageType.MESSAGE ) {
+			this.postSaveMessages.append( message );
+		}
+
 		this.updateSize();
 	}
 
 	public clearPostSaveMessages(): void {
 		this.postSaveMessages.innerHTML = "";
+		this.postSaveWarnings.innerHTML = "";
+
+		this.postSaveErrors.clearErrors();
 		this.updateSize();
 	}
 
 	public hasPostSaveErrors(): boolean {
-		return this.postSaveMessages.querySelectorAll( ".error" ).length > 0;
+		return this.postSaveErrors.hasErrors();
 	}
 
 	private onSetup(): void {
@@ -183,6 +210,11 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 
 	private initChangesPanel(): OO.ui.PanelLayout {
 		const panel = new OO.ui.PanelLayout( { padded: true, expanded: false, scrollable: true } );
+
+		this.postSaveErrors = new ErrorsContainer( panel.$element.get( 0 ) );
+
+		this.postSaveWarnings = document.createElement( "div" );
+		panel.$element.append( this.postSaveWarnings );
 
 		this.postSaveMessages = document.createElement( "div" );
 		panel.$element.append( this.postSaveMessages );
