@@ -196,14 +196,6 @@ class SaveCpdDescriptionPages extends ApiBase {
 		}
 
 		if ( $descriptionPage->exists() ) {
-			$warnings[] = Message::newFromKey(
-				'cpd-description-page-already-exists-warning',
-				$this->linkRenderer->makeLink(
-					$descriptionPage,
-					$descriptionPage->getSubpageText()
-				)
-			)->text();
-
 			return $warnings;
 		}
 

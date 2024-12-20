@@ -59,6 +59,8 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	public initialize(): this {
 		super.initialize();
 
+		this.setSize( "medium" );
+
 		this.getActions().setMode( Mode.SAVE );
 		this.panels = new OO.ui.StackLayout( { scrollable: false } );
 
@@ -180,7 +182,7 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	}
 
 	private initChangesPanel(): OO.ui.PanelLayout {
-		const panel = new OO.ui.PanelLayout( { padded: true, expanded: false } );
+		const panel = new OO.ui.PanelLayout( { padded: true, expanded: false, scrollable: true } );
 
 		this.postSaveMessages = document.createElement( "div" );
 		panel.$element.append( this.postSaveMessages );

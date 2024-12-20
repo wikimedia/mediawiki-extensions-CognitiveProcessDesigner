@@ -76,11 +76,7 @@ export default class CpdApi extends EventEmitter {
 			svg: JSON.stringify( svg.svg ),
 			token: mw.user.tokens.get( "csrfToken" )
 		} ).then( ( result ): SaveDiagramResult => {
-			this.emit(
-				CpdApi.STATUS_REQUEST_FINISHED,
-				mw.message( "cpd-api-save-diagram-success-message" ).text()
-			);
-
+			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
 			return result as SaveDiagramResult;
 		} ).fail( ( errorCode: string, error: any ) => {
 			this.emit(
