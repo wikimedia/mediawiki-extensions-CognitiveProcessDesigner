@@ -9,6 +9,8 @@
 	"cpd-editor-title": "Уређивање $1",
 	"cpd-editor-title-create": "Направи $1",
 	"cpd-shape-rename-message": "$1 преименован у $2",
+	"cpd-droplet-width-field-label": "Ширина",
+	"cpd-droplet-height-field-label": "Висина",
 	"bs-cpd-process-overview-create-action-text": "Направи",
 	"bs-cpd-process-overview-info-action-text": "Информације о страници"
 }
