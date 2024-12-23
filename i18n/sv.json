@@ -4,5 +4,6 @@
 			"Sabelöga"
 		]
 	},
-	"cognitiveprocessdesigner-desc": "Rita BPMN-processer med ett grafiskt användargränssnitt i Semantic MediaWiki"
+	"cognitiveprocessdesigner-desc": "Rita BPMN-processer med ett grafiskt användargränssnitt i Semantic MediaWiki",
+	"cpd-button-center-viewport": "Centrera diagram"
 }

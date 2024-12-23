@@ -4,5 +4,7 @@
 			"Kareyac"
 		]
 	},
+	"cpd-droplet-width-field-label": "Ширина",
+	"cpd-droplet-show-toolbar-field-label": "Показать панель инструментов",
 	"bs-cpd-actionmenuentry-new-process": "Новый процесс"
 }

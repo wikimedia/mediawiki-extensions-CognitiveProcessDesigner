@@ -16,6 +16,7 @@
 	"cpd-button-cancel-title": "Annuler",
 	"cpd-button-show-xml": "Afficher le XML brut",
 	"cpd-button-hide-xml": "Cacher le XML brut",
+	"cpd-button-center-viewport": "Diagramme central",
 	"cpd-link-diagram-page-title": "Accéder à la page du diagramme",
 	"cpd-link-svg-title": "Télécharger le diagramme au format SVG",
 	"cpd-api-save-diagram-param-svg": "SVG encodé en JSON pour être téléversé sur le wiki",
@@ -60,6 +61,12 @@
 	"cpd-droplet-description": "Diagramme BPMN modifiable",
 	"cpd-droplet-process-field-label-help": "Rechercher les processus existants en indiquant le nom du processus",
 	"cpd-droplet-process-field-label": "Processus",
+	"cpd-droplet-width-field-label-help": "Définit une largeur fixe pour le diagramme. Laissez vide pour une largeur automatique",
+	"cpd-droplet-width-field-label": "Largeur",
+	"cpd-droplet-height-field-label-help": "Définit une hauteur fixe pour le diagramme",
+	"cpd-droplet-height-field-label": "Hauteur",
+	"cpd-droplet-show-toolbar-field-label-help": "Activer ou désactiver la barre d'outils",
+	"cpd-droplet-show-toolbar-field-label": "Afficher la barre d'outils",
 	"cpd-validation-missing-label": "$1 n'a pas d'étiquette",
 	"cpd-validation-duplicate-label": "$1 est utilisée plusieurs fois dans $2",
 	"cpd-log-no-changes": "Aucune modification",
@@ -93,5 +100,7 @@
 	"bs-cpd-actionmenuentry-new-process": "Nouveau processus",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Nom du processus",
 	"cpd-api-save-description-page-comment": "Page de description enregistrée",
-	"cpd-api-move-description-page-comment": "Page de description déplacée"
+	"cpd-api-move-description-page-comment": "Page de description déplacée",
+	"cpd-config-canvas-process-height-msg": "Définit la hauteur du canevas du diagramme sur la page de processus et en mode édition",
+	"cpd-config-canvas-embedded-height-msg": "Définit la hauteur du canevas du diagramme lorsqu'il est intégré dans d'autres pages"
 }

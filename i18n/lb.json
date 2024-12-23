@@ -10,6 +10,7 @@
 	"cpd-ui-action-edit": "Diagramm änneren",
 	"cpd-ui-action-edit-xml": "XML änneren",
 	"cpd-button-cancel-title": "Ofbriechen",
+	"cpd-button-center-viewport": "Diagramm zentréieren",
 	"cpd-link-svg-title": "D'Diagrammen als SVG eroflueden",
 	"cpd-api-save-diagram-param-process-id": "ID vum BPMN-Diagramm",
 	"cpd-api-save-diagram-success-message": "Diagramm gespäichert",
