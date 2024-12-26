@@ -14,6 +14,7 @@
 	"cpd-button-cancel-title": "Откажи",
 	"cpd-button-show-xml": "Прикажи сиров XML",
 	"cpd-button-hide-xml": "Скриј сиров XML",
+	"cpd-button-center-viewport": "Сосредоточи го дијаграмот",
 	"cpd-link-diagram-page-title": "Оди на страницата на дијаграмот",
 	"cpd-link-svg-title": "Преземи го дијаграмот како SVG",
 	"cpd-api-save-diagram-param-svg": "SVG кодиран во JSON што ќе се подигне на викито",
@@ -58,6 +59,12 @@
 	"cpd-droplet-description": "Уредлив BPMN-дијаграм",
 	"cpd-droplet-process-field-label-help": "Најдете постоечки процеси со внесување на нивно име",
 	"cpd-droplet-process-field-label": "Процес",
+	"cpd-droplet-width-field-label-help": "Задајте утврдена ширина за дијаграмот. Оставете празно за автоматска ширина",
+	"cpd-droplet-width-field-label": "Ширина",
+	"cpd-droplet-height-field-label-help": "Задајте утврдена висина за дијаграмот",
+	"cpd-droplet-height-field-label": "Висина",
+	"cpd-droplet-show-toolbar-field-label-help": "Овозможи или оневозможи алатник",
+	"cpd-droplet-show-toolbar-field-label": "Прикажи алатник",
 	"cpd-validation-missing-label": "$1 нема натпис",
 	"cpd-validation-duplicate-label": "$1 се користи повеќепати во $2",
 	"cpd-log-no-changes": "Нема промени",
@@ -91,5 +98,7 @@
 	"bs-cpd-actionmenuentry-new-process": "Нов процес",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Име на процесот",
 	"cpd-api-save-description-page-comment": "Описната страница е зачувана",
-	"cpd-api-move-description-page-comment": "Описната страница е преместена"
+	"cpd-api-move-description-page-comment": "Описната страница е преместена",
+	"cpd-config-canvas-process-height-msg": "Задајте ја висината на дијаграмската подлога на процесната страница и режимот за уредување",
+	"cpd-config-canvas-embedded-height-msg": "Задајте ја висината на дијаграмската подлога кога е вметната во други страници"
 }

@@ -14,6 +14,7 @@
 	"cpd-button-cancel-title": "ביטול",
 	"cpd-button-show-xml": "הצגת XML גולמי",
 	"cpd-button-hide-xml": "הסתרת XML גולמי",
+	"cpd-button-center-viewport": "מרכוז התרשים",
 	"cpd-link-diagram-page-title": "מעבר לדף התרשים",
 	"cpd-link-svg-title": "הורדת התרשים כ־SVG",
 	"cpd-api-save-diagram-param-svg": "SVG מקודד כ־JSON להעלאה לוויקי",
@@ -58,6 +59,12 @@
 	"cpd-droplet-description": "תרשים BPMN שאפשר לערוך",
 	"cpd-droplet-process-field-label-help": "אפשר למצוא תהליכים קיימים באמצעות הקלדת שם התהליך",
 	"cpd-droplet-process-field-label": "תהליך",
+	"cpd-droplet-width-field-label-help": "הגדרת רוחב קבוע לתרשים. יש להשאיר את זה ריק עבור רוחב אוטומטי",
+	"cpd-droplet-width-field-label": "רוחב",
+	"cpd-droplet-height-field-label-help": "הגדרת גובה קבוע לתרשים",
+	"cpd-droplet-height-field-label": "גובה",
+	"cpd-droplet-show-toolbar-field-label-help": "הפעלה או כיבוי של סרגל הכלים",
+	"cpd-droplet-show-toolbar-field-label": "הצגת סרגל כלים",
 	"cpd-validation-missing-label": "ל{{GRAMMAR:$1|$1}} אין תווית",
 	"cpd-validation-duplicate-label": "$1 שימש כמה פעמים ב{{GRAMMAR:תחילית|$2}}",
 	"cpd-log-no-changes": "אין שינויים",
@@ -91,5 +98,7 @@
 	"bs-cpd-actionmenuentry-new-process": "תהליך חדש",
 	"bs-cpd-actionmenuentry-new-process-input-label": "שם התהליך",
 	"cpd-api-save-description-page-comment": "דף התיאור נשמר",
-	"cpd-api-move-description-page-comment": "דף התיאור הועבר"
+	"cpd-api-move-description-page-comment": "דף התיאור הועבר",
+	"cpd-config-canvas-process-height-msg": "הגדרת גובה יריעת התרשים בדף התהליך ובמצב עריכה",
+	"cpd-config-canvas-embedded-height-msg": "הגדרת גובה יריעת התרשים כשהיא מוטבעת בדפים אחרים"
 }
