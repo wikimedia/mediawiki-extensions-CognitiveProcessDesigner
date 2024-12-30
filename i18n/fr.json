@@ -3,6 +3,7 @@
 		"authors": [
 			"Florian COLLIN",
 			"Mahabarata",
+			"Pols12",
 			"SleaY"
 		]
 	},
@@ -24,7 +25,7 @@
 	"cpd-api-save-diagram-param-process-id": "ID du diagramme BPMN",
 	"cpd-api-save-diagram-success-message": "Diagramme enregistré",
 	"cpd-api-save-diagram-error-message": "Erreur lors de l'enregistrement du diagramme : $1",
-	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|La page de description suivante a été enregistrée :|Les $1 pages de description suivantes ont été enregistrées :|0=Aucune page de description n'a été enregistrée.}}",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=La page de description suivante a été enregistrée :|Les $1 pages de description suivantes ont été enregistrées :|0=Aucune page de description n’a été enregistrée.}}",
 	"cpd-description-page-saved-message": "La page de description $1 a été enregistrée",
 	"cpd-description-page-already-exists-warning": "La page de description $1 existe déjà",
 	"cpd-description-page-does-not-exist-anymore-warning": "La page de description $1 n'existe plus",

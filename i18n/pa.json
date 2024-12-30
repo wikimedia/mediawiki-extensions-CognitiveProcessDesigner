@@ -5,6 +5,7 @@
 		]
 	},
 	"cpd-ui-action-edit-xml": "XML ਸੋਧੋ",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=ਹੇਠਾਂ ਦਿੱਤੇ ਵੇਰਵੇ ਵਾਲੇ ਸਫ਼ੇ|ਹੇਠਾਂ ਦਿੱਤੇ $1 ਦੇ ਵੇਰਵੇ ਸਫ਼ੇ|0=ਕੋਈ ਵੀ ਵੇਰਵੇ ਸਫ਼ੇ ਨਹੀਂ}} ਸੰਭਾਲੇ ਗਏ ਹਨ:",
 	"cpd-description-page-saved-message": "ਵੇਰਵਾ ਸਫ਼ਾ $1 ਸਾੰਭਿਆ ਗਿਆ",
 	"cpd-description-page-already-exists-warning": "ਵੇਰਵਾ ਸਫ਼ਾ $1 ਪਹਿਲਾਂ ਹੀ ਤੋਂ ਮੌਜੂਦ ਏ",
 	"cpd-description-page-does-not-exist-anymore-warning": "ਵੇਰਵਾ ਸਫ਼ਾ $1 ਹੁਣ ਮੌਜੂਦ ਨਹੀਂ ਏ",
