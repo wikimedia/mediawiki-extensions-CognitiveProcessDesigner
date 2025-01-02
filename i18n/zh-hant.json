@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Cookai1205",
 			"Kly"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "在 Semantic MediaWiki 上以圖形化使用者介面來繪製業務流程模型和標記法（BPMN）之流程",
+	"cpd-button-center-viewport": "圖表置中",
 	"cpd-droplet-description": "可編輯的 BPMN 示圖"
 }

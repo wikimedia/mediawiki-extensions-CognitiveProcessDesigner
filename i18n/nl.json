@@ -15,6 +15,7 @@
 	"cpd-button-cancel-title": "Annuleren",
 	"cpd-button-show-xml": "Onbewerkte XML weergeven",
 	"cpd-button-hide-xml": "Onbewerkte XML verbergen",
+	"cpd-button-center-viewport": "Diagram centreren",
 	"cpd-link-diagram-page-title": "Naar de diagrampagina",
 	"cpd-link-svg-title": "Diagram als SVG downloaden",
 	"cpd-api-save-diagram-param-svg": "JSON-gecodeerde SVG om te uploaden naar wiki",
@@ -59,6 +60,12 @@
 	"cpd-droplet-description": "Bewerkbaar BPMN-diagram",
 	"cpd-droplet-process-field-label-help": "Zoek bestaande processen door de naam van het proces in te typen",
 	"cpd-droplet-process-field-label": "Proces",
+	"cpd-droplet-width-field-label-help": "Vaste breedte voor diagram instellen. Laat leeg voor automatische breedte",
+	"cpd-droplet-width-field-label": "Breedte",
+	"cpd-droplet-height-field-label-help": "Vaste hoogte voor diagram instellen",
+	"cpd-droplet-height-field-label": "Hoogte",
+	"cpd-droplet-show-toolbar-field-label-help": "Werkbalk in- of uitschakelen",
+	"cpd-droplet-show-toolbar-field-label": "Werkbalk weergeven",
 	"cpd-validation-missing-label": "$1 heeft geen label",
 	"cpd-validation-duplicate-label": "$1 wordt meerdere keren gebruikt in $2",
 	"cpd-log-no-changes": "Geen wijzigingen",
@@ -92,5 +99,7 @@
 	"bs-cpd-actionmenuentry-new-process": "Nieuw proces",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Procesnaam",
 	"cpd-api-save-description-page-comment": "Beschrijvingspagina opgeslagen",
-	"cpd-api-move-description-page-comment": "Beschrijvingspagina hernoemd"
+	"cpd-api-move-description-page-comment": "Beschrijvingspagina hernoemd",
+	"cpd-config-canvas-process-height-msg": "De hoogte van het diagramcanvas instellen op de procespagina en in de bewerkingsmodus",
+	"cpd-config-canvas-embedded-height-msg": "De hoogte van het diagramcanvas instellen voor het insluiten in andere pagina’s"
 }

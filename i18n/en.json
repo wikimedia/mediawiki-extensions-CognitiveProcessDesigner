@@ -22,7 +22,7 @@
 	"cpd-api-save-diagram-param-xml": "JSON encoded XML to be uploaded to wiki",
 	"cpd-api-save-diagram-param-process-id": "ID of the BPMN diagram",
 	"cpd-api-save-diagram-error-message": "Error while saving the diagram: $1",
-	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|The following $1|The following $1|0=No}} description {{PLURAL:$1|page|pages}} have been saved:",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=The following description page has|The following $1 description pages have|0=No description pages have}} been saved:",
 	"cpd-description-page-does-not-exist-anymore-warning": "Description page $1 does not exist anymore",
 	"cpd-description-page-has-no-property-warning": "Element $1 has no description page property",
 	"cpd-api-save-description-pages-error-message": "Error while saving description pages: $1",
