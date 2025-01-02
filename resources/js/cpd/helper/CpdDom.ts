@@ -192,12 +192,18 @@ export default class CpdDom extends EventEmitter {
 	}
 
 	public showError( message: string ): void {
-		this.showMessage( message, MessageType.ERROR );
-
 		this.diagramPageLink?.setDisabled( true );
 		this.svgFileLink?.setDisabled( true );
 		this.showXmlBtn?.setDisabled( true );
 		this.centerViewportBtn?.setDisabled( true );
+
+		if ( !this.isEdit ) {
+			this.messageBox.append( message );
+			this.messageBox.show();
+			return;
+		}
+
+		this.saveDialog?.addError( message );
 	}
 
 	public initDomElements( isEdit: boolean ): void {

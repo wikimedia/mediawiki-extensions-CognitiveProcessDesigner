@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-import SaveDialog, { Mode, MessageType } from "../oojs-ui/SaveDialog";
+import SaveDialog, { MessageType, Mode } from "../oojs-ui/SaveDialog";
 import { ChangeLogMessages } from "./CpdChangeLogger";
 
 export default class CpdSaveDialog extends EventEmitter {
@@ -42,10 +42,6 @@ export default class CpdSaveDialog extends EventEmitter {
 
 	public showChanges(): void {
 		this.dialog.setMode( Mode.CHANGES );
-
-		if ( this.dialog.hasPostSaveErrors() ) {
-			this.dialog.setTitle( mw.msg( "cpd-dialog-save-label-changes-with-error" ) );
-		}
 	}
 
 	public hasChanges(): boolean {
@@ -54,6 +50,13 @@ export default class CpdSaveDialog extends EventEmitter {
 
 	public addPostSaveMessage( message: HTMLDivElement | string, type: MessageType ): void {
 		this.dialog.addPostSaveMessage( message, type );
+	}
+
+	public addError( message: string ): void {
+		const error = new OO.ui.Error( message as string );
+
+		// @ts-ignore
+		this.dialog.showErrors( error );
 	}
 
 	public setChangelog( messages: ChangeLogMessages ): void {

@@ -1,5 +1,4 @@
 import { ChangeLogMessages, MessageObject } from "../helper/CpdChangeLogger";
-import ErrorsContainer from "./ErrorsContainer";
 
 export enum Mode {
 	SAVE = "save",
@@ -9,8 +8,7 @@ export enum Mode {
 
 export enum MessageType {
 	MESSAGE = "message",
-	WARNING = "warning",
-	ERROR = "error"
+	WARNING = "warning"
 }
 
 export default class SaveDialog extends OO.ui.ProcessDialog {
@@ -28,8 +26,6 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	private postSaveMessages: HTMLDivElement;
 
 	private postSaveWarnings: HTMLDivElement;
-
-	private postSaveErrors: ErrorsContainer;
 
 	private changeLogMessages: ChangeLogMessages;
 
@@ -130,10 +126,6 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	}
 
 	public addPostSaveMessage( message: HTMLDivElement | string, type: MessageType ): void {
-		if ( type === MessageType.ERROR ) {
-			this.postSaveErrors.addError( message as string );
-		}
-
 		if ( type === MessageType.WARNING ) {
 			const warningWidget = new OO.ui.MessageWidget( { type: "warning" } );
 			warningWidget.setLabel( message );
@@ -151,24 +143,12 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		this.postSaveMessages.innerHTML = "";
 		this.postSaveWarnings.innerHTML = "";
 
-		this.postSaveErrors.clearErrors();
 		this.updateSize();
 	}
 
 	public hasPostSaveMessages(): boolean {
-		if ( this.hasPostSaveErrors() ) {
-			return true;
-		}
-
-		if ( this.postSaveWarnings.children.length > 0 ) {
-			return true;
-		}
-
-		return this.postSaveMessages.children.length > 0;
-	}
-
-	public hasPostSaveErrors(): boolean {
-		return this.postSaveErrors.hasErrors();
+		return this.postSaveMessages.children.length > 0 ||
+			this.postSaveWarnings.children.length > 0;
 	}
 
 	private onSetup(): void {
@@ -223,8 +203,6 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	private initChangesPanel(): OO.ui.PanelLayout {
 		const panel = new OO.ui.PanelLayout( { padded: true, expanded: false, scrollable: true } );
 
-		this.postSaveErrors = new ErrorsContainer( panel.$element.get( 0 ) );
-
 		this.postSaveWarnings = document.createElement( "div" );
 		panel.$element.append( this.postSaveWarnings );
 
@@ -263,5 +241,19 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	private onSavePagesCheckboxChange( selected: boolean ): void {
 		this.saveWithPages = selected;
 		this.updateReviewContent();
+	}
+
+	public onRetryButtonClick(): void {
+		// @ts-ignore
+		super.onRetryButtonClick();
+		this.clearPostSaveMessages();
+	}
+
+	public showErrors( errors: OO.ui.Error[] | OO.ui.Error ): void {
+		// @ts-ignore
+		super.showErrors( errors );
+
+		this.setTitle( mw.msg( "cpd-dialog-save-label-changes-with-error" ) );
+		this.updateSize();
 	}
 }
