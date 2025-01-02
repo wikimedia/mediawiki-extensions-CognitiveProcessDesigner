@@ -79,18 +79,34 @@ export default class CpdViewer extends CpdTool {
 	}
 
 	private addDescriptionPageElementListener( elements: CpdElement[] ): void {
-		this.eventBus.on( "element.click", ( e: InternalEvent ) => {
+		const findCpdElement = ( e: InternalEvent ): CpdElement | null => {
 			const cpdElement = elements.find(
 				( element: CpdElement ): boolean => element.id === e.element.id
 			);
+
+			if ( !cpdElement || !cpdElement.descriptionPage ) {
+				return null;
+			}
+
+			return cpdElement;
+		}
+
+		this.eventBus.on( "element.click", ( e: InternalEvent ) => {
+			const cpdElement = findCpdElement( e );
 			if ( !cpdElement ) {
 				return;
 			}
 
-			if ( cpdElement.descriptionPage ) {
-				const url = this.createDescriptionPageLink( cpdElement, mw.config.get( "wgPageName" ) );
-				window.open( url, "_blank" );
+			window.open( this.createDescriptionPageLink( cpdElement, mw.config.get( "wgPageName" ) ), "_blank" );
+		} );
+
+		this.eventBus.on( "element.hover", ( e: InternalEvent ) => {
+			const cpdElement = findCpdElement( e );
+			if ( !cpdElement ) {
+				return;
 			}
+
+			e.gfx.classList.add( "link" )
 		} );
 	}
 
