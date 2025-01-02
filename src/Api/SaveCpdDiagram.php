@@ -65,6 +65,9 @@ class SaveCpdDiagram extends ApiBase {
 			return;
 		}
 
+		// TODO: remove
+		$this->getResult()->addValue( null, 'error', 'test' );
+
 		$this->getResult()->addValue( null, 'svgFile', $svgFile->getPrefixedDBkey() );
 		$this->getResult()->addValue( null, 'diagramPage', $diagramPage->getTitle()->getPrefixedDBkey() );
 	}

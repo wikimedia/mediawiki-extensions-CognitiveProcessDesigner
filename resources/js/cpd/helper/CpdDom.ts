@@ -151,7 +151,19 @@ export default class CpdDom extends EventEmitter {
 	}
 
 	public showDialogChangesPanel(): void {
-		this.saveDialog?.showChanges();
+		const saveDialog = this.saveDialog;
+
+		if ( !saveDialog ) {
+			return;
+		}
+
+		if ( !saveDialog.hasChanges() ) {
+			this.saveDialog.close();
+
+			return;
+		}
+
+		saveDialog.showChanges();
 	}
 
 	public showMessage( message: HTMLDivElement | string | null, type: MessageType = MessageType.MESSAGE ): void {

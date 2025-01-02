@@ -155,6 +155,18 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		this.updateSize();
 	}
 
+	public hasPostSaveMessages(): boolean {
+		if ( this.hasPostSaveErrors() ) {
+			return true;
+		}
+
+		if ( this.postSaveWarnings.children.length > 0 ) {
+			return true;
+		}
+
+		return this.postSaveMessages.children.length > 0;
+	}
+
 	public hasPostSaveErrors(): boolean {
 		return this.postSaveErrors.hasErrors();
 	}
