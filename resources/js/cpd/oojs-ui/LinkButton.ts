@@ -2,7 +2,6 @@ import Button from "./Button";
 
 export default abstract class LinkButton extends Button {
 	setLink( path: string ): void {
-		console.log(path)
 		if ( !path || path.length === 0) {
 			this.setDisabled( true );
 			return;
