@@ -28,14 +28,21 @@ export default class HighlightUndescribedElementsRenderer extends BaseRenderer {
 		if ( !( element instanceof CpdElement ) ) {
 			return this.bpmnRenderer.drawShape( parentNode, element );
 		}
+
 		const shape = this.bpmnRenderer.drawShape( parentNode, element.bpmnElement );
 
-		const path = svgCreate( "path", {
-			fill: "#000000",
-			d: "M12 4C8 4 5 7 5 11s3 7 7 7 7-3 7-7-3-7-7-7zm0 12c-.56 0-1-.45-1-1s.45-1 1-1c.56 0 1 .45 1 1s-.45 1-1 1zM11 8h2v4h-2zm0 7h2v2h-2z"
-		} );
+		const padding = 5;
+		const outline = svgCreate("rect", {
+			fill: "none",
+			stroke: "#0d6efd",
+			"stroke-width": 1,
+			x: -padding,
+			y: -padding,
+			width: element.bpmnElement.width + padding * 2,
+			height: element.bpmnElement.height + padding * 2
+		});
 
-		shape.after( path, shape.firstChild );
+		shape.after( outline, shape.firstChild );
 
 		return shape;
 	}
