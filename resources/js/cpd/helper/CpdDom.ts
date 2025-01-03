@@ -240,7 +240,10 @@ export default class CpdDom extends EventEmitter {
 
 	private createToolbar(): HtmlElement {
 		const toolFactory = new OO.ui.ToolFactory();
-		const toolbar = new OO.ui.Toolbar( toolFactory, new OO.ui.ToolGroupFactory() );
+		const toolGroupFactory = new OO.ui.ToolGroupFactory();
+
+		const toolbar = new OO.ui.Toolbar( toolFactory, toolGroupFactory );
+
 		const primaryBarButtons = [
 			OpenDialogButton.static.name
 		];
@@ -280,8 +283,9 @@ export default class CpdDom extends EventEmitter {
 			},
 			{
 				name: "secondary",
-				type: "bar",
-				include: secondaryBarButtons
+				type: "list",
+				include: secondaryBarButtons,
+				align: "after"
 			}
 		] );
 
@@ -312,13 +316,15 @@ export default class CpdDom extends EventEmitter {
 
 			if ( item.constructor === DiagramPageLinkButton ) {
 				this.diagramPageLink = item;
-				this.diagramPageLink.setDisabled( true );
 				this.diagramPageLink.setLink( this.diagramPage.getUrl( { action: 'edit' } ) );
+				this.diagramPageLink.onSelect = () => {
+					console.log( "Edit diagram page" );
+				};
 			}
 
 			if ( item.constructor === SvgFileLinkButton ) {
 				this.svgFileLink = item;
-				this.svgFileLink.setDisabled( true );
+				//this.svgFileLink.setDisabled( true );
 			}
 		} );
 
