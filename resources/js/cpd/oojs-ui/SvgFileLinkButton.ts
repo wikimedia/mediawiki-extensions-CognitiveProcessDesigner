@@ -20,4 +20,9 @@ export default class SvgFileLinkButton extends LinkButton {
 
 		return super.setDisabled( disabled );
 	}
+
+	setLink( path: string ): void {
+		super.setLink( path );
+		this.$link.attr( "target", "_blank" );
+	}
 }
