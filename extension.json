@@ -325,9 +325,14 @@
                 "ext.standardDialogs.allpages"
             ]
         },
-        "cps.navigation.connections": {
+		"ext.cpd.diagram.preview": {
+			"styles": [
+				"styles/cpd.diagram.preview.less"
+			]
+		},
+        "ext.cpd.navigation.connections": {
             "styles": [
-                "styles/cps.navigation.connections.less"
+                "styles/cpd.navigation.connections.less"
             ]
         },
         "ext.cpd.dialoginfo.pages": {
