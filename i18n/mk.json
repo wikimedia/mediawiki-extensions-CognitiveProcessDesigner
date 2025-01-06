@@ -21,7 +21,7 @@
 	"cpd-api-save-diagram-param-xml": "XML кодиран во JSON што ќе се подигне на викито",
 	"cpd-api-save-diagram-param-process-id": "Назнака на BPMN-дијаграмот",
 	"cpd-api-save-diagram-error-message": "Грешка при зачувување на дијаграмот: $1",
-	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|Зачувана е следнава $1|Зачувани се следниве $1|0=Не се зачувани}} {{PLURAL:$1|описна страница|описни страници}}:",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=Зачувана е следнава описна страница|Зачувани се следниве $1 описни страници|0=Нема зачувани описни страници}}:",
 	"cpd-description-page-does-not-exist-anymore-warning": "Описната страница $1 повеќе не постои",
 	"cpd-description-page-has-no-property-warning": "Елементот $1 нема својство за описна страница",
 	"cpd-api-save-description-pages-error-message": "Грешка при зачувување на описните страници: $1",
