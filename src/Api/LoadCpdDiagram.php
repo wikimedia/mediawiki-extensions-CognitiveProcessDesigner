@@ -8,6 +8,7 @@ use ApiUsageException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use MediaWiki\MediaWikiServices;
 use Status;
 use Title;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -48,8 +49,43 @@ class LoadCpdDiagram extends ApiBase {
 		$process = $params['process'];
 		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
 
+
+
+
+
 		try {
+//			$revisionLookup = MediaWikiServices::getInstance()->getRevisionLookup();
+//			$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
+//			$revision = $revisionLookup->getRevisionByTitle( $diagramPage );
+//			$prevRevision = $revisionLookup->getPreviousRevision( $revision );
+//			$prevPage = $prevRevision->getPage();
+//			$diagramPage = $wikiPageFactory->newFromTitle( $prevPage );
+//			$slotNames = $revision->getSlots();
+//			if ( !$slotNames->hasSlot( 'main' ) ) {
+//				throw new ApiUsageException( null, Status::newFatal( "No main slot found" ) );
+//			}
+
 			$this->diagramPageUtil->validateContent( $diagramPage );
+			$content = $diagramPage->getContent();
+
+//			$content = $revision->getContent( 'main' );
+//			$content = $prevRevision->getContent( 'main' );
+
+			$contentText = $content->getText();
+			$result->addValue( null, 'exists', 1 );
+			$result->addValue( null, 'xml', $contentText );
+			$result->addValue(
+				null,
+				'descriptionPages',
+				$this->splitDescriptionPagesStatus( $this->descriptionPageUtil->findDescriptionPages( $process ) )
+			);
+
+			$svgFile = $this->diagramPageUtil->getSvgFile( $process );
+			if ( !$svgFile ) {
+				throw new ApiUsageException( null, Status::newFatal( "Diagram svg file does not exist" ) );
+			}
+
+			$result->addValue( null, 'svgFile', $svgFile->getUrl() );
 		} catch ( CpdInvalidContentException $e ) {
 			$result->addValue( null, 'exists', 0 );
 			$result->addValue( null, 'xml', null );
@@ -58,24 +94,7 @@ class LoadCpdDiagram extends ApiBase {
 				'edited' => []
 			] );
 			$result->addValue( null, 'svgFile', null );
-
-			return;
 		}
-
-		$result->addValue( null, 'exists', 1 );
-		$result->addValue( null, 'xml', $diagramPage->getContent()->getText() );
-		$result->addValue(
-			null,
-			'descriptionPages',
-			$this->splitDescriptionPagesStatus( $this->descriptionPageUtil->findDescriptionPages( $process ) )
-		);
-
-		$svgFile = $this->diagramPageUtil->getSvgFile( $process );
-		if ( !$svgFile ) {
-			throw new ApiUsageException( null, Status::newFatal( "Diagram svg file does not exist" ) );
-		}
-
-		$result->addValue( null, 'svgFile', $svgFile->getUrl() );
 	}
 
 	/**
