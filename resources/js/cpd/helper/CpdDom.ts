@@ -113,10 +113,7 @@ export default class CpdDom extends EventEmitter {
 	public setLoading( loading: boolean ): void {
 		if ( loading ) {
 			this.saveDialog?.pushPending();
-			this.showXmlBtn?.setDisabled( true );
-			this.centerViewportBtn?.setDisabled( true );
-			this.openDialogBtn?.setDisabled( true );
-			this.cancelBtn?.setDisabled( true );
+			this.disableButtons();
 		} else {
 			this.saveDialog?.popPending();
 			this.showXmlBtn?.setDisabled( false );
@@ -134,12 +131,11 @@ export default class CpdDom extends EventEmitter {
 		this.svgFileLink?.setLink( svgFile );
 	}
 
-	public disableSvgLink(): void {
-		this.svgFileLink?.setDisabled( true );
-	}
-
-	public disableShowXmlButton(): void {
+	public disableButtons(): void {
+		this.openDialogBtn?.setDisabled( true );
+		this.cancelBtn?.setDisabled( true );
 		this.showXmlBtn?.setDisabled( true );
+		this.centerViewportBtn?.setDisabled( true );
 	}
 
 	public disableSaveButton( isValid: boolean ): void {
@@ -171,6 +167,12 @@ export default class CpdDom extends EventEmitter {
 			return;
 		}
 
+		if ( typeof message === "string" ) {
+			const messageDiv = document.createElement( "div" );
+			messageDiv.innerHTML = message;
+			message = messageDiv;
+		}
+
 		if ( !this.isEdit ) {
 			this.messageBox.append( message );
 			this.messageBox.show();
@@ -182,9 +184,7 @@ export default class CpdDom extends EventEmitter {
 	}
 
 	public showSuccess( message: string ): void {
-		const messageDiv = document.createElement( "div" );
-		messageDiv.textContent = message;
-		this.showMessage( messageDiv, MessageType.MESSAGE );
+		this.showMessage( message, MessageType.MESSAGE );
 	}
 
 	public showWarning( message: string ): void {
@@ -193,9 +193,7 @@ export default class CpdDom extends EventEmitter {
 
 	public showError( message: string ): void {
 		this.diagramPageLink?.setDisabled( true );
-		this.svgFileLink?.setDisabled( true );
-		this.showXmlBtn?.setDisabled( true );
-		this.centerViewportBtn?.setDisabled( true );
+		this.disableButtons();
 
 		if ( !this.isEdit ) {
 			this.messageBox.append( message );

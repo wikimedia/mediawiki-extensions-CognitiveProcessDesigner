@@ -125,7 +125,7 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		this.changeLogMessages = messages;
 	}
 
-	public addPostSaveMessage( message: HTMLDivElement | string, type: MessageType ): void {
+	public addPostSaveMessage( message: HTMLDivElement, type: MessageType ): void {
 		if ( type === MessageType.WARNING ) {
 			const warningWidget = new OO.ui.MessageWidget( { type: "warning" } );
 			warningWidget.setLabel( message );
