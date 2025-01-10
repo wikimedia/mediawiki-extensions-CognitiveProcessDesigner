@@ -110,8 +110,7 @@ export default class CpdViewer extends CpdTool {
 	}
 
 	private handleNotInitializedDiagram( process: string ): void {
-		this.dom.disableShowXmlButton();
-		this.dom.disableSvgLink();
+		this.dom.disableButtons();
 
 		const currentPage = mw.Title.newFromText( mw.config.get( "wgPageName" ) );
 

@@ -48,7 +48,7 @@ export default class CpdSaveDialog extends EventEmitter {
 		return this.dialog.hasPostSaveMessages();
 	}
 
-	public addPostSaveMessage( message: HTMLDivElement | string, type: MessageType ): void {
+	public addPostSaveMessage( message: HTMLDivElement, type: MessageType ): void {
 		this.dialog.addPostSaveMessage( message, type );
 	}
 
