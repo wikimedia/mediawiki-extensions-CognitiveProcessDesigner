@@ -35,7 +35,10 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 		$isNew = false;
 		// Check if the content is invalid or if there is no content. Then the page is new.
 		try {
-			$this->util->validateContent( $diagramPage );
+			if ( !$diagramPage->exists() ) {
+				throw new CpdInvalidContentException( 'Process page does not exist' );
+			}
+			$this->util->validateContent( $diagramPage->getContent() );
 		} catch ( CpdInvalidContentException $e ) {
 			$isNew = true;
 		}

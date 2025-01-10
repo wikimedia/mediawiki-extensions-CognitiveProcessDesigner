@@ -10,6 +10,8 @@ use Content;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\MediaWikiServices;
 use ParserOutput;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use TemplateParser;
 use TextContentHandler;
 
@@ -22,6 +24,9 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 
 	/**
 	 * @param string $modelId
+	 *
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	public function __construct( $modelId = CognitiveProcessDesignerContent::MODEL ) {
 		parent::__construct( $modelId, [ CONTENT_FORMAT_XML ] );
@@ -59,7 +64,9 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		ParserOutput &$output
 	): void {
 		$page = $cpoParams->getPage();
+		$revisionId = $cpoParams->getRevId();
 		$process = $page->getDBkey();
+
 		$canvasHeight = $this->config->get( 'CPDCanvasProcessHeight' );
 
 		$output = MediaWikiServices::getInstance()->getParser()->parse(
@@ -74,13 +81,16 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		$templateParser = new TemplateParser(
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
-		$output->setText( $templateParser->processTemplate(
-			'CpdContainer', [
-				'process' => $process,
-				'showToolbar' => true,
-				'width' => '100%',
-				'height' => $canvasHeight . 'px'
-			]
-		) );
+		$output->setText(
+			$templateParser->processTemplate(
+				'CpdContainer', [
+					'process' => $process,
+					'revision' => $revisionId,
+					'showToolbar' => true,
+					'width' => '100%',
+					'height' => $canvasHeight . 'px'
+				]
+			)
+		);
 	}
 }

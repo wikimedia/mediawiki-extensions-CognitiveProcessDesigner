@@ -50,14 +50,20 @@ export default class CpdApi extends EventEmitter {
 		this.process = process;
 	}
 
-	public async fetchPageContent(): Promise<LoadDiagramResult> {
+	public async fetchPageContent( revision: number | null ): Promise<LoadDiagramResult> {
 		this.emit( CpdApi.STATUS_REQUEST_STARTED );
 
-		return this.api.post( {
+		const data = {
 			action: "cpd-load-diagram",
 			process: this.process,
 			token: mw.user.tokens.get( "csrfToken" )
-		} ).then( ( result: LoadDiagramResult ): LoadDiagramResult => {
+		} as { action: string, process: string, token: string, revisionId?: number };
+
+		if ( revision ) {
+			data.revisionId = revision;
+		}
+
+		return this.api.post( data ).then( ( result: LoadDiagramResult ): LoadDiagramResult => {
 			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
 			return result;
 		} );

@@ -105,7 +105,8 @@
             "class": "\\CognitiveProcessDesigner\\Api\\LoadCpdDiagram",
             "services": [
                 "CpdDiagramPageUtil",
-                "CpdDescriptionPageUtil"
+                "CpdDescriptionPageUtil",
+                "RevisionLookup"
             ]
         },
         "cpd-save-diagram": {
@@ -385,7 +386,8 @@
         "LoadExtensionSchemaUpdates": "addTables",
         "PageDeleteComplete": "onPageDeleteComplete",
         "MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface",
-        "StandardDialogsRegisterPageInfoPanelModules": "standardDialogs"
+        "StandardDialogsRegisterPageInfoPanelModules": "standardDialogs",
+        "ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess"
     },
     "HookHandlers": {
         "tag": {
@@ -445,6 +447,12 @@
             "class": "\\CognitiveProcessDesigner\\HookHandler\\AddResources",
             "services": [
                 "MainConfig"
+            ]
+        },
+        "enableStabilizationForProcess": {
+            "class": "\\CognitiveProcessDesigner\\HookHandler\\EnableStabilizationForProcess",
+            "services": [
+                "ContentStabilization._Config"
             ]
         }
     },

@@ -9,6 +9,7 @@ use CognitiveProcessDesigner\HookHandler\AddDescriptionPageDiagramNavigationLink
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CommentStoreComment;
 use Config;
+use Content;
 use ContentHandler;
 use DOMDocument;
 use File;
@@ -185,17 +186,12 @@ class CpdDiagramPageUtil {
 	}
 
 	/**
-	 * @param WikiPage $page
+	 * @param Content|null $content
 	 *
 	 * @return void
 	 * @throws CpdInvalidContentException
 	 */
-	public function validateContent( WikiPage $page ): void {
-		if ( !$page->exists() ) {
-			throw new CpdInvalidContentException( 'Process page does not exist' );
-		}
-
-		$content = $page->getContent();
+	public function validateContent( Content|null $content ): void {
 		if ( !$content ) {
 			throw new CpdInvalidContentException( 'Process page does not have content' );
 		}

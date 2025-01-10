@@ -8,7 +8,7 @@ use ApiUsageException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RevisionLookup;
 use Status;
 use Title;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -21,59 +21,63 @@ class LoadCpdDiagram extends ApiBase {
 	/** @var CpdDescriptionPageUtil */
 	private CpdDescriptionPageUtil $descriptionPageUtil;
 
+	/** @var RevisionLookup */
+	private RevisionLookup $revisionLookup;
+
 	/**
 	 * @param ApiMain $main
 	 * @param string $action
 	 * @param CpdDiagramPageUtil $diagramPageUtil
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
+	 * @param RevisionLookup $revisionLookup
 	 */
 	public function __construct(
 		ApiMain $main,
 		string $action,
 		CpdDiagramPageUtil $diagramPageUtil,
-		CpdDescriptionPageUtil $descriptionPageUtil
+		CpdDescriptionPageUtil $descriptionPageUtil,
+		RevisionLookup $revisionLookup
 	) {
 		parent::__construct( $main, $action );
 
 		$this->diagramPageUtil = $diagramPageUtil;
 		$this->descriptionPageUtil = $descriptionPageUtil;
+		$this->revisionLookup = $revisionLookup;
 	}
 
 	/**
 	 * @inheritDoc
 	 * @throws ApiUsageException
+	 * @throws CpdInvalidContentException
 	 */
 	public function execute() {
 		$result = $this->getResult();
 		$params = $this->extractRequestParams();
 		$process = $params['process'];
-		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		$revisionId = $params['revisionId'];
 
+		if ( $revisionId ) {
+			$revision = $this->revisionLookup->getRevisionById( $revisionId );
+			$content = $revision->getContent( 'main' );
 
+			if ( !$content ) {
+				throw new CpdInvalidContentException( 'Process page does not exist' );
+			}
+		} else {
+			$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
 
+			if ( !$diagramPage->exists() ) {
+				throw new CpdInvalidContentException( 'Process page does not exist' );
+			}
 
+			$content = $diagramPage->getContent();
+		}
 
 		try {
-//			$revisionLookup = MediaWikiServices::getInstance()->getRevisionLookup();
-//			$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
-//			$revision = $revisionLookup->getRevisionByTitle( $diagramPage );
-//			$prevRevision = $revisionLookup->getPreviousRevision( $revision );
-//			$prevPage = $prevRevision->getPage();
-//			$diagramPage = $wikiPageFactory->newFromTitle( $prevPage );
-//			$slotNames = $revision->getSlots();
-//			if ( !$slotNames->hasSlot( 'main' ) ) {
-//				throw new ApiUsageException( null, Status::newFatal( "No main slot found" ) );
-//			}
+			$this->diagramPageUtil->validateContent( $content );
 
-			$this->diagramPageUtil->validateContent( $diagramPage );
-			$content = $diagramPage->getContent();
-
-//			$content = $revision->getContent( 'main' );
-//			$content = $prevRevision->getContent( 'main' );
-
-			$contentText = $content->getText();
 			$result->addValue( null, 'exists', 1 );
-			$result->addValue( null, 'xml', $contentText );
+			$result->addValue( null, 'xml', $content->getText() );
 			$result->addValue(
 				null,
 				'descriptionPages',
@@ -131,6 +135,10 @@ class LoadCpdDiagram extends ApiBase {
 			'process' => [
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true
+			],
+			'revisionId' => [
+				ParamValidator::PARAM_TYPE => 'integer',
+				ParamValidator::PARAM_REQUIRED => false
 			]
 		];
 	}

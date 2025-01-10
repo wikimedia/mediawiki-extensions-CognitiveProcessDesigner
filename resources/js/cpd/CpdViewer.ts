@@ -23,7 +23,7 @@ export default class CpdViewer extends CpdTool {
 
 	private eventBus: EventBus;
 
-	public constructor( process: string, container: HTMLElement ) {
+	public constructor( process: string, container: HTMLElement, revision: number | null = null ) {
 		super( process, container );
 
 		this.dom.initDomElements( false );
@@ -39,11 +39,11 @@ export default class CpdViewer extends CpdTool {
 		} );
 		this.eventBus = this.bpmnViewer.get( "eventBus" );
 
-		this.renderDiagram( process );
+		this.renderDiagram( process, revision );
 	}
 
-	protected async renderDiagram( process: string ): Promise<void> {
-		await this.initPageContent();
+	protected async renderDiagram( process: string, revision: number | null = null ): Promise<void> {
+		await this.initPageContent( revision );
 
 		this.elementFactory = new CpdElementFactory( this.bpmnViewer.get( "elementRegistry" ), process, this.descriptionPages );
 
@@ -134,6 +134,7 @@ export default class CpdViewer extends CpdTool {
 
 Object.keys( mw.config.get( "cpdProcesses" ) ).forEach( ( process: string ): void => {
 	document.querySelectorAll( `[data-process=${ process }]` ).forEach( ( container: HTMLElement ): void => {
-		new CpdViewer( process, container );
+		const revision = container.getAttribute( "data-revision" );
+		new CpdViewer( process, container, revision ? Number( revision ) : null );
 	} );
 } );
