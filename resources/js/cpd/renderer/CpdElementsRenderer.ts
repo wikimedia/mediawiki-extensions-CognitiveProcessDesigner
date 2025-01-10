@@ -1,10 +1,11 @@
 import BaseRenderer from "diagram-js/lib/draw/BaseRenderer";
 import EventBus from "diagram-js/lib/core/EventBus";
-import { create as svgCreate } from "tiny-svg";
 import BpmnRenderer from "bpmn-js/lib/draw/BpmnRenderer";
 import CpdElement from "../model/CpdElement";
 
-export default class HighlightUndescribedElementsRenderer extends BaseRenderer {
+export default class CpdElementsRenderer extends BaseRenderer {
+	private static readonly HIGHLIGHT_COLOR = "#FF8C00";
+
 	private bpmnRenderer: BpmnRenderer;
 
 	constructor( eventBus: EventBus, bpmnRenderer: BpmnRenderer ) {
@@ -12,7 +13,7 @@ export default class HighlightUndescribedElementsRenderer extends BaseRenderer {
 		this.bpmnRenderer = bpmnRenderer;
 	}
 
-	canRender( element: CpdElement|Element ): boolean {
+	canRender( element: CpdElement | Element ): boolean {
 		if ( !( element instanceof CpdElement ) ) {
 			return false;
 		}
@@ -21,7 +22,7 @@ export default class HighlightUndescribedElementsRenderer extends BaseRenderer {
 			return false;
 		}
 
-		return element.descriptionPage.isNew;
+		return true;
 	}
 
 	drawShape( parentNode: SVGElement, element: any ): SVGElement {
@@ -30,19 +31,14 @@ export default class HighlightUndescribedElementsRenderer extends BaseRenderer {
 		}
 
 		const shape = this.bpmnRenderer.drawShape( parentNode, element.bpmnElement );
+		console.log(element.bpmnElement)
+		console.log(shape)
+		shape.style.cursor = "pointer";
 
-		const padding = 5;
-		const outline = svgCreate("rect", {
-			fill: "none",
-			stroke: "#0d6efd",
-			"stroke-width": 1,
-			x: -padding,
-			y: -padding,
-			width: element.bpmnElement.width + padding * 2,
-			height: element.bpmnElement.height + padding * 2
-		});
-
-		shape.after( outline, shape.firstChild );
+		// ERM39900: Highlight unchanged description pages
+		if ( element.descriptionPage.isNew ) {
+			shape.style.stroke = CpdElementsRenderer.HIGHLIGHT_COLOR;
+		}
 
 		return shape;
 	}
