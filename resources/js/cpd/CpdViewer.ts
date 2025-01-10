@@ -7,7 +7,7 @@ import hook from "types-mediawiki/mw/hook";
 import EventBus from "diagram-js/lib/core/EventBus";
 import { CpdTool } from "./CpdTool";
 import NavigatedViewer from "bpmn-js/lib/NavigatedViewer";
-import HighlightUndescribedElementsRenderer from "./renderer/HighlightUndescribedElementsRenderer";
+import CpdElementsRenderer from "./renderer/CpdElementsRenderer";
 import CpdElement from "./model/CpdElement";
 import { CpdElementFactory } from "./helper/CpdElementFactory";
 
@@ -33,7 +33,7 @@ export default class CpdViewer extends CpdTool {
 			additionalModules: [
 				{
 					__init__: [ "customRenderer" ],
-					customRenderer: [ "type", HighlightUndescribedElementsRenderer ]
+					customRenderer: [ "type", CpdElementsRenderer ]
 				}
 			]
 		} );
@@ -59,17 +59,12 @@ export default class CpdViewer extends CpdTool {
 	private async initDescriptionPageElements(): Promise<void> {
 		const elements = this.elementFactory.findElementsWithExistingDescriptionPage();
 		this.addDescriptionPageElementListener( elements );
-		this.highlightUndescribedElements( elements );
+		this.rerenderCpdElements( elements );
 	}
 
-	private highlightUndescribedElements( elements: CpdElement[] ): void {
+	private rerenderCpdElements( elements: CpdElement[] ): void {
 		elements.forEach( ( element: CpdElement ): void => {
 			if ( !element.descriptionPage ) {
-				return;
-			}
-
-			// Only rerender the element if the description page has not been edited
-			if ( !element.descriptionPage.isNew ) {
 				return;
 			}
 
@@ -89,7 +84,7 @@ export default class CpdViewer extends CpdTool {
 			}
 
 			return cpdElement;
-		}
+		};
 
 		this.eventBus.on( "element.click", ( e: InternalEvent ) => {
 			const cpdElement = findCpdElement( e );
@@ -98,15 +93,6 @@ export default class CpdViewer extends CpdTool {
 			}
 
 			window.open( this.createDescriptionPageLink( cpdElement, mw.config.get( "wgPageName" ) ), "_blank" );
-		} );
-
-		this.eventBus.on( "element.hover", ( e: InternalEvent ) => {
-			const cpdElement = findCpdElement( e );
-			if ( !cpdElement ) {
-				return;
-			}
-
-			e.gfx.classList.add( "link" )
 		} );
 	}
 

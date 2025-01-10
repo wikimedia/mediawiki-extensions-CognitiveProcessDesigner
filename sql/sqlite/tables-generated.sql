@@ -2,7 +2,7 @@
 -- Source: extensions/CognitiveProcessDesigner/sql/tables.json
 -- Do not modify this file directly.
 -- See https://www.mediawiki.org/wiki/Manual:Schema_changes
-CREATE TABLE /*_*/cpd_element_connections (
+CREATE TABLE IF NOT EXISTS /*_*/cpd_element_connections (
   from_page VARCHAR(255) NOT NULL,
   to_page VARCHAR(255) NOT NULL,
   process VARCHAR(255) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE /*_*/cpd_element_connections (
 );
 
 
-CREATE TABLE /*_*/cpd_orphaned_description_pages (
+CREATE TABLE IF NOT EXISTS /*_*/cpd_orphaned_description_pages (
   page_title VARCHAR(255) NOT NULL,
   process VARCHAR(255) NOT NULL
 );
