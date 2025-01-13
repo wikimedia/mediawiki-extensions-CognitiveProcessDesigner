@@ -22,7 +22,7 @@
 	"cpd-api-save-diagram-param-xml": "JSON-gecodeerde XML om te uploaden naar wiki",
 	"cpd-api-save-diagram-param-process-id": "ID van het BPMN-diagram",
 	"cpd-api-save-diagram-error-message": "Fout bij het opslaan van het diagram: $1",
-	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|De volgende beschrijvingspagina is|De volgende $1 beschrijvingspagina’s zijn|0=Er zijn geen beschrijvingspagina’s}} opgeslagen:",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=De volgende beschrijvingspagina is|De volgende $1 beschrijvingspagina’s zijn|0=Er zijn geen beschrijvingspagina’s}} opgeslagen:",
 	"cpd-description-page-does-not-exist-anymore-warning": "Beschrijvingspagina $1 bestaat niet meer",
 	"cpd-description-page-has-no-property-warning": "Element $1 heeft geen beschrijvingspagina-eigenschap",
 	"cpd-api-save-description-pages-error-message": "Fout bij het opslaan van beschrijvingspagina's: $1",
