@@ -11,6 +11,8 @@ import CpdElement from "../model/CpdElement";
 export interface SaveDiagramResult {
 	svgFile: string;
 	diagramPage: string;
+	descriptionPages: string[];
+	warnings: string[];
 }
 
 export interface LoadDiagramResult {
@@ -21,11 +23,6 @@ export interface LoadDiagramResult {
 	};
 	svgFile: string | null;
 	exists: boolean;
-}
-
-export interface SaveDescriptionPagesResult {
-	descriptionPages: string[];
-	warnings: string[];
 }
 
 export interface ElementDescriptionPage {
@@ -71,7 +68,9 @@ export default class CpdApi extends EventEmitter {
 
 	public async saveDiagram(
 		xml: string,
-		svg: SaveSVGResult
+		svg: SaveSVGResult,
+		withDescriptionPages: boolean,
+		elements: CpdElement[] = []
 	): Promise<SaveDiagramResult> {
 		this.emit( CpdApi.STATUS_REQUEST_STARTED );
 
@@ -80,40 +79,32 @@ export default class CpdApi extends EventEmitter {
 			process: this.process,
 			xml: JSON.stringify( xml ),
 			svg: JSON.stringify( svg.svg ),
+			elements: JSON.stringify( elements ),
+			withDescriptionPages: withDescriptionPages,
 			token: mw.user.tokens.get( "csrfToken" )
 		} ).then( ( result ): SaveDiagramResult => {
-			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
+			if ( withDescriptionPages ) {
+				this.emit(
+					CpdApi.STATUS_REQUEST_FINISHED,
+					mw.message( "cpd-api-save-description-pages-success-message", result.descriptionPages.length ).text()
+				);
+			} else {
+				this.emit( CpdApi.STATUS_REQUEST_FINISHED );
+			}
+
 			return result as SaveDiagramResult;
 		} ).fail( ( errorCode: string, error: any ) => {
-			this.emit(
-				CpdApi.STATUS_REQUEST_FAILED,
-				mw.message( "cpd-api-save-diagram-error-message", this.getErrorMessage( errorCode, error ) ).text()
-			);
-		} );
-	}
-
-	public async saveDescriptionPages(
-		elements: CpdElement[]
-	): Promise<SaveDescriptionPagesResult> {
-		this.emit( CpdApi.STATUS_REQUEST_STARTED );
-
-		return this.api.post( {
-			action: "cpd-save-description-pages",
-			process: this.process,
-			elements: JSON.stringify( elements ),
-			token: mw.user.tokens.get( "csrfToken" )
-		} ).then( ( result: SaveDescriptionPagesResult ): SaveDescriptionPagesResult => {
-			this.emit(
-				CpdApi.STATUS_REQUEST_FINISHED,
-				mw.message( "cpd-api-save-description-pages-success-message", result.descriptionPages.length ).text()
-			);
-
-			return result;
-		} ).fail( ( errorCode: string, error: any ) => {
-			this.emit(
-				CpdApi.STATUS_REQUEST_FAILED,
-				mw.message( "cpd-api-save-description-pages-error-message", this.getErrorMessage( errorCode, error ) ).text()
-			);
+			if ( withDescriptionPages ) {
+				this.emit(
+					CpdApi.STATUS_REQUEST_FAILED,
+					mw.message( "cpd-api-save-description-pages-error-message", this.getErrorMessage( errorCode, error ) ).text()
+				);
+			} else {
+				this.emit(
+					CpdApi.STATUS_REQUEST_FAILED,
+					mw.message( "cpd-api-save-diagram-error-message", this.getErrorMessage( errorCode, error ) ).text()
+				);
+			}
 		} );
 	}
 

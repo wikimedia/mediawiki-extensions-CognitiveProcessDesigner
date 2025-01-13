@@ -44,6 +44,11 @@
 				"name": "process",
 				"type": "string",
 				"options": { "notnull": true }
+			},
+			{
+				"name": "process_rev",
+				"type": "integer",
+				"options": { "notnull": true }
 			}
 		],
 		"indexes": [

@@ -90,11 +90,7 @@
     },
     "SpecialPages": {
         "OrphanedProcessDescriptionPages": {
-            "class": "\\CognitiveProcessDesigner\\Special\\SpecialOrphanedDescriptionPages",
-            "services": [
-                "DBLoadBalancer",
-                "LinkRenderer"
-            ]
+            "class": "\\CognitiveProcessDesigner\\Special\\SpecialOrphanedDescriptionPages"
         },
         "ProcessOverview": {
             "class": "\\CognitiveProcessDesigner\\Special\\SpecialProcessOverview"
@@ -113,17 +109,9 @@
             "class": "\\CognitiveProcessDesigner\\Api\\SaveCpdDiagram",
             "services": [
                 "CpdDiagramPageUtil",
-                "SvgFile"
-            ]
-        },
-        "cpd-save-description-pages": {
-            "class": "\\CognitiveProcessDesigner\\Api\\SaveCpdDescriptionPages",
-            "services": [
+                "CpdSaveDescriptionPagesUtil",
                 "CpdElementFactory",
-                "CpdDiagramPageUtil",
-                "CpdDescriptionPageUtil",
-                "JobQueueGroup",
-                "LinkRenderer"
+                "SvgFile"
             ]
         },
         "cpd-syntax-highlight-xml": {

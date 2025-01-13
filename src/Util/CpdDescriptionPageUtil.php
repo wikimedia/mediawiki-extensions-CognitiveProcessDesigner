@@ -135,10 +135,11 @@ class CpdDescriptionPageUtil {
 	/**
 	 * @param CpdElement[] $elements
 	 * @param string $process
+	 * @param int $revision
 	 *
 	 * @return void
 	 */
-	public function updateOrphanedDescriptionPages( array $elements, string $process ): void {
+	public function updateOrphanedDescriptionPages( array $elements, string $process, int $revision ): void {
 		$dbw = $this->loadBalancer->getConnectionRef( DB_PRIMARY );
 
 		// Clear orphaned pages rows from this process
@@ -169,6 +170,7 @@ class CpdDescriptionPageUtil {
 			'cpd_orphaned_description_pages',
 			array_map( fn( string $page ) => [
 				'process' => $process,
+				'process_rev' => $revision,
 				'page_title' => $page
 			], $orphanedPages ),
 			__METHOD__

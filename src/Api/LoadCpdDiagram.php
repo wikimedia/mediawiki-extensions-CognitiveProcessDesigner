@@ -56,24 +56,24 @@ class LoadCpdDiagram extends ApiBase {
 		$process = $params['process'];
 		$revisionId = $params['revisionId'];
 
-		if ( $revisionId ) {
-			$revision = $this->revisionLookup->getRevisionById( $revisionId );
-			$content = $revision->getContent( 'main' );
-
-			if ( !$content ) {
-				throw new CpdInvalidContentException( 'Process page does not exist' );
-			}
-		} else {
-			$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
-
-			if ( !$diagramPage->exists() ) {
-				throw new CpdInvalidContentException( 'Process page does not exist' );
-			}
-
-			$content = $diagramPage->getContent();
-		}
-
 		try {
+			if ( $revisionId ) {
+				$revision = $this->revisionLookup->getRevisionById( $revisionId );
+				$content = $revision->getContent( 'main' );
+
+				if ( !$content ) {
+					throw new CpdInvalidContentException( 'Process page does not exist' );
+				}
+			} else {
+				$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+
+				if ( !$diagramPage->exists() ) {
+					throw new CpdInvalidContentException( 'Process page does not exist' );
+				}
+
+				$content = $diagramPage->getContent();
+			}
+
 			$this->diagramPageUtil->validateContent( $content );
 
 			$result->addValue( null, 'exists', 1 );

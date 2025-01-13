@@ -1,31 +1,19 @@
 <?php
 
-namespace CognitiveProcessDesigner\Api;
+namespace CognitiveProcessDesigner\Util;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
 use CognitiveProcessDesigner\CpdElement;
-use CognitiveProcessDesigner\CpdElementFactory;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use CognitiveProcessDesigner\Job\MoveDescriptionPage;
 use CognitiveProcessDesigner\Job\SaveDescriptionPage;
-use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
-use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use Exception;
 use JobQueueGroup;
 use MediaWiki\Linker\LinkRenderer;
-use MediaWiki\User\UserIdentity;
 use Message;
-use Wikimedia\ParamValidator\ParamValidator;
+use User;
 
-class SaveCpdDescriptionPages extends ApiBase {
-	/**
-	 * @var CpdElementFactory
-	 */
-	private CpdElementFactory $cpdElementFactory;
-
+class CpdSaveDescriptionPagesUtil {
 	/**
 	 * @var JobQueueGroup
 	 */
@@ -41,35 +29,21 @@ class SaveCpdDescriptionPages extends ApiBase {
 	 */
 	private CpdDescriptionPageUtil $descriptionPageUtil;
 
-	/**
-	 * @var UserIdentity
-	 */
-	private UserIdentity $user;
-
 	/** @var LinkRenderer */
 	private LinkRenderer $linkRenderer;
 
 	/**
-	 * @param ApiMain $main
-	 * @param string $action
-	 * @param CpdElementFactory $cpdElementFactory
 	 * @param CpdDiagramPageUtil $diagramPageUtil
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 * @param JobQueueGroup $jobQueueGroup
 	 * @param LinkRenderer $linkRenderer
 	 */
 	public function __construct(
-		ApiMain $main,
-		string $action,
-		CpdElementFactory $cpdElementFactory,
 		CpdDiagramPageUtil $diagramPageUtil,
 		CpdDescriptionPageUtil $descriptionPageUtil,
 		JobQueueGroup $jobQueueGroup,
 		LinkRenderer $linkRenderer
 	) {
-		parent::__construct( $main, $action );
-
-		$this->cpdElementFactory = $cpdElementFactory;
 		$this->jobQueueGroup = $jobQueueGroup;
 		$this->diagramPageUtil = $diagramPageUtil;
 		$this->descriptionPageUtil = $descriptionPageUtil;
@@ -77,58 +51,30 @@ class SaveCpdDescriptionPages extends ApiBase {
 	}
 
 	/**
-	 * @inheritDoc
-	 * @throws ApiUsageException
-	 */
-	public function execute(): void {
-		$this->user = $this->getContext()->getUser();
-
-		$params = $this->extractRequestParams();
-		$process = $params['process'];
-		$elements = json_decode( $params['elements'], true );
-
-		if ( empty( $elements ) ) {
-			$this->getResult()->addValue( null, 'descriptionPages', [] );
-			$this->getResult()->addValue( null, 'warnings', [] );
-
-			return;
-		}
-
-		$elements = $this->cpdElementFactory->makeElements( $elements );
-		// TODO: Think about moving this to save description pages
-		$this->descriptionPageUtil->updateOrphanedDescriptionPages( $elements, $process );
-		$this->descriptionPageUtil->updateElementConnections( $elements, $process );
-
-		try {
-			$result = $this->processDescriptionPages( $elements );
-		} catch ( CpdSaveException $e ) {
-			$this->getResult()->addValue( null, 'error', $e->getMessage() );
-
-			return;
-		}
-
-		$this->getResult()->addValue(
-			null,
-			'descriptionPages',
-			array_map( static function ( $element ) {
-				return json_encode( $element );
-			}, $result['elements'] )
-		);
-
-		$this->getResult()->addValue(
-			null,
-			'warnings',
-			$result['warnings']
-		);
-	}
-
-	/**
+	 * @param User $user
+	 * @param string $process
+	 * @param int $revision
 	 * @param CpdElement[] $elements
 	 *
 	 * @return array
 	 * @throws CpdSaveException
 	 */
-	private function processDescriptionPages( array $elements ): array {
+	public function saveDescriptionPages( User $user, string $process, int $revision, array $elements ): array {
+		// TODO: Think about moving this to save description pages
+		$this->descriptionPageUtil->updateOrphanedDescriptionPages( $elements, $process, $revision );
+		$this->descriptionPageUtil->updateElementConnections( $elements, $process );
+
+		return $this->processDescriptionPages( $elements, $user );
+	}
+
+	/**
+	 * @param CpdElement[] $elements
+	 * @param User $user
+	 *
+	 * @return array
+	 * @throws CpdSaveException
+	 */
+	private function processDescriptionPages( array $elements, User $user ): array {
 		if ( empty( $elements ) ) {
 			throw new CpdSaveException( 'No elements to save' );
 		}
@@ -138,14 +84,11 @@ class SaveCpdDescriptionPages extends ApiBase {
 		foreach ( $elements as $element ) {
 			$warnings = array_merge(
 				$warnings,
-				$this->processPage( $element )
+				$this->processPage( $element, $user )
 			);
 		}
 
-		return [
-			'elements' => $elements,
-			'warnings' => $warnings
-		];
+		return $warnings;
 	}
 
 	/**
@@ -153,11 +96,12 @@ class SaveCpdDescriptionPages extends ApiBase {
 	 * for the given element
 	 *
 	 * @param CpdElement $element
+	 * @param User $user
 	 *
 	 * @return array
 	 * @throws CpdSaveException
 	 */
-	private function processPage( CpdElement $element ): array {
+	private function processPage( CpdElement $element, User $user ): array {
 		$warnings = [];
 
 		$descriptionPage = $element->getDescriptionPage();
@@ -187,9 +131,8 @@ class SaveCpdDescriptionPages extends ApiBase {
 						$oldDescriptionPage->getSubpageText()
 					)
 				)->text();
-
 			} else {
-				$this->moveDescriptionPage( $element );
+				$this->moveDescriptionPage( $element, $user );
 
 				return $warnings;
 			}
@@ -199,23 +142,25 @@ class SaveCpdDescriptionPages extends ApiBase {
 			return $warnings;
 		}
 
-		$this->createDescriptionPage( $element );
+		$this->createDescriptionPage( $element, $user );
 
 		return $warnings;
 	}
 
 	/**
 	 * @param CpdElement $element
+	 * @param User $user
 	 *
 	 * @return void
 	 * @throws CpdSaveException
 	 */
 	private function moveDescriptionPage(
-		CpdElement $element
+		CpdElement $element,
+		User $user
 	): void {
 		try {
 			$job = new MoveDescriptionPage(
-				$element->getOldDescriptionPage(), $element->getDescriptionPage(), $this->user
+				$element->getOldDescriptionPage(), $element->getDescriptionPage(), $user
 			);
 			$job->run();
 			// TODO implement job queue; remove this line
@@ -227,14 +172,15 @@ class SaveCpdDescriptionPages extends ApiBase {
 
 	/**
 	 * @param CpdElement $element
+	 * @param User $user
 	 *
 	 * @return void
 	 * @throws CpdSaveException
 	 */
-	private function createDescriptionPage( CpdElement $element ): void {
+	private function createDescriptionPage( CpdElement $element, User $user ): void {
 		$content = $this->descriptionPageUtil->generateContentByType( $element->getType() );
 		try {
-			$job = new SaveDescriptionPage( $element->getDescriptionPage(), $content, $this->user );
+			$job = new SaveDescriptionPage( $element->getDescriptionPage(), $content, $user );
 			// TODO implement job queue; remove this line
 			//$this->jobQueueGroup->push( $job );
 			$job->run();
@@ -264,28 +210,5 @@ class SaveCpdDescriptionPages extends ApiBase {
 
 			$descriptionPages[] = $element->getDescriptionPage();
 		}
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function needsToken(): string {
-		return 'csrf';
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	protected function getAllowedParams(): array {
-		return [
-			'process' => [
-				ParamValidator::PARAM_TYPE => 'string',
-				ParamValidator::PARAM_REQUIRED => true
-			],
-			'elements' => [
-				ParamValidator::PARAM_TYPE => 'string',
-				ParamValidator::PARAM_REQUIRED => false
-			]
-		];
 	}
 }
