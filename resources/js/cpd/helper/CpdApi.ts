@@ -80,7 +80,7 @@ export default class CpdApi extends EventEmitter {
 			xml: JSON.stringify( xml ),
 			svg: JSON.stringify( svg.svg ),
 			elements: JSON.stringify( elements ),
-			withDescriptionPages: withDescriptionPages,
+			saveDescriptionPages: withDescriptionPages,
 			token: mw.user.tokens.get( "csrfToken" )
 		} ).then( ( result ): SaveDiagramResult => {
 			if ( withDescriptionPages ) {

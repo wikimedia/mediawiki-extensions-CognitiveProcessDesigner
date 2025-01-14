@@ -75,20 +75,6 @@ class CpdDiagramPageUtil {
 	/**
 	 * @param PageReference $title
 	 *
-	 * @return string
-	 * @throws CpdInvalidNamespaceException
-	 */
-	public static function getProcessFromTitle( PageReference $title ): string {
-		if ( $title->getNamespace() !== NS_PROCESS ) {
-			throw new CpdInvalidNamespaceException( 'Page not in CPD namespace' );
-		}
-
-		return explode( '/', $title->getText() )[0];
-	}
-
-	/**
-	 * @param PageReference $title
-	 *
 	 * @return array
 	 * @throws CpdInvalidNamespaceException
 	 */
@@ -112,6 +98,20 @@ class CpdDiagramPageUtil {
 	 */
 	public function getDiagramPage( string $process ): WikiPage {
 		return $this->wikiPageFactory->newFromTitle( Title::newFromText( $process, NS_PROCESS ) );
+	}
+
+	/**
+	 * @param PageReference $pageRef
+	 *
+	 * @return string
+	 * @throws CpdInvalidNamespaceException
+	 */
+	public static function getProcess( PageReference $pageRef ): string {
+		if ( $pageRef->getNamespace() !== NS_PROCESS ) {
+			throw new CpdInvalidNamespaceException( 'Page not in CPD namespace' );
+		}
+
+		return explode( '/', $pageRef->getText() )[0];
 	}
 
 	/**

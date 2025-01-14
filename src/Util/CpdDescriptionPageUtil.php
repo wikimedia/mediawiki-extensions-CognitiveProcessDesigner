@@ -142,13 +142,6 @@ class CpdDescriptionPageUtil {
 	public function updateOrphanedDescriptionPages( array $elements, string $process, int $revision ): void {
 		$dbw = $this->loadBalancer->getConnectionRef( DB_PRIMARY );
 
-		// Clear orphaned pages rows from this process
-		$dbw->delete(
-			'cpd_orphaned_description_pages',
-			[ 'process' => $process ],
-			__METHOD__
-		);
-
 		$orphanedPages = [];
 		$existingPages = array_map( fn( Title $title ) => $title->getPrefixedDBkey(),
 			$this->findDescriptionPages( $process ) );
@@ -165,7 +158,6 @@ class CpdDescriptionPageUtil {
 			return;
 		}
 
-		// Insert orphaned pages
 		$dbw->insert(
 			'cpd_orphaned_description_pages',
 			array_map( fn( string $page ) => [
@@ -173,6 +165,32 @@ class CpdDescriptionPageUtil {
 				'process_rev' => $revision,
 				'page_title' => $page
 			], $orphanedPages ),
+			__METHOD__,
+			[ 'IGNORE' ]
+		);
+	}
+
+	/**
+	 * Removes all orphaned description pages for the given process
+	 * except the ones that are in the given revision when given.
+	 * Runs when a new a process is stabilized.
+	 *
+	 * @param string $process
+	 * @param int|null $revision
+	 *
+	 * @return void
+	 */
+	public function cleanUpOrphanedDescriptionPages( string $process, int $revision = null ): void {
+		$dbw = $this->loadBalancer->getConnectionRef( DB_PRIMARY );
+
+		$conds = [ 'process' => $process ];
+		if ( $revision ) {
+			$conds[] = 'process_rev != ' . $revision;
+		}
+
+		$dbw->delete(
+			'cpd_orphaned_description_pages',
+			$conds,
 			__METHOD__
 		);
 	}

@@ -60,9 +60,12 @@ class CpdSaveDescriptionPagesUtil {
 	 * @throws CpdSaveException
 	 */
 	public function saveDescriptionPages( User $user, string $process, int $revision, array $elements ): array {
-		// TODO: Think about moving this to save description pages
-		$this->descriptionPageUtil->updateOrphanedDescriptionPages( $elements, $process, $revision );
-		$this->descriptionPageUtil->updateElementConnections( $elements, $process );
+		try {
+			$this->descriptionPageUtil->updateOrphanedDescriptionPages( $elements, $process, $revision );
+			$this->descriptionPageUtil->updateElementConnections( $elements, $process );
+		} catch ( Exception $e ) {
+			throw new CpdSaveException( $e->getMessage() );
+		}
 
 		return $this->processDescriptionPages( $elements, $user );
 	}

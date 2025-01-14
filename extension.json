@@ -130,7 +130,9 @@
         "cpd-orphaned-description-pages-store": {
             "class": "\\CognitiveProcessDesigner\\Api\\Store\\OrphanedDescriptionPagesStore",
             "services": [
-                "DBLoadBalancer"
+                "DBLoadBalancer",
+				"CpdDiagramPageUtil",
+				"ContentStabilization.Lookup"
             ]
         },
         "cpd-diagram-usage": {
@@ -375,7 +377,8 @@
         "PageDeleteComplete": "onPageDeleteComplete",
         "MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface",
         "StandardDialogsRegisterPageInfoPanelModules": "standardDialogs",
-        "ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess"
+        "ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess",
+		"ContentStabilizationStablePointAdded": "stablePointAdded"
     },
     "HookHandlers": {
         "tag": {
@@ -442,7 +445,14 @@
             "services": [
                 "ContentStabilization._Config"
             ]
-        }
+        },
+		"stablePointAdded": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\StablePointAdded",
+			"services": [
+				"CpdDiagramPageUtil",
+				"CpdDescriptionPageUtil"
+			]
+		}
     },
     "ResourceFileModulePaths": {
         "localBasePath": "resources",

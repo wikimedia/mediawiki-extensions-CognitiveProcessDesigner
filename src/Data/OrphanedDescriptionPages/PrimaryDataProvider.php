@@ -36,7 +36,8 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 			'cpd_orphaned_description_pages',
 			[
 				'page_title',
-				'process'
+				'process',
+				'process_rev'
 			],
 			$filterConds
 		);
@@ -45,6 +46,7 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 		foreach ( $rows as $row ) {
 			$data = new stdClass();
 			$data->process = $row->process;
+			$data->process_rev = $row->process_rev;
 			$data->title = $row->page_title;
 			$records[] = new Record( $data );
 		}
