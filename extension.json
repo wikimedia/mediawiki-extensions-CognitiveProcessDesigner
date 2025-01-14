@@ -228,7 +228,7 @@
                 "cpd-error-message-missing-initial-element",
                 "cpd-error-message-invalid-xml",
                 "cpd-no-changes-warning-message",
-                "cpd-button-save-pages-title",
+                "cpd-dialog-save-changes-button-title",
                 "cpd-button-cancel-title",
                 "cpd-button-show-xml",
                 "cpd-button-hide-xml",
@@ -250,7 +250,8 @@
                 "cpd-dialog-save-label-save",
                 "cpd-dialog-save-label-changes",
                 "cpd-dialog-save-label-changes-with-error",
-                "cpd-dialog-save-label-resume-editing"
+                "cpd-dialog-save-label-resume-editing",
+                "cpd-button-center-viewport"
             ]
         },
         "ext.cpd.visualEditorTagDefinition": {

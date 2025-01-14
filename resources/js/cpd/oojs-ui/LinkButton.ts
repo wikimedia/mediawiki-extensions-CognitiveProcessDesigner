@@ -10,4 +10,12 @@ export default abstract class LinkButton extends Button {
 		this.$link.attr( "href", path );
 		this.setDisabled( false );
 	}
+
+	onSelect() {
+		if ( this.isDisabled() ) {
+			return;
+		}
+
+		this.$link[ 0 ].click();
+	}
 }

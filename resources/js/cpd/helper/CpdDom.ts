@@ -14,6 +14,7 @@ import SvgFileLinkButton from "../oojs-ui/SvgFileLinkButton";
 import { ChangeLogMessages } from "./CpdChangeLogger";
 import CenterViewportButton from "../oojs-ui/CenterViewportButton";
 import { MessageType } from "../oojs-ui/SaveDialog";
+import ToolGroupSetupMap = OO.ui.Toolbar.ToolGroupSetupMap;
 
 interface HtmlElement extends HTMLElement {
 	hide: () => void;
@@ -264,28 +265,33 @@ export default class CpdDom extends EventEmitter {
 			secondaryBarButtons.push( ShowXmlButton.static.name );
 		}
 
+		const primaryBarConfig = {
+			name: "primary",
+			type: "bar",
+			include: primaryBarButtons,
+			align: "after"
+		} as ToolGroupSetupMap;
+
+		const secondaryBarConfig = {
+			name: "secondary",
+			type: "list",
+			icon: "ellipsis",
+			align: "after",
+			include: secondaryBarButtons
+		} as ToolGroupSetupMap;
+
 		if ( this.isEdit ) {
 			this.saveDialog = new CpdSaveDialog();
 			this.saveDialog.on( "save", this.onSave.bind( this ) );
 
 			toolFactory.register( OpenDialogButton );
 			toolFactory.register( CancelButton );
+
+			secondaryBarConfig.type = "bar";
+			secondaryBarConfig.align = "before";
 		}
 
-		toolbar.setup( [
-			{
-				name: "primary",
-				type: "bar",
-				include: primaryBarButtons,
-				align: "after"
-			},
-			{
-				name: "secondary",
-				type: "list",
-				include: secondaryBarButtons,
-				align: "after"
-			}
-		] );
+		toolbar.setup( [ primaryBarConfig, secondaryBarConfig ] );
 
 		[
 			...toolbar.getToolGroupByName( "primary" ).getItems(),
