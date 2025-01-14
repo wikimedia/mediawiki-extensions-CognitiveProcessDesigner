@@ -1,10 +1,11 @@
 import BaseRenderer from "diagram-js/lib/draw/BaseRenderer";
 import EventBus from "diagram-js/lib/core/EventBus";
-import { create as svgCreate } from "tiny-svg";
 import BpmnRenderer from "bpmn-js/lib/draw/BpmnRenderer";
 import CpdElement from "../model/CpdElement";
 
-export default class HighlightUndescribedElementsRenderer extends BaseRenderer {
+export default class CpdElementsRenderer extends BaseRenderer {
+	private static readonly HIGHLIGHT_COLOR = "#FF8C00";
+
 	private bpmnRenderer: BpmnRenderer;
 
 	constructor( eventBus: EventBus, bpmnRenderer: BpmnRenderer ) {
@@ -12,7 +13,7 @@ export default class HighlightUndescribedElementsRenderer extends BaseRenderer {
 		this.bpmnRenderer = bpmnRenderer;
 	}
 
-	canRender( element: CpdElement|Element ): boolean {
+	canRender( element: CpdElement | Element ): boolean {
 		if ( !( element instanceof CpdElement ) ) {
 			return false;
 		}
@@ -21,21 +22,23 @@ export default class HighlightUndescribedElementsRenderer extends BaseRenderer {
 			return false;
 		}
 
-		return element.descriptionPage.isNew;
+		return true;
 	}
 
 	drawShape( parentNode: SVGElement, element: any ): SVGElement {
 		if ( !( element instanceof CpdElement ) ) {
 			return this.bpmnRenderer.drawShape( parentNode, element );
 		}
+
 		const shape = this.bpmnRenderer.drawShape( parentNode, element.bpmnElement );
+		console.log(element.bpmnElement)
+		console.log(shape)
+		shape.style.cursor = "pointer";
 
-		const path = svgCreate( "path", {
-			fill: "#000000",
-			d: "M12 4C8 4 5 7 5 11s3 7 7 7 7-3 7-7-3-7-7-7zm0 12c-.56 0-1-.45-1-1s.45-1 1-1c.56 0 1 .45 1 1s-.45 1-1 1zM11 8h2v4h-2zm0 7h2v2h-2z"
-		} );
-
-		shape.after( path, shape.firstChild );
+		// ERM39900: Highlight unchanged description pages
+		if ( element.descriptionPage.isNew ) {
+			shape.style.stroke = CpdElementsRenderer.HIGHLIGHT_COLOR;
+		}
 
 		return shape;
 	}

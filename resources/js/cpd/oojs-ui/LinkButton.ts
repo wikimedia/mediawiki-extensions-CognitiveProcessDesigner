@@ -8,5 +8,6 @@ export default abstract class LinkButton extends Button {
 		}
 
 		this.$link.attr( "href", path );
+		this.setDisabled( false );
 	}
 }
