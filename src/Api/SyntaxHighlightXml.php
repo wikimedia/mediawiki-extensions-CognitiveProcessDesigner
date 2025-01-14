@@ -4,6 +4,8 @@ namespace CognitiveProcessDesigner\Api;
 
 use ApiBase;
 use ApiMain;
+use ApiUsageException;
+use DOMDocument;
 use ExtensionRegistry;
 use Parser;
 use ParserOptions;
@@ -32,6 +34,7 @@ class SyntaxHighlightXml extends ApiBase {
 
 	/**
 	 * @inheritDoc
+	 * @throws ApiUsageException
 	 */
 	public function execute() {
 		$params = $this->extractRequestParams();
@@ -47,8 +50,15 @@ class SyntaxHighlightXml extends ApiBase {
 		$xml = trim( $xml, '\"' );
 		$xml = str_replace( '\\"', '"', $xml );
 		$xml = str_replace( '\n', "", $xml );
+
+		$dom = new DOMDocument();
+		$dom->preserveWhiteSpace = false;
+		$dom->formatOutput = true;
+		$dom->loadXML( $xml );
+		$formattedXml = $dom->saveXML();
+
 		if ( ExtensionRegistry::getInstance()->isLoaded( "SyntaxHighlight" ) ) {
-			$xml = "<syntaxhighlight lang=\"xml\">$xml</syntaxhighlight>";
+			$xml = "<syntaxhighlight lang=\"xml\">$formattedXml</syntaxhighlight>";
 		} else {
 			$xml = "<pre>$xml</pre>";
 		}
