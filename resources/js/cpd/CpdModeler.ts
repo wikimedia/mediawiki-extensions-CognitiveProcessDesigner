@@ -129,6 +129,10 @@ class CpdModeler extends CpdTool {
 			elements
 		);
 
+		result.warnings.forEach( ( warning: string ): void => {
+			this.dom.showWarning( warning );
+		} );
+
 		this.updateElementDescriptionPages( result, elements );
 
 		this.changeLogger.reset();
@@ -136,10 +140,6 @@ class CpdModeler extends CpdTool {
 	}
 
 	private updateElementDescriptionPages( result: SaveDiagramResult, elements: CpdElement[] ): void {
-		result.warnings.forEach( ( warning: string ): void => {
-			this.dom.showWarning( warning );
-		} );
-
 		if ( result.descriptionPages.length === 0 ) {
 			return;
 		}

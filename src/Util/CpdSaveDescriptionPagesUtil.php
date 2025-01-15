@@ -60,6 +60,8 @@ class CpdSaveDescriptionPagesUtil {
 	 * @throws CpdSaveException
 	 */
 	public function saveDescriptionPages( User $user, string $process, int $revision, array $elements ): array {
+		$warnings = $this->processDescriptionPages( $elements, $user );
+
 		try {
 			$this->descriptionPageUtil->updateOrphanedDescriptionPages( $elements, $process, $revision );
 			$this->descriptionPageUtil->updateElementConnections( $elements, $process );
@@ -67,7 +69,7 @@ class CpdSaveDescriptionPagesUtil {
 			throw new CpdSaveException( $e->getMessage() );
 		}
 
-		return $this->processDescriptionPages( $elements, $user );
+		return $warnings;
 	}
 
 	/**

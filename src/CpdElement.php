@@ -84,17 +84,17 @@ class CpdElement implements JsonSerializable {
 	 */
 	public static function fromElementJson( array $element ): CpdElement {
 		$parent = $element['parent'] ? self::fromElementJson( $element['parent'] ) : null;
-        $incomingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
-        $outgoingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
+		$incomingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
+		$outgoingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
 
 		return new CpdElement(
 			$element['id'],
 			$element['type'],
 			$element['label'],
-			$element['descriptionPage'] ? Title::newFromDBkey( $element['descriptionPage'] ) : null,
-			$element['oldDescriptionPage'] ? Title::newFromDBkey( $element['oldDescriptionPage'] ) : null,
-            $incomingLinks,
-            $outgoingLinks,
+			!empty( $element['descriptionPage'] ) ? Title::newFromDBkey( $element['descriptionPage'] ) : null,
+			!empty( $element['oldDescriptionPage'] ) ? Title::newFromDBkey( $element['oldDescriptionPage'] ) : null,
+			$incomingLinks,
+			$outgoingLinks,
 			$parent
 		);
 	}
