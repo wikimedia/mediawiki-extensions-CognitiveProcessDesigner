@@ -1,11 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Alshamiri1",
-			"FiberAhmed",
-			"Meno25",
-			"أَحمد",
-			"محمد أحمد عبد الفتاح"
+			"Alshamiri1"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "ارسم عمليات BPMN بواجهة مستخدم رسومية في Semantic MediaWiki",
@@ -69,5 +65,6 @@
 	"apihelp-cpd-save-diagram-elements-summary": "يحفظ عناصر مخطط BPMN كصفحات wiki أو تحديثها إذا كانت موجودة بالفعل",
 	"apihelp-cpd-delete-orphaned-elements-summary": "يحذف عناصر مخطط BPMN التي تمت إزالتها",
 	"cpd-droplet-bpmn-name": "مخطط BPMN",
-	"cpd-droplet-bpmn-description": "مخطط BPMN قابل للتحرير"
+	"cpd-droplet-bpmn-description": "مخطط BPMN قابل للتحرير",
+	"cpd-droplet-description": "مخطط BPMN قابل للتحرير"
 }

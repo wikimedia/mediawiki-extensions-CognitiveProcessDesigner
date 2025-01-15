@@ -3,5 +3,19 @@
 		"authors": [
 			"Saraiki"
 		]
-	}
+	},
+	"cpd-orphaned-description-pages-column-dbkey-title": "عنوان",
+	"cpd-button-cancel-title": "منسوخ",
+	"cpd-api-load-diagram-missingtitle-error-message": "$1 کائنی لبھا",
+	"cpd-editor-title": "تساں $1 لکھدے پئے ہو",
+	"cpd-editor-title-create": "خلقو $1",
+	"cpd-shape-deletion-message": "$1 مٹ ڳیا",
+	"cpd-droplet-name": "پراسس",
+	"cpd-droplet-process-field-label": "پراسس",
+	"cpd-droplet-width-field-label": "چوڑائی",
+	"cpd-dialog-save-changes-headline": "تبدیلیاں محفوظ کرو",
+	"cpd-dialog-save-label-changes-with-error": "خرابی تھی ڳئی ہے",
+	"bs-cpd-process-overview-edit-action-text": "لکھو",
+	"bs-cpd-process-overview-create-action-text": "بݨاؤ",
+	"bs-cpd-process-overview-info-action-text": "معلومات ورقہ"
 }
