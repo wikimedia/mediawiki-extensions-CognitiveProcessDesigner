@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Cookai1205",
 			"Kly",
-			"Winston Sung"
+			"張詠涵"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "在 Semantic MediaWiki 上以圖形化使用者介面來繪製業務流程模型和標記法（BPMN）之流程",
@@ -69,5 +70,8 @@
 	"apihelp-cpd-save-diagram-elements-summary": "將 BPMN 示圖的元素儲存為 wiki 頁面，或是更新它們（如果已存在）",
 	"apihelp-cpd-delete-orphaned-elements-summary": "刪除已被移除的 BPMN 示圖元素",
 	"cpd-droplet-bpmn-name": "BPMN 示圖",
-	"cpd-droplet-bpmn-description": "可編輯的 BPMN 示圖"
+	"cpd-droplet-bpmn-description": "可編輯的 BPMN 示圖",
+	"cpd-button-center-viewport": "圖表置中",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=以下描述頁面已|以下 $1 個描述頁面已|0=沒有描述頁面已}}保存：",
+	"cpd-droplet-description": "可編輯的 BPMN 示圖"
 }

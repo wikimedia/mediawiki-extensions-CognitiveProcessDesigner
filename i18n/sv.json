@@ -42,5 +42,6 @@
 	"action-cognitiveprocessdesigner-viewspecialpage": "visa specialsidan \"{{int:cognitiveprocessdesigneredit}}\"",
 	"action-cognitiveprocessdesigner-editbpmn": "redigera BPMN-diagrammet",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Tillgång till specialsidan [[Special:Cognitive Process Designer Edit]]",
-	"right-cognitiveprocessdesigner-editbpmn": "Redigera BPMN-diagram"
+	"right-cognitiveprocessdesigner-editbpmn": "Redigera BPMN-diagram",
+	"cpd-button-center-viewport": "Centrera diagram"
 }

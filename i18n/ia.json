@@ -68,5 +68,6 @@
 	"apihelp-cpd-save-diagram-elements-summary": "Salveguarda le elementos del diagramma BPMN como paginas wiki o los actualisa si ja existe",
 	"apihelp-cpd-delete-orphaned-elements-summary": "Destrue le elementos del diagramma BPMN que ha essite removite",
 	"cpd-droplet-bpmn-name": "Diagramma BPMN",
-	"cpd-droplet-bpmn-description": "Diagramma BPMN modificabile"
+	"cpd-droplet-bpmn-description": "Diagramma BPMN modificabile",
+	"cpd-droplet-description": "Diagramma BPMN modificabile"
 }
