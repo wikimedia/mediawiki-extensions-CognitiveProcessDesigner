@@ -72,6 +72,7 @@
 	"cpd-process-usage-special-page-description": "Special pages can not contain processes",
 	"cpd-process-usage-undocumented-error": "An undocumented error occured",
 	"cpd-dialog-save-changes-headline": "Save changes",
+	"cpd-dialog-save-changes-button-title": "Save changes",
 	"cpd-dialog-save-label-description-pages-checkbox": "Save changes and create all description pages",
 	"cpd-dialog-save-label-review": "Review your changes",
 	"cpd-dialog-save-label-save": "Save your changes",

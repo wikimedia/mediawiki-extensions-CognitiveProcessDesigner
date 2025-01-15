@@ -14,6 +14,7 @@ import SvgFileLinkButton from "../oojs-ui/SvgFileLinkButton";
 import { ChangeLogMessages } from "./CpdChangeLogger";
 import CenterViewportButton from "../oojs-ui/CenterViewportButton";
 import { MessageType } from "../oojs-ui/SaveDialog";
+import ToolGroupSetupMap = OO.ui.Toolbar.ToolGroupSetupMap;
 
 interface HtmlElement extends HTMLElement {
 	hide: () => void;
@@ -238,7 +239,10 @@ export default class CpdDom extends EventEmitter {
 
 	private createToolbar(): HtmlElement {
 		const toolFactory = new OO.ui.ToolFactory();
-		const toolbar = new OO.ui.Toolbar( toolFactory, new OO.ui.ToolGroupFactory() );
+		const toolGroupFactory = new OO.ui.ToolGroupFactory();
+
+		const toolbar = new OO.ui.Toolbar( toolFactory, toolGroupFactory );
+
 		const primaryBarButtons = [
 			OpenDialogButton.static.name
 		];
@@ -261,27 +265,33 @@ export default class CpdDom extends EventEmitter {
 			secondaryBarButtons.push( ShowXmlButton.static.name );
 		}
 
+		const primaryBarConfig = {
+			name: "primary",
+			type: "bar",
+			include: primaryBarButtons,
+			align: "after"
+		} as ToolGroupSetupMap;
+
+		const secondaryBarConfig = {
+			name: "secondary",
+			type: "list",
+			icon: "ellipsis",
+			align: "after",
+			include: secondaryBarButtons
+		} as ToolGroupSetupMap;
+
 		if ( this.isEdit ) {
 			this.saveDialog = new CpdSaveDialog();
 			this.saveDialog.on( "save", this.onSave.bind( this ) );
 
 			toolFactory.register( OpenDialogButton );
 			toolFactory.register( CancelButton );
+
+			secondaryBarConfig.type = "bar";
+			secondaryBarConfig.align = "before";
 		}
 
-		toolbar.setup( [
-			{
-				name: "primary",
-				type: "bar",
-				include: primaryBarButtons,
-				align: "after"
-			},
-			{
-				name: "secondary",
-				type: "bar",
-				include: secondaryBarButtons
-			}
-		] );
+		toolbar.setup( [ primaryBarConfig, secondaryBarConfig ] );
 
 		[
 			...toolbar.getToolGroupByName( "primary" ).getItems(),
@@ -310,13 +320,15 @@ export default class CpdDom extends EventEmitter {
 
 			if ( item.constructor === DiagramPageLinkButton ) {
 				this.diagramPageLink = item;
-				this.diagramPageLink.setDisabled( true );
 				this.diagramPageLink.setLink( this.diagramPage.getUrl( { action: 'edit' } ) );
+				this.diagramPageLink.onSelect = () => {
+					console.log( "Edit diagram page" );
+				};
 			}
 
 			if ( item.constructor === SvgFileLinkButton ) {
 				this.svgFileLink = item;
-				this.svgFileLink.setDisabled( true );
+				//this.svgFileLink.setDisabled( true );
 			}
 		} );
 

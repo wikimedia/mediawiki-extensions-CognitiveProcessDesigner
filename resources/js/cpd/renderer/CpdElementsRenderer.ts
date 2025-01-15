@@ -31,8 +31,6 @@ export default class CpdElementsRenderer extends BaseRenderer {
 		}
 
 		const shape = this.bpmnRenderer.drawShape( parentNode, element.bpmnElement );
-		console.log(element.bpmnElement)
-		console.log(shape)
 		shape.style.cursor = "pointer";
 
 		// ERM39900: Highlight unchanged description pages

@@ -49,6 +49,7 @@
 	"cpd-process-usage-special-page-description": "특수 문서에는 프로세스를 포함할 수 없습니다",
 	"cpd-process-usage-undocumented-error": "문서화되지 않은 오류가 발생했습니다",
 	"cpd-dialog-save-changes-headline": "변경사항 저장",
+	"cpd-dialog-save-changes-button-title": "변경사항 저장",
 	"cpd-dialog-save-label-review": "바뀐 내용 검토",
 	"cpd-dialog-save-label-save": "바뀐 내용 저장하기",
 	"cpd-dialog-save-label-changes": "변경된 사항을 저장했습니다",

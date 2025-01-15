@@ -71,6 +71,7 @@
 	"cpd-process-usage-special-page-description": "דפים מיוחדים אינם יכולים להכיל תהליכים",
 	"cpd-process-usage-undocumented-error": "אירעה שגיאה בלתי־מתועדת",
 	"cpd-dialog-save-changes-headline": "שמירת השינויים",
+	"cpd-dialog-save-changes-button-title": "שמירת השינויים",
 	"cpd-dialog-save-label-description-pages-checkbox": "שמירתשינוים ויצירת כל דפי התיאור",
 	"cpd-dialog-save-label-review": "סקירת השינויים שלך",
 	"cpd-dialog-save-label-save": "שמירת השינויים שלך",

@@ -87,7 +87,8 @@ class AddDescriptionPageDiagramNavigationLinks implements OutputPageBeforeHTMLHo
 
 		// Navigation links on bottom
 		$text .= $this->createNavigation( 'outgoing', $this->connectionUtil->getOutgoingConnections( $title ) );
-		$out->addModuleStyles( 'cps.navigation.connections' );
+
+		$out->addModuleStyles( 'ext.cpd.navigation.connections' );
 	}
 
 	/**

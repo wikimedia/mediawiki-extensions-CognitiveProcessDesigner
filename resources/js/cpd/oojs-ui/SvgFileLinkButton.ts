@@ -6,8 +6,7 @@ export default class SvgFileLinkButton extends LinkButton {
 			name: "svgFileLink",
 			label: mw.msg( "cpd-link-svg-title" ),
 			title: mw.msg( "cpd-link-svg-title" ),
-			icon: "image",
-			displayBothIconAndLabel: false
+			icon: "image"
 		}
 	};
 
