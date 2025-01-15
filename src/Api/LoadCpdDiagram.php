@@ -64,6 +64,8 @@ class LoadCpdDiagram extends ApiBase {
 				if ( !$content ) {
 					throw new CpdInvalidContentException( 'Process page does not exist' );
 				}
+
+				$svgFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
 			} else {
 				$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
 
@@ -72,6 +74,7 @@ class LoadCpdDiagram extends ApiBase {
 				}
 
 				$content = $diagramPage->getContent();
+				$svgFile = $this->diagramPageUtil->getSvgFile( $process );
 			}
 
 			$this->diagramPageUtil->validateContent( $content );
@@ -84,7 +87,7 @@ class LoadCpdDiagram extends ApiBase {
 				$this->splitDescriptionPagesStatus( $this->descriptionPageUtil->findDescriptionPages( $process ) )
 			);
 
-			$svgFile = $this->diagramPageUtil->getSvgFile( $process );
+
 			if ( !$svgFile ) {
 				throw new ApiUsageException( null, Status::newFatal( "Diagram svg file does not exist" ) );
 			}

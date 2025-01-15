@@ -60,6 +60,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 	 * @return IRecord[]
 	 */
 	private function filterUnstableRevisions( array $dataSets ): array {
+		$filteredDataSets = [];
 		foreach ( $dataSets as $key => $dataSet ) {
 			$process = $dataSet->get( Record::PROCESS );
 			$page = $this->cpdDiagramPageUtil->getDiagramPage( $process );
@@ -71,15 +72,15 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 				continue;
 			}
 
-			$revId = $dataSet->get( Record::PROCESS_REV );
+			$revId = (int) $dataSet->get( Record::PROCESS_REV );
 			$id = $stableRevision->getRevision()->getId();
 
 			/** @var Record $dataSet */
-			if ( $revId !== $id ) {
-				unset( $dataSets[$key] );
+			if ( $revId === $id ) {
+				$filteredDataSets[] = $dataSet;
 			}
 		}
 
-		return $dataSets;
+		return $filteredDataSets;
 	}
 }

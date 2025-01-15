@@ -321,14 +321,11 @@ export default class CpdDom extends EventEmitter {
 			if ( item.constructor === DiagramPageLinkButton ) {
 				this.diagramPageLink = item;
 				this.diagramPageLink.setLink( this.diagramPage.getUrl( { action: 'edit' } ) );
-				this.diagramPageLink.onSelect = () => {
-					console.log( "Edit diagram page" );
-				};
 			}
 
 			if ( item.constructor === SvgFileLinkButton ) {
 				this.svgFileLink = item;
-				//this.svgFileLink.setDisabled( true );
+				this.svgFileLink.setDisabled( true );
 			}
 		} );
 

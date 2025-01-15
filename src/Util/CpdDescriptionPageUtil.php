@@ -7,36 +7,30 @@ use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use Config;
 use Content;
+use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
 use Title;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class CpdDescriptionPageUtil {
-	/**
-	 * @var PageStore
-	 */
+	/** @var PageStore */
 	private PageStore $pageStore;
 
-	/**
-	 * @var ILoadBalancer
-	 */
+	/** @var ILoadBalancer */
 	private ILoadBalancer $loadBalancer;
 
-	/**
-	 * @var Config
-	 */
+	/** @var Config */
 	private Config $config;
 
-	/**
-	 * @var WikiPageFactory
-	 */
+	/** @var WikiPageFactory */
 	private WikiPageFactory $wikiPageFactory;
 
-	/**
-	 * @var CpdElementConnectionUtil
-	 */
+	/** @var CpdElementConnectionUtil */
 	private CpdElementConnectionUtil $connectionUtil;
+
+	/** @var StabilizationLookup */
+	private StabilizationLookup $lookup;
 
 	/**
 	 * @param PageStore $pageStore
@@ -44,19 +38,22 @@ class CpdDescriptionPageUtil {
 	 * @param WikiPageFactory $wikiPageFactory
 	 * @param Config $config
 	 * @param CpdElementConnectionUtil $connectionUtil
+	 * @param StabilizationLookup $lookup
 	 */
 	public function __construct(
 		PageStore $pageStore,
 		ILoadBalancer $loadBalancer,
 		WikiPageFactory $wikiPageFactory,
 		Config $config,
-		CpdElementConnectionUtil $connectionUtil
+		CpdElementConnectionUtil $connectionUtil,
+		StabilizationLookup $lookup
 	) {
 		$this->pageStore = $pageStore;
 		$this->loadBalancer = $loadBalancer;
 		$this->config = $config;
 		$this->wikiPageFactory = $wikiPageFactory;
 		$this->connectionUtil = $connectionUtil;
+		$this->lookup = $lookup;
 	}
 
 	/**
@@ -142,6 +139,15 @@ class CpdDescriptionPageUtil {
 	public function updateOrphanedDescriptionPages( array $elements, string $process, int $revision ): void {
 		$dbw = $this->loadBalancer->getConnectionRef( DB_PRIMARY );
 
+		if ( !$this->isStabilizationEnabled() ) {
+			// Clear orphaned pages rows from this process
+			$dbw->delete(
+				'cpd_orphaned_description_pages',
+				[ 'process' => $process ],
+				__METHOD__
+			);
+		}
+
 		$orphanedPages = [];
 		$existingPages = array_map( fn( Title $title ) => $title->getPrefixedDBkey(),
 			$this->findDescriptionPages( $process ) );
@@ -159,14 +165,11 @@ class CpdDescriptionPageUtil {
 		}
 
 		$dbw->insert(
-			'cpd_orphaned_description_pages',
-			array_map( fn( string $page ) => [
-				'process' => $process,
-				'process_rev' => $revision,
-				'page_title' => $page
-			], $orphanedPages ),
-			__METHOD__,
-			[ 'IGNORE' ]
+			'cpd_orphaned_description_pages', array_map( fn( string $page ) => [
+			'process' => $process,
+			'process_rev' => $revision,
+			'page_title' => $page
+		], $orphanedPages ), __METHOD__, [ 'IGNORE' ]
 		);
 	}
 
@@ -203,5 +206,11 @@ class CpdDescriptionPageUtil {
 	 */
 	public function updateElementConnections( array $elements, string $process ): void {
 		$this->connectionUtil->updateElementConnections( $elements, $process );
+	}
+
+	private function isStabilizationEnabled(): bool {
+		$dummyPage = Title::newFromText( 'Dummy', NS_PROCESS );
+
+		return $this->lookup->isStabilizationEnabled( $dummyPage );
 	}
 }

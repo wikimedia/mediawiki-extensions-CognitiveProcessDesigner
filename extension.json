@@ -385,7 +385,8 @@
         "tag": {
             "class": "\\CognitiveProcessDesigner\\HookHandler\\BpmnTag",
             "services": [
-                "CpdDiagramPageUtil"
+                "CpdDiagramPageUtil",
+                "ContentStabilization.Lookup"
             ]
         },
         "registerNamespaces": {

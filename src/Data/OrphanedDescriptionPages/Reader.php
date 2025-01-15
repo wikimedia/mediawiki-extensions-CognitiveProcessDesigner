@@ -4,6 +4,9 @@ namespace CognitiveProcessDesigner\Data\OrphanedDescriptionPages;
 
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
+use MWStake\MediaWiki\Component\DataStore\ISecondaryDataProvider;
+use MWStake\MediaWiki\Component\DataStore\ReaderParams;
+use MWStake\MediaWiki\Component\DataStore\ResultSet;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class Reader extends \MWStake\MediaWiki\Component\DataStore\Reader {
@@ -32,6 +35,35 @@ class Reader extends \MWStake\MediaWiki\Component\DataStore\Reader {
 		$this->loadBalancer = $loadBalancer;
 		$this->cpdDiagramPageUtil = $cpdDiagramPageUtil;
 		$this->lookup = $lookup;
+	}
+
+	/**
+	 *
+	 * @param ReaderParams $params
+	 * @return ResultSet
+	 */
+	public function read( $params ) {
+		$primaryDataProvider = $this->makePrimaryDataProvider( $params );
+		$dataSets = $primaryDataProvider->makeData( $params );
+
+		$filterer = $this->makeFilterer( $params );
+		$dataSets = $filterer->filter( $dataSets );
+
+		$sorter = $this->makeSorter( $params );
+		$dataSets = $sorter->sort(
+			$dataSets,
+			$this->getSchema()->getUnsortableFields()
+		);
+
+		$trimmer = $this->makeTrimmer( $params );
+		$dataSets = $trimmer->trim( $dataSets );
+
+		$secondaryDataProvider = $this->makeSecondaryDataProvider();
+		if ( $secondaryDataProvider instanceof ISecondaryDataProvider ) {
+			$dataSets = $secondaryDataProvider->extend( $dataSets );
+		}
+		$total = count( $dataSets );
+		return new ResultSet( $dataSets, $total );
 	}
 
 	/**

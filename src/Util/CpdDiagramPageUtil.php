@@ -16,6 +16,7 @@ use File;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use Message;
 use MWContentSerializationException;
@@ -159,12 +160,18 @@ class CpdDiagramPageUtil {
 
 	/**
 	 * @param string $process
+	 * @param RevisionRecord|null $revision
 	 *
 	 * @return File|null
 	 */
-	public function getSvgFile( string $process ): ?File {
+	public function getSvgFile( string $process, RevisionRecord $revision = null ): ?File {
 		$svgFilePage = $this->getSvgFilePage( $process );
-		$file = $this->repoGroup->findFile( $svgFilePage );
+
+		$options = [];
+		if ( $revision ) {
+			$options['time'] = $revision->getTimestamp();
+		}
+		$file = $this->repoGroup->findFile( $svgFilePage, $options );
 
 		if ( !$file ) {
 			return null;
