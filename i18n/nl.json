@@ -72,6 +72,7 @@
 	"cpd-process-usage-special-page-description": "Speciale pagina’s kunnen geen processen bevatten",
 	"cpd-process-usage-undocumented-error": "Er is een onbekende fout opgetreden",
 	"cpd-dialog-save-changes-headline": "Wijzigingen opslaan",
+	"cpd-dialog-save-changes-button-title": "Wijzigingen opslaan",
 	"cpd-dialog-save-label-description-pages-checkbox": "Wijzigingen opslaan en alle beschrijvingspagina’s aanmaken",
 	"cpd-dialog-save-label-review": "Wijzigingen controleren",
 	"cpd-dialog-save-label-save": "Wijzigingen opslaan",
