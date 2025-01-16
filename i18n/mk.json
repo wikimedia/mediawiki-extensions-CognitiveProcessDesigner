@@ -158,5 +158,6 @@
 	"cpd-api-save-description-page-comment": "Описната страница е зачувана",
 	"cpd-api-move-description-page-comment": "Описната страница е преместена",
 	"cpd-config-canvas-process-height-msg": "Задајте ја висината на дијаграмската подлога на процесната страница и режимот за уредување",
-	"cpd-config-canvas-embedded-height-msg": "Задајте ја висината на дијаграмската подлога кога е вметната во други страници"
+	"cpd-config-canvas-embedded-height-msg": "Задајте ја висината на дијаграмската подлога кога е вметната во други страници",
+	"cpd-dialog-save-changes-button-title": "Зачувај промени"
 }
