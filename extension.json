@@ -4,8 +4,6 @@
     "license-name": "GPL-3.0-only",
     "author": [
         "[https://www.hallowelt.com Hallo Welt! GmbH]",
-        "Oleksandr Pinchuck",
-        "Robert Vogel",
         "Daniel Riedmüller"
     ],
     "url": "https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer",
@@ -15,7 +13,8 @@
     "requires": {
         "MediaWiki": ">= 1.39.0",
         "extensions": {
-            "OOJSPlus": ">= 2.0.0"
+            "OOJSPlus": ">= 2.0.0",
+            "StandardDialogs": ">= 2.1.2"
         }
     },
     "attributes": {

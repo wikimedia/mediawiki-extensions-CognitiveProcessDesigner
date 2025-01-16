@@ -30,6 +30,7 @@
 	"cpd-process-usage-special-page-description": "Le pagine speciali non possono contenere processi",
 	"cpd-process-usage-undocumented-error": "Si è verificato un errore non documentato",
 	"cpd-dialog-save-changes-headline": "Salva modifiche",
+	"cpd-dialog-save-changes-button-title": "Salva modifiche",
 	"cpd-dialog-save-label-save": "Salva le modifiche",
 	"cpd-dialog-save-label-changes-with-error": "Si è verificato un errore",
 	"bs-cpd-mainlinks-label": "Processi",

@@ -5,7 +5,6 @@ namespace CognitiveProcessDesigner\Api;
 use ApiBase;
 use ApiMain;
 use ApiUsageException;
-use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
@@ -58,10 +57,10 @@ class GetDiagramUsage extends ApiBase {
 			$services = MediaWikiServices::getInstance();
 			$pageFactory = $services->getWikiPageFactory();
 			$page = $pageFactory->newFromTitle( $title );
-			$processes = $page->getParserOutput()->getPageProperty( BpmnTag::PROCESS_PROP_NAME );
+			$processes = unserialize( $page->getParserOutput()->getPageProperty( BpmnTag::PROCESS_PROP_NAME ) );
 		}
 
-		if ( !$processes ) {
+		if ( empty( $processes ) ) {
 			$result->addValue( null, 'error', 'noProcess' );
 
 			return;

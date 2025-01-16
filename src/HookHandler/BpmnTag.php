@@ -179,7 +179,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 	 * @return void
 	 */
 	private function addProcessPageProperty( ParserOutput $output, string $process ): void {
-		$processes = $output->getPageProperty( self::PROCESS_PROP_NAME );
+		$processes = unserialize( $output->getPageProperty( self::PROCESS_PROP_NAME ) );
 
 		if ( $processes ) {
 			$processes[] = $process;
@@ -187,7 +187,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 			$processes = [ $process ];
 		}
 
-		$output->setPageProperty( self::PROCESS_PROP_NAME, $processes );
+		$output->setPageProperty( self::PROCESS_PROP_NAME, serialize( $processes ) );
 	}
 
 	/**
