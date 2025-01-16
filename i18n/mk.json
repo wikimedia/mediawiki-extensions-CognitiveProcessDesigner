@@ -71,6 +71,7 @@
 	"cpd-process-usage-special-page-description": "Службените страници не можат да содржат процеси",
 	"cpd-process-usage-undocumented-error": "Се појави недокументирана грешка",
 	"cpd-dialog-save-changes-headline": "Зачувај промени",
+	"cpd-dialog-save-changes-button-title": "Зачувај промени",
 	"cpd-dialog-save-label-description-pages-checkbox": "Зачувај промени и создај ги сите описни страници",
 	"cpd-dialog-save-label-review": "Прегледајте ги направените промени",
 	"cpd-dialog-save-label-save": "Зачувај ги промените",
