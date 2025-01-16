@@ -1,8 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"DiegoAmbrocio",
-			"Fitoschido"
+			"Dgstranz"
 		]
 	},
 	"cpd-bpmn-diagram-header": "Diagrama BPMN",
@@ -45,5 +44,6 @@
 	"cpd-ve-bpmn-name-placeholder": "Algún diagrama",
 	"cpd-diagram-save-dialog-title": "Guardando diagrama...",
 	"cpd-error-dialog-title": "¡Ocurrió un error!",
-	"cpd-saving-error-svg-upload": "Fallo al subir el SVG"
+	"cpd-saving-error-svg-upload": "Fallo al subir el SVG",
+	"cpd-dialog-save-changes-button-title": "Guardar cambios"
 }
