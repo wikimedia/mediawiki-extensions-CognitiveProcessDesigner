@@ -259,8 +259,8 @@ class CpdDiagramPageUtil {
 			'page_props',
 			[ 'pp_page' ],
 			[
-				'pp_value' => $process,
-				'pp_propname' => BpmnTag::PROCESS_PROP_NAME
+				"pp_value LIKE '%:\"$process\";%'",
+				"pp_propname" => BpmnTag::PROCESS_PROP_NAME
 			],
 			__METHOD__
 		);

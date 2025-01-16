@@ -34,15 +34,13 @@ class BpmnTag implements ParserFirstCallInitHook {
 	 */
 	public function onParserFirstCallInit( $parser ) {
 		$parser->setHook(
-			'bpmn',
-			[
+			'bpmn', [
 				$this,
 				'renderTag'
 			]
 		);
 		$parser->setHook(
-			'bs:bpmn',
-			[
+			'bs:bpmn', [
 				$this,
 				'renderTag'
 			]
@@ -109,8 +107,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 		$file = $this->diagramPageUtil->getSvgFile( $process );
 
 		return $templateParser->processTemplate(
-			'CpdDiagramPreview',
-			[
+			'CpdDiagramPreview', [
 				'process' => $process,
 				'img' => $file?->getFullUrl(),
 				'width' => $args['width'] ? $args['width'] . 'px' : '100%',
@@ -138,8 +135,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 		$output->addModules( [ 'ext.cpd.viewer' ] );
 
 		return $templateParser->processTemplate(
-			'CpdContainer',
-			[
+			'CpdContainer', [
 				'process' => $process,
 				'showToolbar' => !( $args['toolbar'] === "false" ),
 				'width' => $args['width'] ? $args['width'] . 'px' : '100%',
@@ -155,7 +151,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 	 * @return void
 	 */
 	private function addProcessPageProperty( ParserOutput $output, string $process ): void {
-		$processes = $output->getPageProperty( self::PROCESS_PROP_NAME );
+		$processes = unserialize( $output->getPageProperty( self::PROCESS_PROP_NAME ) );
 
 		if ( $processes ) {
 			$processes[] = $process;
@@ -163,7 +159,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 			$processes = [ $process ];
 		}
 
-		$output->setPageProperty( self::PROCESS_PROP_NAME, $processes );
+		$output->setPageProperty( self::PROCESS_PROP_NAME, serialize( $processes ) );
 	}
 
 	/**
