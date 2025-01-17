@@ -6,12 +6,12 @@ use CommentStoreComment;
 use ContentHandler;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use Message;
 use MWException;
 use MWStake\MediaWiki\Component\ProcessManager\IProcessStep;
 use RuntimeException;
 use TextContent;
-use Title;
 
 class SaveDiagramElementsStep implements IProcessStep {
 

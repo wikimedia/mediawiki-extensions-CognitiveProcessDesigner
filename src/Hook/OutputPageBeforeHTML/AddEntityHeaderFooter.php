@@ -4,8 +4,8 @@ namespace CognitiveProcessDesigner\Hook\OutputPageBeforeHTML;
 use CognitiveProcessDesigner\Utility\BPMNHeaderFooterRenderer;
 use Content;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use OutputPage;
-use Title;
 
 /**
  * This hook adds header & footer to BPMN Element pages

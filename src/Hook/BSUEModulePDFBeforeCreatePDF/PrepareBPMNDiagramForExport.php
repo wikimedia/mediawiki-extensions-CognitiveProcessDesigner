@@ -6,9 +6,9 @@ use BlueSpice\UEModulePDF\Hook\BSUEModulePDFBeforeCreatePDF;
 use BsPDFPageProvider;
 use DOMElement;
 use DOMXPath;
+use MediaWiki\Title\Title;
 use SMW\DIWikiPage;
 use SMW\SemanticData;
-use Title;
 
 class PrepareBPMNDiagramForExport extends BSUEModulePDFBeforeCreatePDF {
 	/** @var string[] */

@@ -7,7 +7,7 @@ use Exception;
 use LoggedUpdateMaintenance;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
-use Title;
+use MediaWiki\Title\Title;
 use User;
 
 class AddRequiredPages extends LoggedUpdateMaintenance {

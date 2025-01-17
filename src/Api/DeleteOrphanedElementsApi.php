@@ -7,11 +7,11 @@ use CommentStoreComment;
 use ContentHandler;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use Message;
 use MWException;
 use RecentChange;
 use RuntimeException;
-use Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class DeleteOrphanedElementsApi extends ApiBase {

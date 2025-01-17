@@ -3,10 +3,10 @@ namespace CognitiveProcessDesigner\Utility;
 
 use Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SMW\DIWikiPage;
 use SMW\SemanticData;
 use SMWDIBoolean;
-use Title;
 
 class BPMNHeaderFooterRenderer {
 
