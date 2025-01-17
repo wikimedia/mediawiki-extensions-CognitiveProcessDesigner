@@ -94,7 +94,14 @@ class SaveCpdDescriptionPages extends ApiBase {
 			return;
 		}
 
-		$elements = $this->cpdElementFactory->makeElements( $elements );
+		try {
+			$elements = $this->cpdElementFactory->makeElements( $elements );
+		} catch ( Exception $e ) {
+			$this->getResult()->addValue( null, 'error', $e->getMessage() );
+
+			return;
+		}
+
 		// TODO: Think about moving this to save description pages
 		$this->descriptionPageUtil->updateOrphanedDescriptionPages( $elements, $process );
 		$this->descriptionPageUtil->updateElementConnections( $elements, $process );

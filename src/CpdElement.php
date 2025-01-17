@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner;
 
+use InvalidArgumentException;
 use JsonSerializable;
 use Title;
 
@@ -83,9 +84,11 @@ class CpdElement implements JsonSerializable {
 	 * @return CpdElement
 	 */
 	public static function fromElementJson( array $element ): CpdElement {
+		self::validateJson( $element );
+
 		$parent = $element['parent'] ? self::fromElementJson( $element['parent'] ) : null;
-        $incomingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
-        $outgoingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
+		$incomingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
+		$outgoingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
 
 		return new CpdElement(
 			$element['id'],
@@ -93,8 +96,8 @@ class CpdElement implements JsonSerializable {
 			$element['label'],
 			$element['descriptionPage'] ? Title::newFromDBkey( $element['descriptionPage'] ) : null,
 			$element['oldDescriptionPage'] ? Title::newFromDBkey( $element['oldDescriptionPage'] ) : null,
-            $incomingLinks,
-            $outgoingLinks,
+			$incomingLinks,
+			$outgoingLinks,
 			$parent
 		);
 	}
@@ -163,5 +166,18 @@ class CpdElement implements JsonSerializable {
 			'elementId' => $this->getId(),
 			'page' => $this->getDescriptionPage()->getPrefixedDBkey(),
 		];
+	}
+
+	/**
+	 * @param array $element
+	 *
+	 * @return void
+	 */
+	private static function validateJson( array $element ): void {
+		$id = $element['id'];
+		$type = $element['type'];
+		if ( empty( $element['label'] ) ) {
+			throw new InvalidArgumentException( "Element $type $id has no label" );
+		}
 	}
 }
