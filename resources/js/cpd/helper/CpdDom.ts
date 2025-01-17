@@ -99,12 +99,14 @@ export default class CpdDom extends EventEmitter {
 		this.xmlContainer.show();
 		this.canvas.hide();
 		this.showXmlBtn?.setHideLabelAndIcon();
+		this.centerViewportBtn?.setDisabled( true );
 	}
 
 	private showCanvas(): void {
 		this.xmlContainer.hide();
 		this.canvas.show();
 		this.showXmlBtn?.setShowLabelAndIcon();
+		this.centerViewportBtn?.setDisabled( false );
 	}
 
 	private centerViewport(): void {
