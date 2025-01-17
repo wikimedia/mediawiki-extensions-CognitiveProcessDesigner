@@ -60,6 +60,8 @@ export default class CpdValidator extends EventEmitter {
 			return;
 		}
 
-		event[ 'context' ].newLabel = `${ newLabel } (${ event[ 'context' ].element.id })`;
+		const suffix = event[ 'context' ].element.id.split( '_' )[ 1 ];
+
+		event[ 'context' ].newLabel = `${ newLabel } (${ suffix })`;
 	}
 }
