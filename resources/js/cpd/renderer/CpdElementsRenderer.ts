@@ -4,7 +4,7 @@ import BpmnRenderer from "bpmn-js/lib/draw/BpmnRenderer";
 import CpdElement from "../model/CpdElement";
 
 export default class CpdElementsRenderer extends BaseRenderer {
-	private static readonly HIGHLIGHT_COLOR = "#FF8C00";
+	private static readonly HIGHLIGHT_COLOR = "#0d6efd";
 
 	private bpmnRenderer: BpmnRenderer;
 
@@ -32,11 +32,7 @@ export default class CpdElementsRenderer extends BaseRenderer {
 
 		const shape = this.bpmnRenderer.drawShape( parentNode, element.bpmnElement );
 		shape.style.cursor = "pointer";
-
-		// ERM39900: Highlight unchanged description pages
-		if ( element.descriptionPage.isNew ) {
-			shape.style.stroke = CpdElementsRenderer.HIGHLIGHT_COLOR;
-		}
+		shape.style.stroke = CpdElementsRenderer.HIGHLIGHT_COLOR;
 
 		return shape;
 	}

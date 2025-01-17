@@ -84,9 +84,9 @@ class LoadCpdDiagram extends ApiBase {
 			$result->addValue(
 				null,
 				'descriptionPages',
-				$this->splitDescriptionPagesStatus( $this->descriptionPageUtil->findDescriptionPages( $process ) )
+				array_map( fn( Title $page ) => $page->getPrefixedDBkey(),
+					$this->descriptionPageUtil->findDescriptionPages( $process ) )
 			);
-
 
 			if ( !$svgFile ) {
 				throw new ApiUsageException( null, Status::newFatal( "Diagram svg file does not exist" ) );
@@ -102,25 +102,6 @@ class LoadCpdDiagram extends ApiBase {
 			] );
 			$result->addValue( null, 'svgFile', null );
 		}
-	}
-
-	/**
-	 * @param Title[] $pages
-	 *
-	 * @return string[][]
-	 */
-	private function splitDescriptionPagesStatus( array $pages ): array {
-		$dbKeys = [
-			'new' => [],
-			'edited' => []
-		];
-
-		foreach ( $pages as $page ) {
-			$dbKey = $page->getPrefixedDBkey();
-			$dbKeys[$page->isNewPage() ? 'new' : 'edited'][] = $dbKey;
-		}
-
-		return $dbKeys;
 	}
 
 	/**

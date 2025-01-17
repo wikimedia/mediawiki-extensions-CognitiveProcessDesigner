@@ -1,5 +1,4 @@
 import { Element } from "bpmn-js/lib/model/Types";
-import { ExistingDescriptionPage } from "../CpdTool";
 
 export interface CpdElementJson {
 	id: string;
@@ -12,8 +11,9 @@ export interface CpdElementJson {
 	outgoingLinks: CpdElementJson[];
 }
 
-interface ElementDescriptionPage extends ExistingDescriptionPage {
+interface ElementDescriptionPage {
 	exists: boolean;
+	dbKey: string;
 	oldDbKey?: string | undefined;
 }
 
@@ -59,6 +59,11 @@ export default class CpdElement {
 	}
 
 	get parent(): CpdElement | null {
+		// Ignore bpmn collaboration type
+		if ( this.bpmnElement.parent?.type === 'bpmn:Collaboration' ) {
+			return null;
+		}
+
 		return this.bpmnElement.parent ?
 			new CpdElement( this.bpmnElement.parent as Element ) : null;
 	}
