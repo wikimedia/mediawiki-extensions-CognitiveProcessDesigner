@@ -79,7 +79,7 @@
 	"cpd-button-hide-xml": "XML-Rohdaten ausblenden",
 	"cpd-button-center-viewport": "Diagramm zentrieren",
 	"cpd-link-diagram-page-title": "Zur Diagrammseite",
-	"cpd-link-svg-title": "Das Diagramm als SVG herunterladen",
+	"cpd-link-svg-title": "Diagramm als SVG herunterladen",
 	"cpd-api-save-diagram-param-svg": "JSON-kodiertes SVG zum Hochladen ins Wiki",
 	"cpd-api-save-diagram-param-xml": "JSON-codiertes XML zum Hochladen ins Wiki",
 	"cpd-api-save-diagram-param-process-id": "ID des BPNM-Diagramms",
