@@ -13,6 +13,7 @@ import bpmnlintConfig from "../../../bpmn-lint.config";
 import lintModule from 'bpmn-js-bpmnlint';
 import EventBus from "diagram-js/lib/core/EventBus";
 import { MessageType } from "./oojs-ui/SaveDialog";
+import CpdTranslator from "./helper/CpdTranslator";
 
 class CpdModeler extends CpdTool {
 	private bpmnModeler: BpmnModeler;
@@ -24,13 +25,18 @@ class CpdModeler extends CpdTool {
 	public constructor( process: string, container: HTMLElement ) {
 		super( process, container );
 
+		const translator = new CpdTranslator( mw.config.get( "wgUserLanguage" ) );
+
 		this.bpmnModeler = new BpmnModeler( {
 			linting: {
 				bpmnlint: bpmnlintConfig
 			},
 			additionalModules: [
 				BpmnColorPickerModule,
-				lintModule
+				lintModule,
+				{
+					translate: [ 'value', translator.translate.bind( translator ) ]
+				}
 			],
 			keyboard: {
 				bindTo: window
