@@ -9,6 +9,7 @@ use Config;
 use Content;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RevisionLookup;
 use ParserOutput;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -22,6 +23,9 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	/** @var Config */
 	private Config $config;
 
+	/** @var RevisionLookup */
+	private RevisionLookup $revisionLookup;
+
 	/**
 	 * @param string $modelId
 	 *
@@ -33,6 +37,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 
 		$services = MediaWikiServices::getInstance();
 		$this->diagramPageUtil = $services->getService( 'CpdDiagramPageUtil' );
+		$this->revisionLookup = $services->getRevisionLookup();
 		$this->config = $services->getService( 'MainConfig' );
 	}
 
@@ -63,13 +68,14 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		ContentParseParams $cpoParams,
 		ParserOutput &$output
 	): void {
+		$parser = MediaWikiServices::getInstance()->getParser();
 		$page = $cpoParams->getPage();
 		$revisionId = $cpoParams->getRevId();
 		$process = $page->getDBkey();
 
 		$canvasHeight = $this->config->get( 'CPDCanvasProcessHeight' );
 
-		$output = MediaWikiServices::getInstance()->getParser()->parse(
+		$output = $parser->parse(
 			null,
 			$page,
 			$cpoParams->getParserOptions()
@@ -81,6 +87,12 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		$templateParser = new TemplateParser(
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
+
+		// Embed svg image in the viewer hidden
+		$revision = $this->revisionLookup->getRevisionById( $revisionId );
+		$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
+		$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
+
 		$output->setText(
 			$templateParser->processTemplate(
 				'CpdContainer', [
@@ -88,7 +100,8 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 					'revision' => $revisionId,
 					'showToolbar' => true,
 					'width' => '100%',
-					'height' => $canvasHeight . 'px'
+					'height' => $canvasHeight . 'px',
+					'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
 				]
 			)
 		);

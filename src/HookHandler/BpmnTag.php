@@ -4,6 +4,7 @@ namespace CognitiveProcessDesigner\HookHandler;
 
 use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use File;
 use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\MediaWikiServices;
@@ -85,17 +86,24 @@ class BpmnTag implements ParserFirstCallInitHook {
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
 
+		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		$imageFile = $this->diagramPageUtil->getSvgFile(
+			$process,
+			$this->getStableRevision( $diagramPage )
+		);
+
 		// Show svg image if the page is in edit mode
 		if ( $this->isEdit() ) {
-			return $this->buildEditOutput( $templateParser, $parser->getOutput(), $process, $args );
+			return $this->buildEditOutput( $imageFile, $templateParser, $parser->getOutput(), $process, $args );
 		}
 
-		return $this->buildViewOutput( $templateParser, $parser->getOutput(), $process, $args );
+		return $this->buildViewOutput( $imageFile, $templateParser, $parser, $process, $args );
 	}
 
 	/**
 	 * Show placeholder image if the svg file is not found
 	 *
+	 * @param File|null $imageFile
 	 * @param TemplateParser $templateParser
 	 * @param ParserOutput $output
 	 *
@@ -105,22 +113,18 @@ class BpmnTag implements ParserFirstCallInitHook {
 	 * @return string
 	 */
 	private function buildEditOutput(
+		?File $imageFile,
 		TemplateParser $templateParser,
 		ParserOutput $output,
 		string $process,
 		array $args
 	): string {
 		$output->addModuleStyles( [ 'ext.cpd.diagram.preview' ] );
-		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
-		$file = $this->diagramPageUtil->getSvgFile(
-			$process,
-			$this->getStableRevision( $diagramPage )
-		);
 
 		return $templateParser->processTemplate(
 			'CpdDiagramPreview', [
 				'process' => $process,
-				'img' => $file?->getFullUrl(),
+				'img' => $imageFile?->getFullUrl(),
 				'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
 				'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%'
 			]
@@ -128,28 +132,35 @@ class BpmnTag implements ParserFirstCallInitHook {
 	}
 
 	/**
+	 * @param File|null $imageFile
 	 * @param TemplateParser $templateParser
-	 * @param ParserOutput $output
+	 * @param Parser $parser
 	 * @param string $process
 	 * @param array $args
 	 *
 	 * @return string
 	 */
 	private function buildViewOutput(
+		?File $imageFile,
 		TemplateParser $templateParser,
-		ParserOutput $output,
+		Parser $parser,
 		string $process,
 		array $args
 	): string {
+		$output = $parser->getOutput();
 		$this->addProcessPageProperty( $output, $process );
 		$this->diagramPageUtil->setJsConfigVars( $output, $process );
 		$output->addModules( [ 'ext.cpd.viewer' ] );
+
+		// Embed svg image in the viewer hidden
+		$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
 
 		$data = [
 			'process' => $process,
 			'showToolbar' => !empty( $args['toolbar'] ) ? !( $args['toolbar'] === "false" ) : true,
 			'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
-			'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%'
+			'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%',
+			'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
 		];
 
 		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
