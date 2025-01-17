@@ -58,11 +58,12 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		ContentParseParams $cpoParams,
 		ParserOutput &$output
 	): void {
+		$parser = MediaWikiServices::getInstance()->getParser();
 		$page = $cpoParams->getPage();
 		$process = $page->getDBkey();
 		$canvasHeight = $this->config->get( 'CPDCanvasProcessHeight' );
 
-		$output = MediaWikiServices::getInstance()->getParser()->parse(
+		$output = $parser->parse(
 			null,
 			$page,
 			$cpoParams->getParserOptions()
@@ -74,12 +75,18 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		$templateParser = new TemplateParser(
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
+
+		// Embed svg image in the viewer hidden
+		$imageFile = $this->diagramPageUtil->getSvgFile( $process );
+		$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
+
 		$output->setText( $templateParser->processTemplate(
 			'CpdContainer', [
 				'process' => $process,
 				'showToolbar' => true,
 				'width' => '100%',
-				'height' => $canvasHeight . 'px'
+				'height' => $canvasHeight . 'px',
+				'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
 			]
 		) );
 	}
