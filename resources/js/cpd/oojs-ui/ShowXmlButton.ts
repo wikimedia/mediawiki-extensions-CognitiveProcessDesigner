@@ -13,10 +13,12 @@ export default class ShowXmlButton extends Button {
 	setHideLabelAndIcon() {
 		this.setIcon( "eyeClosed" );
 		this.setLabel( mw.msg( "cpd-button-hide-xml" ) );
+		this.setActive( true );
 	}
 
 	setShowLabelAndIcon() {
 		this.setIcon( "eye" );
 		this.setLabel( mw.msg( "cpd-button-show-xml" ) );
+		this.setActive( false );
 	}
 }

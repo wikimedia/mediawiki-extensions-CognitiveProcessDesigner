@@ -121,8 +121,8 @@ class BpmnTag implements ParserFirstCallInitHook {
 			'CpdDiagramPreview', [
 				'process' => $process,
 				'img' => $file?->getFullUrl(),
-				'width' => $args['width'] ? $args['width'] . 'px' : '100%',
-				'height' => $args['height'] ? $args['height'] . 'px' : '100%'
+				'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
+				'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%'
 			]
 		);
 	}
@@ -147,9 +147,9 @@ class BpmnTag implements ParserFirstCallInitHook {
 
 		$data = [
 			'process' => $process,
-			'showToolbar' => !( $args['toolbar'] === "false" ),
-			'width' => $args['width'] ? $args['width'] . 'px' : '100%',
-			'height' => $args['height'] ? $args['height'] . 'px' : '100%'
+			'showToolbar' => !empty( $args['toolbar'] ) ? !( $args['toolbar'] === "false" ) : true,
+			'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
+			'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%'
 		];
 
 		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );

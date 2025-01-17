@@ -11,6 +11,7 @@ use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use CognitiveProcessDesigner\Process\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
+use Exception;
 use MWContentSerializationException;
 use MWException;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -88,7 +89,13 @@ class SaveCpdDiagram extends ApiBase {
 			return;
 		}
 
-		$cpdElements = $this->cpdElementFactory->makeElements( $elements );
+		try {
+			$cpdElements = $this->cpdElementFactory->makeElements( $elements );
+		} catch ( Exception $e ) {
+			$this->getResult()->addValue( null, 'error', $e->getMessage() );
+
+			return;
+		}
 
 		try {
 			$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages(
