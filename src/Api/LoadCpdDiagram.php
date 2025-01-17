@@ -8,8 +8,8 @@ use ApiUsageException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use MediaWiki\Title\Title;
 use Status;
-use Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class LoadCpdDiagram extends ApiBase {

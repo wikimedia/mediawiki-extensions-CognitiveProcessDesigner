@@ -7,8 +7,8 @@ use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use Config;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
-use Title;
 use TitleFactory;
 use Wikimedia\Rdbms\ILoadBalancer;
 

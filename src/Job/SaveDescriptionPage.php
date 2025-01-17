@@ -9,10 +9,10 @@ use Job;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\PageUpdater;
+use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
 use Message;
 use MWException;
-use Title;
 
 class SaveDescriptionPage extends Job {
 

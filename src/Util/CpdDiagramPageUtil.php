@@ -16,13 +16,13 @@ use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use Message;
 use MWContentSerializationException;
 use MWException;
 use OutputPage;
 use ParserOutput;
 use RepoGroup;
-use Title;
 use TitleFactory;
 use User;
 use Wikimedia\Rdbms\ILoadBalancer;
@@ -267,7 +267,7 @@ class CpdDiagramPageUtil {
 
 		$links = [];
 		foreach ( $rows as $row ) {
-			$title = \MediaWiki\Title\Title::newFromID( $row->pp_page );
+			$title = Title::newFromID( $row->pp_page );
 			$links[] = $this->linkRenderer->makeLink(
 				$title,
 				$title->getText()

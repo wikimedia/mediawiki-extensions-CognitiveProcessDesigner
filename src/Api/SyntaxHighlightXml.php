@@ -7,9 +7,9 @@ use ApiMain;
 use ApiUsageException;
 use DOMDocument;
 use ExtensionRegistry;
+use MediaWiki\Title\Title;
 use Parser;
 use ParserOptions;
-use Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SyntaxHighlightXml extends ApiBase {

@@ -4,13 +4,13 @@ namespace CognitiveProcessDesigner\Process;
 
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use MediaHandler;
+use MediaWiki\Title\Title;
 use MimeAnalyzer;
 use MWException;
 use MWFileProps;
 use RepoGroup;
 use SpecialUpload;
 use TempFSFile;
-use Title;
 use User;
 use Wikimedia\AtEase\AtEase;
 

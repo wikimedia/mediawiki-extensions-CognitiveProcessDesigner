@@ -6,9 +6,9 @@ use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use Job;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\MovePageFactory;
+use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
 use Message;
-use Title;
 
 class MoveDescriptionPage extends Job {
 

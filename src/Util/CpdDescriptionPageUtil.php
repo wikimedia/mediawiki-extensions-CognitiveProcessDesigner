@@ -9,7 +9,7 @@ use Config;
 use Content;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
-use Title;
+use MediaWiki\Title\Title;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class CpdDescriptionPageUtil {

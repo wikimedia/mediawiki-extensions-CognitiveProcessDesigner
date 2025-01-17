@@ -4,7 +4,7 @@ namespace CognitiveProcessDesigner;
 
 use InvalidArgumentException;
 use JsonSerializable;
-use Title;
+use MediaWiki\Title\Title;
 
 class CpdElement implements JsonSerializable {
 

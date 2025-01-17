@@ -3,7 +3,7 @@
 namespace CognitiveProcessDesigner\HookHandler;
 
 use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
-use Title;
+use MediaWiki\Title\Title;
 
 class IntegrateCodeEditor {
 

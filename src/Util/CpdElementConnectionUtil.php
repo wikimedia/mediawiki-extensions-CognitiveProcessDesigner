@@ -5,7 +5,7 @@ namespace CognitiveProcessDesigner\Util;
 use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\CpdNavigationConnection;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
-use Title;
+use MediaWiki\Title\Title;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class CpdElementConnectionUtil {
