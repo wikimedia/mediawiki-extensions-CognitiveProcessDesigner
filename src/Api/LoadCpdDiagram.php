@@ -53,10 +53,7 @@ class LoadCpdDiagram extends ApiBase {
 		} catch ( CpdInvalidContentException $e ) {
 			$result->addValue( null, 'exists', 0 );
 			$result->addValue( null, 'xml', null );
-			$result->addValue( null, 'descriptionPages', [
-				'new' => [],
-				'edited' => []
-			] );
+			$result->addValue( null, 'descriptionPages', [] );
 			$result->addValue( null, 'svgFile', null );
 
 			return;
@@ -67,7 +64,8 @@ class LoadCpdDiagram extends ApiBase {
 		$result->addValue(
 			null,
 			'descriptionPages',
-			$this->splitDescriptionPagesStatus( $this->descriptionPageUtil->findDescriptionPages( $process ) )
+			array_map( fn( Title $page ) => $page->getPrefixedDBkey(),
+				$this->descriptionPageUtil->findDescriptionPages( $process ) )
 		);
 
 		$svgFile = $this->diagramPageUtil->getSvgFile( $process );
@@ -76,25 +74,6 @@ class LoadCpdDiagram extends ApiBase {
 		}
 
 		$result->addValue( null, 'svgFile', $svgFile->getUrl() );
-	}
-
-	/**
-	 * @param Title[] $pages
-	 *
-	 * @return string[][]
-	 */
-	private function splitDescriptionPagesStatus( array $pages ): array {
-		$dbKeys = [
-			'new' => [],
-			'edited' => []
-		];
-
-		foreach ( $pages as $page ) {
-			$dbKey = $page->getPrefixedDBkey();
-			$dbKeys[$page->isNewPage() ? 'new' : 'edited'][] = $dbKey;
-		}
-
-		return $dbKeys;
 	}
 
 	/**

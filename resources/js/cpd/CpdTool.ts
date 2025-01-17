@@ -5,11 +5,6 @@ import { CpdElementFactory } from "./helper/CpdElementFactory";
 import BaseViewer from "bpmn-js/lib/BaseViewer";
 import Canvas from "diagram-js/lib/core/Canvas";
 
-export interface ExistingDescriptionPage {
-	dbKey: string;
-	isNew: boolean;
-}
-
 export abstract class CpdTool {
 	protected dom: CpdDom;
 
@@ -19,7 +14,7 @@ export abstract class CpdTool {
 
 	protected xml: string;
 
-	protected descriptionPages: ExistingDescriptionPage[];
+	protected descriptionPages: string[];
 
 	protected elementFactory: CpdElementFactory;
 
@@ -56,7 +51,7 @@ export abstract class CpdTool {
 		const pageContent: LoadDiagramResult = await this.api.fetchPageContent();
 		this.xml = pageContent.xml;
 		this.dom.setSvgLink( pageContent.svgFile );
-		this.setDescriptionPages( pageContent.descriptionPages );
+		this.descriptionPages = pageContent.descriptionPages;
 	}
 
 	// eslint-disable-next-line no-unused-vars
@@ -82,19 +77,6 @@ export abstract class CpdTool {
 	protected throwError( message: string ): void {
 		this.dom.showError( message );
 		throw new Error( message );
-	}
-
-	private setDescriptionPages( descriptionPages: { edited: string[], new: string[] } ): void {
-		this.descriptionPages = [
-			...descriptionPages.edited?.map( ( dbKey: string ): ExistingDescriptionPage => ( {
-				dbKey,
-				isNew: false
-			} ) ),
-			...descriptionPages.new?.map( ( dbKey: string ): ExistingDescriptionPage => ( {
-				dbKey,
-				isNew: true
-			} ) )
-		];
 	}
 
 	private requestStarted(): void {

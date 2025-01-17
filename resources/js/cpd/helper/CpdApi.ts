@@ -15,10 +15,7 @@ export interface SaveDiagramResult {
 
 export interface LoadDiagramResult {
 	xml: string | null;
-	descriptionPages: {
-		new: string[];
-		edited: string[];
-	};
+	descriptionPages: string[];
 	svgFile: string | null;
 	exists: boolean;
 }

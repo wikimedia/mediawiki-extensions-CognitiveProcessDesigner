@@ -4,7 +4,6 @@ import ElementRegistry, {
 import { ElementLike } from "diagram-js/lib/core/Types";
 import { Element, Shape } from "bpmn-js/lib/model/Types";
 import CpdElement, { CpdElementJson } from "../model/CpdElement";
-import { ExistingDescriptionPage } from "../CpdTool";
 import { CpdConnectionFinder } from "./CpdConnectionFinder";
 
 export class CpdElementFactory {
@@ -18,14 +17,14 @@ export class CpdElementFactory {
 
 	private elementRegistry: ElementRegistry;
 
-	private readonly existingDescriptionPages: ExistingDescriptionPage[];
+	private readonly existingDescriptionPages: string[];
 
 	private readonly connectionFinder: CpdConnectionFinder;
 
 	public constructor(
 		elementRegistry: ElementRegistry,
 		process: string,
-		existingDescriptionPages: ExistingDescriptionPage[]
+		existingDescriptionPages: string[]
 	) {
 		this.elementRegistry = elementRegistry;
 		this.process = process;
@@ -119,17 +118,16 @@ export class CpdElementFactory {
 		try {
 			const madeDbKey = this.makeDescriptionPageTitle( element ).getPrefixedDb();
 			const existingDescriptionPage = this.existingDescriptionPages.find(
-				( page: ExistingDescriptionPage ) => page.dbKey === madeDbKey
+				( page: string ) => page === madeDbKey
 			);
 
 			if ( existingDescriptionPage ) {
 				element.descriptionPage = {
-					dbKey: existingDescriptionPage.dbKey,
-					isNew: existingDescriptionPage.isNew,
+					dbKey: existingDescriptionPage,
 					exists: true
 				};
 			} else {
-				element.descriptionPage = { dbKey: madeDbKey, isNew: false, exists: false };
+				element.descriptionPage = { dbKey: madeDbKey, exists: false };
 			}
 		} catch ( error ) {
 			element.descriptionPage = null;

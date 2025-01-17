@@ -8,8 +8,8 @@ describe( "CpdElementFactory", () => {
 	const eventBus = new EventBus();
 
 	const descriptionPages = [
-		{ dbKey: "process/a", isNew: false },
-		{ dbKey: "process/b", isNew: true }
+		"process/a",
+		"process/b"
 	];
 
 	test( "createElements", () => {
