@@ -28,7 +28,7 @@
 	"cpd-link-svg-title": "D'Diagrammen als SVG eroflueden",
 	"cpd-api-save-diagram-param-process-id": "ID vum BPMN-Diagramm",
 	"cpd-api-save-diagram-error-message": "Feeler beim Späichere vum Diagramm: $1",
-	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=Déi follgend Beschreiwungssäit gouf|Déi follgend Beschreiwungssäite goufe|0=Et gouf keng Beschreiwungssäit}} gespäichert:",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=Déi follgend Beschreiwungssäit gouf|Déi follgend $1 Beschreiwungssäite goufe|0=Et gouf keng Beschreiwungssäit}} gespäichert:",
 	"cpd-description-page-does-not-exist-anymore-warning": "D'Beschreiwungssäit $1 gëtt et net méi",
 	"cpd-api-save-description-pages-error-message": "Feeler beim Späichere vu Beschreiwungssäiten: $1",
 	"cpd-api-load-diagram-missing-message": "Keen Diagramm gelueden",
@@ -69,5 +69,7 @@
 	"bs-cpd-actionmenuentry-new-process": "Neie Prozess",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Prozessnumm",
 	"cpd-api-save-description-page-comment": "Beschreiwungssäit gespäichert",
-	"cpd-api-move-description-page-comment": "Beschreiwungssäit geréckelt"
+	"cpd-api-move-description-page-comment": "Beschreiwungssäit geréckelt",
+	"cpd-link-diagram-page-title": "Op d'Diagrammsäit goen",
+	"cpd-dialog-save-changes-button-title": "Ännerunge späicheren"
 }

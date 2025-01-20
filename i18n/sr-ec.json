@@ -16,5 +16,7 @@
 	"cpd-droplet-height-field-label": "Висина",
 	"cpd-dialog-save-changes-button-title": "Сачувај измене",
 	"bs-cpd-process-overview-create-action-text": "Направи",
-	"bs-cpd-process-overview-info-action-text": "Информације о страници"
+	"bs-cpd-process-overview-info-action-text": "Информације о страници",
+	"cpd-api-save-diagram-error-message": "Грешка при чувању дијаграма: $1",
+	"cpd-api-load-diagram-error-message": "Грешка при учитавању дијаграма: $1"
 }
