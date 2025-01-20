@@ -8,7 +8,7 @@ use LoggedUpdateMaintenance;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
-use User;
+use MediaWiki\User\User;
 
 class AddRequiredPages extends LoggedUpdateMaintenance {
 
