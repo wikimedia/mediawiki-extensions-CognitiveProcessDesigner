@@ -5,13 +5,13 @@ namespace CognitiveProcessDesigner\Process;
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use MediaHandler;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MimeAnalyzer;
 use MWException;
 use MWFileProps;
 use RepoGroup;
 use SpecialUpload;
 use TempFSFile;
-use User;
 use Wikimedia\AtEase\AtEase;
 
 class SvgFile {
