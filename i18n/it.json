@@ -39,6 +39,7 @@
 	"cpd-process-usage-special-page-description": "Le pagine speciali non possono contenere processi",
 	"cpd-process-usage-undocumented-error": "Si è verificato un errore non documentato",
 	"cpd-dialog-save-changes-headline": "Salva modifiche",
+	"cpd-dialog-save-changes-button-title": "Salva modifiche",
 	"cpd-dialog-save-label-save": "Salva le modifiche",
 	"cpd-dialog-save-label-changes-with-error": "Si è verificato un errore",
 	"bs-cpd-mainlinks-label": "Processi",
@@ -49,6 +50,5 @@
 	"bs-cpd-process-overview-info-action-text": "Informazioni pagina",
 	"bs-cpd-actionmenuentry-new-process": "Nuovo processo",
 	"cpd-api-save-description-page-comment": "Pagina di descrizione salvata",
-	"cpd-api-move-description-page-comment": "Pagina di descrizione spostata",
-	"cpd-dialog-save-changes-button-title": "Salva modifiche"
+	"cpd-api-move-description-page-comment": "Pagina di descrizione spostata"
 }
