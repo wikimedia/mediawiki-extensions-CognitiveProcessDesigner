@@ -258,6 +258,9 @@
                 "js/ve/ext.cpd.ui.processInputWidget.js",
                 "js/ve/ext.cpd.visualEditorTagDefinition.js"
             ],
+			"styles": [
+				"styles/bpmn.droplet.css"
+			],
             "messages": [
                 "cpd-droplet-name",
                 "cpd-droplet-description",
