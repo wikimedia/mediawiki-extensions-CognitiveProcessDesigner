@@ -52,5 +52,6 @@
 	"bs-cpd-actionmenuentry-new-process": "Nuovo processo",
 	"cpd-api-save-description-page-comment": "Pagina di descrizione salvata",
 	"cpd-api-move-description-page-comment": "Pagina di descrizione spostata",
-	"cpd-dialog-save-changes-button-title": "Salva modifiche"
+	"cpd-dialog-save-changes-button-title": "Salva modifiche",
+	"cpd-link-svg-title": "Scarica diagramma come SVG"
 }
