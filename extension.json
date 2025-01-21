@@ -12,9 +12,9 @@
 	"load_composer_autoloader": true,
 	"callback": "mwsInitComponents",
 	"requires": {
-		"MediaWiki": ">= 1.39.0",
+		"MediaWiki": ">= 1.43.0",
 		"extensions": {
-			"PageForms": "~5.6"
+			"PageForms": ">= 5.9"
 		}
 	},
 	"attributes": {
