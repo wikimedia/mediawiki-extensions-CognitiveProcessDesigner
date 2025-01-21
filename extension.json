@@ -11,10 +11,10 @@
     "load_composer_autoloader": true,
     "callback": "mwsInitComponents",
     "requires": {
-        "MediaWiki": ">= 1.39.0",
+        "MediaWiki": ">= 1.43.0",
         "extensions": {
-            "OOJSPlus": ">= 2.0.0",
-            "StandardDialogs": ">= 2.1.2"
+            "OOJSPlus": ">= 3.0.0",
+            "StandardDialogs": ">= 3.0.0"
         }
     },
     "attributes": {
