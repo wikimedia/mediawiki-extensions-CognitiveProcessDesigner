@@ -5,12 +5,12 @@ namespace CognitiveProcessDesigner\HookHandler;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use File;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MWException;
 use Parser;
 use ParserOutput;
 use PPFrame;
-use RequestContext;
 use TemplateParser;
 
 class BpmnTag implements ParserFirstCallInitHook {
