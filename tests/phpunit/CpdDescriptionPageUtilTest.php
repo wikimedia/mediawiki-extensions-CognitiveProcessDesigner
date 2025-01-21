@@ -8,8 +8,8 @@ use Config;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use PHPUnit\Framework\TestCase;
-use TitleFactory;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 /**

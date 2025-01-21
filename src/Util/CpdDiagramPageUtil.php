@@ -17,6 +17,7 @@ use MediaWiki\Page\PageReference;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use MediaWiki\User\User;
 use Message;
 use MWContentSerializationException;
@@ -24,7 +25,6 @@ use MWException;
 use OutputPage;
 use ParserOutput;
 use RepoGroup;
-use TitleFactory;
 use Wikimedia\Rdbms\ILoadBalancer;
 use WikiPage;
 
