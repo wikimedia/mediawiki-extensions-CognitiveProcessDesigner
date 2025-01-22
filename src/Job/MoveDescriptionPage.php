@@ -5,10 +5,10 @@ namespace CognitiveProcessDesigner\Job;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use Job;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Message\Message;
 use MediaWiki\Page\MovePageFactory;
 use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
-use Message;
 
 class MoveDescriptionPage extends Job {
 

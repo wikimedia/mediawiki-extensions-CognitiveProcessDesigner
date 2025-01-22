@@ -16,8 +16,8 @@ use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use Exception;
 use JobQueueGroup;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Message\Message;
 use MediaWiki\User\UserIdentity;
-use Message;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveCpdDescriptionPages extends ApiBase {
