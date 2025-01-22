@@ -4,7 +4,8 @@
 			"Florian COLLIN",
 			"Mahabarata",
 			"Pols12",
-			"SleaY"
+			"SleaY",
+			"Wladek92"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Dessinez des processus BPMN avec une interface utilisateur graphique dans Semantic MediaWiki",
@@ -164,5 +165,6 @@
 	"cpd-api-save-description-page-comment": "Page de description enregistrée",
 	"cpd-api-move-description-page-comment": "Page de description déplacée",
 	"cpd-config-canvas-process-height-msg": "Définit la hauteur du canevas du diagramme sur la page de processus et en mode édition",
-	"cpd-config-canvas-embedded-height-msg": "Définit la hauteur du canevas du diagramme lorsqu'il est intégré dans d'autres pages"
+	"cpd-config-canvas-embedded-height-msg": "Définit la hauteur du canevas du diagramme lorsqu'il est intégré dans d'autres pages",
+	"cpd-dialog-save-changes-button-title": "Enregistrer les modifications"
 }
