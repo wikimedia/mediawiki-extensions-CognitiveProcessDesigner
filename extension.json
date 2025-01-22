@@ -44,6 +44,13 @@
                     "class": "\\CognitiveProcessDesigner\\ContentDroplets\\BPMNDiagramDroplet"
                 }
             }
+        },
+        "MWStakeContentProvisioner": {
+            "ContentManifests": {
+                "DefaultContentProvisioner": [
+                    "extensions/CognitiveProcessDesigner/data/Content/PageTemplates/manifest.json"
+                ]
+            }
         }
     },
     "AvailableRights": [
@@ -238,8 +245,6 @@
                 "cpd-shape-rename-message",
                 "cpd-shape-rename-with-description-page-message",
                 "cpd-shape-remove-label-message",
-                "cpd-validation-missing-label",
-                "cpd-validation-duplicate-label",
                 "cpd-log-no-changes",
                 "savechanges",
                 "savechanges-start",
@@ -481,8 +486,8 @@
         },
         "CPDPageTemplates": {
             "value": {
-                "*": "Template:GenericBPMN",
-                "bpmn:Task": "Template:Task"
+                "*": "Template:CPD/GenericBPMN",
+                "bpmn:Task": "Template:CPD/Task"
             }
         },
         "CPDCanvasProcessHeight": {
