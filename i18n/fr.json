@@ -4,7 +4,8 @@
 			"Florian COLLIN",
 			"Mahabarata",
 			"Pols12",
-			"SleaY"
+			"SleaY",
+			"Wladek92"
 		]
 	},
 	"orphanedprocessdescriptionpages": "Pages de description des processus orphelins",
@@ -74,6 +75,7 @@
 	"cpd-process-usage-special-page-description": "Les pages spéciales ne peuvent pas contenir de processus",
 	"cpd-process-usage-undocumented-error": "Une erreur non documentée s'est produite",
 	"cpd-dialog-save-changes-headline": "Enregistrer les modifications",
+	"cpd-dialog-save-changes-button-title": "Enregistrer les modifications",
 	"cpd-dialog-save-label-description-pages-checkbox": "Enregistrer les modifications et créer toutes les pages de description",
 	"cpd-dialog-save-label-review": "Relire vos modifications",
 	"cpd-dialog-save-label-save": "Enregistrer vos modifications",
