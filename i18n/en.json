@@ -163,5 +163,6 @@
 	"cpd-api-save-description-page-comment": "Description page saved",
 	"cpd-api-move-description-page-comment": "Description page moved",
 	"cpd-config-canvas-process-height-msg": "Set the height of the diagram canvas on process page and in edit mode",
-	"cpd-config-canvas-embedded-height-msg": "Set the height of the diagram canvas while its embedded in other pages"
+	"cpd-config-canvas-embedded-height-msg": "Set the height of the diagram canvas while its embedded in other pages",
+	"cpd-error-message-publish-svg-file": "Could not publish SVG file: $1"
 }
