@@ -2,7 +2,7 @@
 
 namespace CognitiveProcessDesigner\HookHandler;
 
-use Config;
+use MediaWiki\Config\Config;
 use MediaWiki\Hook\OutputPageBeforeHTMLHook;
 use OutputPage;
 

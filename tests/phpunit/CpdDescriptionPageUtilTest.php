@@ -4,7 +4,7 @@ namespace CognitiveProcessDesigner\Tests;
 
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
-use Config;
+use MediaWiki\Config\Config;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
