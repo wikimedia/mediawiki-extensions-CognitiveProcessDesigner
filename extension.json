@@ -338,9 +338,10 @@
 				"styles/cpd.diagram.preview.less"
 			]
 		},
-        "ext.cpd.navigation.connections": {
+        "ext.cpd.description.page": {
             "styles": [
-                "styles/cpd.navigation.connections.less"
+                "styles/cpd.navigation.connections.less",
+                "styles/cpd.description.page.less"
             ]
         },
         "ext.cpd.dialoginfo.pages": {
@@ -387,7 +388,7 @@
         ],
         "CodeEditorGetPageLanguage": "integrateCodeEditor",
         "OutputPageBeforeHTML": [
-            "addDescriptionPageDiagramNavigationLinks",
+            "modifyDescriptionPages",
             "addResources"
         ],
         "LoadExtensionSchemaUpdates": "addTables",
@@ -423,8 +424,8 @@
         "integrateCodeEditor": {
             "class": "\\CognitiveProcessDesigner\\HookHandler\\IntegrateCodeEditor"
         },
-        "addDescriptionPageDiagramNavigationLinks": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\AddDescriptionPageDiagramNavigationLinks",
+        "modifyDescriptionPages": {
+            "class": "\\CognitiveProcessDesigner\\HookHandler\\ModifyDescriptionPage",
             "services": [
                 "CpdDescriptionPageUtil",
                 "CpdElementConnectionUtil",

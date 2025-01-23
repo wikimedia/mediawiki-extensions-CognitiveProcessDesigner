@@ -5,7 +5,7 @@ namespace CognitiveProcessDesigner\Util;
 use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
-use CognitiveProcessDesigner\HookHandler\AddDescriptionPageDiagramNavigationLinks;
+use CognitiveProcessDesigner\HookHandler\ModifyDescriptionPage;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CommentStoreComment;
 use ContentHandler;
@@ -241,7 +241,7 @@ class CpdDiagramPageUtil {
 
 		$output->addJsConfigVars(
 			'cpdReturnToQueryParam',
-			AddDescriptionPageDiagramNavigationLinks::RETURN_TO_QUERY_PARAM
+			ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
 		);
 	}
 

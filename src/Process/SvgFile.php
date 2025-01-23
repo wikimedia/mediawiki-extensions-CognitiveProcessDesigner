@@ -6,8 +6,8 @@ use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use MediaHandler;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
+use Message;
 use MimeAnalyzer;
-use MWException;
 use MWFileProps;
 use RepoGroup;
 use SpecialUpload;
@@ -44,7 +44,6 @@ class SvgFile {
 	 *
 	 * @return void
 	 * @throws CpdSvgException
-	 * @throws MWException
 	 */
 	public function save( Title $svgFile, string $svg, User $user ): void {
 		$filename = $svgFile->getDBkey();
@@ -53,11 +52,6 @@ class SvgFile {
 			throw new CpdSvgException( 'Could not save SVG file' );
 		}
 
-		// MediaWiki normalizes multiple spaces/undescores into one single score/underscore
-		$title = str_replace( ' ', '_', $filename );
-		$title = preg_replace( '#(_)+#si', '_', $title );
-
-		$targetTitle = Title::makeTitle( NS_FILE, $title );
 		$repo = $this->repoGroup->getLocalRepo();
 		$repoFile = $repo->newFile( $svgFile );
 
@@ -82,12 +76,22 @@ class SvgFile {
 		} else {
 			$publishOptions['headers'] = [];
 		}
-		$archive = $repoFile->publish( $tempFilePath, $flags, $publishOptions );
+
+		$status = $repoFile->publish( $tempFilePath, $flags, $publishOptions );
+
+		if ( !$status->isOK() ) {
+			throw new CpdSvgException(
+				Message::newFromKey( 'cpd-error-message-publish-svg-file', $status->getErrors()[0]['message'] )
+			);
+		}
 
 		$commentText = SpecialUpload::getInitialPageText();
+		$status = $repoFile->recordUpload3( $status->value, '', $commentText, $user, $props );
 
-		$status = $repoFile->recordUpload3( $archive->value, '', $commentText, $user, $props );
-
-		// TODO: Check status
+		if ( !$status->isOK() ) {
+			throw new CpdSvgException(
+				Message::newFromKey( 'cpd-error-message-publish-svg-file', $status->getErrors()[0]['message'] )
+			);
+		}
 	}
 }
