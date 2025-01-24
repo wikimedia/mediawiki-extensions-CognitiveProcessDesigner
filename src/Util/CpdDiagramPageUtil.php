@@ -5,28 +5,28 @@ namespace CognitiveProcessDesigner\Util;
 use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
-use CognitiveProcessDesigner\HookHandler\AddDescriptionPageDiagramNavigationLinks;
+use CognitiveProcessDesigner\HookHandler\ModifyDescriptionPage;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CommentStoreComment;
-use Config;
 use Content;
 use ContentHandler;
 use DOMDocument;
 use File;
+use MediaWiki\Config\Config;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Message\Message;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
-use Message;
+use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
+use MediaWiki\User\User;
 use MWContentSerializationException;
 use MWException;
 use OutputPage;
 use ParserOutput;
 use RepoGroup;
-use Title;
-use TitleFactory;
-use User;
 use Wikimedia\Rdbms\ILoadBalancer;
 use WikiPage;
 
@@ -244,7 +244,7 @@ class CpdDiagramPageUtil {
 
 		$output->addJsConfigVars(
 			'cpdReturnToQueryParam',
-			AddDescriptionPageDiagramNavigationLinks::RETURN_TO_QUERY_PARAM
+			ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
 		);
 	}
 
@@ -270,7 +270,7 @@ class CpdDiagramPageUtil {
 
 		$links = [];
 		foreach ( $rows as $row ) {
-			$title = \MediaWiki\Title\Title::newFromID( $row->pp_page );
+			$title = Title::newFromID( $row->pp_page );
 			$links[] = $this->linkRenderer->makeLink(
 				$title,
 				$title->getText()

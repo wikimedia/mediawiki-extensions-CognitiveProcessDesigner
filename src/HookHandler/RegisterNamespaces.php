@@ -2,8 +2,8 @@
 
 namespace CognitiveProcessDesigner\HookHandler;
 
-use Config;
 use Exception;
+use MediaWiki\Config\Config;
 use MediaWiki\Hook\CanonicalNamespacesHook;
 
 class RegisterNamespaces implements CanonicalNamespacesHook {

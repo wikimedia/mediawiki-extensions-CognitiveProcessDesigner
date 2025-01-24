@@ -4,8 +4,8 @@ namespace CognitiveProcessDesigner\Tests;
 
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
-use Title;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\ILoadBalancer;
 

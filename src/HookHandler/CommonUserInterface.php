@@ -3,7 +3,7 @@
 namespace CognitiveProcessDesigner\HookHandler;
 
 use CognitiveProcessDesigner\Panel\MainLinkPanel;
-use Config;
+use MediaWiki\Config\Config;
 use MWStake\MediaWiki\Component\CommonUserInterface\Hook\MWStakeCommonUIRegisterSkinSlotComponents;
 
 class CommonUserInterface implements MWStakeCommonUIRegisterSkinSlotComponents {

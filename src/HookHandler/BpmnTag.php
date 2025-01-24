@@ -6,6 +6,7 @@ use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use File;
 use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
@@ -13,7 +14,6 @@ use MWException;
 use Parser;
 use ParserOutput;
 use PPFrame;
-use RequestContext;
 use TemplateParser;
 use WikiPage;
 

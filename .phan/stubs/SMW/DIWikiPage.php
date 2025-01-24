@@ -2,7 +2,7 @@
 
 namespace SMW;
 
-use Title;
+use MediaWiki\Title\Title;
 
 class DIWikiPage {
 	/**

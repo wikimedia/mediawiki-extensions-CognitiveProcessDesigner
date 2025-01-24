@@ -4,8 +4,8 @@ namespace CognitiveProcessDesigner\Tests;
 
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
-use Title;
 
 /**
  * @coversDefaultClass \CognitiveProcessDesigner\Util\CpdDiagramPageUtil

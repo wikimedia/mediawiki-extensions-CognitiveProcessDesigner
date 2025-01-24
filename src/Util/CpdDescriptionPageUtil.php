@@ -5,12 +5,12 @@ namespace CognitiveProcessDesigner\Util;
 use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
 use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
-use Config;
 use Content;
+use MediaWiki\Config\Config;
 use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
-use Title;
+use MediaWiki\Title\Title;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class CpdDescriptionPageUtil {

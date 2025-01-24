@@ -8,11 +8,11 @@ use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use MediaWiki\Hook\OutputPageBeforeHTMLHook;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Title\Title;
 use OutputPage;
 use TemplateParser;
-use Title;
 
-class AddDescriptionPageDiagramNavigationLinks implements OutputPageBeforeHTMLHook {
+class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 	public const RETURN_TO_QUERY_PARAM = 'returnto';
 
 	/** @var CpdDescriptionPageUtil */
@@ -88,7 +88,7 @@ class AddDescriptionPageDiagramNavigationLinks implements OutputPageBeforeHTMLHo
 		// Navigation links on bottom
 		$text .= $this->createNavigation( 'outgoing', $this->connectionUtil->getOutgoingConnections( $title ) );
 
-		$out->addModuleStyles( 'ext.cpd.navigation.connections' );
+		$out->addModuleStyles( 'ext.cpd.description.page' );
 	}
 
 	/**

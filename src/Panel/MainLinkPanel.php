@@ -2,7 +2,7 @@
 
 namespace CognitiveProcessDesigner\Panel;
 
-use Message;
+use MediaWiki\Message\Message;
 use MWException;
 use MWStake\MediaWiki\Component\CommonUserInterface\Component\RestrictedTextLink;
 use SpecialPage;

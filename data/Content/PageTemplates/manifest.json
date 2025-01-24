@@ -1,0 +1,23 @@
+{
+	"Template:CPD/BlankDescription": {
+		"lang": "en",
+		"target_title": "Template:CPD/BlankDescription",
+		"content_path": "/pages/Template/CPD_blank_description.wiki",
+		"sha1": "",
+		"old_sha1": []
+	},
+	"Template:CPD/GenericBPMN": {
+		"lang": "en",
+		"target_title": "Template:CPD/GenericBPMN",
+		"content_path": "/pages/Template/CPD_generic_bpmn.wiki",
+		"sha1": "",
+		"old_sha1": []
+	},
+	"Template:CPD/Task": {
+		"lang": "en",
+		"target_title": "Template:CPD/Task",
+		"content_path": "/pages/Template/CPD_task.wiki",
+		"sha1": "",
+		"old_sha1": []
+	}
+}

@@ -7,12 +7,12 @@ use CommentStoreComment;
 use Content;
 use Job;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Message\Message;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\PageUpdater;
+use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
-use Message;
 use MWException;
-use Title;
 
 class SaveDescriptionPage extends Job {
 

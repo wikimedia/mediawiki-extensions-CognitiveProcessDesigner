@@ -9,7 +9,7 @@ use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\MediaWikiServices;
-use Title;
+use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class GetDiagramUsage extends ApiBase {

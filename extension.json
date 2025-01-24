@@ -11,10 +11,10 @@
     "load_composer_autoloader": true,
     "callback": "mwsInitComponents",
     "requires": {
-        "MediaWiki": ">= 1.39.0",
+        "MediaWiki": ">= 1.43.0",
         "extensions": {
-            "OOJSPlus": ">= 2.0.0",
-            "StandardDialogs": ">= 2.1.2"
+            "OOJSPlus": ">= 3.0.0",
+            "StandardDialogs": ">= 3.0.0"
         }
     },
     "attributes": {
@@ -43,6 +43,13 @@
                 "bpmn-diagram": {
                     "class": "\\CognitiveProcessDesigner\\ContentDroplets\\BPMNDiagramDroplet"
                 }
+            }
+        },
+        "MWStakeContentProvisioner": {
+            "ContentManifests": {
+                "DefaultContentProvisioner": [
+                    "extensions/CognitiveProcessDesigner/data/Content/PageTemplates/manifest.json"
+                ]
             }
         }
     },
@@ -229,8 +236,6 @@
                 "cpd-shape-rename-message",
                 "cpd-shape-rename-with-description-page-message",
                 "cpd-shape-remove-label-message",
-                "cpd-validation-missing-label",
-                "cpd-validation-duplicate-label",
                 "cpd-log-no-changes",
                 "savechanges",
                 "savechanges-start",
@@ -249,6 +254,9 @@
                 "js/ve/ext.cpd.ui.processInputWidget.js",
                 "js/ve/ext.cpd.visualEditorTagDefinition.js"
             ],
+			"styles": [
+				"styles/bpmn.droplet.css"
+			],
             "messages": [
                 "cpd-droplet-name",
                 "cpd-droplet-description",
@@ -321,9 +329,10 @@
 				"styles/cpd.diagram.preview.less"
 			]
 		},
-        "ext.cpd.navigation.connections": {
+        "ext.cpd.description.page": {
             "styles": [
-                "styles/cpd.navigation.connections.less"
+                "styles/cpd.navigation.connections.less",
+                "styles/cpd.description.page.less"
             ]
         },
         "ext.cpd.dialoginfo.pages": {
@@ -370,7 +379,7 @@
         ],
         "CodeEditorGetPageLanguage": "integrateCodeEditor",
         "OutputPageBeforeHTML": [
-            "addDescriptionPageDiagramNavigationLinks",
+            "modifyDescriptionPages",
             "addResources"
         ],
         "LoadExtensionSchemaUpdates": "addTables",
@@ -409,8 +418,8 @@
         "integrateCodeEditor": {
             "class": "\\CognitiveProcessDesigner\\HookHandler\\IntegrateCodeEditor"
         },
-        "addDescriptionPageDiagramNavigationLinks": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\AddDescriptionPageDiagramNavigationLinks",
+        "modifyDescriptionPages": {
+            "class": "\\CognitiveProcessDesigner\\HookHandler\\ModifyDescriptionPage",
             "services": [
                 "CpdDescriptionPageUtil",
                 "CpdElementConnectionUtil",
@@ -485,8 +494,8 @@
         },
         "CPDPageTemplates": {
             "value": {
-                "*": "Template:GenericBPMN",
-                "bpmn:Task": "Template:Task"
+                "*": "Template:CPD/GenericBPMN",
+                "bpmn:Task": "Template:CPD/Task"
             }
         },
         "CPDCanvasProcessHeight": {

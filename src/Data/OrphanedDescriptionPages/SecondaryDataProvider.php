@@ -5,7 +5,7 @@ namespace CognitiveProcessDesigner\Data\OrphanedDescriptionPages;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
 use MWStake\MediaWiki\Component\DataStore\IRecord;
-use Title;
+use MediaWiki\Title\Title;
 
 class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\SecondaryDataProvider {
 	/** @var StabilizationLookup */

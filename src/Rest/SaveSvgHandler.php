@@ -3,14 +3,14 @@
 namespace CognitiveProcessDesigner\Rest;
 
 use MediaHandler;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Rest\Handler;
+use MediaWiki\Title\Title;
 use MimeAnalyzer;
 use MWFileProps;
 use RepoGroup;
-use RequestContext;
 use SpecialUpload;
 use TempFSFile;
-use Title;
 use Wikimedia\AtEase\AtEase;
 use Wikimedia\ParamValidator\ParamValidator;
 
