@@ -1,1 +1,0 @@
-{{CPD/BlankDescription|Generic BPMN type description}}
