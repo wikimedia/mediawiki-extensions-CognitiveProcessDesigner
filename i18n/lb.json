@@ -25,6 +25,7 @@
 	"cpd-ui-action-edit-xml": "XML änneren",
 	"cpd-button-cancel-title": "Ofbriechen",
 	"cpd-button-center-viewport": "Diagramm zentréieren",
+	"cpd-link-diagram-page-title": "Op d'Diagrammsäit goen",
 	"cpd-link-svg-title": "D'Diagrammen als SVG eroflueden",
 	"cpd-api-save-diagram-param-process-id": "ID vum BPMN-Diagramm",
 	"cpd-api-save-diagram-error-message": "Feeler beim Späichere vum Diagramm: $1",
@@ -54,6 +55,7 @@
 	"cpd-log-no-changes": "Keng Ännerungen",
 	"cpd-process-usage-undocumented-error": "Et ass en ondokumentéierte Feeler geschitt",
 	"cpd-dialog-save-changes-headline": "Ännerunge späicheren",
+	"cpd-dialog-save-changes-button-title": "Ännerunge späicheren",
 	"cpd-dialog-save-label-review": "Kuckt Är Ännerungen no",
 	"cpd-dialog-save-label-save": "Ännerunge späicheren",
 	"cpd-dialog-save-label-changes": "Ännerunge gespäichert",
@@ -69,7 +71,5 @@
 	"bs-cpd-actionmenuentry-new-process": "Neie Prozess",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Prozessnumm",
 	"cpd-api-save-description-page-comment": "Beschreiwungssäit gespäichert",
-	"cpd-api-move-description-page-comment": "Beschreiwungssäit geréckelt",
-	"cpd-link-diagram-page-title": "Op d'Diagrammsäit goen",
-	"cpd-dialog-save-changes-button-title": "Ännerunge späicheren"
+	"cpd-api-move-description-page-comment": "Beschreiwungssäit geréckelt"
 }
