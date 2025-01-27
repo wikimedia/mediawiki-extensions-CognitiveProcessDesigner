@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Saraiki"
+			"Saraiki",
+			"Umar Shahid"
 		]
 	},
 	"cpd-orphaned-description-pages-column-dbkey-title": "عنوان",
@@ -17,5 +18,6 @@
 	"cpd-dialog-save-label-changes-with-error": "خرابی تھی ڳئی ہے",
 	"bs-cpd-process-overview-edit-action-text": "لکھو",
 	"bs-cpd-process-overview-create-action-text": "بݨاؤ",
-	"bs-cpd-process-overview-info-action-text": "معلومات ورقہ"
+	"bs-cpd-process-overview-info-action-text": "معلومات ورقہ",
+	"cpd-error-message-publish-svg-file": "فائل شائع کائنی تھی سڳی:$1"
 }
