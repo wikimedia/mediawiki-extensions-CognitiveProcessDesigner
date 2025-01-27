@@ -127,7 +127,7 @@
 	"cpd-droplet-height-field-label": "Hoogte",
 	"cpd-droplet-show-toolbar-field-label-help": "Werkbalk in- of uitschakelen",
 	"cpd-droplet-show-toolbar-field-label": "Werkbalk weergeven",
-	"cpd-validation-missing-label": "$1 heeft geen label",
+	"cpd-validation-missing-label": "Element $1 $2 heeft geen label",
 	"cpd-validation-duplicate-label": "$1 wordt meerdere keren gebruikt in $2",
 	"cpd-log-no-changes": "Geen wijzigingen",
 	"cpd-process-usage-description": "Op de volgende pagina’s is het proces $1 ingebed",

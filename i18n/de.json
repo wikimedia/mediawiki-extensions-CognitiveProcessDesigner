@@ -122,7 +122,7 @@
 	"cpd-droplet-description": "Bearbeitbares BPMN-Diagramm",
 	"cpd-droplet-process-field-label-help": "Suche nach vorhandenen Prozessen, indem du den Namen des Prozesses eingibst",
 	"cpd-droplet-process-field-label": "Prozess",
-	"cpd-validation-missing-label": "$1 hat kein Label",
+	"cpd-validation-missing-label": "Element $1 $2 hat kein Label",
 	"cpd-validation-duplicate-label": "$1 wird mehrfach in $2 verwendet",
 	"cpd-log-no-changes": "Keine Änderungen",
 	"cpd-process-usage-description": "Die folgenden Seiten betten den Prozess $1 ein",
@@ -155,5 +155,6 @@
 	"bs-cpd-actionmenuentry-new-process": "Neues Verfahren",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Prozessname",
 	"cpd-api-save-description-page-comment": "Beschreibungsseite gespeichert",
-	"cpd-api-move-description-page-comment": "Beschreibungsseite gespeichert"
+	"cpd-api-move-description-page-comment": "Beschreibungsseite gespeichert",
+	"cpd-dialog-save-changes-button-title": "Änderungen speichern"
 }

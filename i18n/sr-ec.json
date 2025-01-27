@@ -18,5 +18,6 @@
 	"bs-cpd-process-overview-create-action-text": "Направи",
 	"bs-cpd-process-overview-info-action-text": "Информације о страници",
 	"cpd-api-save-diagram-error-message": "Грешка при чувању дијаграма: $1",
-	"cpd-api-load-diagram-error-message": "Грешка при учитавању дијаграма: $1"
+	"cpd-api-load-diagram-error-message": "Грешка при учитавању дијаграма: $1",
+	"cpd-error-message-publish-svg-file": "Објављивање SVG датотеке није успело: $1"
 }
