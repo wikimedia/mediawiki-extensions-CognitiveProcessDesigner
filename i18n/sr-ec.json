@@ -9,6 +9,7 @@
 	"cpd-api-save-diagram-error-message": "Грешка при чувању дијаграма: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=Следећа страница са описом је сачувана|Следећих $1 страница са описом је сачувано|0=Нема сачуваних страница са описом}}:",
 	"cpd-api-load-diagram-error-message": "Грешка при учитавању дијаграма: $1",
+	"cpd-error-message-publish-svg-file": "Објављивање SVG датотеке није успело: $1",
 	"cpd-editor-title": "Уређивање $1",
 	"cpd-editor-title-create": "Направи $1",
 	"cpd-shape-rename-message": "$1 преименован у $2",

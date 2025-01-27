@@ -63,7 +63,6 @@
 	"cpd-droplet-show-toolbar-field-label-help": "Овозможи или оневозможи алатник",
 	"cpd-droplet-show-toolbar-field-label": "Прикажи алатник",
 	"cpd-validation-missing-label": "$1 нема натпис",
-	"cpd-validation-duplicate-label": "$1 се користи повеќепати во $2",
 	"cpd-log-no-changes": "Нема промени",
 	"cpd-process-usage-description": "Следниве страници го вметнуваат процесот $1",
 	"cpd-process-usage-no-pages-description": "Засега ниедна страница не го вметнува процесот $1",
