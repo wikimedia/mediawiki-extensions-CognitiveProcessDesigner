@@ -4,8 +4,8 @@ namespace CognitiveProcessDesigner\Data\OrphanedDescriptionPages;
 
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
-use MWStake\MediaWiki\Component\DataStore\IRecord;
 use MediaWiki\Title\Title;
+use MWStake\MediaWiki\Component\DataStore\IRecord;
 
 class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\SecondaryDataProvider {
 	/** @var StabilizationLookup */
@@ -72,7 +72,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 				continue;
 			}
 
-			$revId = (int) $dataSet->get( Record::PROCESS_REV );
+			$revId = (int)$dataSet->get( Record::PROCESS_REV );
 			$id = $stableRevision->getRevision()->getId();
 
 			/** @var Record $dataSet */

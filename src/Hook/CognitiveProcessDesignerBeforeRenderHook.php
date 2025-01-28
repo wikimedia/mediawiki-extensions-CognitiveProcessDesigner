@@ -11,7 +11,7 @@ interface CognitiveProcessDesignerBeforeRenderHook {
 	/**
 	 * @param PageIdentity|null $forPage
 	 * @param WikiPage $diagramPage
-	 * @param RevisionRecord|null $diagramRevision
+	 * @param RevisionRecord|null &$diagramRevision
 	 * @return mixed
 	 */
 	public function onCognitiveProcessDesignerBeforeRender(

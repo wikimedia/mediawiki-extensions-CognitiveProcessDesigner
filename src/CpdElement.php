@@ -81,7 +81,7 @@ class CpdElement implements JsonSerializable {
 
 	/**
 	 * @param array $element
-	 *
+	 * @param bool $isParent
 	 * @return CpdElement
 	 */
 	public static function fromElementJson( array $element, $isParent = false ): CpdElement {

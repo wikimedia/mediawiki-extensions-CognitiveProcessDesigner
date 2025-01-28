@@ -10,8 +10,8 @@ use CognitiveProcessDesigner\Job\SaveDescriptionPage;
 use Exception;
 use JobQueueGroup;
 use MediaWiki\Linker\LinkRenderer;
-use User;
 use MediaWiki\Message\Message;
+use User;
 
 class CpdSaveDescriptionPagesUtil {
 	/**

@@ -12,9 +12,9 @@ use CognitiveProcessDesigner\Process\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
 use Exception;
-use MediaWiki\Revision\RevisionLookup;
 use MWContentSerializationException;
 use MWException;
+use MWUnknownContentModelException;
 use RuntimeException;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -60,6 +60,7 @@ class SaveCpdDiagram extends ApiBase {
 	 * @throws ApiUsageException
 	 * @throws MWContentSerializationException
 	 * @throws MWException
+	 * @throws MWUnknownContentModelException
 	 */
 	public function execute() {
 		$user = $this->getContext()->getUser();

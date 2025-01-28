@@ -43,7 +43,7 @@ class SvgFile {
 	 * @param string $svg
 	 * @param User $user
 	 *
-	 * @return void
+	 * @return File
 	 * @throws CpdSvgException
 	 */
 	public function save( Title $svgFile, string $svg, User $user ): File {
@@ -54,8 +54,10 @@ class SvgFile {
 		}
 
 		$repo = $this->repoGroup->getLocalRepo();
-		// TODO: File can be null
 		$repoFile = $repo->newFile( $svgFile );
+		if ( !$repoFile ) {
+			throw new CpdSvgException( 'Could not create file object' );
+		}
 
 		/*
 		 * The following code is almost a direct copy of
@@ -91,8 +93,16 @@ class SvgFile {
 		$status = $repoFile->recordUpload3( $status->value, '', $commentText, $user, $props );
 
 		if ( !$status->isOK() ) {
+			$errors = $status->getMessages();
+			if ( count( $errors ) === 1 && $errors[0]->getKey() === 'fileexists-no-change' ) {
+				// "Allowed" error
+				return $repoFile;
+			}
+			$msgText = array_map( static function ( $error ) {
+				return Message::newFromSpecifier( $error )->text();
+			}, $errors );
 			throw new CpdSvgException(
-				Message::newFromKey( 'cpd-error-message-publish-svg-file', $status->getErrors()[0]['message'] )
+				Message::newFromKey( 'cpd-error-message-publish-svg-file', implode( ', ', $msgText ) )
 			);
 		}
 		return $repoFile;

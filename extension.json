@@ -393,7 +393,7 @@
             "class": "\\CognitiveProcessDesigner\\HookHandler\\BpmnTag",
             "services": [
                 "CpdDiagramPageUtil",
-                "ContentStabilization.Lookup"
+                "HookContainer"
             ]
         },
         "registerNamespaces": {

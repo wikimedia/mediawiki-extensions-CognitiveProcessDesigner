@@ -5,10 +5,9 @@ namespace CognitiveProcessDesigner\HookHandler;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use File;
-use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Hook\ParserFirstCallInitHook;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Revision\RevisionRecord;
 use MWException;
 use Parser;
@@ -20,19 +19,14 @@ use WikiPage;
 class BpmnTag implements ParserFirstCallInitHook {
 	public const PROCESS_PROP_NAME = 'cpd-process';
 
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $diagramPageUtil;
-
-	/** @var StabilizationLookup */
-	private StabilizationLookup $lookup;
-
 	/**
 	 * @param CpdDiagramPageUtil $diagramPageUtil
-	 * @param StabilizationLookup $lookup
+	 * @param HookContainer $hookContainer
 	 */
-	public function __construct( CpdDiagramPageUtil $diagramPageUtil, StabilizationLookup $lookup ) {
-		$this->diagramPageUtil = $diagramPageUtil;
-		$this->lookup = $lookup;
+	public function __construct(
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly HookContainer $hookContainer
+	) {
 	}
 
 	/**
@@ -88,7 +82,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 
 		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
 		$diagramRevision = $diagramPage->getRevisionRecord();
-		MediaWikiServices::getInstance()->getHookContainer()->run(
+		$this->hookContainer->run(
 			'CognitiveProcessDesignerBeforeRender',
 			[ $parser->getPage(), $diagramPage, &$diagramRevision ]
 		);

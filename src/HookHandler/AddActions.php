@@ -8,6 +8,7 @@ use SkinTemplate;
 
 class AddActions implements SkinTemplateNavigation__UniversalHook {
 	/**
+	 * // phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
 	 * @param SkinTemplate $sktemplate
 	 * @param array &$links
 	 */
