@@ -5,25 +5,25 @@ namespace CognitiveProcessDesigner\Util;
 use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
-use CognitiveProcessDesigner\HookHandler\ModifyDescriptionPage;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
-use CommentStoreComment;
-use ContentHandler;
+use CognitiveProcessDesigner\HookHandler\ModifyDescriptionPage;
 use DOMDocument;
 use File;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Config\Config;
+use MediaWiki\Content\ContentHandler;
+use MediaWiki\Content\TextContent;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
-use MediaWiki\Page\PageReference;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 use MediaWiki\User\User;
 use MWContentSerializationException;
 use MWException;
-use OutputPage;
-use ParserOutput;
 use RepoGroup;
 use Wikimedia\Rdbms\ILoadBalancer;
 use WikiPage;
@@ -72,12 +72,12 @@ class CpdDiagramPageUtil {
 	}
 
 	/**
-	 * @param PageReference $title
+	 * @param Title $title
 	 *
 	 * @return string
 	 * @throws CpdInvalidNamespaceException
 	 */
-	public static function getProcessFromTitle( PageReference $title ): string {
+	public static function getProcessFromTitle( Title $title ): string {
 		if ( $title->getNamespace() !== NS_PROCESS ) {
 			throw new CpdInvalidNamespaceException( 'Page not in CPD namespace' );
 		}
@@ -86,12 +86,12 @@ class CpdDiagramPageUtil {
 	}
 
 	/**
-	 * @param PageReference $title
+	 * @param Title $title
 	 *
 	 * @return array
 	 * @throws CpdInvalidNamespaceException
 	 */
-	public static function getLanesFromTitle( PageReference $title ): array {
+	public static function getLanesFromTitle( Title $title ): array {
 		if ( $title->getNamespace() !== NS_PROCESS ) {
 			throw new CpdInvalidNamespaceException( 'Page not in CPD namespace' );
 		}
@@ -196,7 +196,7 @@ class CpdDiagramPageUtil {
 		}
 
 		$content = $page->getContent();
-		if ( !$content ) {
+		if ( !( $content instanceof TextContent ) ) {
 			throw new CpdInvalidContentException( 'Process page does not have content' );
 		}
 

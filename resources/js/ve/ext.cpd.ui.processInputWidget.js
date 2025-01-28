@@ -1,8 +1,8 @@
-bs.util.registerNamespace( "bs.cpd.ui" );
+bs.util.registerNamespace( 'bs.cpd.ui' );
 
 bs.cpd.ui.ProcessInputWidget = function ( cfg ) {
 	cfg.namespace = 1530;
-	cfg.icon = "search";
+	cfg.icon = 'search';
 	cfg.required = true;
 	cfg.$overlay = true;
 	bs.cpd.ui.ProcessInputWidget.super.call( this, cfg );
@@ -19,8 +19,8 @@ bs.cpd.ui.ProcessInputWidget.prototype.getLookupMenuOptionsFromData = function (
 	const filteredPages = {};
 
 	for ( const key in response.pages ) {
-		if ( response.pages[key].contentmodel === "CPD" ) {
-			filteredPages[key] = response.pages[key];
+		if ( response.pages[ key ].contentmodel === 'CPD' ) {
+			filteredPages[ key ] = response.pages[ key ];
 		}
 	}
 

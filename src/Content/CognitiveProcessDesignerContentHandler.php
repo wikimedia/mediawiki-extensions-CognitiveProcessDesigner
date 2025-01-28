@@ -5,13 +5,13 @@ namespace CognitiveProcessDesigner\Content;
 use CognitiveProcessDesigner\Action\EditDiagramAction;
 use CognitiveProcessDesigner\Action\EditDiagramXmlAction;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
-use Content;
 use MediaWiki\Config\Config;
+use MediaWiki\Content\Content;
 use MediaWiki\Content\Renderer\ContentParseParams;
+use MediaWiki\Content\TextContentHandler;
+use MediaWiki\Html\TemplateParser;
 use MediaWiki\MediaWikiServices;
-use ParserOutput;
-use TemplateParser;
-use TextContentHandler;
+use MediaWiki\Parser\ParserOutput;
 
 class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	/** @var CpdDiagramPageUtil */

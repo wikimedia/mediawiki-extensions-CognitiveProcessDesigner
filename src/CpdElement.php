@@ -81,6 +81,7 @@ class CpdElement implements JsonSerializable {
 
 	/**
 	 * @param array $element
+	 * @param bool $isParent
 	 *
 	 * @return CpdElement
 	 */
@@ -91,8 +92,8 @@ class CpdElement implements JsonSerializable {
 		}
 
 		$parent = $element['parent'] ? self::fromElementJson( $element['parent'], true ) : null;
-		$incomingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
-		$outgoingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
+		$incomingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
+		$outgoingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
 
 		return new CpdElement(
 			$element['id'],

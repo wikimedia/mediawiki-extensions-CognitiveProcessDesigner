@@ -6,11 +6,11 @@ use CognitiveProcessDesigner\CpdNavigationConnection;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
-use MediaWiki\Hook\OutputPageBeforeHTMLHook;
+use MediaWiki\Html\TemplateParser;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Output\Hook\OutputPageBeforeHTMLHook;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
-use OutputPage;
-use TemplateParser;
 
 class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 	public const RETURN_TO_QUERY_PARAM = 'returnto';
@@ -105,7 +105,7 @@ class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 	): string {
 		return $this->templateParser->processTemplate(
 			'DescriptionPageNavigation', [
-				'connections' => array_map( fn( CpdNavigationConnection $connection ) => $connection->toArray(),
+				'connections' => array_map( fn ( CpdNavigationConnection $connection ) => $connection->toArray(),
 					$connections ),
 				'headline' => $headline,
 				'connectionDirection' => $direction

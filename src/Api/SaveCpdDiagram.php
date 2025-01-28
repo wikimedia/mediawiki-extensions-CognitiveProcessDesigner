@@ -2,12 +2,12 @@
 
 namespace CognitiveProcessDesigner\Api;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use CognitiveProcessDesigner\Process\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
 use MWContentSerializationException;
 use MWException;
 use Wikimedia\ParamValidator\ParamValidator;

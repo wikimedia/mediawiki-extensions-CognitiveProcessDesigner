@@ -2,7 +2,7 @@
 
 namespace CognitiveProcessDesigner\Content;
 
-use TextContent;
+use MediaWiki\Content\TextContent;
 
 class CognitiveProcessDesignerContent extends TextContent {
 

@@ -5,13 +5,13 @@ namespace CognitiveProcessDesigner\Rest;
 use MediaHandler;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Rest\Handler;
+use MediaWiki\Specials\SpecialUpload;
 use MediaWiki\Title\Title;
-use MimeAnalyzer;
 use MWFileProps;
 use RepoGroup;
-use SpecialUpload;
-use TempFSFile;
 use Wikimedia\AtEase\AtEase;
+use Wikimedia\FileBackend\FSFile\TempFSFile;
+use Wikimedia\Mime\MimeAnalyzer;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveSvgHandler extends Handler {

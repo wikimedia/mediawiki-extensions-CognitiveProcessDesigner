@@ -2,9 +2,6 @@
 
 namespace CognitiveProcessDesigner\Api;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
 use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\CpdElementFactory;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
@@ -15,6 +12,9 @@ use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use Exception;
 use JobQueueGroup;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
 use MediaWiki\User\UserIdentity;

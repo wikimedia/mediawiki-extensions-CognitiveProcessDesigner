@@ -2,10 +2,10 @@
 
 namespace CognitiveProcessDesigner\Special;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\SpecialPage\SpecialPage;
 use OOUI\Exception;
-use SpecialPage;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class SpecialOrphanedDescriptionPages extends SpecialPage {

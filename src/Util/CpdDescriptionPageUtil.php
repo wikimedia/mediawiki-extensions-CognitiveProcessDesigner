@@ -5,8 +5,8 @@ namespace CognitiveProcessDesigner\Util;
 use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
 use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
-use Content;
 use MediaWiki\Config\Config;
+use MediaWiki\Content\Content;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
@@ -139,7 +139,7 @@ class CpdDescriptionPageUtil {
 	 * @return void
 	 */
 	public function updateOrphanedDescriptionPages( array $elements, string $process ): void {
-		$dbw = $this->loadBalancer->getConnectionRef( DB_PRIMARY );
+		$dbw = $this->loadBalancer->getConnection( DB_PRIMARY );
 
 		// Clear orphaned pages rows from this process
 		$dbw->delete(
@@ -149,10 +149,12 @@ class CpdDescriptionPageUtil {
 		);
 
 		$orphanedPages = [];
-		$existingPages = array_map( fn( Title $title ) => $title->getPrefixedDBkey(),
+		$existingPages = array_map( fn ( Title $title ) => $title->getPrefixedDBkey(),
 			$this->findDescriptionPages( $process ) );
-		$pagesFromElements = array_map( fn( CpdElement $element ) => $element->getDescriptionPage()->getPrefixedDBkey(),
-			$elements );
+		$pagesFromElements = array_map( fn ( CpdElement $element ) =>
+			$element->getDescriptionPage()->getPrefixedDBkey(),
+			$elements
+		);
 
 		foreach ( $existingPages as $descriptionPage ) {
 			if ( !in_array( $descriptionPage, $pagesFromElements, true ) ) {
@@ -167,7 +169,7 @@ class CpdDescriptionPageUtil {
 		// Insert orphaned pages
 		$dbw->insert(
 			'cpd_orphaned_description_pages',
-			array_map( fn( string $page ) => [
+			array_map( fn ( string $page ) => [
 				'process' => $process,
 				'page_title' => $page
 			], $orphanedPages ),

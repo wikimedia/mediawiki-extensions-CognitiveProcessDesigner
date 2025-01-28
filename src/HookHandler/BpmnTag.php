@@ -7,11 +7,11 @@ use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use File;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Hook\ParserFirstCallInitHook;
+use MediaWiki\Html\TemplateParser;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Parser\PPFrame;
 use MWException;
-use Parser;
-use ParserOutput;
-use PPFrame;
-use TemplateParser;
 
 class BpmnTag implements ParserFirstCallInitHook {
 	public const PROCESS_PROP_NAME = 'cpd-process';

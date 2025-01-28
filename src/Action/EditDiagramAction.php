@@ -5,8 +5,8 @@ namespace CognitiveProcessDesigner\Action;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use EditAction;
+use MediaWiki\Html\TemplateParser;
 use MediaWiki\MediaWikiServices;
-use TemplateParser;
 
 class EditDiagramAction extends EditAction {
 

@@ -2,12 +2,12 @@
 
 namespace CognitiveProcessDesigner\Api;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
