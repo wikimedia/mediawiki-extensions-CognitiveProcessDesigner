@@ -56,6 +56,7 @@
 	"cpd-shape-remove-label-message": "$1 label removed",
 	"cpd-droplet-name": "Process",
 	"cpd-droplet-description": "Editable BPMN diagram",
+	"cpd-droplet-desc": "Embeds new or existing BPMN diagrams",
 	"cpd-droplet-process-field-label-help": "Find existing processes by typing the name of process",
 	"cpd-droplet-process-field-label": "Process",
 	"cpd-droplet-width-field-label-help": "Set fixed width for diagram. Leave empty for auto width",

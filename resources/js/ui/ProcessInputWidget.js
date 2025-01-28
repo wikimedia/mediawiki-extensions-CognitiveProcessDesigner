@@ -1,19 +1,23 @@
-bs.util.registerNamespace( 'bs.cpd.ui' );
+window.ext = window.ext || {};
 
-bs.cpd.ui.ProcessInputWidget = function ( cfg ) {
+ext.cpd = ext.cpd || {};
+ext.cpd.ui = ext.cpd.ui || {};
+
+ext.cpd.ui.ProcessInputWidget = function ( cfg ) {
+	cfg = cfg || {};
 	cfg.namespace = 1530;
 	cfg.icon = 'search';
 	cfg.required = true;
 	cfg.$overlay = true;
-	bs.cpd.ui.ProcessInputWidget.super.call( this, cfg );
+	ext.cpd.ui.ProcessInputWidget.super.call( this, cfg );
 };
 
-OO.inheritClass( bs.cpd.ui.ProcessInputWidget, mw.widgets.TitleInputWidget );
+OO.inheritClass( ext.cpd.ui.ProcessInputWidget, mw.widgets.TitleInputWidget );
 
 /**
  * @inheritdoc OO.ui.mixin.LookupElement
  */
-bs.cpd.ui.ProcessInputWidget.prototype.getLookupMenuOptionsFromData = function ( response ) {
+ext.cpd.ui.ProcessInputWidget.prototype.getLookupMenuOptionsFromData = function ( response ) {
 
 	// Filter pages without contentmodel cpd from the response
 	const filteredPages = {};

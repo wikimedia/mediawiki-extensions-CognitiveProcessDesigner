@@ -33,8 +33,8 @@
 				"CPDMainLinksCognitiveProcessDesigner": "\\CognitiveProcessDesigner\\ConfigDefinition\\MainLinksCognitiveProcessDesigner::getInstance"
 			}
 		},
-		"BlueSpiceVisualEditorConnector": {
-			"TagDefinitions": [
+		"VisualEditor": {
+			"PluginModules": [
 				"ext.cpd.visualEditorTagDefinition"
 			]
 		},
@@ -260,11 +260,14 @@
 		},
 		"ext.cpd.visualEditorTagDefinition": {
 			"scripts": [
-				"js/ve/ext.cpd.ui.processInputWidget.js",
-				"js/ve/ext.cpd.visualEditorTagDefinition.js"
+				"js/ve/ce/CPDProcessNode.js",
+				"js/ve/dm/CPDProcessNode.js",
+				"js/ve/ui/CPDProcessNodeInspector.js",
+				"js/ve/ui/CPDProcessNodeInspectorTool.js"
 			],
 			"styles": [
-				"styles/bpmn.droplet.css"
+				"styles/bpmn.droplet.css",
+				"styles/cpd.diagram.preview.less"
 			],
 			"messages": [
 				"cpd-droplet-name",
@@ -280,8 +283,7 @@
 			],
 			"dependencies": [
 				"ext.visualEditor.mwcore",
-				"ext.bluespice.visualEditorConnector.tags.classes",
-				"mediawiki.widgets"
+				"ext.cpd.widgets"
 			]
 		},
 		"ext.cpd.special.orphaneddescriptionpages": {
@@ -371,6 +373,14 @@
 			],
 			"dependencies": [
 				"ext.standardDialogs.ui.NewPageDialog"
+			]
+		},
+		"ext.cpd.widgets": {
+			"scripts": [
+				"js/ui/ProcessInputWidget.js"
+			],
+			"dependencies": [
+				"mediawiki.widgets"
 			]
 		}
 	},

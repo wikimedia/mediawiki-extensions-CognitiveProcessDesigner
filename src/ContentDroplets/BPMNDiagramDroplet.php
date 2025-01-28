@@ -20,7 +20,7 @@ class BPMNDiagramDroplet extends TagDroplet {
 	 * @inheritDoc
 	 */
 	public function getDescription(): Message {
-		return Message::newFromKey( 'cpd-droplet-description' );
+		return Message::newFromKey( 'cpd-droplet-desc' );
 	}
 
 	/**
@@ -48,7 +48,7 @@ class BPMNDiagramDroplet extends TagDroplet {
 	 * @return string
 	 */
 	protected function getTagName(): string {
-		return 'bs:bpmn';
+		return 'bpmn';
 	}
 
 	/**
@@ -62,7 +62,7 @@ class BPMNDiagramDroplet extends TagDroplet {
 	 * @return bool
 	 */
 	protected function hasContent(): bool {
-		return true;
+		return false;
 	}
 
 	/**

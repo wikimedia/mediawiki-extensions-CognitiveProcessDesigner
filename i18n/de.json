@@ -56,6 +56,7 @@
 	"cpd-shape-remove-label-message": "$1 Label entfernt",
 	"cpd-droplet-name": "Prozess",
 	"cpd-droplet-description": "Bearbeitbares BPMN-Diagramm",
+	"cpd-droplet-desc": "Bindet neue oder bestehende BPMN-Diagramme ein",
 	"cpd-droplet-process-field-label-help": "Suche nach vorhandenen Prozessen, indem du den Namen des Prozesses eingibst",
 	"cpd-droplet-process-field-label": "Prozess",
 	"cpd-validation-missing-label": "$1 hat kein Label",

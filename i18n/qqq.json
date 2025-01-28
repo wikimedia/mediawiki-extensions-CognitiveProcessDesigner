@@ -8,7 +8,6 @@
 		]
 	},
 	"cognitiveprocessdesigner-desc": "{{desc|name=Cognitive Process Designer|url=https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer}}",
-	"cpd-droplet-description": "Description of droplet for tag BPMN",
 	"bs-cpd-mainlinks-label": "Label for link used in the left navigation for the page name of [[Special:ProcessOverview]].\n{{Identical|Processes}}",
 	"bs-config-mainlinks-cpd-label": "Label for checkbox in config, that shows entrypoint \"Cognitive Process Designer\" in the left navigation",
 	"bs-config-mainlinks-cpd-help": "Help message for checkbox in config, that shows entrypoint \"Cognitive Process Designer\" in the left navigation (right in RTL).",
@@ -19,5 +18,15 @@
 	"bs-cpd-process-overview-edit-action-text": "Title attribute of link opening the edit url to edit the process",
 	"bs-cpd-process-overview-edit-action-title": "Aria label attribute of link opening the edit url to edit the process\nParameters: * $1: Name of process",
 	"bs-cpd-process-overview-card-title": "Aria label attribute of link opening the url to the process\nParameters: * $1: Name of process",
-	"bs-cpd-info-dialog": "Label for page in page information dialog\n{{Identical|Diagram usage}}"
+	"bs-cpd-info-dialog": "Label for page in page information dialog\n{{Identical|Diagram usage}}",
+	"cpd-droplet-name": "Title of cognitiveprocessdesigner droplet",
+	"cpd-droplet-desc": "Description of droplet for tag BPMN",
+	"cpd-droplet-process-field-label-help": "Help text for input field to search for existing process titles",
+	"cpd-droplet-process-field-label": "Label for input field to search for a process title",
+	"cpd-droplet-width-field-label-help": "Help text for input field to set width of bpmn diagram",
+	"cpd-droplet-width-field-label": "Label for input field to set width of bpmn diagram",
+	"cpd-droplet-height-field-label-help": "Help text for input field to set height of bpmn diagram",
+	"cpd-droplet-height-field-label": "Label for input field to set height of bpmn diagram",
+	"cpd-droplet-show-toolbar-field-label-help": "Help text for toggle switch if toolbar should be shown",
+	"cpd-droplet-show-toolbar-field-label": "Label for toggle switch if toolbar should be visible"
 }
