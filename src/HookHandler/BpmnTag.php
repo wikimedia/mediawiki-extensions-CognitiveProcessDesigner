@@ -87,9 +87,14 @@ class BpmnTag implements ParserFirstCallInitHook {
 		);
 
 		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		$diagramRevision = $diagramPage->getRevisionRecord();
+		MediaWikiServices::getInstance()->getHookContainer()->run(
+			'CognitiveProcessDesignerBeforeRender',
+			[ $parser->getPage(), $diagramPage, &$diagramRevision ]
+		);
 		$imageFile = $this->diagramPageUtil->getSvgFile(
 			$process,
-			$this->getStableRevision( $diagramPage )
+			!$diagramRevision->isCurrent() ? $diagramRevision : null
 		);
 
 		// Show svg image if the page is in edit mode
@@ -97,7 +102,9 @@ class BpmnTag implements ParserFirstCallInitHook {
 			return $this->buildEditOutput( $imageFile, $templateParser, $parser->getOutput(), $process, $args );
 		}
 
-		return $this->buildViewOutput( $imageFile, $templateParser, $parser, $process, $args );
+		return $this->buildViewOutput(
+			$imageFile, $templateParser, $parser, $process, $args, $diagramPage, $diagramRevision
+		);
 	}
 
 	/**
@@ -137,7 +144,8 @@ class BpmnTag implements ParserFirstCallInitHook {
 	 * @param Parser $parser
 	 * @param string $process
 	 * @param array $args
-	 *
+	 * @param WikiPage $diagramPage
+	 * @param RevisionRecord|null $diagramRevision
 	 * @return string
 	 */
 	private function buildViewOutput(
@@ -145,7 +153,9 @@ class BpmnTag implements ParserFirstCallInitHook {
 		TemplateParser $templateParser,
 		Parser $parser,
 		string $process,
-		array $args
+		array $args,
+		WikiPage $diagramPage,
+		?RevisionRecord $diagramRevision
 	): string {
 		$output = $parser->getOutput();
 		$this->addProcessPageProperty( $output, $process );
@@ -163,20 +173,12 @@ class BpmnTag implements ParserFirstCallInitHook {
 			'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
 		];
 
-		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
-		$stableRevision = $this->getStableRevision( $diagramPage );
-		if ( $stableRevision ) {
-			$data['revision'] = $stableRevision->getId();
-		}
-
-		$revisionLookup = MediaWikiServices::getInstance()->getRevisionLookup();
-		$revision = $revisionLookup->getRevisionByPageId( $diagramPage->getId() );
-
-		if ( $revision ) {
+		if ( $diagramRevision instanceof RevisionRecord ) {
+			$data['revision'] = $diagramRevision->getId();
 			$output->addTemplate(
-				$revision->getPageAsLinkTarget(),
+				$diagramPage->getTitle(),
 				$diagramPage->getId(),
-				$revision->getId()
+				$diagramRevision->getId()
 			);
 		}
 
@@ -211,16 +213,5 @@ class BpmnTag implements ParserFirstCallInitHook {
 		$action = $request->getVal( 'action', $request->getVal( 'veaction', null ) );
 
 		return $action === 'edit' || $action === 'visualeditor';
-	}
-
-	/**
-	 * @param WikiPage $page
-	 *
-	 * @return RevisionRecord|null
-	 */
-	private function getStableRevision( WikiPage $page ): RevisionRecord|null {
-		$lastStablePoint = $this->lookup->getLastStablePoint( $page );
-
-		return $lastStablePoint?->getRevision();
 	}
 }

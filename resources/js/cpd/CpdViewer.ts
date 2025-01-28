@@ -39,6 +39,11 @@ export default class CpdViewer extends CpdTool {
 		} );
 		this.eventBus = this.bpmnViewer.get( "eventBus" );
 
+		// Remove prerendered image (class `diagram-image-prerendered`) from container
+		const prerenderedImage = container.querySelector( ".diagram-image-prerendered" );
+		if ( prerenderedImage ) {
+			prerenderedImage.remove();
+		}
 		this.renderDiagram( process, revision );
 	}
 

@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\Process;
 
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
+use File;
 use MediaHandler;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
@@ -45,7 +46,7 @@ class SvgFile {
 	 * @return void
 	 * @throws CpdSvgException
 	 */
-	public function save( Title $svgFile, string $svg, User $user ): void {
+	public function save( Title $svgFile, string $svg, User $user ): File {
 		$filename = $svgFile->getDBkey();
 		$tempFilePath = TempFSFile::getUsableTempDirectory() . '/' . $filename;
 		if ( !file_put_contents( $tempFilePath, $svg ) ) {
@@ -53,6 +54,7 @@ class SvgFile {
 		}
 
 		$repo = $this->repoGroup->getLocalRepo();
+		// TODO: File can be null
 		$repoFile = $repo->newFile( $svgFile );
 
 		/*
@@ -93,5 +95,6 @@ class SvgFile {
 				Message::newFromKey( 'cpd-error-message-publish-svg-file', $status->getErrors()[0]['message'] )
 			);
 		}
+		return $repoFile;
 	}
 }

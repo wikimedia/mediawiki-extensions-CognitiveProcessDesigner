@@ -16,7 +16,8 @@ return [
 			$services->getRepoGroup(),
 			$services->getMainConfig(),
 			$services->getDBLoadBalancer(),
-			$services->getLinkRenderer()
+			$services->getLinkRenderer(),
+			$services->getRevisionLookup()
 		);
 	},
 	'CpdDescriptionPageUtil' => static function ( MediaWikiServices $services ) {

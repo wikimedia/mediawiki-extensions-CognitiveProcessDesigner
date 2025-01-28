@@ -13,10 +13,13 @@ use ContentHandler;
 use DOMDocument;
 use File;
 use MediaWiki\Config\Config;
+use MediaWiki\Content\JsonContent;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
+use MediaWiki\Page\PageIdentity;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
@@ -24,6 +27,7 @@ use MediaWiki\Title\TitleFactory;
 use MediaWiki\User\User;
 use MWContentSerializationException;
 use MWException;
+use MWUnknownContentModelException;
 use OutputPage;
 use ParserOutput;
 use RepoGroup;
@@ -56,6 +60,7 @@ class CpdDiagramPageUtil {
 	 * @param Config $config
 	 * @param ILoadBalancer $loadBalancer
 	 * @param LinkRenderer $linkRenderer
+	 * @param RevisionLookup $revisionLookup
 	 */
 	public function __construct(
 		TitleFactory $titleFactory,
@@ -63,7 +68,8 @@ class CpdDiagramPageUtil {
 		RepoGroup $repoGroup,
 		Config $config,
 		ILoadBalancer $loadBalancer,
-		LinkRenderer $linkRenderer
+		LinkRenderer $linkRenderer,
+		private readonly RevisionLookup $revisionLookup
 	) {
 		$this->titleFactory = $titleFactory;
 		$this->config = $config;
@@ -119,12 +125,14 @@ class CpdDiagramPageUtil {
 	 * @param string $process
 	 * @param User $user
 	 * @param string $xml
-	 *
+	 * @param File $svgFile
 	 * @return WikiPage
 	 * @throws MWContentSerializationException
-	 * @throws MWException
+	 * @throws MWUnknownContentModelException
 	 */
-	public function createOrUpdateDiagramPage( string $process, User $user, string $xml ): WikiPage {
+	public function createOrUpdateDiagramPage(
+		string $process, User $user, string $xml, File $svgFile
+	): WikiPage {
 		$diagramPage = $this->getDiagramPage( $process );
 
 		$updater = $diagramPage->newPageUpdater( $user );
@@ -141,7 +149,18 @@ class CpdDiagramPageUtil {
 			CognitiveProcessDesignerContent::MODEL
 		);
 		$updater->setContent( SlotRecord::MAIN, $content );
-
+		if ( $diagramPage->exists() ) {
+			$metaContent = $this->getUpdatedMetaContent( $diagramPage, [
+				'cpd-svg-ts' => $svgFile->getTimestamp(),
+				'cpd-svg-sha1' => $svgFile->getSha1(),
+			] );
+		} else {
+			$metaContent = new JsonContent( json_encode( [
+				'cpd-svg-ts' => $svgFile->getTimestamp(),
+				'cpd-svg-sha1' => $svgFile->getSha1(),
+			] ) );
+		}
+		$updater->setContent( CONTENT_SLOT_CPD_PROCESS_META, $metaContent );
 		$comment = Message::newFromKey( 'cpd-api-save-diagram-update-comment' );
 		$commentStore = CommentStoreComment::newUnsavedComment( $comment );
 		$updater->saveRevision( $commentStore, $diagramPage->exists() ? EDIT_UPDATE : EDIT_NEW );
@@ -168,11 +187,16 @@ class CpdDiagramPageUtil {
 		$svgFilePage = $this->getSvgFilePage( $process );
 
 		$options = [];
-		if ( $revision ) {
-			$options['time'] = $revision->getTimestamp();
+		if ( $revision && !$revision->isCurrent() ) {
+			$meta = $this->getMetaForPage( $this->getDiagramPage( $process ), $revision );
+			if ( $meta['cpd-svg-ts'] ) {
+				$options['time'] = $meta['cpd-svg-ts'];
+			}
+			if ( $meta['cpd-svg-sha1'] ) {
+				$options['sha1'] = $meta['cpd-svg-sha1'];
+			}
 		}
 		$file = $this->repoGroup->findFile( $svgFilePage, $options );
-
 		if ( !$file ) {
 			return null;
 		}
@@ -279,4 +303,45 @@ class CpdDiagramPageUtil {
 
 		return $links;
 	}
+
+	/**
+	 * @param string $process
+	 * @return array
+	 */
+	public function getMeta( string $process ): array {
+		$page = $this->getDiagramPage( $process );
+		return $this->getMetaForPage( $page, null );
+	}
+
+	/**
+	 * @param WikiPage $page
+	 * @param RevisionRecord|null $forRevision
+	 * @return array
+	 */
+	private function getMetaForPage( WikiPage $page, ?RevisionRecord $forRevision ): array {
+		$forRevision = $forRevision ?? $this->revisionLookup->getRevisionByTitle( $page->getTitle() );
+		if ( !$forRevision ) {
+			return [];
+		}
+		$content = $forRevision->getContent( CONTENT_SLOT_CPD_PROCESS_META );
+		if ( !( $content instanceof JsonContent ) ) {
+			return [];
+		}
+		$json = $content->getText();
+
+		return json_decode( $json, true ) ?? [];
+	}
+
+	/**
+	 * @param WikiPage $diagramPage
+	 * @param array $newData
+	 * @return JsonContent
+	 */
+	private function getUpdatedMetaContent( WikiPage $diagramPage, array $newData ) {
+		$meta = $this->getMetaForPage( $diagramPage, null );
+		$meta = array_merge( $meta, $newData );
+
+		return new JsonContent( json_encode( $meta ) );
+	}
+
 }

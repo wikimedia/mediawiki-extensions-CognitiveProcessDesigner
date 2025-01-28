@@ -12,8 +12,10 @@ use CognitiveProcessDesigner\Process\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
 use Exception;
+use MediaWiki\Revision\RevisionLookup;
 use MWContentSerializationException;
 use MWException;
+use RuntimeException;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveCpdDiagram extends ApiBase {
@@ -66,18 +68,19 @@ class SaveCpdDiagram extends ApiBase {
 		$xml = json_decode( $params['xml'], true );
 		$svg = json_decode( $params['svg'], true );
 
-		$diagramPage = $this->diagramPageUtil->createOrUpdateDiagramPage( $process, $user, $xml );
-		$svgFile = $this->diagramPageUtil->getSvgFilePage( $process );
-
+		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
 		try {
-			$this->svgFile->save( $svgFile, $svg, $user );
+			$file = $this->svgFile->save( $svgFilePage, $svg, $user );
 		} catch ( CpdSvgException $e ) {
 			$this->getResult()->addValue( null, 'error', $e->getMessage() );
-
+			return;
+		} catch ( RuntimeException $e ) {
+			$this->addError( 'internal-error', $e->getMessage() );
 			return;
 		}
+		$diagramPage = $this->diagramPageUtil->createOrUpdateDiagramPage( $process, $user, $xml, $file );
 
-		$this->getResult()->addValue( null, 'svgFile', $svgFile->getPrefixedDBkey() );
+		$this->getResult()->addValue( null, 'svgFile', $svgFilePage->getPrefixedDBkey() );
 		$this->getResult()->addValue( null, 'diagramPage', $diagramPage->getTitle()->getPrefixedDBkey() );
 
 		// Save description pages

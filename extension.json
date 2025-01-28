@@ -9,7 +9,7 @@
     "url": "https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer",
     "descriptionmsg": "cognitiveprocessdesigner-desc",
     "load_composer_autoloader": true,
-    "callback": "mwsInitComponents",
+    "callback": "CognitiveProcessDesigner\\Setup::callback",
     "requires": {
         "MediaWiki": ">= 1.43.0",
         "extensions": {
@@ -386,8 +386,7 @@
         "PageDeleteComplete": "onPageDeleteComplete",
         "MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface",
         "StandardDialogsRegisterPageInfoPanelModules": "standardDialogs",
-        "ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess",
-		"ContentStabilizationStablePointAdded": "stablePointAdded"
+        "MediaWikiServices": "registerMetaSlot"
     },
     "HookHandlers": {
         "tag": {
@@ -450,19 +449,9 @@
                 "MainConfig"
             ]
         },
-        "enableStabilizationForProcess": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\EnableStabilizationForProcess",
-            "services": [
-                "ContentStabilization._Config"
-            ]
-        },
-		"stablePointAdded": {
-			"class": "\\CognitiveProcessDesigner\\HookHandler\\StablePointAdded",
-			"services": [
-				"CpdDiagramPageUtil",
-				"CpdDescriptionPageUtil"
-			]
-		}
+        "registerMetaSlot": {
+            "class": "\\CognitiveProcessDesigner\\HookHandler\\RegisterProcessMetadataSlot"
+        }
     },
     "ResourceFileModulePaths": {
         "localBasePath": "resources",
