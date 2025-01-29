@@ -1,7 +1,7 @@
 import BpmnModeler from "bpmn-js/lib/Modeler";
 import BpmnColorPickerModule from "../../../node_modules/bpmn-js-color-picker/colors/index";
 import { SaveSVGResult } from "bpmn-js/lib/BaseViewer";
-import { ElementDescriptionPage } from "./helper/CpdApi";
+import { ElementDescriptionPage, SaveDiagramResult } from "./helper/CpdApi";
 import { CpdTool } from "./CpdTool";
 import CpdElement from "./model/CpdElement";
 import CpdChangeLogger from "./helper/CpdChangeLogger";
@@ -16,7 +16,7 @@ import { MessageType } from "./oojs-ui/SaveDialog";
 import CpdTranslator from "./helper/CpdTranslator";
 
 class CpdModeler extends CpdTool {
-	private bpmnModeler: BpmnModeler;
+	private readonly bpmnModeler: BpmnModeler;
 
 	private changeLogger: CpdChangeLogger;
 
@@ -119,29 +119,33 @@ class CpdModeler extends CpdTool {
 	}
 
 	private async onSave( withPages: boolean ): Promise<void> {
-		if ( withPages ) {
-			await this.updateElementDescriptionPages();
-		}
-
 		this.xml = await this.getUpdatedXml();
 		const svgResult = await this.getSVG();
-		await this.api.saveDiagram(
+
+		let elements = [];
+		if ( withPages ) {
+			elements = this.elementFactory.createDescriptionPageEligibleElements();
+			this.applyDescriptionPageChanges( elements );
+		}
+
+		const result = await this.api.saveDiagram(
 			this.xml,
-			svgResult
+			svgResult,
+			withPages,
+			elements
 		);
-		this.changeLogger.reset();
-		this.dom.showDialogChangesPanel();
-	}
 
-	private async updateElementDescriptionPages(): Promise<void> {
-		const elements = this.elementFactory.createDescriptionPageEligibleElements();
-		this.applyDescriptionPageChanges( elements );
-
-		const result = await this.api.saveDescriptionPages( elements );
 		result.warnings.forEach( ( warning: string ): void => {
 			this.dom.showWarning( warning );
 		} );
 
+		this.updateElementDescriptionPages( result, elements );
+
+		this.changeLogger.reset();
+		this.dom.showDialogChangesPanel();
+	}
+
+	private updateElementDescriptionPages( result: SaveDiagramResult, elements: CpdElement[] ): void {
 		if ( result.descriptionPages.length === 0 ) {
 			return;
 		}

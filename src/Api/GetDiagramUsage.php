@@ -52,7 +52,7 @@ class GetDiagramUsage extends ApiBase {
 
 		try {
 			// Process pages can only have one process
-			$processes = [ CpdDiagramPageUtil::getProcessFromTitle( $title ) ];
+			$processes = [ CpdDiagramPageUtil::getProcess( $title ) ];
 		} catch ( CpdInvalidNamespaceException $e ) {
 			$services = MediaWikiServices::getInstance();
 			$pageFactory = $services->getWikiPageFactory();

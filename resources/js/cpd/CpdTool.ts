@@ -47,15 +47,15 @@ export abstract class CpdTool {
 		this.api.on( CpdApi.STATUS_REQUEST_FAILED, this.requestFailed.bind( this ) );
 	}
 
-	protected async initPageContent(): Promise<void> {
-		const pageContent: LoadDiagramResult = await this.api.fetchPageContent();
+	protected async initPageContent( revision: number | null = null ): Promise<void> {
+		const pageContent: LoadDiagramResult = await this.api.fetchPageContent( revision );
 		this.xml = pageContent.xml;
 		this.dom.setSvgLink( pageContent.svgFile );
 		this.descriptionPages = pageContent.descriptionPages;
 	}
 
 	// eslint-disable-next-line no-unused-vars
-	protected abstract renderDiagram( diagramXml: string ): Promise<void>;
+	protected abstract renderDiagram( diagramXml: string, revision: number | null ): Promise<void>;
 
 	protected async attachToCanvas( diagram: BaseViewer ): Promise<void> {
 		diagram.attachTo( this.dom.getCanvas() );

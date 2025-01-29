@@ -38,7 +38,11 @@ class EditDiagramAction extends EditAction {
 		$headlineMsg = 'cpd-editor-title';
 
 		try {
-			$diagramPageUtil->validateContent( $this->getWikiPage() );
+			$diagramPage = $this->getWikiPage();
+			if ( !$diagramPage->exists() ) {
+				throw new CpdInvalidContentException( 'Process page does not exist' );
+			}
+			$diagramPageUtil->validateContent( $diagramPage->getContent() );
 		} catch ( CpdInvalidContentException $e ) {
 			$headlineMsg .= '-create';
 		}

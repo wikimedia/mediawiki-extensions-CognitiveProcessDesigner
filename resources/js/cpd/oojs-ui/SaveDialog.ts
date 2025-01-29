@@ -128,7 +128,7 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	public addPostSaveMessage( message: HTMLDivElement, type: MessageType ): void {
 		if ( type === MessageType.WARNING ) {
 			const warningWidget = new OO.ui.MessageWidget( { type: "warning" } );
-			warningWidget.setLabel( message );
+			warningWidget.setLabel( message.innerText );
 			this.postSaveWarnings.append( warningWidget.$element.get( 0 ) );
 		}
 
@@ -204,6 +204,7 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		const panel = new OO.ui.PanelLayout( { padded: true, expanded: false, scrollable: true } );
 
 		this.postSaveWarnings = document.createElement( "div" );
+		this.postSaveWarnings.classList.add( "warnings-box" );
 		panel.$element.append( this.postSaveWarnings );
 
 		this.postSaveMessages = document.createElement( "div" );

@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS cpd_element_connections (
 
 CREATE TABLE IF NOT EXISTS cpd_orphaned_description_pages (
   page_title VARCHAR(255) NOT NULL,
-  process VARCHAR(255) NOT NULL
+  process VARCHAR(255) NOT NULL,
+  process_rev VARCHAR(255) NOT NULL
 );
 
 CREATE UNIQUE INDEX page_title ON cpd_orphaned_description_pages (page_title);

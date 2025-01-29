@@ -11,7 +11,10 @@ use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\TextContentHandler;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Revision\RevisionLookup;
+use ParserOutput;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	/** @var CpdDiagramPageUtil */
@@ -20,14 +23,21 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	/** @var Config */
 	private Config $config;
 
+	/** @var RevisionLookup */
+	private RevisionLookup $revisionLookup;
+
 	/**
 	 * @param string $modelId
+	 *
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	public function __construct( $modelId = CognitiveProcessDesignerContent::MODEL ) {
 		parent::__construct( $modelId, [ CONTENT_FORMAT_XML ] );
 
 		$services = MediaWikiServices::getInstance();
 		$this->diagramPageUtil = $services->getService( 'CpdDiagramPageUtil' );
+		$this->revisionLookup = $services->getRevisionLookup();
 		$this->config = $services->getService( 'MainConfig' );
 	}
 
@@ -60,7 +70,9 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	): void {
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$page = $cpoParams->getPage();
+		$revisionId = $cpoParams->getRevId();
 		$process = $page->getDBkey();
+
 		$canvasHeight = $this->config->get( 'CPDCanvasProcessHeight' );
 
 		$output = $parser->parse(
@@ -77,17 +89,21 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		);
 
 		// Embed svg image in the viewer hidden
-		$imageFile = $this->diagramPageUtil->getSvgFile( $process );
+		$revision = $this->revisionLookup->getRevisionById( $revisionId );
+		$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
 		$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
 
-		$output->setText( $templateParser->processTemplate(
-			'CpdContainer', [
-				'process' => $process,
-				'showToolbar' => true,
-				'width' => '100%',
-				'height' => $canvasHeight . 'px',
-				'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
-			]
-		) );
+		$output->setText(
+			$templateParser->processTemplate(
+				'CpdContainer', [
+					'process' => $process,
+					'revision' => $revisionId,
+					'showToolbar' => true,
+					'width' => '100%',
+					'height' => $canvasHeight . 'px',
+					'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
+				]
+			)
+		);
 	}
 }

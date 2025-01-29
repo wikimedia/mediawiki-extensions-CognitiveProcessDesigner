@@ -11,21 +11,22 @@ use MediaWiki\Html\TemplateParser;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Parser\PPFrame;
+use MediaWiki\HookContainer\HookContainer;
+use MediaWiki\Revision\RevisionRecord;
 use MWException;
+use WikiPage;
 
 class BpmnTag implements ParserFirstCallInitHook {
 	public const PROCESS_PROP_NAME = 'cpd-process';
 
 	/**
-	 * @var CpdDiagramPageUtil
-	 */
-	private CpdDiagramPageUtil $diagramPageUtil;
-
-	/**
 	 * @param CpdDiagramPageUtil $diagramPageUtil
+	 * @param HookContainer $hookContainer
 	 */
-	public function __construct( CpdDiagramPageUtil $diagramPageUtil ) {
-		$this->diagramPageUtil = $diagramPageUtil;
+	public function __construct(
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly HookContainer $hookContainer
+	) {
 	}
 
 	/**
@@ -79,14 +80,25 @@ class BpmnTag implements ParserFirstCallInitHook {
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
 
-		$imageFile = $this->diagramPageUtil->getSvgFile( $process );
+		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		$diagramRevision = $diagramPage->getRevisionRecord();
+		$this->hookContainer->run(
+			'CognitiveProcessDesignerBeforeRender',
+			[ $parser->getPage(), $diagramPage, &$diagramRevision ]
+		);
+		$imageFile = $this->diagramPageUtil->getSvgFile(
+			$process,
+			!$diagramRevision?->isCurrent() ? $diagramRevision : null
+		);
 
 		// Show svg image if the page is in edit mode
 		if ( $this->isEdit() ) {
 			return $this->buildEditOutput( $imageFile, $templateParser, $parser->getOutput(), $process, $args );
 		}
 
-		return $this->buildViewOutput( $imageFile, $templateParser, $parser, $process, $args );
+		return $this->buildViewOutput(
+			$imageFile, $templateParser, $parser, $process, $args, $diagramPage, $diagramRevision
+		);
 	}
 
 	/**
@@ -126,7 +138,8 @@ class BpmnTag implements ParserFirstCallInitHook {
 	 * @param Parser $parser
 	 * @param string $process
 	 * @param array $args
-	 *
+	 * @param WikiPage $diagramPage
+	 * @param RevisionRecord|null $diagramRevision
 	 * @return string
 	 */
 	private function buildViewOutput(
@@ -134,7 +147,9 @@ class BpmnTag implements ParserFirstCallInitHook {
 		TemplateParser $templateParser,
 		Parser $parser,
 		string $process,
-		array $args
+		array $args,
+		WikiPage $diagramPage,
+		?RevisionRecord $diagramRevision
 	): string {
 		$output = $parser->getOutput();
 		$this->addProcessPageProperty( $output, $process );
@@ -144,15 +159,24 @@ class BpmnTag implements ParserFirstCallInitHook {
 		// Embed svg image in the viewer hidden
 		$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
 
-		return $templateParser->processTemplate(
-			'CpdContainer', [
-				'process' => $process,
-				'showToolbar' => !empty( $args['toolbar'] ) ? !( $args['toolbar'] === "false" ) : true,
-				'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
-				'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%',
-				'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
-			]
-		);
+		$data = [
+			'process' => $process,
+			'showToolbar' => !empty( $args['toolbar'] ) ? !( $args['toolbar'] === "false" ) : true,
+			'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
+			'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%',
+			'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
+		];
+
+		if ( $diagramRevision instanceof RevisionRecord ) {
+			$data['revision'] = $diagramRevision->getId();
+			$output->addTemplate(
+				$diagramPage->getTitle(),
+				$diagramPage->getId(),
+				$diagramRevision->getId()
+			);
+		}
+
+		return $templateParser->processTemplate( 'CpdContainer', $data );
 	}
 
 	/**

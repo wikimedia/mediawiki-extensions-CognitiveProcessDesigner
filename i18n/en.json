@@ -22,7 +22,7 @@
 	"cpd-api-save-diagram-param-xml": "JSON encoded XML to be uploaded to wiki",
 	"cpd-api-save-diagram-param-process-id": "ID of BPMN diagram",
 	"cpd-api-save-diagram-error-message": "Error while saving diagram: $1",
-	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=Following description page has|Following $1 description pages have|0=No description pages have}} been saved:",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=Following description page has been saved:|Following $1 description pages have been saved:|0=No description pages have been saved.}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "Description page $1 does not exist anymore",
 	"cpd-description-page-has-no-property-warning": "Element $1 has no description page property",
 	"cpd-api-save-description-pages-error-message": "Error while saving description pages: $1",
@@ -100,5 +100,6 @@
 	"cpd-api-save-description-page-comment": "Description page saved",
 	"cpd-api-move-description-page-comment": "Description page moved",
 	"cpd-config-canvas-process-height-msg": "Set the height of the diagram canvas on process page and in edit mode",
-	"cpd-config-canvas-embedded-height-msg": "Set the height of the diagram canvas while its embedded in other pages"
+	"cpd-config-canvas-embedded-height-msg": "Set the height of the diagram canvas while its embedded in other pages",
+	"cpd-api-save-diagram-update-comment": "Diagram updated"
 }

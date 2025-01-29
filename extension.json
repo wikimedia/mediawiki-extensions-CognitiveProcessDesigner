@@ -9,7 +9,7 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer",
 	"descriptionmsg": "cognitiveprocessdesigner-desc",
 	"load_composer_autoloader": true,
-	"callback": "mwsInitComponents",
+	"callback": "CognitiveProcessDesigner\\Setup::callback",
 	"requires": {
 		"MediaWiki": ">= 1.43.0",
 		"extensions": {
@@ -96,11 +96,7 @@
 	},
 	"SpecialPages": {
 		"OrphanedProcessDescriptionPages": {
-			"class": "\\CognitiveProcessDesigner\\Special\\SpecialOrphanedDescriptionPages",
-			"services": [
-				"DBLoadBalancer",
-				"LinkRenderer"
-			]
+			"class": "\\CognitiveProcessDesigner\\Special\\SpecialOrphanedDescriptionPages"
 		},
 		"ProcessOverview": {
 			"class": "\\CognitiveProcessDesigner\\Special\\SpecialProcessOverview"
@@ -111,24 +107,17 @@
 			"class": "\\CognitiveProcessDesigner\\Api\\LoadCpdDiagram",
 			"services": [
 				"CpdDiagramPageUtil",
-				"CpdDescriptionPageUtil"
+				"CpdDescriptionPageUtil",
+				"RevisionLookup"
 			]
 		},
 		"cpd-save-diagram": {
 			"class": "\\CognitiveProcessDesigner\\Api\\SaveCpdDiagram",
 			"services": [
 				"CpdDiagramPageUtil",
-				"SvgFile"
-			]
-		},
-		"cpd-save-description-pages": {
-			"class": "\\CognitiveProcessDesigner\\Api\\SaveCpdDescriptionPages",
-			"services": [
+				"CpdSaveDescriptionPagesUtil",
 				"CpdElementFactory",
-				"CpdDiagramPageUtil",
-				"CpdDescriptionPageUtil",
-				"JobQueueGroup",
-				"LinkRenderer"
+				"SvgFile"
 			]
 		},
 		"cpd-syntax-highlight-xml": {
@@ -147,7 +136,9 @@
 		"cpd-orphaned-description-pages-store": {
 			"class": "\\CognitiveProcessDesigner\\Api\\Store\\OrphanedDescriptionPagesStore",
 			"services": [
-				"DBLoadBalancer"
+				"DBLoadBalancer",
+				"CpdDiagramPageUtil",
+				"ContentStabilization.Lookup"
 			]
 		},
 		"cpd-diagram-usage": {
@@ -404,13 +395,17 @@
 		"LoadExtensionSchemaUpdates": "addTables",
 		"PageDeleteComplete": "onPageDeleteComplete",
 		"MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface",
-		"StandardDialogsRegisterPageInfoPanelModules": "standardDialogs"
+		"StandardDialogsRegisterPageInfoPanelModules": "standardDialogs",
+		"MediaWikiServices": "registerMetaSlot",
+		"ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess",
+		"ContentStabilizationStablePointAdded": "stablePointAdded"
 	},
 	"HookHandlers": {
 		"tag": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\BpmnTag",
 			"services": [
-				"CpdDiagramPageUtil"
+				"CpdDiagramPageUtil",
+				"HookContainer"
 			]
 		},
 		"registerNamespaces": {
@@ -464,6 +459,22 @@
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddResources",
 			"services": [
 				"MainConfig"
+			]
+		},
+		"registerMetaSlot": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\RegisterProcessMetadataSlot"
+		},
+		"enableStabilizationForProcess": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\EnableStabilizationForProcess",
+			"services": [
+				"ContentStabilization._Config"
+			]
+		},
+		"stablePointAdded": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\StablePointAdded",
+			"services": [
+				"CpdDiagramPageUtil",
+				"CpdDescriptionPageUtil"
 			]
 		}
 	},
