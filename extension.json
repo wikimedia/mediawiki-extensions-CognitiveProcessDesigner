@@ -386,7 +386,9 @@
         "PageDeleteComplete": "onPageDeleteComplete",
         "MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface",
         "StandardDialogsRegisterPageInfoPanelModules": "standardDialogs",
-        "MediaWikiServices": "registerMetaSlot"
+        "MediaWikiServices": "registerMetaSlot",
+        "ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess",
+        "ContentStabilizationStablePointAdded": "stablePointAdded"
     },
     "HookHandlers": {
         "tag": {
@@ -451,6 +453,19 @@
         },
         "registerMetaSlot": {
             "class": "\\CognitiveProcessDesigner\\HookHandler\\RegisterProcessMetadataSlot"
+        },
+        "enableStabilizationForProcess": {
+            "class": "\\CognitiveProcessDesigner\\HookHandler\\EnableStabilizationForProcess",
+            "services": [
+                "ContentStabilization._Config"
+            ]
+        },
+        "stablePointAdded": {
+            "class": "\\CognitiveProcessDesigner\\HookHandler\\StablePointAdded",
+            "services": [
+                "CpdDiagramPageUtil",
+                "CpdDescriptionPageUtil"
+            ]
         }
     },
     "ResourceFileModulePaths": {
