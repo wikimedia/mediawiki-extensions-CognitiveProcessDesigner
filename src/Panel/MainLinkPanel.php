@@ -3,9 +3,9 @@
 namespace CognitiveProcessDesigner\Panel;
 
 use MediaWiki\Message\Message;
+use MediaWiki\SpecialPage\SpecialPage;
 use MWException;
 use MWStake\MediaWiki\Component\CommonUserInterface\Component\RestrictedTextLink;
-use SpecialPage;
 
 class MainLinkPanel extends RestrictedTextLink {
 	public function __construct() {

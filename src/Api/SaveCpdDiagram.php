@@ -2,14 +2,14 @@
 
 namespace CognitiveProcessDesigner\Api;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
 use CognitiveProcessDesigner\CpdElementFactory;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use CognitiveProcessDesigner\Process\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
 use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
 use Exception;
 use MWContentSerializationException;

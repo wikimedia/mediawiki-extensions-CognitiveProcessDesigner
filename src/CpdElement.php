@@ -84,15 +84,15 @@ class CpdElement implements JsonSerializable {
 	 * @param bool $isParent
 	 * @return CpdElement
 	 */
-	public static function fromElementJson( array $element, $isParent = false ): CpdElement {
+	public static function fromElementJson( array $element, bool $isParent = false ): CpdElement {
 		// Validate the JSON data only if it is not a parent element
 		if ( !$isParent ) {
 			self::validateJson( $element );
 		}
 
 		$parent = $element['parent'] ? self::fromElementJson( $element['parent'], true ) : null;
-		$incomingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
-		$outgoingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
+		$incomingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
+		$outgoingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
 
 		return new CpdElement(
 			$element['id'],

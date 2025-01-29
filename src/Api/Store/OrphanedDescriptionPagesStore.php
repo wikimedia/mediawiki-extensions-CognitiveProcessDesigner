@@ -2,12 +2,12 @@
 
 namespace CognitiveProcessDesigner\Api\Store;
 
-use ApiBase;
-use ApiMain;
 use ApiUsageException;
 use CognitiveProcessDesigner\Data\OrphanedDescriptionPages\Store;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 use Wikimedia\ParamValidator\ParamValidator;
 use Wikimedia\Rdbms\ILoadBalancer;
@@ -59,7 +59,7 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 		$result->addValue(
 			null,
 			'results',
-			array_map( fn( $record ) => $record->getData(), $records )
+			array_map( fn ( $record ) => $record->getData(), $records )
 		);
 
 		$result->addValue(

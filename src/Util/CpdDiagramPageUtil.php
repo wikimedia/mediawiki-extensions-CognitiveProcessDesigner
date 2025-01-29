@@ -7,27 +7,28 @@ use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CognitiveProcessDesigner\HookHandler\ModifyDescriptionPage;
-use CommentStoreComment;
 use Content;
-use ContentHandler;
 use DOMDocument;
 use File;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\JsonContent;
+use MediaWiki\Content\ContentHandler;
+use MediaWiki\Content\TextContent;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
-use MediaWiki\Page\PageReference;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 use MediaWiki\User\User;
 use MWContentSerializationException;
 use MWUnknownContentModelException;
-use OutputPage;
-use ParserOutput;
+use MWException;
 use RepoGroup;
 use Wikimedia\Rdbms\ILoadBalancer;
 use WikiPage;
@@ -78,12 +79,12 @@ class CpdDiagramPageUtil {
 	}
 
 	/**
-	 * @param PageReference $title
+	 * @param Title $title
 	 *
 	 * @return array
 	 * @throws CpdInvalidNamespaceException
 	 */
-	public static function getLanesFromTitle( PageReference $title ): array {
+	public static function getLanesFromTitle( Title $title ): array {
 		if ( $title->getNamespace() !== NS_PROCESS ) {
 			throw new CpdInvalidNamespaceException( 'Page not in CPD namespace' );
 		}
@@ -219,7 +220,7 @@ class CpdDiagramPageUtil {
 	 * @throws CpdInvalidContentException
 	 */
 	public function validateContent( Content|null $content ): void {
-		if ( !$content ) {
+		if ( !( $content instanceof TextContent ) ) {
 			throw new CpdInvalidContentException( 'Process page does not have content' );
 		}
 

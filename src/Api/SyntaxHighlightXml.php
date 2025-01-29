@@ -2,14 +2,14 @@
 
 namespace CognitiveProcessDesigner\Api;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
 use DOMDocument;
-use ExtensionRegistry;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOptions;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
-use Parser;
-use ParserOptions;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SyntaxHighlightXml extends ApiBase {

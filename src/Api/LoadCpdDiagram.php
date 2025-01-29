@@ -2,15 +2,16 @@
 
 namespace CognitiveProcessDesigner\Api;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Revision\RevisionLookup;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Status\Status;
+use MediaWiki\Content\TextContent;
 use MediaWiki\Title\Title;
-use Status;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class LoadCpdDiagram extends ApiBase {
@@ -78,9 +79,9 @@ class LoadCpdDiagram extends ApiBase {
 			}
 
 			$this->diagramPageUtil->validateContent( $content );
-
+			$text = ( $content instanceof TextContent ) ? $content->getText() : '';
 			$result->addValue( null, 'exists', 1 );
-			$result->addValue( null, 'xml', $content->getText() );
+			$result->addValue( null, 'xml', $text );
 			$result->addValue(
 				null,
 				'descriptionPages',

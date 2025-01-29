@@ -3,9 +3,9 @@
 namespace CognitiveProcessDesigner\Job;
 
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
-use CommentStoreComment;
-use Content;
 use Job;
+use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Content\Content;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 use MediaWiki\Revision\SlotRecord;

@@ -2,8 +2,8 @@
 
 namespace CognitiveProcessDesigner\Special;
 
-use SpecialPage;
-use TemplateParser;
+use MediaWiki\Html\TemplateParser;
+use MediaWiki\SpecialPage\SpecialPage;
 
 class SpecialProcessOverview extends SpecialPage {
 	/** @var TemplateParser */

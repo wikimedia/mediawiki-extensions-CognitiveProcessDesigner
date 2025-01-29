@@ -137,8 +137,8 @@
             "class": "\\CognitiveProcessDesigner\\Api\\Store\\OrphanedDescriptionPagesStore",
             "services": [
                 "DBLoadBalancer",
-				"CpdDiagramPageUtil",
-				"ContentStabilization.Lookup"
+                "CpdDiagramPageUtil",
+                "ContentStabilization.Lookup"
             ]
         },
         "cpd-diagram-usage": {
@@ -254,9 +254,9 @@
                 "js/ve/ext.cpd.ui.processInputWidget.js",
                 "js/ve/ext.cpd.visualEditorTagDefinition.js"
             ],
-			"styles": [
-				"styles/bpmn.droplet.css"
-			],
+            "styles": [
+                "styles/bpmn.droplet.css"
+            ],
             "messages": [
                 "cpd-droplet-name",
                 "cpd-droplet-description",
@@ -324,11 +324,11 @@
                 "ext.standardDialogs.allpages"
             ]
         },
-		"ext.cpd.diagram.preview": {
-			"styles": [
-				"styles/cpd.diagram.preview.less"
-			]
-		},
+        "ext.cpd.diagram.preview": {
+            "styles": [
+                "styles/cpd.diagram.preview.less"
+            ]
+        },
         "ext.cpd.description.page": {
             "styles": [
                 "styles/cpd.navigation.connections.less",

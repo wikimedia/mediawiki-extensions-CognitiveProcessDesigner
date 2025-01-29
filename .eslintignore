@@ -1,2 +1,3 @@
 vendor/
 resources/js/dist
+resources/vue/components

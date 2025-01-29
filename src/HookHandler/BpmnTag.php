@@ -7,13 +7,13 @@ use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use File;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Hook\ParserFirstCallInitHook;
+use MediaWiki\Html\TemplateParser;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Parser\PPFrame;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Revision\RevisionRecord;
 use MWException;
-use Parser;
-use ParserOutput;
-use PPFrame;
-use TemplateParser;
 use WikiPage;
 
 class BpmnTag implements ParserFirstCallInitHook {

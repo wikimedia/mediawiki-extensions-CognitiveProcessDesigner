@@ -3,7 +3,7 @@
 namespace CognitiveProcessDesigner\HookHandler;
 
 use MediaWiki\Config\Config;
-use MediaWiki\Hook\OutputPageBeforeHTMLHook;
+use MediaWiki\Output\Hook\OutputPageBeforeHTMLHook;
 use OutputPage;
 
 class AddResources implements OutputPageBeforeHTMLHook {
