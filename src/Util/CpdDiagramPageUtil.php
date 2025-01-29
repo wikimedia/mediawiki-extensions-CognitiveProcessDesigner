@@ -12,23 +12,23 @@ use DOMDocument;
 use File;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Config\Config;
-use MediaWiki\Content\JsonContent;
 use MediaWiki\Content\ContentHandler;
+use MediaWiki\Content\JsonContent;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Page\PageReference;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 use MediaWiki\User\User;
 use MWContentSerializationException;
 use MWUnknownContentModelException;
-use MWException;
 use RepoGroup;
 use Wikimedia\Rdbms\ILoadBalancer;
 use WikiPage;
@@ -125,12 +125,16 @@ class CpdDiagramPageUtil {
 	 * @param User $user
 	 * @param string $xml
 	 * @param File $svgFile
+	 *
 	 * @return WikiPage
 	 * @throws MWContentSerializationException
 	 * @throws MWUnknownContentModelException
 	 */
 	public function createOrUpdateDiagramPage(
-		string $process, User $user, string $xml, File $svgFile
+		string $process,
+		User $user,
+		string $xml,
+		File $svgFile
 	): WikiPage {
 		$diagramPage = $this->getDiagramPage( $process );
 
@@ -303,21 +307,27 @@ class CpdDiagramPageUtil {
 
 	/**
 	 * @param string $process
+	 *
 	 * @return array
 	 */
 	public function getMeta( string $process ): array {
 		$page = $this->getDiagramPage( $process );
+
 		return $this->getMetaForPage( $page, null );
 	}
 
 	/**
 	 * @param WikiPage $page
 	 * @param RevisionRecord|null $forRevision
+	 *
 	 * @return array
 	 */
 	private function getMetaForPage( WikiPage $page, ?RevisionRecord $forRevision ): array {
 		$forRevision = $forRevision ?? $this->revisionLookup->getRevisionByTitle( $page->getTitle() );
 		if ( !$forRevision ) {
+			return [];
+		}
+		if ( !$forRevision->hasSlot( CONTENT_SLOT_CPD_PROCESS_META ) ) {
 			return [];
 		}
 		$content = $forRevision->getContent( CONTENT_SLOT_CPD_PROCESS_META );
@@ -332,9 +342,10 @@ class CpdDiagramPageUtil {
 	/**
 	 * @param WikiPage $diagramPage
 	 * @param array $newData
+	 *
 	 * @return JsonContent
 	 */
-	private function getUpdatedMetaContent( WikiPage $diagramPage, array $newData ) {
+	private function getUpdatedMetaContent( WikiPage $diagramPage, array $newData ): JsonContent {
 		$meta = $this->getMetaForPage( $diagramPage, null );
 		$meta = array_merge( $meta, $newData );
 
