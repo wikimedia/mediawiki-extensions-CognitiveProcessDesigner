@@ -4,7 +4,7 @@ namespace CognitiveProcessDesigner\HookHandler;
 
 use MediaWiki\Config\Config;
 use MediaWiki\Output\Hook\OutputPageBeforeHTMLHook;
-use OutputPage;
+use MediaWiki\Output\OutputPage;
 
 class AddResources implements OutputPageBeforeHTMLHook {
 	/** @var Config */
