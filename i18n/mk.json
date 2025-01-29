@@ -123,7 +123,7 @@
 	"cpd-droplet-height-field-label": "Висина",
 	"cpd-droplet-show-toolbar-field-label-help": "Овозможи или оневозможи алатник",
 	"cpd-droplet-show-toolbar-field-label": "Прикажи алатник",
-	"cpd-validation-missing-label": "$1 нема натпис",
+	"cpd-validation-missing-label": "Елементот $1 $2 нема натпис",
 	"cpd-validation-duplicate-label": "$1 се користи повеќепати во $2",
 	"cpd-log-no-changes": "Нема промени",
 	"cpd-process-usage-description": "Следниве страници го вметнуваат процесот $1",
@@ -159,5 +159,6 @@
 	"cpd-api-save-description-page-comment": "Описната страница е зачувана",
 	"cpd-api-move-description-page-comment": "Описната страница е преместена",
 	"cpd-config-canvas-process-height-msg": "Задајте ја висината на дијаграмската подлога на процесната страница и режимот за уредување",
-	"cpd-config-canvas-embedded-height-msg": "Задајте ја висината на дијаграмската подлога кога е вметната во други страници"
+	"cpd-config-canvas-embedded-height-msg": "Задајте ја висината на дијаграмската подлога кога е вметната во други страници",
+	"cpd-error-message-publish-svg-file": "Не можев да ја објавам SVG-податотеката: $1"
 }
