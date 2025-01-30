@@ -3,5 +3,6 @@
 		"authors": [
 			"Naveen Sankar"
 		]
-	}
+	},
+	"cpd-error-message-publish-svg-file": "$1 എന്ന SVG ഫയൽ പ്രസിദ്ധീകരിക്കാൻ കഴിഞ്ഞില്ല"
 }

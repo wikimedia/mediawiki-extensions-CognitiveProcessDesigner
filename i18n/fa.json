@@ -1,8 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jeeputer",
-			"Mohammad ebz"
+			"Jeeputer"
 		]
 	},
 	"cpd-yes": "بله",
@@ -19,5 +18,6 @@
 	"cpd-saving-process": "فرایند ذخیره‌سازی",
 	"cpd-saved": "ذخیره شد",
 	"cpd-ve-bpmn-name-title": "نام",
-	"cpd-error-dialog-title": "خطا رخ‌داده!"
+	"cpd-error-dialog-title": "خطا رخ‌داده!",
+	"cpd-dialog-save-changes-button-title": "ذخیره‌سازی تغییرات"
 }

@@ -1,10 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ajeje Brazorf",
-			"Beta16",
-			"GpieroMW",
-			"Pierpao"
+			"Beta16"
 		]
 	},
 	"cpd-yes": "Sì",
@@ -15,5 +12,44 @@
 	"cpd-saved": "Salvato",
 	"cpd-ve-bpmn-name-title": "Nome",
 	"cpd-error-dialog-title": "Si è verificato un errore!",
-	"cpd-droplet-bpmn-name": "Diagramma BPMN"
+	"cpd-droplet-bpmn-name": "Diagramma BPMN",
+	"processoverview": "Processi",
+	"cpd-ui-action-edit": "Modifica diagramma",
+	"cpd-button-cancel-title": "Annulla",
+	"cpd-link-diagram-page-title": "Vai alla pagina del diagramma",
+	"cpd-link-svg-title": "Scarica diagramma come SVG",
+	"cpd-api-save-diagram-param-svg": "SVG codificato JSON da caricare su wiki",
+	"cpd-api-save-diagram-param-xml": "XML codificato JSON da caricare su wiki",
+	"cpd-api-save-diagram-error-message": "Errore durante il salvataggio del diagramma: $1",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=La seguente pagina di descrizione è stata salvata|Le seguenti pagine di descrizione sono state salvate|0=Nessuna pagina di descrizione è stata salvata}}:",
+	"cpd-description-page-does-not-exist-anymore-warning": "La pagina di descrizione $1 non esiste più",
+	"cpd-api-load-diagram-error-message": "Errore durante il caricamento del diagramma: $1",
+	"cpd-error-message-missing-config": "Configurazione mancante: '$1'",
+	"cpd-error-message-missing-element": "Elemento '$1' non trovato",
+	"cpd-error-message-missing-initial-element": "Nessun elemento iniziale trovato",
+	"cpd-warning-message-diagram-not-initialized": "Il processo $1 non è ancora stato creato. Vai alla <a href='$2'>pagina del processo</a> e crealo.",
+	"cpd-warning-message-diagram-not-initialized-create-it": "Il diagramma non è ancora stato creato. <a href='$1'>Crealo</a> .",
+	"cpd-editor-title": "Modifica di $1",
+	"cpd-editor-title-create": "Crea $1",
+	"cpd-shape-deletion-message": "$1 cancellato",
+	"cpd-shape-creation-message": "$1 creato",
+	"cpd-shape-rename-with-description-page-message": "La pagina verrà spostata da $1 a $2",
+	"cpd-log-no-changes": "Nessuna modifica",
+	"cpd-process-usage-description": "Le pagine seguenti incorporano il processo $1",
+	"cpd-process-usage-not-embedded-description": "Nessun processo è incorporato in questa pagina",
+	"cpd-process-usage-special-page-description": "Le pagine speciali non possono contenere processi",
+	"cpd-process-usage-undocumented-error": "Si è verificato un errore non documentato",
+	"cpd-dialog-save-changes-headline": "Salva modifiche",
+	"cpd-dialog-save-changes-button-title": "Salva modifiche",
+	"cpd-dialog-save-label-save": "Salva le modifiche",
+	"cpd-dialog-save-label-changes-with-error": "Si è verificato un errore",
+	"bs-cpd-mainlinks-label": "Processi",
+	"bs-cpd-process-overview-edit-action-title": "Modifica processo $1",
+	"bs-cpd-process-overview-create-action-text": "Crea",
+	"bs-cpd-process-overview-create-action-title": "Crea processo $1",
+	"bs-cpd-process-overview-card-title": "Apri processo $1",
+	"bs-cpd-process-overview-info-action-text": "Informazioni pagina",
+	"bs-cpd-actionmenuentry-new-process": "Nuovo processo",
+	"cpd-api-save-description-page-comment": "Pagina di descrizione salvata",
+	"cpd-api-move-description-page-comment": "Pagina di descrizione spostata"
 }
