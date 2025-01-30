@@ -143,6 +143,8 @@ class CpdModeler extends CpdTool {
 
 		this.changeLogger.reset();
 		this.dom.showDialogChangesPanel();
+
+		await this.initDescriptionPageElements();
 	}
 
 	private updateElementDescriptionPages( result: SaveDiagramResult, elements: CpdElement[] ): void {

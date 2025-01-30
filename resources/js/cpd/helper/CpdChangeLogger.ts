@@ -172,10 +172,6 @@ export default class CpdChangeLogger extends EventEmitter {
 		}
 
 		this.appendMessage( this.renames, element, mw.message( "cpd-shape-rename-message", this.svgRenderer.getSVGFromElement( element ), newLabel ).plain() );
-
-		if ( element.descriptionPage?.oldDbKey ) {
-			this.appendMessage( this.renames, element, mw.message( "cpd-shape-rename-with-description-page-message", element.getDescriptionPageUrl() ).plain(), true );
-		}
 	}
 
 	private appendMessage(
