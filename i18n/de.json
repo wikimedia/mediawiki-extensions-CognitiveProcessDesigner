@@ -128,6 +128,7 @@
 	"cpd-process-usage-special-page-description": "Spezialseiten dürfen keine Prozesse enthalten",
 	"cpd-process-usage-undocumented-error": "Ein nicht dokumentierter Fehler ist aufgetreten",
 	"cpd-dialog-save-changes-headline": "Änderungen speichern",
+	"cpd-dialog-save-changes-button-title": "Änderungen speichern",
 	"cpd-dialog-save-label-description-pages-checkbox": "Änderungen speichern und alle Beschreibungsseiten erstellen",
 	"cpd-dialog-save-label-review": "Überprüfe deine Änderungen",
 	"cpd-dialog-save-label-save": "Änderungen speichern",
@@ -152,6 +153,5 @@
 	"bs-cpd-actionmenuentry-new-process": "Neues Verfahren",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Prozessname",
 	"cpd-api-save-description-page-comment": "Beschreibungsseite gespeichert",
-	"cpd-api-move-description-page-comment": "Beschreibungsseite gespeichert",
-	"cpd-dialog-save-changes-button-title": "Änderungen speichern"
+	"cpd-api-move-description-page-comment": "Beschreibungsseite gespeichert"
 }
