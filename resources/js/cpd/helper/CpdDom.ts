@@ -69,6 +69,10 @@ export default class CpdDom extends EventEmitter {
 		this.emit( "save", withDescriptionPages );
 	}
 
+	public onSaveDone(): void {
+		this.emit( "saveDone" );
+	}
+
 	public onCancel(): void {
 		this.emit( "cancel" );
 	}
@@ -285,6 +289,7 @@ export default class CpdDom extends EventEmitter {
 		if ( this.isEdit ) {
 			this.saveDialog = new CpdSaveDialog();
 			this.saveDialog.on( "save", this.onSave.bind( this ) );
+			this.saveDialog.on( "saveDone", this.onSaveDone.bind( this ) );
 
 			toolFactory.register( OpenDialogButton );
 			toolFactory.register( CancelButton );

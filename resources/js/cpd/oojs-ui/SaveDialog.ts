@@ -49,6 +49,12 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 					modes: [ Mode.SAVE, Mode.CHANGES ]
 				},
 				{
+					action: "saveDone",
+					label: mw.msg( "cpd-dialog-save-label-resume-editing" ),
+					flags: [ "safe", "close" ],
+					modes: [ Mode.SAVE, Mode.CHANGES ]
+				},
+				{
 					action: "back",
 					label: mw.msg( "cpd-dialog-save-label-resume-editing" ),
 					flags: [ "safe", "back" ],

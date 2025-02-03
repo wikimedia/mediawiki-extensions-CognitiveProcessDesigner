@@ -72,11 +72,9 @@ class SaveCpdDiagram extends ApiBase {
 		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
 		try {
 			$file = $this->svgFile->save( $svgFilePage, $svg, $user );
-		} catch ( CpdSvgException $e ) {
+		} catch ( CpdSvgException | RuntimeException $e ) {
 			$this->getResult()->addValue( null, 'error', $e->getMessage() );
-			return;
-		} catch ( RuntimeException $e ) {
-			$this->addError( 'internal-error', $e->getMessage() );
+
 			return;
 		}
 		$diagramPage = $this->diagramPageUtil->createOrUpdateDiagramPage( $process, $user, $xml, $file );
