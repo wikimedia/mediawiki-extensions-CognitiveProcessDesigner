@@ -12,7 +12,7 @@ export interface SaveDiagramResult {
 	svgFile: string;
 	diagramPage: string;
 	descriptionPages: string[];
-	warnings: string[];
+	saveWarnings: string[];
 }
 
 export interface LoadDiagramResult {

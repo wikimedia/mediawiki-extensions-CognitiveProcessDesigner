@@ -121,12 +121,8 @@ class CpdModeler extends CpdTool {
 	private async onSave( withPages: boolean ): Promise<void> {
 		this.xml = await this.getUpdatedXml();
 		const svgResult = await this.getSVG();
-
-		let elements = [];
-		if ( withPages ) {
-			elements = this.elementFactory.createDescriptionPageEligibleElements();
-			this.applyDescriptionPageChanges( elements );
-		}
+		const elements = this.elementFactory.createDescriptionPageEligibleElements();
+		this.applyDescriptionPageChanges( elements );
 
 		const result = await this.api.saveDiagram(
 			this.xml,
@@ -135,7 +131,7 @@ class CpdModeler extends CpdTool {
 			elements
 		);
 
-		result.warnings.forEach( ( warning: string ): void => {
+		result.saveWarnings.forEach( ( warning: string ): void => {
 			this.dom.showWarning( warning );
 		} );
 

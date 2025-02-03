@@ -116,6 +116,7 @@
 			"services": [
 				"CpdDiagramPageUtil",
 				"CpdSaveDescriptionPagesUtil",
+				"CpdDescriptionPageUtil",
 				"CpdElementFactory",
 				"SvgFile"
 			]

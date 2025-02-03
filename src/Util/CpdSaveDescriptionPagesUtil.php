@@ -9,9 +9,6 @@ use CognitiveProcessDesigner\Job\MoveDescriptionPage;
 use CognitiveProcessDesigner\Job\SaveDescriptionPage;
 use Exception;
 use JobQueueGroup;
-use MediaWiki\Api\ApiBase;
-use MediaWiki\Api\ApiMain;
-use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
 use User;
@@ -56,17 +53,15 @@ class CpdSaveDescriptionPagesUtil {
 	/**
 	 * @param User $user
 	 * @param string $process
-	 * @param int $revision
 	 * @param CpdElement[] $elements
 	 *
 	 * @return array
 	 * @throws CpdSaveException
 	 */
-	public function saveDescriptionPages( User $user, string $process, int $revision, array $elements ): array {
+	public function saveDescriptionPages( User $user, string $process, array $elements ): array {
 		$warnings = $this->processDescriptionPages( $elements, $user );
 
 		try {
-			$this->descriptionPageUtil->updateOrphanedDescriptionPages( $elements, $process, $revision );
 			$this->descriptionPageUtil->updateElementConnections( $elements, $process );
 		} catch ( Exception $e ) {
 			throw new CpdSaveException( $e->getMessage() );

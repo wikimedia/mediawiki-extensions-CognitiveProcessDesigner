@@ -6,12 +6,13 @@ use CognitiveProcessDesigner\CpdElementFactory;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use CognitiveProcessDesigner\Process\SvgFile;
+use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
+use Exception;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
-use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
-use Exception;
 use MWContentSerializationException;
 use MWException;
 use MWUnknownContentModelException;
@@ -31,11 +32,15 @@ class SaveCpdDiagram extends ApiBase {
 	/** @var CpdElementFactory */
 	private CpdElementFactory $cpdElementFactory;
 
+	/** @var CpdDescriptionPageUtil */
+	private CpdDescriptionPageUtil $descriptionPageUtil;
+
 	/**
 	 * @param ApiMain $main
 	 * @param string $action
 	 * @param CpdDiagramPageUtil $diagramPageUtil
 	 * @param CpdSaveDescriptionPagesUtil $saveDescriptionPagesUtil
+	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 * @param CpdElementFactory $cpdElementFactory
 	 * @param SvgFile $svgFile
 	 */
@@ -44,6 +49,7 @@ class SaveCpdDiagram extends ApiBase {
 		string $action,
 		CpdDiagramPageUtil $diagramPageUtil,
 		CpdSaveDescriptionPagesUtil $saveDescriptionPagesUtil,
+		CpdDescriptionPageUtil $descriptionPageUtil,
 		CpdElementFactory $cpdElementFactory,
 		SvgFile $svgFile
 	) {
@@ -53,6 +59,7 @@ class SaveCpdDiagram extends ApiBase {
 		$this->diagramPageUtil = $diagramPageUtil;
 		$this->saveDescriptionPagesUtil = $saveDescriptionPagesUtil;
 		$this->cpdElementFactory = $cpdElementFactory;
+		$this->descriptionPageUtil = $descriptionPageUtil;
 	}
 
 	/**
@@ -69,31 +76,8 @@ class SaveCpdDiagram extends ApiBase {
 		$xml = json_decode( $params['xml'], true );
 		$svg = json_decode( $params['svg'], true );
 
-		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
 		try {
-			$file = $this->svgFile->save( $svgFilePage, $svg, $user );
-		} catch ( CpdSvgException $e ) {
-			$this->getResult()->addValue( null, 'error', $e->getMessage() );
-			return;
-		} catch ( RuntimeException $e ) {
-			$this->addError( 'internal-error', $e->getMessage() );
-			return;
-		}
-		$diagramPage = $this->diagramPageUtil->createOrUpdateDiagramPage( $process, $user, $xml, $file );
-
-		$this->getResult()->addValue( null, 'svgFile', $svgFilePage->getPrefixedDBkey() );
-		$this->getResult()->addValue( null, 'diagramPage', $diagramPage->getTitle()->getPrefixedDBkey() );
-
-		// Save description pages
-		$elements = json_decode( $params['elements'], true );
-		if ( !$params['saveDescriptionPages'] || empty( $elements ) ) {
-			$this->getResult()->addValue( null, 'descriptionPages', [] );
-			$this->getResult()->addValue( null, 'warnings', [] );
-
-			return;
-		}
-
-		try {
+			$elements = json_decode( $params['elements'], true );
 			$cpdElements = $this->cpdElementFactory->makeElements( $elements );
 		} catch ( Exception $e ) {
 			$this->getResult()->addValue( null, 'error', $e->getMessage() );
@@ -101,30 +85,60 @@ class SaveCpdDiagram extends ApiBase {
 			return;
 		}
 
+		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
 		try {
-			$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages(
-				$user,
-				$process,
-				$diagramPage->getRevisionRecord()->getId(),
-				$cpdElements
-			);
-
-			$this->getResult()->addValue(
-				null,
-				'descriptionPages',
-				array_map( static function ( $element ) {
-					return json_encode( $element );
-				}, $cpdElements )
-			);
-
-			$this->getResult()->addValue(
-				null,
-				'warnings',
-				$warnings
-			);
-		} catch ( CpdSaveException $e ) {
+			$file = $this->svgFile->save( $svgFilePage, $svg, $user );
+		} catch ( CpdSvgException $e ) {
 			$this->getResult()->addValue( null, 'error', $e->getMessage() );
+
+			return;
+		} catch ( RuntimeException $e ) {
+			$this->addError( 'internal-error', $e->getMessage() );
+
+			return;
 		}
+
+		$diagramPage = $this->diagramPageUtil->createOrUpdateDiagramPage( $process, $user, $xml, $file );
+
+		$this->getResult()->addValue( null, 'svgFile', $svgFilePage->getPrefixedDBkey() );
+		$this->getResult()->addValue( null, 'diagramPage', $diagramPage->getTitle()->getPrefixedDBkey() );
+
+		// Save description pages
+		if ( !$params['saveDescriptionPages'] ) {
+			$this->getResult()->addValue( null, 'descriptionPages', [] );
+			$this->getResult()->addValue( null, 'saveWarnings', [] );
+		} else {
+			try {
+				$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages(
+					$user,
+					$process,
+					$cpdElements
+				);
+
+				$this->getResult()->addValue(
+					null,
+					'descriptionPages',
+					array_map( static function ( $element ) {
+						return json_encode( $element );
+					}, $cpdElements )
+				);
+
+				$this->getResult()->addValue(
+					null,
+					'saveWarnings',
+					$warnings
+				);
+			} catch ( CpdSaveException $e ) {
+				$this->getResult()->addValue( null, 'error', $e->getMessage() );
+			}
+		}
+
+		// Process possible orphaned description pages after processing description pages, e.g. renaming
+		$this->descriptionPageUtil->updateOrphanedDescriptionPages(
+			$cpdElements,
+			$process,
+			$diagramPage->getRevisionRecord()->getId()
+		);
 	}
 
 	/**
