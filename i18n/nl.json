@@ -163,5 +163,6 @@
 	"cpd-api-save-description-page-comment": "Beschrijvingspagina opgeslagen",
 	"cpd-api-move-description-page-comment": "Beschrijvingspagina hernoemd",
 	"cpd-config-canvas-process-height-msg": "De hoogte van het diagramcanvas instellen op de procespagina en in de bewerkingsmodus",
-	"cpd-config-canvas-embedded-height-msg": "De hoogte van het diagramcanvas instellen voor het insluiten in andere pagina’s"
+	"cpd-config-canvas-embedded-height-msg": "De hoogte van het diagramcanvas instellen voor het insluiten in andere pagina’s",
+	"cpd-error-message-publish-svg-file": "Het SVG-bestand kon niet worden gepubliceerd: $1"
 }

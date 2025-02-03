@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Eihel",
 			"Florian COLLIN",
 			"Mahabarata",
 			"Pols12",
@@ -130,7 +131,7 @@
 	"cpd-droplet-height-field-label": "Hauteur",
 	"cpd-droplet-show-toolbar-field-label-help": "Activer ou désactiver la barre d'outils",
 	"cpd-droplet-show-toolbar-field-label": "Afficher la barre d'outils",
-	"cpd-validation-missing-label": "$1 n'a pas d'étiquette",
+	"cpd-validation-missing-label": "L'élément $1 $2 n'a pas de libellé",
 	"cpd-validation-duplicate-label": "$1 est utilisée plusieurs fois dans $2",
 	"cpd-log-no-changes": "Aucune modification",
 	"cpd-process-usage-description": "Les pages suivantes intègrent le processus $1",
@@ -166,5 +167,6 @@
 	"cpd-api-move-description-page-comment": "Page de description déplacée",
 	"cpd-config-canvas-process-height-msg": "Définit la hauteur du canevas du diagramme sur la page de processus et en mode édition",
 	"cpd-config-canvas-embedded-height-msg": "Définit la hauteur du canevas du diagramme lorsqu'il est intégré dans d'autres pages",
-	"cpd-dialog-save-changes-button-title": "Enregistrer les modifications"
+	"cpd-dialog-save-changes-button-title": "Enregistrer les modifications",
+	"cpd-error-message-publish-svg-file": "Impossible de publier le fichier SVG : $1"
 }
