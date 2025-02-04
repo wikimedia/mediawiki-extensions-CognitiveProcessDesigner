@@ -22,6 +22,9 @@ export default class CpdSaveDialog extends EventEmitter {
 			if ( action === "back" ) {
 				return new OO.ui.Process( this.onBack.bind( this ) );
 			}
+			if ( action === "saveDone" ) {
+				return new OO.ui.Process( this.onSaveDone.bind( this ) );
+			}
 
 			throw new Error( "Dialog action not implemented" );
 		};
@@ -73,6 +76,10 @@ export default class CpdSaveDialog extends EventEmitter {
 
 	private onSave(): void {
 		this.emit( "save", this.dialog.withSavePages() );
+	}
+
+	private onSaveDone(): void {
+		this.emit( "saveDone" );
 	}
 
 	private onReview(): void {

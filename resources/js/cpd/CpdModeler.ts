@@ -45,6 +45,7 @@ class CpdModeler extends CpdTool {
 
 		this.dom.initDomElements( true );
 		this.dom.on( "save", this.onSave.bind( this ) );
+		this.dom.on( "saveDone", this.onSaveDone.bind( this ) );
 		this.dom.on( "cancel", this.onCancel.bind( this ) );
 		this.dom.on( "openDialog", this.onOpenDialog.bind( this ) );
 
@@ -131,6 +132,13 @@ class CpdModeler extends CpdTool {
 			elements
 		);
 
+		// Reload the page in view mode
+		if ( !withPages ) {
+			this.reloadInViewMode();
+
+			return;
+		}
+
 		result.saveWarnings.forEach( ( warning: string ): void => {
 			this.dom.showWarning( warning );
 		} );
@@ -141,6 +149,14 @@ class CpdModeler extends CpdTool {
 		this.dom.showDialogChangesPanel();
 
 		await this.initDescriptionPageElements();
+	}
+
+	private onSaveDone(): void {
+		this.reloadInViewMode();
+	}
+
+	private reloadInViewMode(): void {
+		window.open( mw.util.getUrl( mw.config.get( "wgPageName" ) ), "_self" );
 	}
 
 	private updateElementDescriptionPages( result: SaveDiagramResult, elements: CpdElement[] ): void {
