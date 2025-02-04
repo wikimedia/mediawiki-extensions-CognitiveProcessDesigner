@@ -229,4 +229,4 @@ class CpdModeler extends CpdTool {
 	}
 }
 
-new CpdModeler( mw.config.get( "cpdProcess" ), document.querySelector( "[data-process]" ) );
+new CpdModeler( mw.config.get( "cpdProcess" ) as string, document.querySelector( "[data-process]" ) );

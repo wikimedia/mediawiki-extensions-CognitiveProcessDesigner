@@ -106,7 +106,7 @@ export default class CpdViewer extends CpdTool {
 			return mw.util.getUrl( element.descriptionPage.dbKey );
 		}
 
-		return mw.util.getUrl( element.descriptionPage.dbKey, { [ mw.config.get( "cpdReturnToQueryParam" ) ]: returnToParam } );
+		return mw.util.getUrl( element.descriptionPage.dbKey, { [ mw.config.get( "cpdReturnToQueryParam" ) as string ]: returnToParam } );
 	}
 
 	private async onShowXml(): Promise<void> {

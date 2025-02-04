@@ -2,6 +2,7 @@ import BaseRenderer from "diagram-js/lib/draw/BaseRenderer";
 import EventBus from "diagram-js/lib/core/EventBus";
 import BpmnRenderer from "bpmn-js/lib/draw/BpmnRenderer";
 import CpdElement from "../model/CpdElement";
+import { Shape } from "bpmn-js/lib/model/Types";
 
 export default class CpdElementsRenderer extends BaseRenderer {
 	private static readonly HIGHLIGHT_COLOR = "#3e5389";
@@ -30,7 +31,7 @@ export default class CpdElementsRenderer extends BaseRenderer {
 			return this.bpmnRenderer.drawShape( parentNode, element );
 		}
 
-		const shape = this.bpmnRenderer.drawShape( parentNode, element.bpmnElement );
+		const shape = this.bpmnRenderer.drawShape( parentNode, element.bpmnElement as Shape );
 		shape.style.cursor = "pointer";
 		shape.style.stroke = CpdElementsRenderer.HIGHLIGHT_COLOR;
 
