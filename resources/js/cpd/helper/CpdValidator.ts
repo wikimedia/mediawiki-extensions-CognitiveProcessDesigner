@@ -51,6 +51,9 @@ export default class CpdValidator extends EventEmitter {
 	 */
 	private handleDuplicateLabel( event: Event ): void {
 		const newLabel = event[ 'context' ].newLabel;
+		if ( !newLabel ) {
+			return;
+		}
 
 		const existingElements = this.elementRegistry.filter(
 			( element ) => element.businessObject.name === newLabel
@@ -61,7 +64,6 @@ export default class CpdValidator extends EventEmitter {
 		}
 
 		const suffix = event[ 'context' ].element.id.split( '_' )[ 1 ];
-
 		event[ 'context' ].newLabel = `${ newLabel } (${ suffix })`;
 	}
 }
