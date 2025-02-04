@@ -5,12 +5,12 @@ namespace CognitiveProcessDesigner\Api;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
-use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
-use MediaWiki\Status\Status;
 use MediaWiki\Content\TextContent;
+use MediaWiki\Revision\RevisionLookup;
+use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -49,7 +49,6 @@ class LoadCpdDiagram extends ApiBase {
 	/**
 	 * @inheritDoc
 	 * @throws ApiUsageException
-	 * @throws CpdInvalidContentException
 	 */
 	public function execute() {
 		$result = $this->getResult();

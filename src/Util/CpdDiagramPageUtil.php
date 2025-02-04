@@ -192,8 +192,8 @@ class CpdDiagramPageUtil {
 		$options = [];
 		if ( $revision && !$revision->isCurrent() ) {
 			$meta = $this->getMetaForPage( $this->getDiagramPage( $process ), $revision );
-			if ( $meta['cpd-svg-sha1'] ) {
-				$options['sha1'] = $meta['cpd-svg-sha1'];
+			if ( $meta['cpd-svg-ts'] ) {
+				$options['time'] = $meta['cpd-svg-ts'];
 			}
 		}
 
