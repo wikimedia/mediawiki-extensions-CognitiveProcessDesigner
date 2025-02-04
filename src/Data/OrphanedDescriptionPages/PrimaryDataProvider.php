@@ -10,17 +10,12 @@ use stdClass;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class PrimaryDataProvider implements IPrimaryDataProvider {
-
-	/** @var ILoadBalancer */
-	private $loadBalancer;
-
 	/**
 	 * @param ILoadBalancer $loadBalancer
 	 */
 	public function __construct(
-		ILoadBalancer $loadBalancer
+		private readonly ILoadBalancer $loadBalancer
 	) {
-		$this->loadBalancer = $loadBalancer;
 	}
 
 	/**

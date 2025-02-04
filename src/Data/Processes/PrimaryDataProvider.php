@@ -10,16 +10,12 @@ use Wikimedia\Rdbms\ILoadBalancer;
 
 class PrimaryDataProvider implements IPrimaryDataProvider {
 
-	/** @var ILoadBalancer */
-	private $loadBalancer;
-
 	/**
 	 * @param ILoadBalancer $loadBalancer
 	 */
 	public function __construct(
-		ILoadBalancer $loadBalancer
+		private readonly ILoadBalancer $loadBalancer
 	) {
-		$this->loadBalancer = $loadBalancer;
 	}
 
 	/**
@@ -34,7 +30,10 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 
 		$rows = $dbr->select(
 			[ 'p' => 'page' ],
-			[ 'p.page_title', 'p.page_namespace' ],
+			[
+				'p.page_title',
+				'p.page_namespace'
+			],
 			[ "p.page_content_model = '$cpdContentModel'" ],
 			__METHOD__
 		);

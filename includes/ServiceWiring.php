@@ -17,7 +17,8 @@ return [
 			$services->getMainConfig(),
 			$services->getDBLoadBalancer(),
 			$services->getLinkRenderer(),
-			$services->getRevisionLookup()
+			$services->getRevisionLookup(),
+			$services->getService( 'ContentStabilization.Lookup' )
 		);
 	},
 	'CpdDescriptionPageUtil' => static function ( MediaWikiServices $services ) {

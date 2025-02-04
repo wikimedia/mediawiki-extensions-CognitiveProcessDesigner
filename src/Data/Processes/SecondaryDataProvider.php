@@ -8,15 +8,10 @@ use MWStake\MediaWiki\Component\DataStore\IRecord;
 
 class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\SecondaryDataProvider {
 
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $util;
-
 	/**
 	 * @param CpdDiagramPageUtil $util
 	 */
-	public function __construct( CpdDiagramPageUtil $util ) {
-		$this->util = $util;
-	}
+	public function __construct( private readonly CpdDiagramPageUtil $util ) {}
 
 	/**
 	 * @param IRecord &$dataSet
@@ -26,7 +21,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 	protected function doExtend( &$dataSet ) {
 		$process = $dataSet->get( Record::PROCESS );
 		$diagramPage = $this->util->getDiagramPage( $process );
-		$svgFile = $this->util->getSvgFile( $process );
+		$svgFile = $this->util->getSvgFile( $process, $this->util->getStableRevision( $process ) );
 
 		$dataSet->set( Record::DB_KEY, $diagramPage->getTitle()->getPrefixedDBkey() );
 		$dataSet->set( Record::URL, $diagramPage->getTitle()->getLocalURL() );

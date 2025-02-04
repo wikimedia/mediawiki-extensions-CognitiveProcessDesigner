@@ -14,23 +14,6 @@ use MediaWiki\Message\Message;
 use User;
 
 class CpdSaveDescriptionPagesUtil {
-	/**
-	 * @var JobQueueGroup
-	 */
-	private JobQueueGroup $jobQueueGroup;
-
-	/**
-	 * @var CpdDiagramPageUtil
-	 */
-	private CpdDiagramPageUtil $diagramPageUtil;
-
-	/**
-	 * @var CpdDescriptionPageUtil
-	 */
-	private CpdDescriptionPageUtil $descriptionPageUtil;
-
-	/** @var LinkRenderer */
-	private LinkRenderer $linkRenderer;
 
 	/**
 	 * @param CpdDiagramPageUtil $diagramPageUtil
@@ -39,15 +22,11 @@ class CpdSaveDescriptionPagesUtil {
 	 * @param LinkRenderer $linkRenderer
 	 */
 	public function __construct(
-		CpdDiagramPageUtil $diagramPageUtil,
-		CpdDescriptionPageUtil $descriptionPageUtil,
-		JobQueueGroup $jobQueueGroup,
-		LinkRenderer $linkRenderer
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
+		private readonly JobQueueGroup $jobQueueGroup,
+		private readonly LinkRenderer $linkRenderer
 	) {
-		$this->jobQueueGroup = $jobQueueGroup;
-		$this->diagramPageUtil = $diagramPageUtil;
-		$this->descriptionPageUtil = $descriptionPageUtil;
-		$this->linkRenderer = $linkRenderer;
 	}
 
 	/**

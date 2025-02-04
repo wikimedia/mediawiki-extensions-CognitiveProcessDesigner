@@ -16,15 +16,6 @@ use Wikimedia\ParamValidator\ParamValidator;
 
 class LoadCpdDiagram extends ApiBase {
 
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $diagramPageUtil;
-
-	/** @var CpdDescriptionPageUtil */
-	private CpdDescriptionPageUtil $descriptionPageUtil;
-
-	/** @var RevisionLookup */
-	private RevisionLookup $revisionLookup;
-
 	/**
 	 * @param ApiMain $main
 	 * @param string $action
@@ -35,15 +26,11 @@ class LoadCpdDiagram extends ApiBase {
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		CpdDiagramPageUtil $diagramPageUtil,
-		CpdDescriptionPageUtil $descriptionPageUtil,
-		RevisionLookup $revisionLookup
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
+		private readonly RevisionLookup $revisionLookup
 	) {
 		parent::__construct( $main, $action );
-
-		$this->diagramPageUtil = $diagramPageUtil;
-		$this->descriptionPageUtil = $descriptionPageUtil;
-		$this->revisionLookup = $revisionLookup;
 	}
 
 	/**
