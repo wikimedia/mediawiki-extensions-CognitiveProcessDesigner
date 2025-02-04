@@ -80,6 +80,7 @@
 	"cpd-dialog-save-label-changes": "Changes saved",
 	"cpd-dialog-save-label-changes-with-error": "Error occured",
 	"cpd-dialog-save-label-resume-editing": "Resume editing",
+	"cpd-dialog-save-label-done": "Done",
 	"bs-cpd-mainlinks-label": "Processes",
 	"bs-config-mainlinks-cpd-label": "Show entrypoint \"Processes\"",
 	"bs-config-mainlinks-cpd-help": "Show entrypoint \"Processes\" link in the left navigation",

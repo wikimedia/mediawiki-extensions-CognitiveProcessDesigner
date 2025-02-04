@@ -247,6 +247,7 @@
 				"cpd-dialog-save-label-changes",
 				"cpd-dialog-save-label-changes-with-error",
 				"cpd-dialog-save-label-resume-editing",
+				"cpd-dialog-save-label-done",
 				"cpd-button-center-viewport"
 			]
 		},
