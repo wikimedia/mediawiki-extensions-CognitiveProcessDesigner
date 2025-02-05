@@ -28,5 +28,7 @@
 	"cpd-droplet-height-field-label-help": "Help text for input field to set height of bpmn diagram",
 	"cpd-droplet-height-field-label": "Label for input field to set height of bpmn diagram",
 	"cpd-droplet-show-toolbar-field-label-help": "Help text for toggle switch if toolbar should be shown",
-	"cpd-droplet-show-toolbar-field-label": "Label for toggle switch if toolbar should be visible"
+	"cpd-droplet-show-toolbar-field-label": "Label for toggle switch if toolbar should be visible",
+	"cpd-description-navigation-incoming-label": "Label for connection table on description page which contains incoming links",
+	"cpd-description-navigation-outgoing-label": "Label for connection table on description page which contains outgoing links"
 }
