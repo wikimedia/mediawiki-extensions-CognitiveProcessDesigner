@@ -14,7 +14,7 @@ use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
 
 class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
-	public const RETURN_TO_QUERY_PARAM = 'returnto';
+	public const RETURN_TO_QUERY_PARAM = 'backTo';
 
 	/** @var TemplateParser */
 	private TemplateParser $templateParser;
@@ -53,18 +53,6 @@ class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 
 		if ( !$this->descriptionPageUtil->isDescriptionPage( $title ) ) {
 			return;
-		}
-
-		$request = $out->getContext()->getRequest();
-
-		$returnToTitle = Title::newFromText( $request->getVal( self::RETURN_TO_QUERY_PARAM ) );
-		if ( $returnToTitle ) {
-			$out->addSubtitle(
-				"< " . $this->linkRenderer->makeLink(
-					$returnToTitle,
-					$returnToTitle->getText()
-				)
-			);
 		}
 
 		$text = $this->createNavigation(
