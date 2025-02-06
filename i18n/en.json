@@ -102,5 +102,7 @@
 	"cpd-api-move-description-page-comment": "Description page moved",
 	"cpd-config-canvas-process-height-msg": "Set the height of the diagram canvas on process page and in edit mode",
 	"cpd-config-canvas-embedded-height-msg": "Set the height of the diagram canvas while its embedded in other pages",
-	"cpd-api-save-diagram-update-comment": "Diagram updated"
+	"cpd-api-save-diagram-update-comment": "Diagram updated",
+	"cpd-description-navigation-incoming-label": "Incoming connections",
+	"cpd-description-navigation-outgoing-label": "Outgoing connections"
 }
