@@ -161,7 +161,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 
 		$data = [
 			'process' => $process,
-			'showToolbar' => !empty( $args['toolbar'] ) ? !( $args['toolbar'] === "false" ) : true,
+			'showToolbar' => !empty( $args['toolbar'] ) ? !( $args['toolbar'] === "false" ) : null,
 			'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
 			'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%',
 			'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null

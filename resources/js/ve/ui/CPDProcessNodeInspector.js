@@ -135,7 +135,7 @@ ext.cpd.ve.ui.CPDProcessNodeInspector.prototype.updateMwData = function ( mwData
 		delete ( mwData.attrs.height );
 	}
 	if ( this.toolbar.getValue() ) {
-		mwData.attrs.toolbar = '1';
+		mwData.attrs.toolbar = 'true';
 	} else {
 		delete ( mwData.attrs.toolbar );
 	}
