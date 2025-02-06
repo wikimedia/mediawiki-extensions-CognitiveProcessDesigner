@@ -17,22 +17,10 @@ use Wikimedia\ParamValidator\ParamValidator;
 class SaveSvgHandler extends Handler {
 
 	/**
-	 * @var MimeAnalyzer
-	 */
-	private $mimeAnalyzer;
-
-	/**
-	 * @var RepoGroup
-	 */
-	private $repoGroup;
-
-	/**
 	 * @param MimeAnalyzer $mimeAnalyzer
 	 * @param RepoGroup $repoGroup
 	 */
-	public function __construct( MimeAnalyzer $mimeAnalyzer, RepoGroup $repoGroup ) {
-		$this->mimeAnalyzer = $mimeAnalyzer;
-		$this->repoGroup = $repoGroup;
+	public function __construct( private readonly MimeAnalyzer $mimeAnalyzer, private readonly RepoGroup $repoGroup ) {
 	}
 
 	/**

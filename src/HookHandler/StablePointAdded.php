@@ -9,19 +9,15 @@ use MediaWiki\Extension\ContentStabilization\Hook\Interfaces\ContentStabilizatio
 use MediaWiki\Extension\ContentStabilization\StablePoint;
 
 class StablePointAdded implements ContentStabilizationStablePointAddedHook {
-	/** @var CpdDescriptionPageUtil */
-	private CpdDescriptionPageUtil $descriptionPageUtil;
-
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $diagramPageUtil;
 
 	/**
 	 * @param CpdDiagramPageUtil $diagramPageUtil
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 */
-	public function __construct( CpdDiagramPageUtil $diagramPageUtil, CpdDescriptionPageUtil $descriptionPageUtil ) {
-		$this->diagramPageUtil = $diagramPageUtil;
-		$this->descriptionPageUtil = $descriptionPageUtil;
+	public function __construct(
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly CpdDescriptionPageUtil $descriptionPageUtil
+	) {
 	}
 
 	/**

@@ -16,26 +16,15 @@ use Wikimedia\FileBackend\FSFile\TempFSFile;
 use Wikimedia\Mime\MimeAnalyzer;
 
 class SvgFile {
-	/**
-	 * @var MimeAnalyzer
-	 */
-	private $mimeAnalyzer;
-
-	/**
-	 * @var RepoGroup
-	 */
-	private $repoGroup;
 
 	/**
 	 * @param MimeAnalyzer $mimeAnalyzer
 	 * @param RepoGroup $repoGroup
 	 */
 	public function __construct(
-		MimeAnalyzer $mimeAnalyzer,
-		RepoGroup $repoGroup
+		private readonly MimeAnalyzer $mimeAnalyzer,
+		private readonly RepoGroup $repoGroup
 	) {
-		$this->mimeAnalyzer = $mimeAnalyzer;
-		$this->repoGroup = $repoGroup;
 	}
 
 	/**
@@ -105,6 +94,7 @@ class SvgFile {
 				Message::newFromKey( 'cpd-error-message-publish-svg-file', implode( ', ', $msgText ) )
 			);
 		}
+
 		return $repoFile;
 	}
 }

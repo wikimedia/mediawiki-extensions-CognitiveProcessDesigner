@@ -20,36 +20,18 @@ class MoveDescriptionPage extends Job {
 	private MovePageFactory $movePageFactory;
 
 	/**
-	 * @var UserIdentity
-	 */
-	private UserIdentity $actor;
-
-	/**
-	 * @var Title
-	 */
-	private Title $existingTitle;
-
-	/**
-	 * @var Title
-	 */
-	private Title $newTitle;
-
-	/**
 	 * @param Title $existingTitle
 	 * @param Title $newTitle
 	 * @param UserIdentity $actor
 	 */
 	public function __construct(
-		Title $existingTitle,
-		Title $newTitle,
-		UserIdentity $actor,
+		private readonly Title $existingTitle,
+		private readonly Title $newTitle,
+		private readonly UserIdentity $actor,
 	) {
 		parent::__construct( static::JOBCOMMAND, [] );
 		$services = MediaWikiServices::getInstance();
 		$this->movePageFactory = $services->getService( 'MovePageFactory' );
-		$this->actor = $actor;
-		$this->existingTitle = $existingTitle;
-		$this->newTitle = $newTitle;
 	}
 
 	/**

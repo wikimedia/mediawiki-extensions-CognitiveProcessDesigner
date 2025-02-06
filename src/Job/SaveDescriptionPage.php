@@ -24,18 +24,13 @@ class SaveDescriptionPage extends Job {
 	private PageUpdater $updater;
 
 	/**
-	 * @var Content|null
-	 */
-	private ?Content $content;
-
-	/**
 	 * @param Title $title
 	 * @param Content|null $content
 	 * @param UserIdentity $actor
 	 */
 	public function __construct(
 		Title $title,
-		?Content $content,
+		private readonly ?Content $content,
 		UserIdentity $actor,
 	) {
 		parent::__construct( static::JOBCOMMAND, [] );
@@ -45,7 +40,6 @@ class SaveDescriptionPage extends Job {
 		$descriptionPage = $wikiPageFactory->newFromTitle( $title );
 
 		$this->updater = $descriptionPage->newPageUpdater( $actor );
-		$this->content = $content;
 	}
 
 	/**

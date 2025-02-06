@@ -8,14 +8,10 @@ use MediaWiki\Page\PageIdentity;
 
 class EnableStabilizationForProcess implements ContentStabilizationIsStabilizationEnabledHook {
 
-	/** @var Config */
-	private Config $config;
-
 	/**
 	 * @param Config $config
 	 */
-	public function __construct( Config $config ) {
-		$this->config = $config;
+	public function __construct( private readonly Config $config ) {
 	}
 
 	/**

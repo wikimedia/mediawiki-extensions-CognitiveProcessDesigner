@@ -10,24 +10,15 @@ use Wikimedia\Rdbms\ILoadBalancer;
 
 class Reader extends \MWStake\MediaWiki\Component\DataStore\Reader {
 
-	/** @var ILoadBalancer */
-	private ILoadBalancer $loadBalancer;
-
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $cpdDiagramPageUtil;
-
 	/**
 	 * @param ILoadBalancer $loadBalancer
 	 * @param CpdDiagramPageUtil $cpdDiagramPageUtil
 	 */
 	public function __construct(
-		ILoadBalancer $loadBalancer,
-		CpdDiagramPageUtil $cpdDiagramPageUtil
+		private readonly ILoadBalancer $loadBalancer,
+		private readonly CpdDiagramPageUtil $cpdDiagramPageUtil
 	) {
 		parent::__construct();
-
-		$this->loadBalancer = $loadBalancer;
-		$this->cpdDiagramPageUtil = $cpdDiagramPageUtil;
 	}
 
 	/**

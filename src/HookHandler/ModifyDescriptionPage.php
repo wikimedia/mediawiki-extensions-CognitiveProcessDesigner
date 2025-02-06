@@ -15,17 +15,8 @@ use MediaWiki\Title\Title;
 class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 	public const RETURN_TO_QUERY_PARAM = 'returnto';
 
-	/** @var CpdDescriptionPageUtil */
-	private CpdDescriptionPageUtil $descriptionPageUtil;
-
-	/** @var LinkRenderer */
-	private LinkRenderer $linkRenderer;
-
 	/** @var TemplateParser */
 	private TemplateParser $templateParser;
-
-	/** @var CpdElementConnectionUtil */
-	private CpdElementConnectionUtil $connectionUtil;
 
 	/**
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
@@ -33,16 +24,13 @@ class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 	 * @param LinkRenderer $linkRenderer
 	 */
 	public function __construct(
-		CpdDescriptionPageUtil $descriptionPageUtil,
-		CpdElementConnectionUtil $connectionUtil,
-		LinkRenderer $linkRenderer
+		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
+		private readonly CpdElementConnectionUtil $connectionUtil,
+		private readonly LinkRenderer $linkRenderer
 	) {
-		$this->descriptionPageUtil = $descriptionPageUtil;
-		$this->linkRenderer = $linkRenderer;
 		$this->templateParser = new TemplateParser(
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
-		$this->connectionUtil = $connectionUtil;
 	}
 
 	/**
