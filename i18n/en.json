@@ -14,7 +14,6 @@
 	"cpd-ui-action-edit-xml": "Edit XML",
 	"cpd-button-cancel-title": "Cancel",
 	"cpd-button-show-xml": "Show raw XML",
-	"cpd-button-hide-xml": "Hide raw XML",
 	"cpd-button-center-viewport": "Center diagram",
 	"cpd-link-diagram-page-title": "Go to diagram page",
 	"cpd-link-svg-title": "Download diagram as SVG",
@@ -105,5 +104,6 @@
 	"cpd-config-canvas-embedded-height-msg": "Set the height of the diagram canvas while its embedded in other pages",
 	"cpd-api-save-diagram-update-comment": "Diagram updated",
 	"cpd-description-navigation-incoming-label": "Incoming connections",
-	"cpd-description-navigation-outgoing-label": "Outgoing connections"
+	"cpd-description-navigation-outgoing-label": "Outgoing connections",
+	"cpd-button-show-diagram": "Show diagram"
 }
