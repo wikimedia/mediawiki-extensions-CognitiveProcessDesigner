@@ -15,6 +15,7 @@ import { ChangeLogMessages } from "./CpdChangeLogger";
 import CenterViewportButton from "../oojs-ui/CenterViewportButton";
 import { MessageType } from "../oojs-ui/SaveDialog";
 import ToolGroupSetupMap = OO.ui.Toolbar.ToolGroupSetupMap;
+import ShowDiagramButton from "../oojs-ui/ShowDiagramButton";
 
 interface HtmlElement extends HTMLElement {
 	hide: () => void;
@@ -44,6 +45,8 @@ export default class CpdDom extends EventEmitter {
 	private cancelBtn: Button | undefined;
 
 	private showXmlBtn: ShowXmlButton;
+
+	private showDiagramBtn: ShowDiagramButton;
 
 	private centerViewportBtn: CenterViewportButton;
 
@@ -102,14 +105,16 @@ export default class CpdDom extends EventEmitter {
 		this.xmlContainer.innerHTML = xml;
 		this.xmlContainer.show();
 		this.canvas.hide();
-		this.showXmlBtn?.setHideLabelAndIcon();
+		this.showXmlBtn?.setActive( true );
+		this.showDiagramBtn?.setActive( false );
 		this.centerViewportBtn?.setDisabled( true );
 	}
 
 	private showCanvas(): void {
 		this.xmlContainer.hide();
 		this.canvas.show();
-		this.showXmlBtn?.setShowLabelAndIcon();
+		this.showXmlBtn?.setActive( false );
+		this.showDiagramBtn?.setActive( true );
 		this.centerViewportBtn?.setDisabled( false );
 	}
 
@@ -124,6 +129,8 @@ export default class CpdDom extends EventEmitter {
 		} else {
 			this.saveDialog?.popPending();
 			this.showXmlBtn?.setDisabled( false );
+			this.showDiagramBtn?.setDisabled( false );
+			this.showDiagramBtn?.setActive( true );
 			this.centerViewportBtn?.setDisabled( false );
 			this.openDialogBtn?.setDisabled( false );
 			this.cancelBtn?.setDisabled( false );
@@ -142,6 +149,7 @@ export default class CpdDom extends EventEmitter {
 		this.openDialogBtn?.setDisabled( true );
 		this.cancelBtn?.setDisabled( true );
 		this.showXmlBtn?.setDisabled( true );
+		this.showDiagramBtn?.setDisabled( true );
 		this.centerViewportBtn?.setDisabled( true );
 	}
 
@@ -265,6 +273,7 @@ export default class CpdDom extends EventEmitter {
 
 		toolFactory.register( ShowXmlButton );
 		toolFactory.register( CenterViewportButton );
+		toolFactory.register( ShowDiagramButton );
 
 		const withDiagramPageLink = mw.config.get( "wgPageName" ) !== this.diagramPage.getPrefixedDb();
 		if ( !this.isEdit ) {
@@ -273,6 +282,7 @@ export default class CpdDom extends EventEmitter {
 				toolFactory.register( DiagramPageLinkButton );
 			}
 			secondaryBarButtons.push( ShowXmlButton.static.name );
+			secondaryBarButtons.push( ShowDiagramButton.static.name );
 		}
 
 		const primaryBarConfig = {
@@ -322,6 +332,11 @@ export default class CpdDom extends EventEmitter {
 			if ( item.constructor === ShowXmlButton ) {
 				this.showXmlBtn = item;
 				this.showXmlBtn.onSelect = this.toggleView.bind( this );
+			}
+
+			if ( item.constructor === ShowDiagramButton ) {
+				this.showDiagramBtn = item;
+				this.showDiagramBtn.onSelect = this.toggleView.bind( this );
 			}
 
 			if ( item.constructor === CenterViewportButton ) {

@@ -50,20 +50,38 @@ export default class CpdValidator extends EventEmitter {
 	 * @param event
 	 */
 	private handleDuplicateLabel( event: Event ): void {
-		const newLabel = event[ 'context' ].newLabel;
+		let newLabel = event[ 'context' ].newLabel;
 		if ( !newLabel ) {
 			return;
 		}
 
-		const existingElements = this.elementRegistry.filter(
-			( element ) => element.businessObject.name === newLabel
-		);
-
-		if ( existingElements.length === 0 ) {
-			return;
+		while ( !this.isLabelUnique( newLabel ) ) {
+			newLabel = this.incrementOrInsertParenthesisNumber( newLabel );
 		}
 
-		const suffix = event[ 'context' ].element.id.split( '_' )[ 1 ];
-		event[ 'context' ].newLabel = `${ newLabel } (${ suffix })`;
+		event[ 'context' ].newLabel = newLabel;
 	}
+
+	private incrementOrInsertParenthesisNumber( str: string ): string {
+		const matches = str.match( /\((\d+)\)/g ) || [];
+		const numbers = matches.map( ( match ) => parseInt( match.replace( /\D/g, "" ), 10 ) );
+		const validNumbers = numbers.filter( ( num ) => num > 1 );
+
+		if ( validNumbers.length > 0 ) {
+			const lastNumber = validNumbers[ validNumbers.length - 1 ];
+			const newNumber = lastNumber + 1;
+			return str.replace( `(${ lastNumber })`, `(${ newNumber })` );
+		}
+
+		return str.trim() + " (2)";
+	}
+
+	private isLabelUnique( label: string ): boolean {
+		const existingElements = this.elementRegistry.filter(
+			( element ) => element.businessObject.name === label
+		);
+
+		return existingElements.length === 0;
+	}
+
 }
