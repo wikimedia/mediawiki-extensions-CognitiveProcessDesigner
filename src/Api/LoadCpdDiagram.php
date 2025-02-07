@@ -83,10 +83,7 @@ class LoadCpdDiagram extends ApiBase {
 		} catch ( CpdInvalidContentException $e ) {
 			$result->addValue( null, 'exists', 0 );
 			$result->addValue( null, 'xml', null );
-			$result->addValue( null, 'descriptionPages', [
-				'new' => [],
-				'edited' => []
-			] );
+			$result->addValue( null, 'descriptionPages', [] );
 			$result->addValue( null, 'svgFile', null );
 		}
 	}

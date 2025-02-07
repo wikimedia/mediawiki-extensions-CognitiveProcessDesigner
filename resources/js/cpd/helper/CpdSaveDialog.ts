@@ -43,6 +43,10 @@ export default class CpdSaveDialog extends EventEmitter {
 		this.dialog.open();
 	}
 
+	public isOpened(): boolean {
+		return this.dialog.isOpened();
+	}
+
 	public showChanges(): void {
 		this.dialog.setMode( Mode.CHANGES );
 	}

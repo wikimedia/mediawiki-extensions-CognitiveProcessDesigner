@@ -28,6 +28,7 @@ export default class CpdElement {
 
 	private constructor( bpmnElement: Element ) {
 		this.bpmnElement = bpmnElement;
+		this.descriptionPage = null;
 	}
 
 	public static init( bpmnElement: Element ): CpdElement {

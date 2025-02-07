@@ -96,7 +96,7 @@ export default class CpdChangeLogger extends EventEmitter {
 			return;
 		}
 
-		const element = this.factory.createFromShape( shape );
+		const element = this.factory.createCpdElement( shape );
 
 		if ( type === CpdChangeLogger.ELEMENT_RENAME ) {
 			this.onElementRenamed( element, event );
@@ -111,7 +111,7 @@ export default class CpdChangeLogger extends EventEmitter {
 		}
 
 		shapes.forEach( ( shape: Shape ) => {
-			const element = this.factory.createFromShape( shape );
+			const element = this.factory.createCpdElement( shape );
 
 			if ( type === CpdChangeLogger.ELEMENT_DELETE ) {
 				this.onElementDeleted( element );

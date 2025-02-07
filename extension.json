@@ -224,6 +224,7 @@
 				"cpd-error-message-missing-root-element",
 				"cpd-error-message-missing-initial-element",
 				"cpd-error-message-invalid-xml",
+				"cpd-error-message-missing-description-page",
 				"cpd-no-changes-warning-message",
 				"cpd-dialog-save-changes-button-title",
 				"cpd-button-cancel-title",

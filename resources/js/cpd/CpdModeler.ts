@@ -202,7 +202,6 @@ class CpdModeler extends CpdTool {
 
 	private onOpenDialog(): void {
 		const descriptionPageElements = this.elementFactory.createDescriptionPageEligibleElements();
-
 		this.applyDescriptionPageChanges( descriptionPageElements );
 		this.dom.setDialogChangelog( this.changeLogger.getMessages() );
 	}
@@ -210,7 +209,7 @@ class CpdModeler extends CpdTool {
 	private applyDescriptionPageChanges( elements: CpdElement[] ): void {
 		elements.forEach( ( element: CpdElement ): void => {
 			if ( !element.descriptionPage ) {
-				return;
+				this.throwError( mw.message( "cpd-error-message-missing-description-page", element.id ).text() );
 			}
 
 			const initialElement = this.initialElements.find(
