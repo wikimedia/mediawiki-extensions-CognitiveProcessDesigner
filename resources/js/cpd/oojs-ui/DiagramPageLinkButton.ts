@@ -9,4 +9,7 @@ export default class DiagramPageLinkButton extends LinkButton {
 			icon: "sandbox"
 		}
 	};
+
+	setActive() {
+	}
 }

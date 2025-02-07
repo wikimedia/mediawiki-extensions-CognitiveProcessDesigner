@@ -10,4 +10,7 @@ export default class CenterViewportButton extends Button {
 			displayBothIconAndLabel: false
 		}
 	};
+
+	setActive() {
+	}
 }
