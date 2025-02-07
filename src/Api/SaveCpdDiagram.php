@@ -20,20 +20,6 @@ use RuntimeException;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveCpdDiagram extends ApiBase {
-	/** @var SvgFile */
-	private SvgFile $svgFile;
-
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $diagramPageUtil;
-
-	/** @var CpdSaveDescriptionPagesUtil */
-	private CpdSaveDescriptionPagesUtil $saveDescriptionPagesUtil;
-
-	/** @var CpdElementFactory */
-	private CpdElementFactory $cpdElementFactory;
-
-	/** @var CpdDescriptionPageUtil */
-	private CpdDescriptionPageUtil $descriptionPageUtil;
 
 	/**
 	 * @param ApiMain $main
@@ -47,19 +33,13 @@ class SaveCpdDiagram extends ApiBase {
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		CpdDiagramPageUtil $diagramPageUtil,
-		CpdSaveDescriptionPagesUtil $saveDescriptionPagesUtil,
-		CpdDescriptionPageUtil $descriptionPageUtil,
-		CpdElementFactory $cpdElementFactory,
-		SvgFile $svgFile
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly CpdSaveDescriptionPagesUtil $saveDescriptionPagesUtil,
+		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
+		private readonly CpdElementFactory $cpdElementFactory,
+		private readonly SvgFile $svgFile
 	) {
 		parent::__construct( $main, $action );
-
-		$this->svgFile = $svgFile;
-		$this->diagramPageUtil = $diagramPageUtil;
-		$this->saveDescriptionPagesUtil = $saveDescriptionPagesUtil;
-		$this->cpdElementFactory = $cpdElementFactory;
-		$this->descriptionPageUtil = $descriptionPageUtil;
 	}
 
 	/**
@@ -88,7 +68,7 @@ class SaveCpdDiagram extends ApiBase {
 		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
 		try {
 			$file = $this->svgFile->save( $svgFilePage, $svg, $user );
-		} catch ( CpdSvgException | RuntimeException $e ) {
+		} catch ( CpdSvgException|RuntimeException $e ) {
 			$this->getResult()->addValue( null, 'error', $e->getMessage() );
 
 			return;

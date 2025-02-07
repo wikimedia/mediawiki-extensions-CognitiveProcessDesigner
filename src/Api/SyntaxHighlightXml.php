@@ -13,10 +13,6 @@ use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SyntaxHighlightXml extends ApiBase {
-	/**
-	 * @var Parser
-	 */
-	private Parser $parser;
 
 	/**
 	 * @param ApiMain $main
@@ -26,10 +22,9 @@ class SyntaxHighlightXml extends ApiBase {
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		Parser $parser
+		private readonly Parser $parser
 	) {
 		parent::__construct( $main, $action );
-		$this->parser = $parser;
 	}
 
 	/**

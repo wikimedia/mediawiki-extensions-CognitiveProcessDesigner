@@ -7,14 +7,11 @@ use MediaWiki\Output\Hook\OutputPageBeforeHTMLHook;
 use MediaWiki\Output\OutputPage;
 
 class AddResources implements OutputPageBeforeHTMLHook {
-	/** @var Config */
-	private Config $config;
 
 	/**
 	 * @param Config $config
 	 */
-	public function __construct( Config $config ) {
-		$this->config = $config;
+	public function __construct( private readonly Config $config ) {
 	}
 
 	/**

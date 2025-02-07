@@ -14,14 +14,10 @@ use MediaWiki\Title\Title;
 
 class OnPageDeleteComplete implements PageDeleteCompleteHook {
 
-	/** @var CpdDescriptionPageUtil */
-	private CpdDescriptionPageUtil $descriptionPageUtil;
-
 	/**
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 */
-	public function __construct( CpdDescriptionPageUtil $descriptionPageUtil ) {
-		$this->descriptionPageUtil = $descriptionPageUtil;
+	public function __construct( private readonly CpdDescriptionPageUtil $descriptionPageUtil ) {
 	}
 
 	/**

@@ -5,7 +5,6 @@ namespace CognitiveProcessDesigner\Api\Store;
 use ApiUsageException;
 use CognitiveProcessDesigner\Data\OrphanedDescriptionPages\Store;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
-use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
@@ -26,17 +25,15 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 	 * @param string $action
 	 * @param ILoadBalancer $loadBalancer
 	 * @param CpdDiagramPageUtil $cpdDiagramPageUtil
-	 * @param StabilizationLookup $lookup
 	 */
 	public function __construct(
 		ApiMain $main,
 		string $action,
 		ILoadBalancer $loadBalancer,
-		CpdDiagramPageUtil $cpdDiagramPageUtil,
-		StabilizationLookup $lookup
+		CpdDiagramPageUtil $cpdDiagramPageUtil
 	) {
 		parent::__construct( $main, $action );
-		$this->store = new Store( $loadBalancer, $cpdDiagramPageUtil, $lookup );
+		$this->store = new Store( $loadBalancer, $cpdDiagramPageUtil );
 	}
 
 	/**
@@ -59,7 +56,7 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 		$result->addValue(
 			null,
 			'results',
-			array_map( fn ( $record ) => $record->getData(), $records )
+			array_map( fn( $record ) => $record->getData(), $records )
 		);
 
 		$result->addValue(

@@ -13,8 +13,7 @@
 	"requires": {
 		"MediaWiki": ">= 1.43.0",
 		"extensions": {
-			"OOJSPlus": ">= 3.0.0",
-			"StandardDialogs": ">= 3.0.0"
+			"OOJSPlus": ">= 3.0.0"
 		}
 	},
 	"attributes": {
@@ -225,6 +224,7 @@
 				"cpd-error-message-missing-root-element",
 				"cpd-error-message-missing-initial-element",
 				"cpd-error-message-invalid-xml",
+				"cpd-error-message-missing-description-page",
 				"cpd-no-changes-warning-message",
 				"cpd-dialog-save-changes-button-title",
 				"cpd-button-cancel-title",

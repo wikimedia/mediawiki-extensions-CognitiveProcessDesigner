@@ -92,5 +92,7 @@
 	"bs-cpd-actionmenuentry-new-process": "Neues Verfahren",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Prozessname",
 	"cpd-api-save-description-page-comment": "Beschreibungsseite gespeichert",
-	"cpd-api-move-description-page-comment": "Beschreibungsseite gespeichert"
+	"cpd-api-move-description-page-comment": "Beschreibungsseite gespeichert",
+	"cpd-description-navigation-incoming-label": "Eingehende Verbindungen",
+	"cpd-description-navigation-outgoing-label": "Ausgehende Verbindungen"
 }

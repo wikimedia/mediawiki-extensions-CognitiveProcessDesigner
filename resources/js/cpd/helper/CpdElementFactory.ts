@@ -56,8 +56,8 @@ export class CpdElementFactory {
 		}
 	}
 
-	public createFromShape( shape: Shape ): CpdElement {
-		const cpdElement = CpdElement.init( shape );
+	public createCpdElement( data: Shape | Element ): CpdElement {
+		const cpdElement = CpdElement.init( data );
 		this.addDescriptionPageProperty( cpdElement );
 
 		return cpdElement;
@@ -65,19 +65,13 @@ export class CpdElementFactory {
 
 	public createElements(): CpdElement[] {
 		return this.elementRegistry.getAll().map(
-			( element: Element ) => CpdElement.init( element )
+			( element: Element ) => this.createCpdElement( element )
 		);
 	}
 
 	public createDescriptionPageEligibleElements(): CpdElement[] {
 		const cpdElements = this.findDescriptionPageEligibleElements( this.subpageTypes ).map(
-			( element: Element ): CpdElement => {
-				const cpdElement = CpdElement.init( element );
-				this.addDescriptionPageProperty( cpdElement );
-
-				return cpdElement;
-			}
-		);
+			( element: Element ): CpdElement => this.createCpdElement( element ) );
 
 		cpdElements.forEach(
 			( element: CpdElement ) => this.addConnections( element, cpdElements )
@@ -98,7 +92,7 @@ export class CpdElementFactory {
 			throw new Error( mw.message( "cpd-error-message-missing-initial-element" ).text() );
 		}
 
-		return CpdElement.init( initialElement[ 0 ] );
+		return this.createCpdElement( initialElement[ 0 ] );
 	}
 
 	public getSVGElement( element: CpdElement ): SVGElement {
@@ -110,27 +104,24 @@ export class CpdElementFactory {
 	}
 
 	private addDescriptionPageProperty( element: CpdElement ): void {
-		if ( !this.subpageTypes.includes( element.type ) ) {
-			element.descriptionPage = null;
+		if ( !this.isDescriptionPageEligible( element ) || !element.label ) {
 			return;
 		}
 
-		try {
-			const madeDbKey = this.makeDescriptionPageTitle( element ).getPrefixedDb();
-			const existingDescriptionPage = this.existingDescriptionPages.find(
-				( page: string ) => page === madeDbKey
-			);
+		const pageTitle = this.makeDescriptionPageTitle( element );
+		const madeDbKey = pageTitle.getPrefixedDb();
 
-			if ( existingDescriptionPage ) {
-				element.descriptionPage = {
-					dbKey: existingDescriptionPage,
-					exists: true
-				};
-			} else {
-				element.descriptionPage = { dbKey: madeDbKey, exists: false };
-			}
-		} catch ( error ) {
-			element.descriptionPage = null;
+		const existingDescriptionPage = this.existingDescriptionPages.find(
+			( page: string ) => page === madeDbKey
+		);
+
+		if ( existingDescriptionPage ) {
+			element.descriptionPage = {
+				dbKey: existingDescriptionPage,
+				exists: true
+			};
+		} else {
+			element.descriptionPage = { dbKey: madeDbKey, exists: false };
 		}
 	}
 

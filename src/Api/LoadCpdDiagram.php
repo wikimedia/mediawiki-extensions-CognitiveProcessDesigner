@@ -5,25 +5,16 @@ namespace CognitiveProcessDesigner\Api;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
-use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
-use MediaWiki\Status\Status;
 use MediaWiki\Content\TextContent;
+use MediaWiki\Revision\RevisionLookup;
+use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class LoadCpdDiagram extends ApiBase {
-
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $diagramPageUtil;
-
-	/** @var CpdDescriptionPageUtil */
-	private CpdDescriptionPageUtil $descriptionPageUtil;
-
-	/** @var RevisionLookup */
-	private RevisionLookup $revisionLookup;
 
 	/**
 	 * @param ApiMain $main
@@ -35,21 +26,16 @@ class LoadCpdDiagram extends ApiBase {
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		CpdDiagramPageUtil $diagramPageUtil,
-		CpdDescriptionPageUtil $descriptionPageUtil,
-		RevisionLookup $revisionLookup
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
+		private readonly RevisionLookup $revisionLookup
 	) {
 		parent::__construct( $main, $action );
-
-		$this->diagramPageUtil = $diagramPageUtil;
-		$this->descriptionPageUtil = $descriptionPageUtil;
-		$this->revisionLookup = $revisionLookup;
 	}
 
 	/**
 	 * @inheritDoc
 	 * @throws ApiUsageException
-	 * @throws CpdInvalidContentException
 	 */
 	public function execute() {
 		$result = $this->getResult();
@@ -97,10 +83,7 @@ class LoadCpdDiagram extends ApiBase {
 		} catch ( CpdInvalidContentException $e ) {
 			$result->addValue( null, 'exists', 0 );
 			$result->addValue( null, 'xml', null );
-			$result->addValue( null, 'descriptionPages', [
-				'new' => [],
-				'edited' => []
-			] );
+			$result->addValue( null, 'descriptionPages', [] );
 			$result->addValue( null, 'svgFile', null );
 		}
 	}

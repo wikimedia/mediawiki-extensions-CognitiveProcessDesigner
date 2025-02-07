@@ -42,6 +42,7 @@
 	"cpd-error-message-missing-xml": "Missing XML",
 	"cpd-error-message-missing-diagram-page": "Missing diagram page",
 	"cpd-error-message-publish-svg-file": "Could not publish SVG file: $1",
+	"cpd-error-message-missing-description-page": "Missing description page for $1",
 	"cpd-warning-message-diagram-not-initialized": "Process $1 has not been created yet. Please go to <a href='$2'>process page</a> and create it.",
 	"cpd-warning-message-diagram-not-initialized-create-it": "Diagram has not been created yet. Please <a href='$1'>create</a> it.",
 	"cpd-editor-title": "Editing $1",
@@ -102,5 +103,7 @@
 	"cpd-api-move-description-page-comment": "Description page moved",
 	"cpd-config-canvas-process-height-msg": "Set the height of the diagram canvas on process page and in edit mode",
 	"cpd-config-canvas-embedded-height-msg": "Set the height of the diagram canvas while its embedded in other pages",
-	"cpd-api-save-diagram-update-comment": "Diagram updated"
+	"cpd-api-save-diagram-update-comment": "Diagram updated",
+	"cpd-description-navigation-incoming-label": "Incoming connections",
+	"cpd-description-navigation-outgoing-label": "Outgoing connections"
 }

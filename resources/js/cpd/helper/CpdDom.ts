@@ -202,13 +202,17 @@ export default class CpdDom extends EventEmitter {
 		this.diagramPageLink?.setDisabled( true );
 		this.disableButtons();
 
-		if ( !this.isEdit ) {
-			this.messageBox.append( message );
-			this.messageBox.show();
-			return;
+		if ( this.isEdit ) {
+			if ( this.saveDialog?.isOpened() ) {
+				this.saveDialog?.addError( message );
+
+				return;
+			}
 		}
 
-		this.saveDialog?.addError( message );
+		this.messageBox.append( message );
+		this.messageBox.show();
+		return;
 	}
 
 	public initDomElements( isEdit: boolean ): void {

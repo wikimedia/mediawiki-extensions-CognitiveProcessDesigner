@@ -10,46 +10,6 @@ use MediaWiki\Title\Title;
 class CpdElement implements JsonSerializable {
 
 	/**
-	 * @var string
-	 */
-	private string $id;
-
-	/**
-	 * @var string
-	 */
-	private string $type;
-
-	/**
-	 * @var string|null
-	 */
-	private ?string $label;
-
-	/**
-	 * @var CpdElement|null
-	 */
-	private ?CpdElement $parent;
-
-	/**
-	 * @var Title|null
-	 */
-	private ?Title $descriptionPage;
-
-	/**
-	 * @var Title|null
-	 */
-	private ?Title $oldDescriptionPage;
-
-	/**
-	 * @var CpdElement[]
-	 */
-	private array $incomingLinks;
-
-	/**
-	 * @var CpdElement[]
-	 */
-	private array $outgoingLinks;
-
-	/**
 	 * @param string $id
 	 * @param string $type
 	 * @param string|null $label
@@ -60,28 +20,21 @@ class CpdElement implements JsonSerializable {
 	 * @param CpdElement|null $parent
 	 */
 	private function __construct(
-		string $id,
-		string $type,
-		?string $label = null,
-		?Title $descriptionPage = null,
-		?Title $oldDescriptionPage = null,
-		array $incomingLinks = [],
-		array $outgoingLinks = [],
-		?CpdElement $parent = null
+		private readonly string $id,
+		private readonly string $type,
+		private readonly ?string $label = null,
+		private readonly ?Title $descriptionPage = null,
+		private readonly ?Title $oldDescriptionPage = null,
+		private readonly array $incomingLinks = [],
+		private readonly array $outgoingLinks = [],
+		private readonly ?CpdElement $parent = null
 	) {
-		$this->id = $id;
-		$this->type = $type;
-		$this->label = $label;
-		$this->parent = $parent;
-		$this->descriptionPage = $descriptionPage;
-		$this->oldDescriptionPage = $oldDescriptionPage;
-		$this->incomingLinks = $incomingLinks;
-		$this->outgoingLinks = $outgoingLinks;
 	}
 
 	/**
 	 * @param array $element
 	 * @param bool $isParent
+	 *
 	 * @return CpdElement
 	 */
 	public static function fromElementJson( array $element, bool $isParent = false ): CpdElement {
@@ -91,8 +44,8 @@ class CpdElement implements JsonSerializable {
 		}
 
 		$parent = $element['parent'] ? self::fromElementJson( $element['parent'], true ) : null;
-		$incomingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
-		$outgoingLinks = array_map( fn ( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
+		$incomingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
+		$outgoingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
 
 		return new CpdElement(
 			$element['id'],

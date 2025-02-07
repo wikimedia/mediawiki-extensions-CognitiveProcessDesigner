@@ -5,15 +5,6 @@ namespace CognitiveProcessDesigner;
 class CpdNavigationConnection {
 
 	/** @var string */
-	private string $text;
-
-	/** @var string */
-	private string $link;
-
-	/** @var bool */
-	private bool $isLaneChange;
-
-	/** @var string */
 	private string $type;
 
 	/**
@@ -22,10 +13,12 @@ class CpdNavigationConnection {
 	 * @param string $type
 	 * @param bool $isLaneChange
 	 */
-	public function __construct( string $text, string $link, string $type, bool $isLaneChange ) {
-		$this->text = $text;
-		$this->link = $link;
-		$this->isLaneChange = $isLaneChange;
+	public function __construct(
+		private readonly string $text,
+		private readonly string $link,
+		string $type,
+		private readonly bool $isLaneChange
+	) {
 		$this->type = $this->mapTypeToCls( $type );
 	}
 

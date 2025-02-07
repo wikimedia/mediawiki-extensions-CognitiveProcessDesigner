@@ -9,16 +9,13 @@ use MediaWiki\Title\Title;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class CpdElementConnectionUtil {
-	/** @var ILoadBalancer */
-	private ILoadBalancer $loadBalancer;
 
 	/**
 	 * @param ILoadBalancer $loadBalancer
 	 */
 	public function __construct(
-		ILoadBalancer $loadBalancer
+		private readonly ILoadBalancer $loadBalancer
 	) {
-		$this->loadBalancer = $loadBalancer;
 	}
 
 	/**
@@ -121,10 +118,7 @@ class CpdElementConnectionUtil {
 		$link = $target->getFullURL();
 
 		return new CpdNavigationConnection(
-			self::createConnectionText( $target, $isLaneChange ),
-			$link,
-			$type,
-			$isLaneChange
+			self::createConnectionText( $target, $isLaneChange ), $link, $type, $isLaneChange
 		);
 	}
 

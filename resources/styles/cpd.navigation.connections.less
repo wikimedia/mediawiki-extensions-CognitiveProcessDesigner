@@ -1,121 +1,81 @@
 .mw-body-content {
-  .cpd-navigation-connections {
-    @color-base: #202122;
-    @color-light: #F8F9FA;
-    @color-dark: #EAECF0;
-    @width: 320px;
-    @rectangle-height: 90px;
-    @arrow-height: 53px;
-    @space: 20px;
+	.cpd-navigation-connections {
+		@color-base: #252525;
+		@color-bg-incoming: #EFF6DD;
+		@color-bg-outgoing: #DFECFC;
+		@color-border-incoming: #94C11F;
+		@color-border-outgoing: #2B80EA;
 
-    display: flex;
-    justify-content: space-evenly;
-    gap: @space;
-    overflow-x: auto;
+		width: 100%;
+		margin-bottom: 20px;
 
-    .rectangle(@background-color, @with-border: false) {
-      height: @rectangle-height;
+		th {
+			width: 30%;
+		}
 
-      a {
-        background-color: @background-color;
+		div {
+			padding: 15px 0;
+			display: inline-flex;
+			gap: 5px;
+			flex-wrap: wrap;
+		}
 
-        & when (@with-border = true) {
-          border: 1px solid #000;
-        }
-      }
-    }
+		.cpd-nav-item {
+			padding: 5px 8px;
+			font-weight: 600;
+			font-size: 14px;
+			border-radius: 5px;
+			border: 1px solid transparent;
+			color: @color-base;
 
-    .pentagon(@background-color, @with-border: false) {
-      height: @rectangle-height + @arrow-height;
-      @percentage: (@arrow-height / @rectangle-height) * 100%;
+			&:visited {
+				color: @color-base;
+			}
 
-      & when (@with-border = true) {
-        background-color: #000;
-        clip-path: polygon(100% 0, 100% @percentage, 50% 100%, 0 @percentage, 0 0);
-        padding-top: 1px;
-        padding-left: 1px;
-      }
+			&.incoming {
+				background-color: @color-bg-incoming;
 
-      a {
-        width: @width - 2;
-        height: (@rectangle-height + @arrow-height) - 2;
-        background-color: @background-color;
-        clip-path: polygon(100% 0, 100% @percentage, 50% 100%, 0 @percentage, 0 0);
-      }
-    }
+				&:after {
+					content: '';
+					background-image: url( ./../img/task_incoming.svg);
+					background-size: 15px 18px;
+					background-position: center;
+					background-repeat: no-repeat;
+					height: 13px;
+					width: 20px;
+					display: inline-block;
+					margin-left: 5px;
+				}
+				&.start:after {
+					background-image: url( ./../img/start-incoming.svg);
+					background-size: 15px 15px;
+				}
+				&.cpd-lane-change {
+					border-color: @color-border-incoming;
+				}
+			}
+			&.outgoing {
+				background-color: @color-bg-outgoing;
+				&:before {
+					content: '';
+					background-image: url( ./../img/task_outgoing.svg);
+					background-size: 15px 18px;
+					background-position: center;
+					background-repeat: no-repeat;
+					height: 13px;
+					width: 20px;
+					display: inline-block;
+					margin-right: 5px;
+				}
+				&.end::before {
+					background-image: url( ./../img/end-outgoing.svg);
+					background-size: 15px 15px;
+				}
+				&.cpd-lane-change {
+					border-color: @color-border-outgoing;
+				}
+			}
+		}
+	}
 
-    > div {
-      flex: @width 0 0;
-      width: @width;
-
-      a {
-        width: 100%;
-        height: 100%;
-        padding: (@rectangle-height / 2 - 12px) @space @space @space;
-        position: relative;
-        font-weight: bold;
-        display: block;
-        color: @color-base;
-        text-align: center;
-        background: transparent none no-repeat center;
-        background-size: contain;
-      }
-
-      a:visited, a:hover, a:focus {
-        color: @color-base;
-        text-decoration: none;
-      }
-    }
-
-    &.incoming {
-      margin-bottom: 60px;
-
-      > div {
-        &:not(.start) {
-          .pentagon(@color-light);
-
-          &.lane-change {
-            .pentagon(#fff, true);
-          }
-        }
-
-        &.start {
-          .rectangle(@color-light);
-
-          &.lane-change {
-            .rectangle(#fff, true);
-          }
-        }
-      }
-
-    }
-
-    &.outgoing {
-      margin-top: 100px;
-
-      > div {
-
-        &:not(.end) {
-          .pentagon(@color-dark);
-
-          &.lane-change {
-            .pentagon(#fff, true);
-          }
-        }
-
-        &.end {
-          .rectangle(@color-dark);
-
-          &.lane-change {
-            .rectangle(#fff, true);
-          }
-        }
-      }
-    }
-  }
-
-  .cpd-navigation-connections-headline {
-    text-align: center;
-    white-space: pre-line;
-  }
 }

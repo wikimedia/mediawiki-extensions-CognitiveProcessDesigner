@@ -1,8 +1,23 @@
-<div class="cpd-navigation-connections {{connectionDirection}}">
-    {{#connections}}
-        <div class="{{type}}{{#isLaneChange}} lane-change{{/isLaneChange}}">
-            <a href="{{link}}">{{{text}}}</a>
-        </div>
-    {{/connections}}
-</div>
-{{#headline}}<h3 class="cpd-navigation-connections-headline">{{{headline}}}</h3>{{/headline}}
+<table class="cpd-navigation-connections">
+	{{#incoming}}
+	<tr>
+		<th>{{incomingheading}}</th>
+		<td>
+			<div>
+				<a href="{{link}}" title="{{title}}" class="cpd-nav-item {{class}}">{{{text}}}</a>
+			</div>
+		</td>
+	</tr>
+	{{/incoming}}
+	{{#outgoing}}
+	<tr>
+		<th>{{outgoingheading}}</th>
+		<td>
+			<div>
+				<a href="{{link}}" title="{{title}}" class="cpd-nav-item {{class}}">{{{text}}}</a>
+			</div>
+		</td>
+	</tr>
+	{{/outgoing}}
+</table>
+

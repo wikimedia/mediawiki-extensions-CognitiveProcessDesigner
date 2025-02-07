@@ -14,9 +14,6 @@ use Wikimedia\ParamValidator\ParamValidator;
 
 class GetDiagramUsage extends ApiBase {
 
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $diagramPageUtil;
-
 	/**
 	 * @param ApiMain $main
 	 * @param string $action
@@ -25,11 +22,9 @@ class GetDiagramUsage extends ApiBase {
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		CpdDiagramPageUtil $diagramPageUtil
+		private readonly CpdDiagramPageUtil $diagramPageUtil
 	) {
 		parent::__construct( $main, $action );
-
-		$this->diagramPageUtil = $diagramPageUtil;
 	}
 
 	/**

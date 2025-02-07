@@ -15,6 +15,7 @@ use MediaWiki\Config\Config;
 use MediaWiki\Content\ContentHandler;
 use MediaWiki\Content\JsonContent;
 use MediaWiki\Content\TextContent;
+use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
 use MediaWiki\Output\OutputPage;
@@ -34,23 +35,6 @@ use Wikimedia\Rdbms\ILoadBalancer;
 use WikiPage;
 
 class CpdDiagramPageUtil {
-	/** @var TitleFactory */
-	private TitleFactory $titleFactory;
-
-	/** @var Config */
-	private Config $config;
-
-	/** @var WikiPageFactory */
-	private WikiPageFactory $wikiPageFactory;
-
-	/** @var RepoGroup */
-	private RepoGroup $repoGroup;
-
-	/** @var ILoadBalancer */
-	private ILoadBalancer $loadBalancer;
-
-	/** @var LinkRenderer */
-	private LinkRenderer $linkRenderer;
 
 	/**
 	 * @param TitleFactory $titleFactory
@@ -60,22 +44,18 @@ class CpdDiagramPageUtil {
 	 * @param ILoadBalancer $loadBalancer
 	 * @param LinkRenderer $linkRenderer
 	 * @param RevisionLookup $revisionLookup
+	 * @param StabilizationLookup $stabilizationLookup
 	 */
 	public function __construct(
-		TitleFactory $titleFactory,
-		WikiPageFactory $wikiPageFactory,
-		RepoGroup $repoGroup,
-		Config $config,
-		ILoadBalancer $loadBalancer,
-		LinkRenderer $linkRenderer,
-		private readonly RevisionLookup $revisionLookup
+		private readonly TitleFactory $titleFactory,
+		private readonly WikiPageFactory $wikiPageFactory,
+		private readonly RepoGroup $repoGroup,
+		private readonly Config $config,
+		private readonly ILoadBalancer $loadBalancer,
+		private readonly LinkRenderer $linkRenderer,
+		private readonly RevisionLookup $revisionLookup,
+		private readonly StabilizationLookup $stabilizationLookup
 	) {
-		$this->titleFactory = $titleFactory;
-		$this->config = $config;
-		$this->wikiPageFactory = $wikiPageFactory;
-		$this->repoGroup = $repoGroup;
-		$this->loadBalancer = $loadBalancer;
-		$this->linkRenderer = $linkRenderer;
 	}
 
 	/**
@@ -104,6 +84,17 @@ class CpdDiagramPageUtil {
 	 */
 	public function getDiagramPage( string $process ): WikiPage {
 		return $this->wikiPageFactory->newFromTitle( Title::newFromText( $process, NS_PROCESS ) );
+	}
+
+	/**
+	 * @param string $process
+	 *
+	 * @return RevisionRecord|null
+	 */
+	public function getStableRevision( string $process ): ?RevisionRecord {
+		$diagramPage = $this->getDiagramPage( $process );
+
+		return $this->stabilizationLookup->getLastStablePoint( $diagramPage )?->getRevision();
 	}
 
 	/**
@@ -192,8 +183,8 @@ class CpdDiagramPageUtil {
 		$options = [];
 		if ( $revision && !$revision->isCurrent() ) {
 			$meta = $this->getMetaForPage( $this->getDiagramPage( $process ), $revision );
-			if ( $meta['cpd-svg-sha1'] ) {
-				$options['sha1'] = $meta['cpd-svg-sha1'];
+			if ( $meta['cpd-svg-ts'] ) {
+				$options['time'] = $meta['cpd-svg-ts'];
 			}
 		}
 

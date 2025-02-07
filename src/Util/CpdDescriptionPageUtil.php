@@ -14,23 +14,6 @@ use MediaWiki\Title\Title;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class CpdDescriptionPageUtil {
-	/** @var PageStore */
-	private PageStore $pageStore;
-
-	/** @var ILoadBalancer */
-	private ILoadBalancer $loadBalancer;
-
-	/** @var Config */
-	private Config $config;
-
-	/** @var WikiPageFactory */
-	private WikiPageFactory $wikiPageFactory;
-
-	/** @var CpdElementConnectionUtil */
-	private CpdElementConnectionUtil $connectionUtil;
-
-	/** @var StabilizationLookup */
-	private StabilizationLookup $lookup;
 
 	/**
 	 * @param PageStore $pageStore
@@ -41,19 +24,13 @@ class CpdDescriptionPageUtil {
 	 * @param StabilizationLookup $lookup
 	 */
 	public function __construct(
-		PageStore $pageStore,
-		ILoadBalancer $loadBalancer,
-		WikiPageFactory $wikiPageFactory,
-		Config $config,
-		CpdElementConnectionUtil $connectionUtil,
-		StabilizationLookup $lookup
+		private readonly PageStore $pageStore,
+		private readonly ILoadBalancer $loadBalancer,
+		private readonly WikiPageFactory $wikiPageFactory,
+		private readonly Config $config,
+		private readonly CpdElementConnectionUtil $connectionUtil,
+		private readonly StabilizationLookup $lookup
 	) {
-		$this->pageStore = $pageStore;
-		$this->loadBalancer = $loadBalancer;
-		$this->config = $config;
-		$this->wikiPageFactory = $wikiPageFactory;
-		$this->connectionUtil = $connectionUtil;
-		$this->lookup = $lookup;
 	}
 
 	/**
@@ -149,12 +126,10 @@ class CpdDescriptionPageUtil {
 		}
 
 		$orphanedPages = [];
-		$existingPages = array_map( fn ( Title $title ) => $title->getPrefixedDBkey(),
+		$existingPages = array_map( fn( Title $title ) => $title->getPrefixedDBkey(),
 			$this->findDescriptionPages( $process ) );
-		$pagesFromElements = array_map( fn ( CpdElement $element ) =>
-			$element->getDescriptionPage()->getPrefixedDBkey(),
-			$elements
-		);
+		$pagesFromElements = array_map( fn( CpdElement $element ) => $element->getDescriptionPage()->getPrefixedDBkey(),
+			$elements );
 
 		foreach ( $existingPages as $descriptionPage ) {
 			if ( !in_array( $descriptionPage, $pagesFromElements, true ) ) {
@@ -168,11 +143,13 @@ class CpdDescriptionPageUtil {
 
 		$dbw->insert(
 			'cpd_orphaned_description_pages',
-		array_map( fn( string $page ) => [
-			'process' => $process,
-			'process_rev' => $revision,
-			'page_title' => $page
-		], $orphanedPages ), __METHOD__, [ 'IGNORE' ]
+			array_map( fn( string $page ) => [
+				'process' => $process,
+				'process_rev' => $revision,
+				'page_title' => $page
+			], $orphanedPages ),
+			__METHOD__,
+			[ 'IGNORE' ]
 		);
 	}
 
