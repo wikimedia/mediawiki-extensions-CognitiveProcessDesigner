@@ -2,7 +2,7 @@
 
 namespace CognitiveProcessDesigner\HookHandler;
 
-use Config;
+use MediaWiki\Config\Config;
 use MediaWiki\Extension\ContentStabilization\Hook\Interfaces\ContentStabilizationIsStabilizationEnabledHook;
 use MediaWiki\Page\PageIdentity;
 
