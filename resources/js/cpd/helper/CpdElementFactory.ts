@@ -28,9 +28,9 @@ export class CpdElementFactory {
 	) {
 		this.elementRegistry = elementRegistry;
 		this.process = process;
-		this.subpageTypes = mw.config.get( "cpdDedicatedSubpageTypes" );
-		this.cpdLaneTypes = mw.config.get( "cpdLaneTypes" );
-		this.processNamespace = mw.config.get( "cpdProcessNamespace" );
+		this.subpageTypes = mw.config.get( "cpdDedicatedSubpageTypes" ) as Array<string>;
+		this.cpdLaneTypes = mw.config.get( "cpdLaneTypes" ) as Array<string>;
+		this.processNamespace = mw.config.get( "cpdProcessNamespace" ) as number;
 		this.existingDescriptionPages = existingDescriptionPages;
 		this.connectionFinder = new CpdConnectionFinder( this.subpageTypes );
 

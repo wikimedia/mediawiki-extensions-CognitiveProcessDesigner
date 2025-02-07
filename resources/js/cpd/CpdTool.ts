@@ -30,7 +30,7 @@ export abstract class CpdTool {
 			throw new Error( mw.message( "cpd-error-message-missing-config", "container" ).text() );
 		}
 
-		const processNamespace = mw.config.get( "cpdProcessNamespace" );
+		const processNamespace = mw.config.get( "cpdProcessNamespace" ) as number;
 		if ( !processNamespace ) {
 			throw new Error( mw.message( "cpd-error-message-missing-config", "cpdProcessNamespace" ).text() );
 		}
