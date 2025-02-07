@@ -14,7 +14,6 @@ use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
 use MWContentSerializationException;
-use MWException;
 use MWUnknownContentModelException;
 use RuntimeException;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -46,7 +45,7 @@ class SaveCpdDiagram extends ApiBase {
 	 * @inheritDoc
 	 * @throws ApiUsageException
 	 * @throws MWContentSerializationException
-	 * @throws MWException
+	 * @throws Exception
 	 * @throws MWUnknownContentModelException
 	 */
 	public function execute() {

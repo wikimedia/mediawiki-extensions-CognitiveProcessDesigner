@@ -83,7 +83,7 @@ class SaveSvgHandler extends Handler {
 		$status = $repoFile->recordUpload3( $archive->value, '', $commentText, $user, $props );
 		if ( !$status->isGood() ) {
 			// Check for case if file already exists. Then no error here
-			if ( $status->getErrors()[0]['message'] !== 'fileexists-no-change' ) {
+			if ( $status->getMessages()[0]['message'] !== 'fileexists-no-change' ) {
 				return $this->getResponseFactory()->createJson( [
 					'success' => false,
 					'error' => 'Error when recording file upload'

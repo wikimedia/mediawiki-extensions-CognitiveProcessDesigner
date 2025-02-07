@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Content;
 
+use Exception;
 use MediaWiki\Content\TextContent;
 
 class CognitiveProcessDesignerContent extends TextContent {
@@ -11,7 +12,7 @@ class CognitiveProcessDesignerContent extends TextContent {
 	/**
 	 * @param string $text
 	 *
-	 * @throws \MWException
+	 * @throws Exception
 	 */
 	public function __construct( $text ) {
 		parent::__construct( $text, self::MODEL );

@@ -17,6 +17,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 	 * @param IRecord &$dataSet
 	 *
 	 * @return void
+	 * @noinspection PhpParameterByRefIsNotUsedAsReferenceInspection
 	 */
 	protected function doExtend( &$dataSet ) {
 		$process = $dataSet->get( Record::PROCESS );

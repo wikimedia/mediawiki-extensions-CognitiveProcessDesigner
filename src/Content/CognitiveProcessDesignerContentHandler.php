@@ -93,7 +93,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
 		$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
 
-		$output->setText(
+		$output->setRawText(
 			$templateParser->processTemplate(
 				'CpdContainer', [
 					'process' => $process,

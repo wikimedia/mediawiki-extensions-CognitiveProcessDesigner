@@ -4,6 +4,7 @@ namespace CognitiveProcessDesigner\HookHandler;
 
 use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use Exception;
 use File;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Hook\ParserFirstCallInitHook;
@@ -13,7 +14,6 @@ use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Parser\PPFrame;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Revision\RevisionRecord;
-use MWException;
 use WikiPage;
 
 class BpmnTag implements ParserFirstCallInitHook {
@@ -32,7 +32,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 	/**
 	 * @param Parser $parser
 	 *
-	 * @throws MWException
+	 * @throws Exception
 	 */
 	public function onParserFirstCallInit( $parser ) {
 		$parser->setHook(
@@ -204,7 +204,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 	 */
 	private function isEdit(): bool {
 		$request = RequestContext::getMain()->getRequest();
-		$action = $request->getVal( 'action', $request->getVal( 'veaction', null ) );
+		$action = $request->getVal( 'action', $request->getVal( 'veaction' ) );
 
 		return $action === 'edit' || $action === 'visualeditor';
 	}

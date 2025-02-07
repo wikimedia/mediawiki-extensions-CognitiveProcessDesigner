@@ -166,7 +166,7 @@
 				"resources/styles/ext/bpmn-embedded.css",
 				"resources/styles/ext/bpmn-js.css",
 				"resources/styles/ext/diagram-js.css",
-				"resources/styles/pygments.generated.css",
+				"resources/styles/ext/pygments.generated.css",
 				"resources/styles/cpd.less"
 			],
 			"messages": [
@@ -435,8 +435,7 @@
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\ModifyDescriptionPage",
 			"services": [
 				"CpdDescriptionPageUtil",
-				"CpdElementConnectionUtil",
-				"LinkRenderer"
+				"CpdElementConnectionUtil"
 			]
 		},
 		"addTables": {

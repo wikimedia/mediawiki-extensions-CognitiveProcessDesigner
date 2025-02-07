@@ -12,7 +12,7 @@ use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Storage\PageUpdater;
 use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
-use MWException;
+use Exception;
 
 class SaveDescriptionPage extends Job {
 
@@ -54,7 +54,7 @@ class SaveDescriptionPage extends Job {
 
 		try {
 			$result = $this->updater->saveRevision( $commentStore, EDIT_NEW );
-		} catch ( MWException $e ) {
+		} catch ( Exception $e ) {
 			throw new CpdSaveException( $e->getMessage() );
 		}
 		if ( !$this->updater->wasSuccessful() ) {

@@ -13,14 +13,14 @@ class EditDiagramAction extends EditAction {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return 'edit';
 	}
 
 	/**
 	 * @return void
 	 */
-	public function show() {
+	public function show(): void {
 		$services = MediaWikiServices::getInstance();
 		/** @var CpdDiagramPageUtil $diagramPageUtil */
 		$diagramPageUtil = $services->getService( 'CpdDiagramPageUtil' );

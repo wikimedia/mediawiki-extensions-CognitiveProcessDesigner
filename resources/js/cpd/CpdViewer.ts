@@ -19,7 +19,7 @@ interface InternalEvent {
 }
 
 export default class CpdViewer extends CpdTool {
-	private bpmnViewer: BpmnViewer;
+	private readonly bpmnViewer: BpmnViewer;
 
 	private eventBus: EventBus;
 

@@ -74,7 +74,7 @@ class SvgFile {
 
 		if ( !$status->isOK() ) {
 			throw new CpdSvgException(
-				Message::newFromKey( 'cpd-error-message-publish-svg-file', $status->getErrors()[0]['message'] )
+				Message::newFromKey( 'cpd-error-message-publish-svg-file', $status->getMessages()[0]['message'] )
 			);
 		}
 

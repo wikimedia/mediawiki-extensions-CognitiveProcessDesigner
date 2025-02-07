@@ -7,11 +7,9 @@ use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use MediaWiki\Html\TemplateParser;
-use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
 use MediaWiki\Output\Hook\OutputPageBeforeHTMLHook;
 use MediaWiki\Output\OutputPage;
-use MediaWiki\Title\Title;
 
 class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 	public const RETURN_TO_QUERY_PARAM = 'backTo';
@@ -22,12 +20,10 @@ class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 	/**
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 * @param CpdElementConnectionUtil $connectionUtil
-	 * @param LinkRenderer $linkRenderer
 	 */
 	public function __construct(
 		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
-		private readonly CpdElementConnectionUtil $connectionUtil,
-		private readonly LinkRenderer $linkRenderer
+		private readonly CpdElementConnectionUtil $connectionUtil
 	) {
 		$this->templateParser = new TemplateParser(
 			dirname( __DIR__, 2 ) . '/resources/templates'

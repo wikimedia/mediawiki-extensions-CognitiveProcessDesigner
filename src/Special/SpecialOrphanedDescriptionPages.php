@@ -3,10 +3,7 @@
 namespace CognitiveProcessDesigner\Special;
 
 use MediaWiki\Html\Html;
-use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\SpecialPage\SpecialPage;
-use OOUI\Exception;
-use Wikimedia\Rdbms\ILoadBalancer;
 
 class SpecialOrphanedDescriptionPages extends SpecialPage {
 	public function __construct() {
@@ -17,7 +14,6 @@ class SpecialOrphanedDescriptionPages extends SpecialPage {
 	 * @param string|null $subPage
 	 *
 	 * @return void
-	 * @throws Exception
 	 */
 	public function execute( $subPage ) {
 		parent::execute( $subPage );

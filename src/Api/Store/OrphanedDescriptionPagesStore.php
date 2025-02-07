@@ -90,7 +90,7 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 	 * @return array
 	 */
 	private function getFilter( array $params ): array {
-		if ( is_array( $params ) && isset( $params['filter'] ) ) {
+		if ( isset( $params['filter'] ) ) {
 			return json_decode( $params['filter'], 1 );
 		}
 
@@ -103,7 +103,7 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 	 * @return array
 	 */
 	private function getSort( array $params ): array {
-		if ( is_array( $params ) && isset( $params['sort'] ) ) {
+		if ( isset( $params['sort'] ) ) {
 			return json_decode( $params['sort'], 1 );
 		}
 

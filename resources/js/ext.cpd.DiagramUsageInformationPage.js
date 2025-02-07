@@ -20,7 +20,6 @@
 
 	ext.cpd.info.DiagramUsageInformationPage.prototype.setup = function () {
 		this.$diagramUsageHtml = null;
-		return;
 	};
 
 	ext.cpd.info.DiagramUsageInformationPage.prototype.onInfoPanelSelect = async function () {

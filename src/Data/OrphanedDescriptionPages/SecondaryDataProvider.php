@@ -52,7 +52,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 	 */
 	private function filterUnstableRevisions( array $dataSets ): array {
 		$filteredDataSets = [];
-		foreach ( $dataSets as $key => $dataSet ) {
+		foreach ( $dataSets as $dataSet ) {
 			$process = $dataSet->get( Record::PROCESS );
 			$stableRevision = $this->cpdDiagramPageUtil->getStableRevision( $process );
 

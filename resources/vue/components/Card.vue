@@ -17,6 +17,7 @@
                 v-bind:iconclass="primaryAction.iconClass"
                 v-bind:datatitle="primaryAction.dataTitle"
         ></action>
+      </ul>
     </div>
   </div>
 </template>

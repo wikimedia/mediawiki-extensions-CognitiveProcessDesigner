@@ -9,7 +9,7 @@ class EditDiagramXmlAction extends EditAction {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return 'editxml';
 	}
 }

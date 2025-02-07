@@ -58,11 +58,13 @@ class SyntaxHighlightXml extends ApiBase {
 			$xml = "<pre>$xml</pre>";
 		}
 
-		return $this->parser->parse(
+		$output = $this->parser->parse(
 			$xml,
 			Title::newMainPage(),
 			ParserOptions::newFromUser( $this->getUser() )
-		)->getText();
+		);
+
+		return $output->getRawText();
 	}
 
 	/**

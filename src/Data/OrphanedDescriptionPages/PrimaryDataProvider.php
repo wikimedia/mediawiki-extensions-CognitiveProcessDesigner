@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Data\OrphanedDescriptionPages;
 
+use InvalidArgumentException;
 use MWStake\MediaWiki\Component\DataStore\Filter;
 use MWStake\MediaWiki\Component\DataStore\Filter\StringValue;
 use MWStake\MediaWiki\Component\DataStore\IPrimaryDataProvider;
@@ -62,7 +63,7 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 				$comparison = $filter->getComparison();
 
 				if ( $comparison !== "ct" ) {
-					throw new \InvalidArgumentException( "Only 'ct' comparison is supported" );
+					throw new InvalidArgumentException( "Only 'ct' comparison is supported" );
 				}
 
 				$conds[] = "{$filter->getField()} LIKE '%{$filter->getValue()}%'";
