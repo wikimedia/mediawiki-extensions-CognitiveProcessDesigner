@@ -37,6 +37,8 @@
 		"es-x/no-rest-spread-properties": "off",
 		"es-x/no-object-values-entries": "off",
 		"es-x/no-object-values": "off",
-		"es-x/no-array-prototype-includes": "off"
+		"es-x/no-array-prototype-includes": "off",
+		"es-x/no-regexp-s-flag": "off",
+		"es-x/no-string-prototype-matchall": "off"
 	}
 }
