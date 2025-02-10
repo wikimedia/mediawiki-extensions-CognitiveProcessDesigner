@@ -9,6 +9,7 @@ use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CognitiveProcessDesigner\HookHandler\ModifyDescriptionPage;
 use Content;
 use DOMDocument;
+use Exception;
 use File;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Config\Config;
@@ -31,6 +32,7 @@ use MediaWiki\User\User;
 use MWContentSerializationException;
 use MWUnknownContentModelException;
 use RepoGroup;
+use TypeError;
 use Wikimedia\Rdbms\ILoadBalancer;
 use WikiPage;
 
@@ -168,7 +170,7 @@ class CpdDiagramPageUtil {
 	 * @return Title
 	 */
 	public function getSvgFilePage( string $process ): Title {
-		return $this->titleFactory->newFromText( $process . '.svg', NS_FILE );
+		return $this->titleFactory->newFromText( $process . '.cpd.svg', NS_FILE );
 	}
 
 	/**
@@ -180,6 +182,10 @@ class CpdDiagramPageUtil {
 	public function getSvgFile( string $process, RevisionRecord $revision = null ): ?File {
 		$svgFilePage = $this->getSvgFilePage( $process );
 
+		if ( !$svgFilePage->exists() ) {
+			return null;
+		}
+
 		$options = [];
 		if ( $revision && !$revision->isCurrent() ) {
 			$meta = $this->getMetaForPage( $this->getDiagramPage( $process ), $revision );
@@ -188,7 +194,12 @@ class CpdDiagramPageUtil {
 			}
 		}
 
-		$file = $this->repoGroup->findFile( $svgFilePage, $options );
+		try {
+			$file = $this->repoGroup->findFile( $svgFilePage, $options );
+		} catch ( TypeError $e ) {
+			return null;
+		}
+
 		if ( !$file ) {
 			return null;
 		}

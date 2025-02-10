@@ -37,10 +37,7 @@ class CpdModeler extends CpdTool {
 				{
 					translate: [ 'value', translator.translate.bind( translator ) ]
 				}
-			],
-			keyboard: {
-				bindTo: window
-			}
+			]
 		} );
 
 		this.dom.initDomElements( true );

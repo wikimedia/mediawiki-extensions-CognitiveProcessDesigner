@@ -20,6 +20,7 @@ export interface LoadDiagramResult {
 	descriptionPages: string[];
 	svgFile: string | null;
 	exists: boolean;
+	loadWarnings: string[];
 }
 
 export interface ElementDescriptionPage {
@@ -60,6 +61,11 @@ export default class CpdApi extends EventEmitter {
 		return this.api.post( data ).then( ( result: LoadDiagramResult ): LoadDiagramResult => {
 			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
 			return result;
+		} ).fail( ( errorCode: string, error: any ) => {
+			this.emit(
+				CpdApi.STATUS_REQUEST_FAILED,
+				mw.message( "cpd-api-load-diagram-error-message", this.getErrorMessage( errorCode, error ) ).text()
+			);
 		} );
 	}
 

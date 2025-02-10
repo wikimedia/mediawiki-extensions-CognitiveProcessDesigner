@@ -188,14 +188,22 @@ export default class CpdDom extends EventEmitter {
 			message = messageDiv;
 		}
 
-		if ( !this.isEdit ) {
-			this.messageBox.append( message );
-			this.messageBox.show();
-			return;
+		if ( this.isEdit ) {
+			if ( this.saveDialog?.isOpened() ) {
+				this.saveDialog?.addPostSaveMessage( message, type );
+				this.showDialogChangesPanel();
+
+				return;
+			}
 		}
 
-		this.saveDialog?.addPostSaveMessage( message, type );
-		this.showDialogChangesPanel();
+		this.messageBox.append( message );
+
+		if ( !this.messageBox.classList.contains( type ) ) {
+			this.messageBox.addClass( type );
+		}
+
+		this.messageBox.show();
 	}
 
 	public showSuccess( message: string ): void {
@@ -219,8 +227,8 @@ export default class CpdDom extends EventEmitter {
 		}
 
 		this.messageBox.append( message );
+		this.messageBox.addClass( 'error' );
 		this.messageBox.show();
-		return;
 	}
 
 	public initDomElements( isEdit: boolean ): void {

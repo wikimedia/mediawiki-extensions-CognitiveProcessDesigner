@@ -55,23 +55,11 @@ class SaveCpdDiagram extends ApiBase {
 		$xml = json_decode( $params['xml'], true );
 		$svg = json_decode( $params['svg'], true );
 
-		try {
-			$elements = json_decode( $params['elements'], true );
-			$cpdElements = $this->cpdElementFactory->makeElements( $elements );
-		} catch ( Exception $e ) {
-			$this->getResult()->addValue( null, 'error', $e->getMessage() );
-
-			return;
-		}
+		$elements = json_decode( $params['elements'], true );
+		$cpdElements = $this->cpdElementFactory->makeElements( $elements );
 
 		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
-		try {
-			$file = $this->svgFile->save( $svgFilePage, $svg, $user );
-		} catch ( CpdSvgException|RuntimeException $e ) {
-			$this->getResult()->addValue( null, 'error', $e->getMessage() );
-
-			return;
-		}
+		$file = $this->svgFile->save( $svgFilePage, $svg, $user );
 
 		$diagramPage = $this->diagramPageUtil->createOrUpdateDiagramPage( $process, $user, $xml, $file );
 
@@ -83,29 +71,25 @@ class SaveCpdDiagram extends ApiBase {
 			$this->getResult()->addValue( null, 'descriptionPages', [] );
 			$this->getResult()->addValue( null, 'saveWarnings', [] );
 		} else {
-			try {
-				$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages(
-					$user,
-					$process,
-					$cpdElements
-				);
+			$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages(
+				$user,
+				$process,
+				$cpdElements
+			);
 
-				$this->getResult()->addValue(
-					null,
-					'descriptionPages',
-					array_map( static function ( $element ) {
-						return json_encode( $element );
-					}, $cpdElements )
-				);
+			$this->getResult()->addValue(
+				null,
+				'descriptionPages',
+				array_map( static function ( $element ) {
+					return json_encode( $element );
+				}, $cpdElements )
+			);
 
-				$this->getResult()->addValue(
-					null,
-					'saveWarnings',
-					$warnings
-				);
-			} catch ( CpdSaveException $e ) {
-				$this->getResult()->addValue( null, 'error', $e->getMessage() );
-			}
+			$this->getResult()->addValue(
+				null,
+				'saveWarnings',
+				$warnings
+			);
 		}
 
 		// Process possible orphaned description pages after processing description pages, e.g. renaming

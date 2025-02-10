@@ -9,8 +9,8 @@ use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Content\TextContent;
+use MediaWiki\Message\Message;
 use MediaWiki\Revision\RevisionLookup;
-use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -42,6 +42,8 @@ class LoadCpdDiagram extends ApiBase {
 		$params = $this->extractRequestParams();
 		$process = $params['process'];
 		$revisionId = $params['revisionId'];
+		$revision = null;
+		$warnings = [];
 
 		try {
 			if ( $revisionId ) {
@@ -51,8 +53,6 @@ class LoadCpdDiagram extends ApiBase {
 				if ( !$content ) {
 					throw new CpdInvalidContentException( 'Process page does not exist' );
 				}
-
-				$svgFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
 			} else {
 				$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
 
@@ -61,7 +61,15 @@ class LoadCpdDiagram extends ApiBase {
 				}
 
 				$content = $diagramPage->getContent();
-				$svgFile = $this->diagramPageUtil->getSvgFile( $process );
+			}
+
+			$svgFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
+			if ( !$svgFile ) {
+				$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
+				$warnings[] = Message::newFromKey( 'cpd-error-message-missing-svg-file', $svgFilePage->getText() );
+				$result->addValue( null, 'svgFile', null );
+			} else {
+				$result->addValue( null, 'svgFile', $svgFile->getUrl() );
 			}
 
 			$this->diagramPageUtil->validateContent( $content );
@@ -75,16 +83,13 @@ class LoadCpdDiagram extends ApiBase {
 					$this->descriptionPageUtil->findDescriptionPages( $process ) )
 			);
 
-			if ( !$svgFile ) {
-				throw new ApiUsageException( null, Status::newFatal( "Diagram svg file does not exist" ) );
-			}
-
-			$result->addValue( null, 'svgFile', $svgFile->getUrl() );
+			$result->addValue( null, 'loadWarnings', $warnings );
 		} catch ( CpdInvalidContentException $e ) {
 			$result->addValue( null, 'exists', 0 );
 			$result->addValue( null, 'xml', null );
 			$result->addValue( null, 'descriptionPages', [] );
 			$result->addValue( null, 'svgFile', null );
+			$result->addValue( null, 'loadWarnings', [] );
 		}
 	}
 

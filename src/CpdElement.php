@@ -2,7 +2,7 @@
 
 namespace CognitiveProcessDesigner;
 
-use InvalidArgumentException;
+use Exception;
 use JsonSerializable;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
@@ -36,6 +36,7 @@ class CpdElement implements JsonSerializable {
 	 * @param bool $isParent
 	 *
 	 * @return CpdElement
+	 * @throws Exception
 	 */
 	public static function fromElementJson( array $element, bool $isParent = false ): CpdElement {
 		// Validate the JSON data only if it is not a parent element
@@ -129,12 +130,13 @@ class CpdElement implements JsonSerializable {
 	 * @param array $element
 	 *
 	 * @return void
+	 * @throws Exception
 	 */
 	private static function validateJson( array $element ): void {
 		$id = $element['id'];
 		$type = $element['type'];
 		if ( empty( $element['label'] ) ) {
-			throw new InvalidArgumentException( Message::newFromKey( 'cpd-validation-missing-label', $type, $id ) );
+			throw new Exception( Message::newFromKey( 'cpd-validation-missing-label', $type, $id ) );
 		}
 	}
 }

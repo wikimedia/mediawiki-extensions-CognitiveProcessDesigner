@@ -4,6 +4,7 @@ namespace CognitiveProcessDesigner\Content;
 
 use CognitiveProcessDesigner\Action\EditDiagramAction;
 use CognitiveProcessDesigner\Action\EditDiagramXmlAction;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
@@ -62,6 +63,8 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	 * @param Content $content
 	 * @param ContentParseParams $cpoParams
 	 * @param ParserOutput &$output
+	 *
+	 * @throws CpdInvalidContentException
 	 */
 	protected function fillParserOutput(
 		Content $content,

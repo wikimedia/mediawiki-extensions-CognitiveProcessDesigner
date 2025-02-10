@@ -25,7 +25,7 @@ class AddActions implements SkinTemplateNavigation__UniversalHook {
 	 *
 	 * @return void
 	 */
-	private function addEditDiagramXmlAction( SkinTemplate $sktemplate, array &$links ) {
+	private function addEditDiagramXmlAction( SkinTemplate $sktemplate, array &$links ): void {
 		if ( !isset( $links['views']['edit'] ) ) {
 			return;
 		}

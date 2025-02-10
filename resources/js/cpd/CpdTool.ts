@@ -52,6 +52,9 @@ export abstract class CpdTool {
 		this.xml = pageContent.xml;
 		this.dom.setSvgLink( pageContent.svgFile );
 		this.descriptionPages = pageContent.descriptionPages;
+		pageContent.loadWarnings.forEach( ( warning: string ): void => {
+			this.dom.showWarning( warning );
+		} );
 	}
 
 	// eslint-disable-next-line no-unused-vars
