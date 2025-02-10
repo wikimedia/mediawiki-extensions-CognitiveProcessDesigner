@@ -194,7 +194,7 @@ class CpdModeler extends CpdTool {
 			list.appendChild( listItem );
 		} );
 
-		this.dom.showMessage( messageDiv, MessageType.MESSAGE );
+		this.dom.showMessage( messageDiv.innerHTML, MessageType.MESSAGE );
 	}
 
 	private onOpenDialog(): void {

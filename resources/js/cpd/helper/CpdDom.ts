@@ -14,8 +14,8 @@ import SvgFileLinkButton from "../oojs-ui/SvgFileLinkButton";
 import { ChangeLogMessages } from "./CpdChangeLogger";
 import CenterViewportButton from "../oojs-ui/CenterViewportButton";
 import { MessageType } from "../oojs-ui/SaveDialog";
-import ToolGroupSetupMap = OO.ui.Toolbar.ToolGroupSetupMap;
 import ShowDiagramButton from "../oojs-ui/ShowDiagramButton";
+import ToolGroupSetupMap = OO.ui.Toolbar.ToolGroupSetupMap;
 
 interface HtmlElement extends HTMLElement {
 	hide: () => void;
@@ -177,15 +177,9 @@ export default class CpdDom extends EventEmitter {
 		saveDialog.showChanges();
 	}
 
-	public showMessage( message: HTMLDivElement | string | null, type: MessageType = MessageType.MESSAGE ): void {
+	public showMessage( message: string | null, type: MessageType = MessageType.MESSAGE ): void {
 		if ( !message ) {
 			return;
-		}
-
-		if ( typeof message === "string" ) {
-			const messageDiv = document.createElement( "div" );
-			messageDiv.innerHTML = message;
-			message = messageDiv;
 		}
 
 		if ( this.isEdit ) {
@@ -197,12 +191,10 @@ export default class CpdDom extends EventEmitter {
 			}
 		}
 
-		this.messageBox.append( message );
+		const messageWidget = new OO.ui.MessageWidget( { type: type, inline: true } );
+		messageWidget.setLabel( message );
 
-		if ( !this.messageBox.classList.contains( type ) ) {
-			this.messageBox.addClass( type );
-		}
-
+		this.messageBox.append( messageWidget.$element.get( 0 ) );
 		this.messageBox.show();
 	}
 
@@ -226,8 +218,10 @@ export default class CpdDom extends EventEmitter {
 			}
 		}
 
-		this.messageBox.append( message );
-		this.messageBox.addClass( 'error' );
+		const messageWidget = new OO.ui.MessageWidget( { type: 'error', inline: true } );
+		messageWidget.setLabel( message );
+
+		this.messageBox.append( messageWidget.$element.get( 0 ) );
 		this.messageBox.show();
 	}
 

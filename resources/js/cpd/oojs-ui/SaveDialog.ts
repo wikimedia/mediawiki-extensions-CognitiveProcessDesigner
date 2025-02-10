@@ -7,7 +7,7 @@ export enum Mode {
 }
 
 export enum MessageType {
-	MESSAGE = "message",
+	MESSAGE = "notice",
 	WARNING = "warning"
 }
 
