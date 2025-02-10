@@ -35,8 +35,9 @@ return [
 		return new CpdSaveDescriptionPagesUtil(
 			$services->get( 'CpdDiagramPageUtil' ),
 			$services->get( 'CpdDescriptionPageUtil' ),
-			$services->getJobQueueGroup(),
-			$services->getLinkRenderer()
+			$services->getLinkRenderer(),
+			$services->getWikiPageFactory(),
+			$services->getMovePageFactory()
 		);
 	},
 	'CpdElementConnectionUtil' => static function ( MediaWikiServices $services ) {

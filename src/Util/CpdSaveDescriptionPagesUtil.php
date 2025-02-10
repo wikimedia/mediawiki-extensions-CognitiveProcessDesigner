@@ -5,12 +5,13 @@ namespace CognitiveProcessDesigner\Util;
 use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
-use CognitiveProcessDesigner\Job\MoveDescriptionPage;
-use CognitiveProcessDesigner\Job\SaveDescriptionPage;
 use Exception;
-use JobQueueGroup;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
+use MediaWiki\Page\MovePageFactory;
+use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Revision\SlotRecord;
 use User;
 
 class CpdSaveDescriptionPagesUtil {
@@ -18,14 +19,16 @@ class CpdSaveDescriptionPagesUtil {
 	/**
 	 * @param CpdDiagramPageUtil $diagramPageUtil
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
-	 * @param JobQueueGroup $jobQueueGroup
 	 * @param LinkRenderer $linkRenderer
+	 * @param WikiPageFactory $wikiPageFactory
+	 * @param MovePageFactory $movePageFactory
 	 */
 	public function __construct(
 		private readonly CpdDiagramPageUtil $diagramPageUtil,
 		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
-		private readonly JobQueueGroup $jobQueueGroup,
-		private readonly LinkRenderer $linkRenderer
+		private readonly LinkRenderer $linkRenderer,
+		private readonly WikiPageFactory $wikiPageFactory,
+		private readonly MovePageFactory $movePageFactory,
 	) {
 	}
 
@@ -140,13 +143,26 @@ class CpdSaveDescriptionPagesUtil {
 		CpdElement $element,
 		User $user
 	): void {
-		try {
-			$job = new MoveDescriptionPage(
-				$element->getOldDescriptionPage(), $element->getDescriptionPage(), $user
+		$oldDescriptionPageTitle = $element->getOldDescriptionPage();
+		$newDescriptionPageTitle = $element->getDescriptionPage();
+		if ( !$oldDescriptionPageTitle || !$newDescriptionPageTitle ) {
+			throw new CpdSaveException(
+				Message::newFromKey( 'cpd-description-page-has-no-property-warning', $element->getId() )
 			);
-			$job->run();
-			// TODO implement job queue; remove this line
-			//$this->jobQueueGroup->push( $job );
+		}
+
+		if ( $element->getOldDescriptionPage()->equals( $element->getDescriptionPage() ) ) {
+			throw new CpdSaveException(
+				Message::newFromKey( 'cpd-api-move-equal-description-pages-error-message' )
+			);
+		}
+
+		try {
+			$this->movePageFactory->newMovePage( $oldDescriptionPageTitle, $newDescriptionPageTitle )->move(
+				$user,
+				Message::newFromKey( 'cpd-api-move-description-page-comment' )->escaped(),
+				false
+			);
 		} catch ( Exception $e ) {
 			throw new CpdSaveException( $e->getMessage() );
 		}
@@ -161,13 +177,37 @@ class CpdSaveDescriptionPagesUtil {
 	 */
 	private function createDescriptionPage( CpdElement $element, User $user ): void {
 		$content = $this->descriptionPageUtil->generateContentByType( $element->getType() );
+		if ( !$content ) {
+			throw new CpdSaveException(
+				Message::newFromKey( 'cpd-error-message-missing-xml' )
+			);
+		}
+
+		$descriptionPageTitle = $element->getDescriptionPage();
+		if ( !$descriptionPageTitle ) {
+			throw new CpdSaveException(
+				Message::newFromKey( 'cpd-description-page-has-no-property-warning', $element->getId() )
+			);
+		}
+
+		$descriptionPage = $this->wikiPageFactory->newFromTitle( $descriptionPageTitle );
+		$updater = $descriptionPage->newPageUpdater( $user );
+		$updater->setContent( SlotRecord::MAIN, $content );
+
+		$comment = Message::newFromKey( 'cpd-api-save-description-page-comment' );
+		$commentStore = CommentStoreComment::newUnsavedComment( $comment );
+
 		try {
-			$job = new SaveDescriptionPage( $element->getDescriptionPage(), $content, $user );
-			// TODO implement job queue; remove this line
-			//$this->jobQueueGroup->push( $job );
-			$job->run();
+			$result = $updater->saveRevision( $commentStore, EDIT_NEW );
 		} catch ( Exception $e ) {
 			throw new CpdSaveException( $e->getMessage() );
+		}
+
+		if ( !$updater->wasSuccessful() ) {
+			throw new CpdSaveException( $updater->getStatus()->getMessage() );
+		}
+		if ( $result === null ) {
+			throw new CpdSaveException( "Failed to save description page {$updater->getPage()->getDBkey()}" );
 		}
 	}
 

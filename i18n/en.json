@@ -25,6 +25,7 @@
 	"cpd-description-page-does-not-exist-anymore-warning": "Description page $1 does not exist anymore",
 	"cpd-description-page-has-no-property-warning": "Element $1 has no description page property",
 	"cpd-api-save-description-pages-error-message": "Error while saving description pages: $1",
+	"cpd-api-move-equal-description-pages-error-message": "Old and new pages are equal",
 	"cpd-api-load-diagram-missing-message": "No diagram loaded",
 	"cpd-api-load-diagram-error-message": "Error while loading diagram: $1",
 	"cpd-api-load-diagram-missingtitle-error-message": "$1 not found",
