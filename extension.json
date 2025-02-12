@@ -137,8 +137,7 @@
 			"class": "\\CognitiveProcessDesigner\\Api\\Store\\OrphanedDescriptionPagesStore",
 			"services": [
 				"DBLoadBalancer",
-				"CpdDiagramPageUtil",
-				"ContentStabilization.Lookup"
+				"CpdDiagramPageUtil"
 			]
 		},
 		"cpd-diagram-usage": {
