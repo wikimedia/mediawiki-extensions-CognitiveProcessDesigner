@@ -50,7 +50,7 @@ module.exports = {
         title: mw.message( titleMsgKey, this.process ).escaped(),
         href: this.edit_url,
         class: 'bs-card-edit-action',
-        iconClass: 'icon-edit'
+        iconClass: 'bi-pencil-fill'
       } );
     }
 
@@ -61,8 +61,8 @@ module.exports = {
       href: mw.util.getUrl( this.db_key, {
         action: 'info'
       } ),
-      class: 'bs-card-info-action page-tree-action-info',
-      iconClass: 'bs-icon-info',
+      class: 'bs-card-info-action cpd-action-info',
+      iconClass: 'bi-info-circle',
       dataTitle: this.db_key
     } );
 
