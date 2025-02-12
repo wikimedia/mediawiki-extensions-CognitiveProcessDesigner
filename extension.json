@@ -17,6 +17,9 @@
 		}
 	},
 	"attributes": {
+		"CognitiveProcessDesigner": {
+			"ProcessOverviewPluginModules": []
+		},
 		"BlueSpiceFoundation": {
 			"PermissionRegistry": {
 				"cognitiveprocessdesigner-editbpmn": {
@@ -323,8 +326,7 @@
 			"dependencies": [
 				"mediawiki.api",
 				"vue",
-				"@wikimedia/codex",
-				"ext.standardDialogs.allpages"
+				"@wikimedia/codex"
 			]
 		},
 		"ext.cpd.diagram.preview": {
@@ -517,7 +519,7 @@
 			"descriptionmsg": "cpd-config-canvas-process-height-msg"
 		},
 		"CPDCanvasEmbeddedHeight": {
-			"value": 600,
+			"value": 300,
 			"descriptionmsg": "cpd-config-canvas-embedded-height-msg"
 		},
 		"CPDMainLinksCognitiveProcessDesigner": {
