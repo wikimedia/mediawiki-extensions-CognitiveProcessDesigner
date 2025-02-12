@@ -160,17 +160,23 @@ class CpdDiagramPageUtil {
 			CognitiveProcessDesignerContent::MODEL
 		);
 		$updater->setContent( SlotRecord::MAIN, $content );
-		if ( $diagramPage->exists() ) {
-			$metaContent = $this->getUpdatedMetaContent( $diagramPage, [
-				'cpd-svg-ts' => $svgFile->getTimestamp(),
-				'cpd-svg-sha1' => $svgFile->getSha1(),
-			] );
-		} else {
-			$metaContent = new JsonContent( json_encode( [
-				'cpd-svg-ts' => $svgFile->getTimestamp(),
-				'cpd-svg-sha1' => $svgFile->getSha1(),
-			] ) );
+		$svgFilePage = $this->getSvgFilePage( $process );
+		$svgFileRevision = $this->revisionLookup->getRevisionByTitle( $svgFilePage );
+		$metaContent = new JsonContent( '{}' );
+		if ( $svgFileRevision ) {
+			if ( $diagramPage->exists() ) {
+				$metaContent = $this->getUpdatedMetaContent( $diagramPage, [
+					'cpd-svg-ts' => $svgFileRevision->getTimestamp(),
+					'cpd-svg-sha1' => $svgFile->getSha1(),
+				] );
+			} else {
+				$metaContent = new JsonContent( json_encode( [
+					'cpd-svg-ts' => $svgFileRevision->getTimestamp(),
+					'cpd-svg-sha1' => $svgFile->getSha1(),
+				] ) );
+			}
 		}
+
 		$updater->setContent( CONTENT_SLOT_CPD_PROCESS_META, $metaContent );
 		$comment = Message::newFromKey( 'cpd-api-save-diagram-update-comment' );
 		$commentStore = CommentStoreComment::newUnsavedComment( $comment );
