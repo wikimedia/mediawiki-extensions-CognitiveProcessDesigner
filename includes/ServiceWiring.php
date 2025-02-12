@@ -6,6 +6,7 @@ use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
+use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use MediaWiki\MediaWikiServices;
 
 return [
@@ -51,6 +52,11 @@ return [
 	'SvgFile' => static function ( MediaWikiServices $services ) {
 		return new SvgFile(
 			$services->getMimeAnalyzer(), $services->getRepoGroup()
+		);
+	},
+	'CpdXmlProcessor' => static function ( MediaWikiServices $services ) {
+		return new CpdXmlProcessor(
+			$services->getMainConfig()
 		);
 	},
 ];

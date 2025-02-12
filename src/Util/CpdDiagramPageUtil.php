@@ -9,7 +9,6 @@ use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CognitiveProcessDesigner\HookHandler\ModifyDescriptionPage;
 use Content;
 use DOMDocument;
-use Exception;
 use File;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Config\Config;
@@ -111,6 +110,22 @@ class CpdDiagramPageUtil {
 		}
 
 		return explode( '/', $pageRef->getText() )[0];
+	}
+
+	/**
+	 * @param string $process
+	 *
+	 * @return string
+	 */
+	public function getXml( string $process ): string {
+		$diagramPage = $this->getDiagramPage( $process );
+		$content = $diagramPage->getContent();
+
+		if ( !$content ) {
+			return '';
+		}
+
+		return $content->getText();
 	}
 
 	/**
@@ -353,5 +368,4 @@ class CpdDiagramPageUtil {
 
 		return new JsonContent( json_encode( $meta ) );
 	}
-
 }

@@ -3,19 +3,17 @@
 namespace CognitiveProcessDesigner\Api;
 
 use CognitiveProcessDesigner\CpdElementFactory;
-use CognitiveProcessDesigner\Exceptions\CpdSaveException;
-use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use CognitiveProcessDesigner\Process\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
+use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use Exception;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
 use MWContentSerializationException;
 use MWUnknownContentModelException;
-use RuntimeException;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveCpdDiagram extends ApiBase {
@@ -23,6 +21,7 @@ class SaveCpdDiagram extends ApiBase {
 	/**
 	 * @param ApiMain $main
 	 * @param string $action
+	 * @param CpdXmlProcessor $xmlProcessor
 	 * @param CpdDiagramPageUtil $diagramPageUtil
 	 * @param CpdSaveDescriptionPagesUtil $saveDescriptionPagesUtil
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
@@ -32,6 +31,7 @@ class SaveCpdDiagram extends ApiBase {
 	public function __construct(
 		ApiMain $main,
 		string $action,
+		private readonly CpdXmlProcessor $xmlProcessor,
 		private readonly CpdDiagramPageUtil $diagramPageUtil,
 		private readonly CpdSaveDescriptionPagesUtil $saveDescriptionPagesUtil,
 		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
@@ -56,6 +56,7 @@ class SaveCpdDiagram extends ApiBase {
 		$svg = json_decode( $params['svg'], true );
 
 		$elements = json_decode( $params['elements'], true );
+		//$elements = $this->xmlProcessor->makeElements( $xml, $this->diagramPageUtil->getXml( $process ) );
 		$cpdElements = $this->cpdElementFactory->makeElements( $elements );
 
 		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );

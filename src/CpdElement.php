@@ -41,7 +41,11 @@ class CpdElement implements JsonSerializable {
 	public static function fromElementJson( array $element, bool $isParent = false ): CpdElement {
 		// Validate the JSON data only if it is not a parent element
 		if ( !$isParent ) {
-			self::validateJson( $element );
+			self::validateJson(
+				$element['id'],
+				$element['type'],
+				$element['label']
+			);
 		}
 
 		$parent = $element['parent'] ? self::fromElementJson( $element['parent'], true ) : null;
@@ -57,6 +61,45 @@ class CpdElement implements JsonSerializable {
 			$incomingLinks,
 			$outgoingLinks,
 			$parent
+		);
+	}
+
+	/**
+	 * @param string $id
+	 * @param string $type
+	 * @param string|null $label
+	 * @param Title|null $descriptionPage
+	 * @param Title|null $oldDescriptionPage
+	 * @param array $outgoingLinks
+	 * @param array $incomingLinks
+	 * @param array $parentJson
+	 * @param bool $isParent
+	 *
+	 * @return CpdElement
+	 * @throws Exception
+	 */
+	public static function fromElementData(
+		string $id,
+		string $type,
+		?string $label,
+		?Title $descriptionPage,
+		?Title $oldDescriptionPage,
+		array $outgoingLinks,
+		array $incomingLinks,
+		array $parentJson,
+		bool $isParent = false
+	): CpdElement {
+		// Validate the JSON data only if it is not a parent element
+		if ( !$isParent ) {
+			self::validateJson( $id, $type, $label );
+		}
+
+		$parent = !empty( $parentJson ) ? self::fromElementJson( $parentJson, true ) : null;
+		$incomingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $incomingLinks );
+		$outgoingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $outgoingLinks );
+
+		return new CpdElement(
+			$id, $type, $label, $descriptionPage, $oldDescriptionPage, $incomingLinks, $outgoingLinks, $parent
 		);
 	}
 
@@ -127,15 +170,15 @@ class CpdElement implements JsonSerializable {
 	}
 
 	/**
-	 * @param array $element
+	 * @param string $id
+	 * @param string $type
+	 * @param string|null $label
 	 *
 	 * @return void
 	 * @throws Exception
 	 */
-	private static function validateJson( array $element ): void {
-		$id = $element['id'];
-		$type = $element['type'];
-		if ( empty( $element['label'] ) ) {
+	private static function validateJson( string $id, string $type, ?string $label ): void {
+		if ( empty( $label ) ) {
 			throw new Exception( Message::newFromKey( 'cpd-validation-missing-label', $type, $id ) );
 		}
 	}
