@@ -1,23 +1,23 @@
 <table class="cpd-navigation-connections">
-	{{#incoming}}
 	<tr>
 		<th>{{incomingheading}}</th>
 		<td>
 			<div>
+			{{#incoming}}
 				<a href="{{link}}" title="{{title}}" class="cpd-nav-item {{class}}">{{{text}}}</a>
+			{{/incoming}}
 			</div>
 		</td>
 	</tr>
-	{{/incoming}}
-	{{#outgoing}}
 	<tr>
 		<th>{{outgoingheading}}</th>
 		<td>
 			<div>
+			{{#outgoing}}
 				<a href="{{link}}" title="{{title}}" class="cpd-nav-item {{class}}">{{{text}}}</a>
+			{{/outgoing}}
 			</div>
 		</td>
 	</tr>
-	{{/outgoing}}
 </table>
 
