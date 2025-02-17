@@ -4,6 +4,7 @@
 			"Eihel",
 			"Florian COLLIN",
 			"Mahabarata",
+			"McDutchie",
 			"Pols12",
 			"SleaY",
 			"Wladek92"
@@ -19,7 +20,7 @@
 	"cpd-button-cancel-title": "Annuler",
 	"cpd-button-show-xml": "Afficher le XML brut",
 	"cpd-button-hide-xml": "Cacher le XML brut",
-	"cpd-button-center-viewport": "Diagramme central",
+	"cpd-button-center-viewport": "Centrer le diagramme",
 	"cpd-link-diagram-page-title": "Accéder à la page du diagramme",
 	"cpd-link-svg-title": "Télécharger le diagramme au format SVG",
 	"cpd-api-save-diagram-param-svg": "SVG encodé en JSON pour être téléversé sur le wiki",
