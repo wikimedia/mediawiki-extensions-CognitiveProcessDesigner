@@ -31,5 +31,6 @@
 	"cpd-droplet-show-toolbar-field-label": "Label for toggle switch if toolbar should be visible",
 	"cpd-description-navigation-incoming-label": "Label for connection table on description page which contains incoming links",
 	"cpd-description-navigation-outgoing-label": "Label for connection table on description page which contains outgoing links",
-	"cpd-button-show-diagram": "Label for button to show diagram"
+	"cpd-button-show-diagram": "Label for button to show diagram",
+	"cpd-dialog-save-changes-button-label": "Button label to save diagram"
 }

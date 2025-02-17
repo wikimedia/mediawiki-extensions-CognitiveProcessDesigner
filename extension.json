@@ -229,6 +229,7 @@
 				"cpd-error-message-missing-description-page",
 				"cpd-no-changes-warning-message",
 				"cpd-dialog-save-changes-button-title",
+				"cpd-dialog-save-changes-button-label",
 				"cpd-button-cancel-title",
 				"cpd-button-show-xml",
 				"cpd-button-hide-xml",
