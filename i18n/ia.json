@@ -66,7 +66,6 @@
 	"apihelp-cpd-delete-orphaned-elements-summary": "Destrue le elementos del diagramma BPMN que ha essite removite",
 	"cpd-droplet-bpmn-name": "Diagramma BPMN",
 	"cpd-droplet-bpmn-description": "Diagramma BPMN modificabile",
-	"cpd-droplet-description": "Diagramma BPMN modificabile",
 	"orphanedprocessdescriptionpages": "Paginas orphanate de description de processo",
 	"processoverview": "Processos",
 	"cpd-orphaned-description-pages-column-process-title": "Processo",
@@ -115,5 +114,6 @@
 	"cpd-shape-rename-with-description-page-message": "Le pagina essera renominate de $1 a $2",
 	"cpd-shape-rename-message": "$1 renominate a $2",
 	"cpd-shape-remove-label-message": "Etiquetta $1 removite",
-	"cpd-droplet-name": "Processo"
+	"cpd-droplet-name": "Processo",
+	"cpd-droplet-description": "Diagramma BPMN modificabile"
 }
