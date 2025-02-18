@@ -4,6 +4,7 @@
 			"Amire80",
 			"Daniel Riedmueller",
 			"HalloWelt! GmbH",
+			"McDutchie",
 			"Umherirrender"
 		]
 	},
@@ -17,7 +18,7 @@
 	"bs-cpd-process-overview-no-results": "Note for the user that no processes are available",
 	"bs-cpd-process-overview-aria-live-filtered-rows": "Aria live counter for filtered processes",
 	"bs-cpd-process-overview-edit-action-text": "Title attribute of link opening the edit url to edit the process",
-	"bs-cpd-process-overview-edit-action-title": "Aria label attribute of link opening the edit url to edit the process\nParameters: * $1: Name of process",
+	"bs-cpd-process-overview-edit-action-title": "Aria label attribute of link opening the edit url to edit the process\n\nParameters:\n* $1: Name of process",
 	"bs-cpd-process-overview-card-title": "Aria label attribute of link opening the url to the process\nParameters: * $1: Name of process",
 	"bs-cpd-info-dialog": "Label for page in page information dialog\n{{Identical|Diagram usage}}"
 }
