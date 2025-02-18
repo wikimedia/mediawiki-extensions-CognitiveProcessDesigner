@@ -5,7 +5,7 @@ import CpdElement from "../model/CpdElement";
 import { Shape } from "bpmn-js/lib/model/Types";
 
 export default class CpdElementsRenderer extends BaseRenderer {
-	private static readonly HIGHLIGHT_COLOR = "#3e5389";
+	private static readonly HIGHLIGHT_COLOR = "#36c";
 
 	private bpmnRenderer: BpmnRenderer;
 
