@@ -2,6 +2,10 @@ import EventEmitter from "events";
 import SaveDialog, { MessageType, Mode } from "../oojs-ui/SaveDialog";
 import { ChangeLogMessages } from "./CpdChangeLogger";
 
+export interface OpenDialogOptions {
+	savePagesCheckboxState: boolean;
+}
+
 export default class CpdSaveDialog extends EventEmitter {
 	private readonly dialog: SaveDialog;
 
@@ -39,8 +43,9 @@ export default class CpdSaveDialog extends EventEmitter {
 		this.dialog.close();
 	}
 
-	public open(): void {
+	public open( options? : OpenDialogOptions ): void {
 		this.dialog.open();
+		this.dialog.setSavePagesCheckboxState( options?.savePagesCheckboxState ?? false );
 	}
 
 	public isOpened(): boolean {

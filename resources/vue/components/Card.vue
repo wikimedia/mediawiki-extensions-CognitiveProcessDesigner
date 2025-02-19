@@ -81,10 +81,10 @@ module.exports = {
 <style lang="css">
 .bs-card {
   position: relative;
-  width: 320px;
+  width: 325px;
   height: 450px;
   border: 1px solid #d7d7d7;
-  margin: 20px 26px;
+  margin: 20px 20px;
 }
 
 .bs-card.new {
@@ -135,9 +135,7 @@ module.exports = {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 47px;
   width: 100%;
-  padding: 10px 10px 0 10px;
 }
 
 .bs-card-actions {
@@ -145,6 +143,8 @@ module.exports = {
   justify-content: space-between;
   list-style: none;
   margin: 0;
+  flex-wrap: wrap;
+  padding: 15px 0;
 }
 
 .bs-card-actions > li {

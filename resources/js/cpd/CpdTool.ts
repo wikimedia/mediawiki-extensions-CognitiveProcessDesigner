@@ -51,6 +51,9 @@ export abstract class CpdTool {
 		const pageContent: LoadDiagramResult = await this.api.fetchPageContent( revision );
 		this.xml = pageContent.xml;
 		this.dom.setSvgLink( pageContent.svgFile );
+		this.dom.setOpenDialogOptions( {
+			savePagesCheckboxState: pageContent.descriptionPages.length > 0
+		} );
 		this.descriptionPages = pageContent.descriptionPages;
 		pageContent.loadWarnings.forEach( ( warning: string ): void => {
 			this.dom.showWarning( warning );
