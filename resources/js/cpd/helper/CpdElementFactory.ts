@@ -104,8 +104,6 @@ export class CpdElementFactory {
 	}
 
 	public setExistingDescriptionPages( descriptionPages: string[] ): void {
-		console.log(this.existingDescriptionPages)
-		console.log( descriptionPages );
 		this.existingDescriptionPages = descriptionPages;
 	}
 
