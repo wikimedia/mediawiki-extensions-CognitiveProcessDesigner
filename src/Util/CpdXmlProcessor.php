@@ -81,11 +81,17 @@ class CpdXmlProcessor {
 
 		$descriptionPageElements = $this->filterByType( $elementsData, $this->dedicatedSubpageTypes );
 		$parents = $this->filterByType( $elementsData, $this->laneTypes );
-		$this->setConnections( $descriptionPageElements, $elementsData );
+		$connections = $this->filterByType( $elementsData, [ 'bpmn:SequenceFlow' ] );
 
+		// First set all description pages
 		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
 			$this->setParent( $descriptionPageElement, $parents );
 			$this->setDescriptionPage( $descriptionPageElement, $process );
+		}
+
+		// Then set all connections
+		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
+			$this->setConnections( $descriptionPageElement, $descriptionPageElements, $connections );
 			$this->cleanUpData( $descriptionPageElement );
 		}
 
@@ -121,33 +127,34 @@ class CpdXmlProcessor {
 	}
 
 	/**
+	 * @param array $descriptionPageElement
 	 * @param array $descriptionPageElements
-	 * @param array $elementsData
+	 * @param array $connections
 	 *
 	 * @return void
 	 */
-	private function setConnections( array &$descriptionPageElements, array $elementsData ): void {
-		$connections = $this->filterByType( $elementsData, [ 'bpmn:SequenceFlow' ] );
+	private function setConnections(
+		array &$descriptionPageElement,
+		array $descriptionPageElements,
+		array $connections
+	): void {
+		$this->setConnection(
+			$descriptionPageElement,
+			$descriptionPageElements,
+			$connections,
+			'incomingLinks',
+			'targetRef',
+			'sourceRef'
+		);
 
-		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
-			$this->setConnection(
-				$descriptionPageElement,
-				$descriptionPageElements,
-				$connections,
-				'incomingLinks',
-				'targetRef',
-				'sourceRef'
-			);
-
-			$this->setConnection(
-				$descriptionPageElement,
-				$descriptionPageElements,
-				$connections,
-				'outgoingLinks',
-				'sourceRef',
-				'targetRef'
-			);
-		}
+		$this->setConnection(
+			$descriptionPageElement,
+			$descriptionPageElements,
+			$connections,
+			'outgoingLinks',
+			'sourceRef',
+			'targetRef'
+		);
 	}
 
 	/**
@@ -276,7 +283,7 @@ class CpdXmlProcessor {
 	 *
 	 * @return void
 	 */
-	private function cleanUpData( array &$element ): void {
+	private function cleanUpData( array &$element, bool $removeParentField = false ): void {
 		unset( $element['parentRef'] );
 		unset( $element['processRef'] );
 
@@ -286,7 +293,11 @@ class CpdXmlProcessor {
 		}
 
 		if ( !empty( $element['parent'] ) ) {
-			$this->cleanUpData( $element['parent'] );
+			if ( $removeParentField ) {
+				unset( $element['parent'] );
+			} else {
+				$this->cleanUpData( $element['parent'], true );
+			}
 		}
 
 		if ( !empty( $element['incomingLinks'] ) ) {
@@ -294,7 +305,7 @@ class CpdXmlProcessor {
 				unset( $link['incomingLinks'] );
 				unset( $link['outgoingLinks'] );
 			}
-			$this->cleanUpData( $link );
+			$this->cleanUpData( $link, true );
 		}
 
 		if ( !empty( $element['outgoingLinks'] ) ) {
@@ -302,7 +313,7 @@ class CpdXmlProcessor {
 				unset( $link['incomingLinks'] );
 				unset( $link['outgoingLinks'] );
 			}
-			$this->cleanUpData( $link );
+			$this->cleanUpData( $link, true );
 		}
 	}
 }
