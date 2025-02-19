@@ -23,11 +23,6 @@ export interface LoadDiagramResult {
 	loadWarnings: string[];
 }
 
-export interface ElementDescriptionPage {
-	elementId: string;
-	page: string;
-}
-
 export default class CpdApi extends EventEmitter {
 	public static readonly STATUS_REQUEST_STARTED: string = "requestStarted";
 

@@ -3,11 +3,10 @@
 namespace CognitiveProcessDesigner;
 
 use Exception;
-use JsonSerializable;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
 
-class CpdElement implements JsonSerializable {
+class CpdElement {
 
 	/**
 	 * @param string $id
@@ -120,16 +119,6 @@ class CpdElement implements JsonSerializable {
 	 */
 	public function getOutgoingLinks(): array {
 		return $this->outgoingLinks;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function jsonSerialize(): array {
-		return [
-			'elementId' => $this->getId(),
-			'page' => $this->getDescriptionPage()->getPrefixedDBkey(),
-		];
 	}
 
 	/**

@@ -16,7 +16,7 @@ export class CpdElementFactory {
 
 	private elementRegistry: ElementRegistry;
 
-	private readonly existingDescriptionPages: string[];
+	private existingDescriptionPages: string[];
 
 	public constructor(
 		elementRegistry: ElementRegistry,
@@ -91,6 +91,10 @@ export class CpdElementFactory {
 
 	public isDescriptionPageEligible( element: CpdElement ): boolean {
 		return this.subpageTypes.includes( element.type );
+	}
+
+	public setExistingDescriptionPages( descriptionPages: string[] ): void {
+		this.existingDescriptionPages = descriptionPages;
 	}
 
 	private addDescriptionPageProperty( element: CpdElement ): void {

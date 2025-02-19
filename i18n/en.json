@@ -31,8 +31,6 @@
 	"cpd-api-load-diagram-missingtitle-error-message": "$1 not found",
 	"cpd-error-message-not-process": "Page $1 is not a process",
 	"cpd-error-message-missing-config": "Missing config: '$1'",
-	"cpd-error-message-missing-element-link": "Element for link '$1' not found",
-	"cpd-error-message-mismatched-element-link": "Element for link '$1' does not match",
 	"cpd-error-message-missing-element": "Element '$1' not found",
 	"cpd-error-message-missing-label": "Label for '$1' not found",
 	"cpd-error-message-saving-diagram": "Error saving diagram: $1",

@@ -72,9 +72,7 @@ export default class CpdElement {
 			return null;
 		}
 
-		const linkText = this.descriptionPage.dbKey.split( '/' ).pop();
-
-		return `<a target="_blank" href="${ mw.util.getUrl( this.descriptionPage.dbKey ) }">${ linkText }</a>`;
+		return this.createLinkFromDbKey( this.descriptionPage.dbKey );
 	}
 
 	public getOldDescriptionPageUrl(): string | null {
@@ -82,7 +80,12 @@ export default class CpdElement {
 			return null;
 		}
 
-		return `<a target="_blank" href="${ mw.util.getUrl( this.descriptionPage.oldDbKey ) }">${ this.descriptionPage.oldDbKey }</a>`;
+		return this.createLinkFromDbKey( this.descriptionPage.oldDbKey );
+	}
+
+	private createLinkFromDbKey( dbKey: string ): string {
+		const linkText = dbKey.split( '/' ).pop();
+		return `<a target="_blank" href="${ mw.util.getUrl( dbKey ) }">${ linkText }</a>`;
 	}
 
 	public toJSON(): CpdElementJson {

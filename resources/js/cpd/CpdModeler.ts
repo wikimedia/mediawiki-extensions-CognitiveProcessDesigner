@@ -1,7 +1,7 @@
 import BpmnModeler from "bpmn-js/lib/Modeler";
 import BpmnColorPickerModule from "../../../node_modules/bpmn-js-color-picker/colors/index";
 import { SaveSVGResult } from "bpmn-js/lib/BaseViewer";
-import { ElementDescriptionPage, SaveDiagramResult } from "./helper/CpdApi";
+import { SaveDiagramResult } from "./helper/CpdApi";
 import { CpdTool } from "./CpdTool";
 import CpdElement from "./model/CpdElement";
 import CpdChangeLogger from "./helper/CpdChangeLogger";
@@ -119,8 +119,6 @@ class CpdModeler extends CpdTool {
 	private async onSave( withPages: boolean ): Promise<void> {
 		this.xml = await this.getUpdatedXml();
 		const svgResult = await this.getSVG();
-		const elements = this.elementFactory.createDescriptionPageEligibleElements();
-		this.applyDescriptionPageChanges( elements );
 
 		const result = await this.api.saveDiagram(
 			this.xml,
@@ -135,14 +133,10 @@ class CpdModeler extends CpdTool {
 			return;
 		}
 
-		result.saveWarnings.forEach( ( warning: string ): void => {
-			this.dom.showWarning( warning );
-		} );
-
-		this.updateElementDescriptionPages( result, elements );
-
+		this.showAfterSaveMessages( result );
 		this.changeLogger.reset();
 		this.dom.showDialogChangesPanel();
+		this.elementFactory.setExistingDescriptionPages( result.descriptionPages );
 
 		await this.initDescriptionPageElements();
 	}
@@ -155,16 +149,12 @@ class CpdModeler extends CpdTool {
 		window.open( mw.util.getUrl( mw.config.get( "wgPageName" ) ), "_self" );
 	}
 
-	private updateElementDescriptionPages( result: SaveDiagramResult, elements: CpdElement[] ): void {
+	private showAfterSaveMessages( result: SaveDiagramResult ): void {
+		result.saveWarnings.forEach( ( warning: string ): void => {
+			this.dom.showWarning( warning );
+		} );
+
 		if ( result.descriptionPages.length === 0 ) {
-			return;
-		}
-
-		const descriptionPages = result.descriptionPages.map(
-			( descriptionPage: string ): ElementDescriptionPage => JSON.parse( descriptionPage )
-		);
-
-		if ( descriptionPages.length === 0 ) {
 			return;
 		}
 
@@ -172,19 +162,8 @@ class CpdModeler extends CpdTool {
 		const list = document.createElement( "ul" );
 		messageDiv.appendChild( list );
 
-		descriptionPages.forEach( ( descriptionPage: ElementDescriptionPage ): void => {
-			const element: CpdElement | undefined = elements
-				.find( ( el: CpdElement ): boolean => el.id === descriptionPage.elementId );
-
-			if ( !element ) {
-				this.throwError( mw.message( "cpd-error-message-missing-element-link", descriptionPage.elementId ).text() );
-			}
-
-			if ( element.descriptionPage?.dbKey !== descriptionPage.page ) {
-				this.throwError( mw.message( "cpd-error-message-mismatched-element-link", descriptionPage.elementId ).text() );
-			}
-
-			const title = mw.Title.newFromText( descriptionPage.page );
+		result.descriptionPages.forEach( ( descriptionPage: string ): void => {
+			const title = mw.Title.newFromText( descriptionPage );
 			const linkText = title.getFileNameTextWithoutExtension().split( '/' ).pop();
 			const link = `<a href="${ mw.util.getUrl( title.getPrefixedText() ) }" target="_blank">${ linkText }</a>`;
 

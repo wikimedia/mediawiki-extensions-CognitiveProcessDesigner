@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Api;
 
+use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\CpdElementFactory;
 use CognitiveProcessDesigner\Process\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
@@ -81,8 +82,8 @@ class SaveCpdDiagram extends ApiBase {
 			$this->getResult()->addValue(
 				null,
 				'descriptionPages',
-				array_map( static function ( $element ) {
-					return json_encode( $element );
+				array_map( static function ( CpdElement $element ) {
+					return $element->getDescriptionPage()->getPrefixedDBkey();
 				}, $cpdElements )
 			);
 
