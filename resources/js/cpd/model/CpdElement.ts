@@ -7,8 +7,6 @@ export interface CpdElementJson {
 	parent: CpdElement | null;
 	descriptionPage: string | null;
 	oldDescriptionPage: string | null;
-	incomingLinks: CpdElementJson[];
-	outgoingLinks: CpdElementJson[];
 }
 
 interface ElementDescriptionPage {
@@ -21,10 +19,6 @@ export default class CpdElement {
 	public readonly bpmnElement: Element;
 
 	public descriptionPage: ElementDescriptionPage | null = null;
-
-	public incomingLinks: CpdElementJson[] = [];
-
-	public outgoingLinks: CpdElementJson[] = [];
 
 	private constructor( bpmnElement: Element ) {
 		this.bpmnElement = bpmnElement;
@@ -98,9 +92,7 @@ export default class CpdElement {
 			label: this.label,
 			parent: this.parent,
 			descriptionPage: this.descriptionPage?.dbKey,
-			oldDescriptionPage: this.descriptionPage?.oldDbKey,
-			incomingLinks: this.incomingLinks,
-			outgoingLinks: this.outgoingLinks
+			oldDescriptionPage: this.descriptionPage?.oldDbKey
 		};
 	}
 }

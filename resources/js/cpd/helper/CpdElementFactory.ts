@@ -3,8 +3,7 @@ import ElementRegistry, {
 } from "diagram-js/lib/core/ElementRegistry";
 import { ElementLike } from "diagram-js/lib/core/Types";
 import { Element, Shape } from "bpmn-js/lib/model/Types";
-import CpdElement, { CpdElementJson } from "../model/CpdElement";
-import { CpdConnectionFinder } from "./CpdConnectionFinder";
+import CpdElement from "../model/CpdElement";
 
 export class CpdElementFactory {
 	private readonly subpageTypes: Array<string>;
@@ -19,8 +18,6 @@ export class CpdElementFactory {
 
 	private readonly existingDescriptionPages: string[];
 
-	private readonly connectionFinder: CpdConnectionFinder;
-
 	public constructor(
 		elementRegistry: ElementRegistry,
 		process: string,
@@ -32,7 +29,6 @@ export class CpdElementFactory {
 		this.cpdLaneTypes = mw.config.get( "cpdLaneTypes" ) as Array<string>;
 		this.processNamespace = mw.config.get( "cpdProcessNamespace" ) as number;
 		this.existingDescriptionPages = existingDescriptionPages;
-		this.connectionFinder = new CpdConnectionFinder( this.subpageTypes );
 
 		if ( !this.subpageTypes ) {
 			throw new Error( mw.message(
@@ -70,14 +66,8 @@ export class CpdElementFactory {
 	}
 
 	public createDescriptionPageEligibleElements(): CpdElement[] {
-		const cpdElements = this.findDescriptionPageEligibleElements( this.subpageTypes ).map(
+		return this.findDescriptionPageEligibleElements( this.subpageTypes ).map(
 			( element: Element ): CpdElement => this.createCpdElement( element ) );
-
-		cpdElements.forEach(
-			( element: CpdElement ) => this.addConnections( element, cpdElements )
-		);
-
-		return cpdElements;
 	}
 
 	public findElementsWithExistingDescriptionPage(): CpdElement[] {
@@ -123,29 +113,6 @@ export class CpdElementFactory {
 		} else {
 			element.descriptionPage = { dbKey: madeDbKey, exists: false };
 		}
-	}
-
-	private addConnections( cpdElement: CpdElement, cpdElements: CpdElement[] ): void {
-		const incomingLinks = [];
-		const outgoingLinks = [];
-		this.connectionFinder.findIncomingConnections( cpdElement.bpmnElement, incomingLinks );
-		this.connectionFinder.findOutgoingConnections( cpdElement.bpmnElement, outgoingLinks );
-
-		const linkToCpdElement = ( link: string ): CpdElementJson => {
-			const foundElement = cpdElements.find( ( el: CpdElement ) => el.id === link );
-			if ( !foundElement ) {
-				throw new Error( mw.message( "cpd-error-message-missing-element", link ).text() );
-			}
-
-			const foundElementJson = foundElement.toJSON();
-			foundElementJson.incomingLinks = [];
-			foundElementJson.outgoingLinks = [];
-
-			return foundElementJson;
-		};
-
-		cpdElement.incomingLinks = incomingLinks.map( linkToCpdElement );
-		cpdElement.outgoingLinks = outgoingLinks.map( linkToCpdElement );
 	}
 
 	private makeDescriptionPageTitle( element: CpdElement ): mw.Title {
