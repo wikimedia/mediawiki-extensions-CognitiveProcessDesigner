@@ -26,7 +26,7 @@ module.exports = {
 .bs-card-actions > li > a {
   display: inline-block;
   height: 100%;
-  padding: 3px 10px;
+  padding: 0 15px;
   color: #666 !important;
 }
 
@@ -36,6 +36,6 @@ module.exports = {
 
 .bs-card-actions > li > a i {
   display: inline-block;
-  width: 32px;
+  margin-right: 10px;
 }
 </style>
