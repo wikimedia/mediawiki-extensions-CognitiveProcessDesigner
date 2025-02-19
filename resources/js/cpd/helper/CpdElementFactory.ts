@@ -17,7 +17,7 @@ export class CpdElementFactory {
 
 	private elementRegistry: ElementRegistry;
 
-	private readonly existingDescriptionPages: string[];
+	private existingDescriptionPages: string[];
 
 	private readonly connectionFinder: CpdConnectionFinder;
 
@@ -101,6 +101,12 @@ export class CpdElementFactory {
 
 	public isDescriptionPageEligible( element: CpdElement ): boolean {
 		return this.subpageTypes.includes( element.type );
+	}
+
+	public setExistingDescriptionPages( descriptionPages: string[] ): void {
+		console.log(this.existingDescriptionPages)
+		console.log( descriptionPages );
+		this.existingDescriptionPages = descriptionPages;
 	}
 
 	private addDescriptionPageProperty( element: CpdElement ): void {

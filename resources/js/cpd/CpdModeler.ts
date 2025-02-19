@@ -1,7 +1,7 @@
 import BpmnModeler from "bpmn-js/lib/Modeler";
 import BpmnColorPickerModule from "../../../node_modules/bpmn-js-color-picker/colors/index";
 import { SaveSVGResult } from "bpmn-js/lib/BaseViewer";
-import { ElementDescriptionPage, SaveDiagramResult } from "./helper/CpdApi";
+import { ElementDescriptionPage } from "./helper/CpdApi";
 import { CpdTool } from "./CpdTool";
 import CpdElement from "./model/CpdElement";
 import CpdChangeLogger from "./helper/CpdChangeLogger";
@@ -136,11 +136,19 @@ class CpdModeler extends CpdTool {
 			return;
 		}
 
+		const descriptionPages = result.descriptionPages.map(
+			( descriptionPage: string ): ElementDescriptionPage => JSON.parse( descriptionPage )
+		);
+
+		this.elementFactory.setExistingDescriptionPages( descriptionPages.map(
+			( descriptionPage: ElementDescriptionPage ): string => descriptionPage.page
+		) );
+
 		result.saveWarnings.forEach( ( warning: string ): void => {
 			this.dom.showWarning( warning );
 		} );
 
-		this.updateElementDescriptionPages( result, elements );
+		this.updateElementDescriptionPages( descriptionPages, elements );
 
 		this.changeLogger.reset();
 		this.dom.showDialogChangesPanel();
@@ -156,15 +164,7 @@ class CpdModeler extends CpdTool {
 		window.open( mw.util.getUrl( mw.config.get( "wgPageName" ) ), "_self" );
 	}
 
-	private updateElementDescriptionPages( result: SaveDiagramResult, elements: CpdElement[] ): void {
-		if ( result.descriptionPages.length === 0 ) {
-			return;
-		}
-
-		const descriptionPages = result.descriptionPages.map(
-			( descriptionPage: string ): ElementDescriptionPage => JSON.parse( descriptionPage )
-		);
-
+	private updateElementDescriptionPages( descriptionPages: ElementDescriptionPage[], elements: CpdElement[] ): void {
 		if ( descriptionPages.length === 0 ) {
 			return;
 		}
