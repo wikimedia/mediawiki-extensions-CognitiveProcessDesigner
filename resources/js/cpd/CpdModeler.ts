@@ -125,8 +125,7 @@ class CpdModeler extends CpdTool {
 		const result = await this.api.saveDiagram(
 			this.xml,
 			svgResult,
-			withPages,
-			elements
+			withPages
 		);
 
 		// Reload the page in view mode

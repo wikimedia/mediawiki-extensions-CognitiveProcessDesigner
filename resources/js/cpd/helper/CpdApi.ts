@@ -72,8 +72,7 @@ export default class CpdApi extends EventEmitter {
 	public async saveDiagram(
 		xml: string,
 		svg: SaveSVGResult,
-		withDescriptionPages: boolean,
-		elements: CpdElement[] = []
+		withDescriptionPages: boolean
 	): Promise<SaveDiagramResult> {
 		this.emit( CpdApi.STATUS_REQUEST_STARTED );
 
@@ -82,7 +81,6 @@ export default class CpdApi extends EventEmitter {
 			process: this.process,
 			xml: JSON.stringify( xml ),
 			svg: JSON.stringify( svg.svg ),
-			elements: JSON.stringify( elements ),
 			saveDescriptionPages: withDescriptionPages,
 			token: mw.user.tokens.get( "csrfToken" )
 		} ).then( ( result ): SaveDiagramResult => {
