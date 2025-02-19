@@ -55,8 +55,8 @@ class SaveCpdDiagram extends ApiBase {
 		$xml = json_decode( $params['xml'], true );
 		$svg = json_decode( $params['svg'], true );
 
-		$elements = json_decode( $params['elements'], true );
-		//$elements = $this->xmlProcessor->makeElements( $xml, $this->diagramPageUtil->getXml( $process ) );
+		$elements = $this->xmlProcessor->makeElementsData( $process, $xml, $this->diagramPageUtil->getXml( $process ) );
+
 		$cpdElements = $this->cpdElementFactory->makeElements( $elements );
 
 		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
@@ -124,10 +124,6 @@ class SaveCpdDiagram extends ApiBase {
 			'svg' => [
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true
-			],
-			'elements' => [
-				ParamValidator::PARAM_TYPE => 'string',
-				ParamValidator::PARAM_REQUIRED => false
 			],
 			'saveDescriptionPages' => [
 				ParamValidator::PARAM_TYPE => 'boolean',

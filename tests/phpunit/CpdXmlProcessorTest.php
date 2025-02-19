@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\Tests;
 
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
+use Exception;
 use MediaWiki\Config\Config;
 use PHPUnit\Framework\TestCase;
 
@@ -49,13 +50,15 @@ class CpdXmlProcessorTest extends TestCase {
 	 * @covers ::findDescriptionPageEligibleElements
 	 *
 	 * @return void
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function testFindDescriptionPageEligibleElements(): void {
 		$fixturePath = __DIR__ . '/fixtures';
 		$xml = file_get_contents( $fixturePath . '/diagram.xml' );
 		$oldXml = file_get_contents( $fixturePath . '/oldDiagram.xml' );
-		$elements = $this->xmlProcessor->makeElements( 'foo', $xml, $oldXml );
+		$resultElements = json_decode( file_get_contents( $fixturePath . '/elementsData.json' ), true );
+		$elements = $this->xmlProcessor->makeElementsData( 'BackendElements', $xml, $oldXml );
+		$this->assertEquals( $resultElements, $elements );
 	}
 
 }

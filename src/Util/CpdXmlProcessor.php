@@ -2,7 +2,6 @@
 
 namespace CognitiveProcessDesigner\Util;
 
-use CognitiveProcessDesigner\CpdElement;
 use Exception;
 use MediaWiki\Config\Config;
 use MediaWiki\Message\Message;
@@ -22,20 +21,12 @@ class CpdXmlProcessor {
 	) {
 		$this->dedicatedSubpageTypes = [];
 		if ( $config->has( 'CPDDedicatedSubpageTypes' ) ) {
-			$this->dedicatedSubpageTypes = array_map( function ( string $type ) {
-				$type = str_replace( 'bpmn:', '', $type );
-
-				return lcfirst( $type );
-			}, $config->get( 'CPDDedicatedSubpageTypes' ) );
+			$this->dedicatedSubpageTypes = $config->get( 'CPDDedicatedSubpageTypes' );
 		}
 
 		$this->laneTypes = [];
 		if ( $config->has( 'CPDLaneTypes' ) ) {
-			$this->laneTypes = array_map( function ( string $type ) {
-				$type = str_replace( 'bpmn:', '', $type );
-
-				return lcfirst( $type );
-			}, $config->get( 'CPDLaneTypes' ) );
+			$this->laneTypes = $config->get( 'CPDLaneTypes' );
 		}
 	}
 
@@ -44,17 +35,17 @@ class CpdXmlProcessor {
 	 * @param string $xmlString
 	 * @param string|null $oldXmlString
 	 *
-	 * @return CpdElement[]
+	 * @return array
 	 * @throws Exception
 	 */
-	public function makeElements( string $process, string $xmlString, ?string $oldXmlString = null ): array {
+	public function makeElementsData( string $process, string $xmlString, ?string $oldXmlString = null ): array {
 		$descriptionPageElements = $this->createAllElementsData( $process, $xmlString );
 
 		if ( $oldXmlString ) {
 			$this->setOldDescriptionPages( $process, $oldXmlString, $descriptionPageElements );
 		}
 
-		return $descriptionPageElements;
+		return array_values( $descriptionPageElements );
 	}
 
 	/**
@@ -70,7 +61,7 @@ class CpdXmlProcessor {
 		$xml->registerXPathNamespace( 'bpmn', 'http://www.omg.org/spec/BPMN/20100524/MODEL' );
 		$xmlElements = $xml->xpath( '//bpmn:*' );
 		foreach ( $xmlElements as $xmlElement ) {
-			$type = lcfirst( $xmlElement->getName() );
+			$type = 'bpmn:' . ucfirst( $xmlElement->getName() );
 			$elementData = [ 'type' => $type ];
 
 			$parents = $xmlElement->xpath( ".." );
@@ -89,9 +80,14 @@ class CpdXmlProcessor {
 		}
 
 		$descriptionPageElements = $this->filterByType( $elementsData, $this->dedicatedSubpageTypes );
-		$this->setParents( $descriptionPageElements, $elementsData );
+		$parents = $this->filterByType( $elementsData, $this->laneTypes );
 		$this->setConnections( $descriptionPageElements, $elementsData );
-		$this->setDescriptionPages( $process, $descriptionPageElements );
+
+		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
+			$this->setParent( $descriptionPageElement, $parents );
+			$this->setDescriptionPage( $descriptionPageElement, $process );
+			$this->cleanUpData( $descriptionPageElement );
+		}
 
 		return $descriptionPageElements;
 	}
@@ -107,22 +103,19 @@ class CpdXmlProcessor {
 	}
 
 	/**
-	 * @param array $descriptionPageElements
-	 * @param array $elementsData
+	 * @param array $descriptionPageElement
+	 * @param array $parents
 	 *
 	 * @return void
 	 */
-	private function setParents( array &$descriptionPageElements, array $elementsData ): void {
-		$parents = $this->filterByType( $elementsData, [ 'participant' ] );
+	private function setParent( array &$descriptionPageElement, array $parents ): void {
+		foreach ( $parents as $parent ) {
+			if ( empty( $parent['processRef'] ) ) {
+				continue;
+			}
 
-		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
-			foreach ( $parents as $parent ) {
-				if ( empty( $parent['processRef'] ) ) {
-					continue;
-				}
-				if ( $descriptionPageElement['parentRef'] === $parent['processRef'] ) {
-					$descriptionPageElement['parent'] = $parent;
-				}
+			if ( $descriptionPageElement['parentRef'] === $parent['processRef'] ) {
+				$descriptionPageElement['parent'] = $parent;
 			}
 		}
 	}
@@ -134,51 +127,85 @@ class CpdXmlProcessor {
 	 * @return void
 	 */
 	private function setConnections( array &$descriptionPageElements, array $elementsData ): void {
-		$connections = $this->filterByType( $elementsData, [ 'sequenceFlow' ] );
+		$connections = $this->filterByType( $elementsData, [ 'bpmn:SequenceFlow' ] );
 
 		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
-			foreach ( $connections as $connection ) {
-				if ( empty( $connection['sourceRef'] ) || empty( $connection['targetRef'] ) ) {
-					continue;
-				}
-				if ( $descriptionPageElement['id'] === $connection['sourceRef'] ) {
-					$filteredElements = array_filter(
-						$descriptionPageElements,
-						fn( $element ) => $element['id'] === $connection['targetRef']
-					);
-					$targetElement = reset( $filteredElements );
-					$descriptionPageElement['outgoingLinks'][] = $targetElement;
-				}
-				if ( $descriptionPageElement['id'] === $connection['targetRef'] ) {
-					$filteredElements = array_filter(
-						$descriptionPageElements,
-						fn( $element ) => $element['id'] === $connection['sourceRef']
-					);
-					$sourceElement = reset( $filteredElements );
-					$descriptionPageElement['incomingLinks'][] = $sourceElement;
-				}
+			$this->setConnection(
+				$descriptionPageElement,
+				$descriptionPageElements,
+				$connections,
+				'incomingLinks',
+				'targetRef',
+				'sourceRef'
+			);
+
+			$this->setConnection(
+				$descriptionPageElement,
+				$descriptionPageElements,
+				$connections,
+				'outgoingLinks',
+				'sourceRef',
+				'targetRef'
+			);
+		}
+	}
+
+	/**
+	 * @param array $element
+	 * @param array $descriptionPageElements
+	 * @param array $connections
+	 * @param string $connectionField
+	 * @param string $sourceField
+	 * @param string $targetField
+	 *
+	 * @return void
+	 */
+	private function setConnection(
+		array &$element,
+		array $descriptionPageElements,
+		array $connections,
+		string $connectionField,
+		string $sourceField,
+		string $targetField
+	): void {
+		$element[$connectionField] = [];
+
+		foreach ( $connections as $connection ) {
+			if ( empty( $connection[$sourceField] ) || empty( $connection[$targetField] ) ) {
+				continue;
 			}
+
+			if ( $element['id'] !== $connection[$sourceField] ) {
+				continue;
+			}
+
+			$connectionElements = array_filter(
+				$descriptionPageElements,
+				fn( $elementData ) => $elementData['id'] === $connection[$targetField]
+			);
+
+			$element[$connectionField][] = reset( $connectionElements );
+
+			break;
 		}
 	}
 
 
 	/**
+	 * @param array $descriptionPageElement
 	 * @param string $process
-	 * @param array $descriptionPageElements
 	 *
 	 * @return void
 	 * @throws Exception
 	 */
-	private function setDescriptionPages(
+	private function setDescriptionPage(
+		array &$descriptionPageElement,
 		string $process,
-		array &$descriptionPageElements,
 	): void {
-		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
-			$descriptionPageElement['descriptionPage'] = $this->makeDescriptionPageTitle(
-				$process,
-				$descriptionPageElement
-			);
-		}
+		$descriptionPageElement['descriptionPage'] = $this->makeDescriptionPageTitle(
+			$process,
+			$descriptionPageElement
+		);
 	}
 
 	/**
@@ -195,14 +222,18 @@ class CpdXmlProcessor {
 		array &$descriptionPageElements,
 	): void {
 		$oldDescriptionPageElements = $this->createAllElementsData( $process, $oldXmlString );
-		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
+		foreach ( $descriptionPageElements as &$element ) {
 			$filteredElements = array_filter(
 				$oldDescriptionPageElements,
-				fn( $element ) => $element['id'] === $descriptionPageElement['id']
+				fn( $elementData ) => $elementData['id'] === $element['id']
 			);
 			$oldDescriptionPageElement = reset( $filteredElements );
 			if ( $oldDescriptionPageElement ) {
-				$descriptionPageElement['oldDescriptionPage'] = $oldDescriptionPageElement['descriptionPage'];
+				if ( $element['descriptionPage'] === $oldDescriptionPageElement['descriptionPage'] ) {
+					continue;
+				}
+
+				$element['oldDescriptionPage'] = $oldDescriptionPageElement['descriptionPage'];
 			}
 		}
 	}
@@ -211,10 +242,10 @@ class CpdXmlProcessor {
 	 * @param string $process
 	 * @param array $element
 	 *
-	 * @return Title
+	 * @return string
 	 * @throws Exception
 	 */
-	private function makeDescriptionPageTitle( string $process, array $element ): Title {
+	private function makeDescriptionPageTitle( string $process, array $element ): string {
 		if ( empty( $element['name'] ) ) {
 			throw new Exception( Message::newFromKey( "cpd-error-message-missing-label", $element["id"] )->text() );
 		}
@@ -235,6 +266,43 @@ class CpdXmlProcessor {
 			throw new Exception( Message::newFromKey( "cpd-error-could-not-create-title", $element["id"] )->text() );
 		}
 
-		return $title;
+		return $title->getPrefixedDBkey();
+	}
+
+	/**
+	 * Remove temporary and unused fields from the data
+	 *
+	 * @param array $element
+	 *
+	 * @return void
+	 */
+	private function cleanUpData( array &$element ): void {
+		unset( $element['parentRef'] );
+		unset( $element['processRef'] );
+
+		if ( !empty( $element['name'] ) ) {
+			$element['label'] = $element['name'];
+			unset( $element['name'] );
+		}
+
+		if ( !empty( $element['parent'] ) ) {
+			$this->cleanUpData( $element['parent'] );
+		}
+
+		if ( !empty( $element['incomingLinks'] ) ) {
+			foreach ( $element['incomingLinks'] as &$link ) {
+				unset( $link['incomingLinks'] );
+				unset( $link['outgoingLinks'] );
+			}
+			$this->cleanUpData( $link );
+		}
+
+		if ( !empty( $element['outgoingLinks'] ) ) {
+			foreach ( $element['outgoingLinks'] as &$link ) {
+				unset( $link['incomingLinks'] );
+				unset( $link['outgoingLinks'] );
+			}
+			$this->cleanUpData( $link );
+		}
 	}
 }

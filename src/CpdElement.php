@@ -49,8 +49,10 @@ class CpdElement implements JsonSerializable {
 		}
 
 		$parent = $element['parent'] ? self::fromElementJson( $element['parent'], true ) : null;
-		$incomingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
-		$outgoingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
+		$incomingLinks = $element['incomingLinks'] ? array_map( fn( $link ) => self::fromElementJson( $link ),
+			$element['incomingLinks'] ) : [];
+		$outgoingLinks = $element['outgoingLinks'] ? array_map( fn( $link ) => self::fromElementJson( $link ),
+			$element['outgoingLinks'] ) : [];
 
 		return new CpdElement(
 			$element['id'],
@@ -61,45 +63,6 @@ class CpdElement implements JsonSerializable {
 			$incomingLinks,
 			$outgoingLinks,
 			$parent
-		);
-	}
-
-	/**
-	 * @param string $id
-	 * @param string $type
-	 * @param string|null $label
-	 * @param Title|null $descriptionPage
-	 * @param Title|null $oldDescriptionPage
-	 * @param array $outgoingLinks
-	 * @param array $incomingLinks
-	 * @param array $parentJson
-	 * @param bool $isParent
-	 *
-	 * @return CpdElement
-	 * @throws Exception
-	 */
-	public static function fromElementData(
-		string $id,
-		string $type,
-		?string $label,
-		?Title $descriptionPage,
-		?Title $oldDescriptionPage,
-		array $outgoingLinks,
-		array $incomingLinks,
-		array $parentJson,
-		bool $isParent = false
-	): CpdElement {
-		// Validate the JSON data only if it is not a parent element
-		if ( !$isParent ) {
-			self::validateJson( $id, $type, $label );
-		}
-
-		$parent = !empty( $parentJson ) ? self::fromElementJson( $parentJson, true ) : null;
-		$incomingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $incomingLinks );
-		$outgoingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $outgoingLinks );
-
-		return new CpdElement(
-			$id, $type, $label, $descriptionPage, $oldDescriptionPage, $incomingLinks, $outgoingLinks, $parent
 		);
 	}
 
