@@ -3,7 +3,7 @@ import EventEmitter from "events";
 import util from "types-mediawiki/mw/util";
 // noinspection ES6UnusedImports
 import Title from "types-mediawiki/mw/Title";
-import CpdSaveDialog from "./CpdSaveDialog";
+import CpdSaveDialog, { OpenDialogOptions } from "./CpdSaveDialog";
 import Button from "../oojs-ui/Button";
 import ShowXmlButton from "../oojs-ui/ShowXmlButton";
 import LinkButton from "../oojs-ui/LinkButton";
@@ -62,6 +62,8 @@ export default class CpdDom extends EventEmitter {
 
 	private isEdit: boolean = false;
 
+	private openDialogOptions: OpenDialogOptions = null;
+
 	public constructor( container: HTMLElement, diagramPage: mw.Title ) {
 		super();
 		this.container = container;
@@ -86,7 +88,7 @@ export default class CpdDom extends EventEmitter {
 
 	public onOpenDialog(): void {
 		this.emit( "openDialog" );
-		this.saveDialog?.open();
+		this.saveDialog?.open( this.openDialogOptions );
 	}
 
 	public toggleView(): void {
@@ -143,6 +145,10 @@ export default class CpdDom extends EventEmitter {
 
 	public setSvgLink( svgFile: string | null ): void {
 		this.svgFileLink?.setLink( svgFile );
+	}
+
+	public setOpenDialogOptions( options: OpenDialogOptions ): void {
+		this.openDialogOptions = options;
 	}
 
 	public disableButtons(): void {
