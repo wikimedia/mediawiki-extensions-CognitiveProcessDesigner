@@ -55,6 +55,10 @@ export default class CpdValidator extends EventEmitter {
 			return;
 		}
 
+		if (event[ 'context' ].element.businessObject.name === newLabel) {
+			return;
+		}
+
 		while ( !this.isLabelUnique( newLabel ) ) {
 			newLabel = this.incrementOrInsertParenthesisNumber( newLabel );
 		}
