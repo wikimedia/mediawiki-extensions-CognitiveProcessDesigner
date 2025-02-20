@@ -48,9 +48,9 @@ export default class CpdViewer extends CpdTool {
 	}
 
 	protected async renderDiagram( process: string, revision: number | null = null ): Promise<void> {
-		await this.initPageContent( revision );
+		const elements = await this.initPageContent( revision );
 
-		this.elementFactory = new CpdElementFactory( this.bpmnViewer.get( "elementRegistry" ), process, this.descriptionPages );
+		this.elementFactory = new CpdElementFactory( this.bpmnViewer.get( "elementRegistry" ), this.descriptionPages );
 
 		if ( !this.xml ) {
 			this.handleNotInitializedDiagram( process );

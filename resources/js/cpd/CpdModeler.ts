@@ -46,11 +46,11 @@ class CpdModeler extends CpdTool {
 		this.dom.on( "cancel", this.onCancel.bind( this ) );
 		this.dom.on( "openDialog", this.onOpenDialog.bind( this ) );
 
-		this.renderDiagram( process );
+		this.renderDiagram();
 	}
 
-	protected async renderDiagram( process: string ): Promise<void> {
-		await this.initPageContent();
+	protected async renderDiagram(): Promise<void> {
+		const elements = await this.initPageContent();
 
 		const elementRegistry = this.bpmnModeler.get( "elementRegistry" ) as ElementRegistry;
 		const svgRenderer = new CpdInlineSvgRenderer( elementRegistry );
@@ -58,7 +58,6 @@ class CpdModeler extends CpdTool {
 
 		this.elementFactory = new CpdElementFactory(
 			elementRegistry,
-			process,
 			this.descriptionPages
 		);
 		this.changeLogger = new CpdChangeLogger( eventBus, this.elementFactory, svgRenderer );
@@ -195,8 +194,7 @@ class CpdModeler extends CpdTool {
 				return;
 			}
 
-			if ( initialElement.descriptionPage?.dbKey !== element.descriptionPage?.dbKey ) {
-				element.descriptionPage.oldDbKey = initialElement.descriptionPage?.dbKey;
+			if ( initialElement.label !== element.label ) {
 				this.changeLogger.addDescriptionPageChange( element );
 			}
 		} );

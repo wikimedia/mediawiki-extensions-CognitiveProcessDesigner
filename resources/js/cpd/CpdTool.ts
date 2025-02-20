@@ -1,7 +1,7 @@
 import CpdDom from "./helper/CpdDom";
 import CpdXml from "./helper/CpdXml";
 import CpdApi, { LoadDiagramResult } from "./helper/CpdApi";
-import { CpdElementFactory } from "./helper/CpdElementFactory";
+import { CpdElementFactory, CpdElementJson } from "./helper/CpdElementFactory";
 import BaseViewer from "bpmn-js/lib/BaseViewer";
 import Canvas from "diagram-js/lib/core/Canvas";
 
@@ -47,7 +47,7 @@ export abstract class CpdTool {
 		this.api.on( CpdApi.STATUS_REQUEST_FAILED, this.requestFailed.bind( this ) );
 	}
 
-	protected async initPageContent( revision: number | null = null ): Promise<void> {
+	protected async initPageContent( revision: number | null = null ): Promise<CpdElementJson[]> {
 		const pageContent: LoadDiagramResult = await this.api.fetchPageContent( revision );
 		this.xml = pageContent.xml;
 		this.dom.setSvgLink( pageContent.svgFile );
@@ -58,6 +58,8 @@ export abstract class CpdTool {
 		pageContent.loadWarnings.forEach( ( warning: string ): void => {
 			this.dom.showWarning( warning );
 		} );
+
+		return pageContent.elements
 	}
 
 	// eslint-disable-next-line no-unused-vars

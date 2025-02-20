@@ -76,17 +76,7 @@ export default class CpdChangeLogger extends EventEmitter {
 	}
 
 	public addDescriptionPageChange( element: CpdElement ) {
-		if ( element.descriptionPage?.oldDbKey ) {
-			this.appendMessage( this.renames, element, mw.message(
-				"cpd-shape-rename-with-description-page-message",
-				element.getOldDescriptionPageUrl(),
-				element.getDescriptionPageUrl()
-			).plain(), true );
-
-			return;
-		}
-
-		this.appendMessage( this.renames, element, mw.message( "cpd-description-page-creation-message", element.getDescriptionPageUrl() ).plain(), true );
+		this.appendMessage( this.renames, element, mw.message( "cpd-description-page-creation-message", element.label ).plain(), true );
 	}
 
 	private onElementChanged( type: string, event: Event ): void {

@@ -138,6 +138,10 @@ class CpdXmlProcessor {
 		array $descriptionPageElements,
 		array $connections
 	): void {
+		if ($descriptionPageElement['name'] === 'ab3') {
+			$foo = 'bar';
+		}
+
 		$this->setConnection(
 			$descriptionPageElement,
 			$descriptionPageElements,
@@ -280,6 +284,7 @@ class CpdXmlProcessor {
 	 * Remove temporary and unused fields from the data
 	 *
 	 * @param array $element
+	 * @param bool $removeParentField
 	 *
 	 * @return void
 	 */

@@ -5,14 +5,17 @@ import { ElementLike } from "diagram-js/lib/core/Types";
 import { Element, Shape } from "bpmn-js/lib/model/Types";
 import CpdElement from "../model/CpdElement";
 
+export interface CpdElementJson {
+	id: string;
+	type: string;
+	label: string;
+	descriptionPage: string;
+}
+
 export class CpdElementFactory {
 	private readonly subpageTypes: Array<string>;
 
-	private readonly cpdLaneTypes: Array<string>;
-
 	private readonly processNamespace: number;
-
-	private readonly process: string;
 
 	private elementRegistry: ElementRegistry;
 
@@ -20,13 +23,10 @@ export class CpdElementFactory {
 
 	public constructor(
 		elementRegistry: ElementRegistry,
-		process: string,
 		existingDescriptionPages: string[]
 	) {
 		this.elementRegistry = elementRegistry;
-		this.process = process;
 		this.subpageTypes = mw.config.get( "cpdDedicatedSubpageTypes" ) as Array<string>;
-		this.cpdLaneTypes = mw.config.get( "cpdLaneTypes" ) as Array<string>;
 		this.processNamespace = mw.config.get( "cpdProcessNamespace" ) as number;
 		this.existingDescriptionPages = existingDescriptionPages;
 
@@ -34,13 +34,6 @@ export class CpdElementFactory {
 			throw new Error( mw.message(
 				"cpd-error-message-missing-config",
 				"cpdDedicatedSubpageTypes" ).text()
-			);
-		}
-
-		if ( !this.cpdLaneTypes ) {
-			throw new Error( mw.message(
-				"cpd-error-message-missing-config",
-				"cpdLaneTypes" ).text()
 			);
 		}
 
@@ -117,26 +110,6 @@ export class CpdElementFactory {
 		} else {
 			element.descriptionPage = { dbKey: madeDbKey, exists: false };
 		}
-	}
-
-	private makeDescriptionPageTitle( element: CpdElement ): mw.Title {
-		if ( !element.label ) {
-			throw new Error( mw.message( "cpd-error-message-missing-label", element.id ).text() );
-		}
-
-		let title: mw.Title;
-
-		if ( element.parent?.label && this.cpdLaneTypes.includes( element.parent?.type ) ) {
-			title = mw.Title.newFromText( `${ this.process }/${ element.parent.label }/${ element.label }`, this.processNamespace );
-		} else {
-			title = mw.Title.newFromText( `${ this.process }/${ element.label }`, this.processNamespace );
-		}
-
-		if ( !title ) {
-			throw new Error( mw.message( "cpd-error-could-not-create-title", element.id ).text() );
-		}
-
-		return title;
 	}
 
 	private findDescriptionPageEligibleElements( types: string[] ): Element[] {

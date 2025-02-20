@@ -5,6 +5,7 @@ namespace CognitiveProcessDesigner\Api;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
@@ -19,6 +20,7 @@ class LoadCpdDiagram extends ApiBase {
 	/**
 	 * @param ApiMain $main
 	 * @param string $action
+	 * @param CpdXmlProcessor $xmlProcessor
 	 * @param CpdDiagramPageUtil $diagramPageUtil
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 * @param RevisionLookup $revisionLookup
@@ -26,6 +28,7 @@ class LoadCpdDiagram extends ApiBase {
 	public function __construct(
 		ApiMain $main,
 		string $action,
+		private readonly CpdXmlProcessor $xmlProcessor,
 		private readonly CpdDiagramPageUtil $diagramPageUtil,
 		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
 		private readonly RevisionLookup $revisionLookup
@@ -36,6 +39,7 @@ class LoadCpdDiagram extends ApiBase {
 	/**
 	 * @inheritDoc
 	 * @throws ApiUsageException
+	 * @throws \Exception
 	 */
 	public function execute() {
 		$result = $this->getResult();
@@ -73,9 +77,17 @@ class LoadCpdDiagram extends ApiBase {
 			}
 
 			$this->diagramPageUtil->validateContent( $content );
-			$text = ( $content instanceof TextContent ) ? $content->getText() : '';
+			$xml = ( $content instanceof TextContent ) ? $content->getText() : '';
+
+			$elements = $this->xmlProcessor->makeElementsData( $process, $xml );
+
 			$result->addValue( null, 'exists', 1 );
-			$result->addValue( null, 'xml', $text );
+			$result->addValue( null, 'xml', $xml );
+			$result->addValue(
+				null,
+				'elements',
+				$elements
+			);
 			$result->addValue(
 				null,
 				'descriptionPages',
@@ -87,6 +99,7 @@ class LoadCpdDiagram extends ApiBase {
 		} catch ( CpdInvalidContentException $e ) {
 			$result->addValue( null, 'exists', 0 );
 			$result->addValue( null, 'xml', null );
+			$result->addValue( null, 'elements', [] );
 			$result->addValue( null, 'descriptionPages', [] );
 			$result->addValue( null, 'svgFile', null );
 			$result->addValue( null, 'loadWarnings', [] );

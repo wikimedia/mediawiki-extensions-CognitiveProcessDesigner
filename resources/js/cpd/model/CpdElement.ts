@@ -1,18 +1,8 @@
 import { Element } from "bpmn-js/lib/model/Types";
 
-export interface CpdElementJson {
-	id: string;
-	type: string;
-	label: string | null;
-	parent: CpdElement | null;
-	descriptionPage: string | null;
-	oldDescriptionPage: string | null;
-}
-
 interface ElementDescriptionPage {
 	exists: boolean;
 	dbKey: string;
-	oldDbKey?: string | undefined;
 }
 
 export default class CpdElement {
@@ -75,27 +65,8 @@ export default class CpdElement {
 		return this.createLinkFromDbKey( this.descriptionPage.dbKey );
 	}
 
-	public getOldDescriptionPageUrl(): string | null {
-		if ( !this.descriptionPage?.oldDbKey ) {
-			return null;
-		}
-
-		return this.createLinkFromDbKey( this.descriptionPage.oldDbKey );
-	}
-
 	private createLinkFromDbKey( dbKey: string ): string {
 		const linkText = dbKey.split( '/' ).pop();
 		return `<a target="_blank" href="${ mw.util.getUrl( dbKey ) }">${ linkText }</a>`;
-	}
-
-	public toJSON(): CpdElementJson {
-		return {
-			id: this.id,
-			type: this.type,
-			label: this.label,
-			parent: this.parent,
-			descriptionPage: this.descriptionPage?.dbKey,
-			oldDescriptionPage: this.descriptionPage?.oldDbKey
-		};
 	}
 }

@@ -108,6 +108,7 @@
 		"cpd-load-diagram": {
 			"class": "\\CognitiveProcessDesigner\\Api\\LoadCpdDiagram",
 			"services": [
+				"CpdXmlProcessor",
 				"CpdDiagramPageUtil",
 				"CpdDescriptionPageUtil",
 				"RevisionLookup"
@@ -236,7 +237,6 @@
 				"cpd-shape-deletion-page-referenced-message",
 				"cpd-description-page-creation-message",
 				"cpd-shape-rename-message",
-				"cpd-shape-rename-with-description-page-message",
 				"cpd-shape-remove-label-message",
 				"cpd-log-no-changes",
 				"savechanges",

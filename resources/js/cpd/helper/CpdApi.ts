@@ -7,6 +7,7 @@ import Api from "types-mediawiki/mw/Api";
 import EventEmitter from "events";
 import { SaveSVGResult } from "bpmn-js/lib/BaseViewer";
 import CpdElement from "../model/CpdElement";
+import { CpdElementJson } from "./CpdElementFactory";
 
 export interface SaveDiagramResult {
 	svgFile: string;
@@ -17,6 +18,7 @@ export interface SaveDiagramResult {
 
 export interface LoadDiagramResult {
 	xml: string | null;
+	elements: CpdElementJson[];
 	descriptionPages: string[];
 	svgFile: string | null;
 	exists: boolean;
