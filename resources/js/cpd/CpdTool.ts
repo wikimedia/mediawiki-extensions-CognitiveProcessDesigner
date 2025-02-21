@@ -73,7 +73,6 @@ export abstract class CpdTool {
 		}
 
 		this.canvas = diagram.get( "canvas" ) as Canvas;
-		this.centerViewport();
 	}
 
 	protected centerViewport(): void {
