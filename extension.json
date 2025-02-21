@@ -506,7 +506,8 @@
 			"value": [
 				"bpmn:Pool",
 				"bpmn:Participant",
-				"bpmn:Lane"
+				"bpmn:Lane",
+				"bpmn:SubProcess"
 			]
 		},
 		"CPDPageTemplates": {
