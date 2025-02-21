@@ -114,6 +114,8 @@ module.exports = {
   background-repeat: no-repeat;
   background-position: center center;
   background-image: url('../../img/default-diagram.svg');
+  background-origin: content-box;
+  padding: 10px;
 }
 
 .bs-card-body {
