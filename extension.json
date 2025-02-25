@@ -53,6 +53,13 @@
 					"extensions/CognitiveProcessDesigner/data/Content/PageTemplates/manifest.json"
 				]
 			}
+		},
+		"PDFCreator": {
+			"StylesheetsProvider": {
+				"CpdStyles": {
+					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\StylesheetsProvider\\CssStyles"
+				}
+			}
 		}
 	},
 	"AvailableRights": [
