@@ -117,7 +117,7 @@
 			"services": [
 				"CpdDiagramPageUtil",
 				"CpdDescriptionPageUtil",
-				"RevisionLookup"
+				"CpdRevisionLookup"
 			]
 		},
 		"cpd-save-diagram": {
