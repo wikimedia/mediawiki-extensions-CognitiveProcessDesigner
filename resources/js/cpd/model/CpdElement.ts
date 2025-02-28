@@ -90,8 +90,7 @@ export default class CpdElement {
 	}
 
 	private createLinkFromDbKey( dbKey: string ): string {
-		const linkText = dbKey.split( '/' ).pop();
-		return `<a target="_blank" href="${ mw.util.getUrl( dbKey ) }">${ linkText }</a>`;
+		return `<a target="_blank" href="${ mw.util.getUrl( dbKey ) }">${ dbKey }</a>`;
 	}
 
 	public toJSON(): CpdElementJson {
