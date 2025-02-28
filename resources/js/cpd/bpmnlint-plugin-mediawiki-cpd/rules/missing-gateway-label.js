@@ -5,6 +5,8 @@ const {
 
 /**
  * Rule that reports gateways without labels.
+ *
+ * Attention: run npm install and commit changed bpmn-lint.config.js after changing this file.
  */
 module.exports = function () {
 

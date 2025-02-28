@@ -5,6 +5,8 @@ const {
 
 /**
  * Rule that reports labels that are not unique.
+ *
+ * Attention: run npm install and commit changed bpmn-lint.config.js after changing this file.
  */
 module.exports = function () {
 
