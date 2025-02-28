@@ -91,7 +91,7 @@ class LoadCpdDiagram extends ApiBase {
 			$result->addValue(
 				null,
 				'descriptionPages',
-				array_map( fn( Title $page ) => $page->getPrefixedDBkey(),
+				array_map( fn ( Title $page ) => $page->getPrefixedDBkey(),
 					$this->descriptionPageUtil->findDescriptionPages( $process ) )
 			);
 

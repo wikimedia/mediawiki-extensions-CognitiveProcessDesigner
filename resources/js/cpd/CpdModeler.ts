@@ -163,7 +163,7 @@ class CpdModeler extends CpdTool {
 
 		result.descriptionPages.forEach( ( descriptionPage: string ): void => {
 			const title = mw.Title.newFromText( descriptionPage );
-			const linkText = title.getFileNameTextWithoutExtension().split( '/' ).pop();
+			const linkText = title.getFileNameTextWithoutExtension();
 			const link = `<a href="${ mw.util.getUrl( title.getPrefixedText() ) }" target="_blank">${ linkText }</a>`;
 
 			const listItem = document.createElement( "li" );

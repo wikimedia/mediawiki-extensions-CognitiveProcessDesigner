@@ -23,16 +23,16 @@ class CpdNavigationConnection {
 	}
 
 	/**
+	 * Class names are derived by type by convention:
+	 * - without bpmn:
+	 * - all lowercase
+	 *
 	 * @param string $type
 	 *
 	 * @return string
 	 */
 	private function mapTypeToCls( string $type ): string {
-		return match ( $type ) {
-			'bpmn:StartEvent' => 'start',
-			'bpmn:EndEvent' => 'end',
-			default => '',
-		};
+		return str_replace( 'bpmn:', '', strtolower( $type ) );
 	}
 
 	/**

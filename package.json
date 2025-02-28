@@ -6,7 +6,7 @@
 		"test": "jest && grunt test",
 		"start": "webpack --watch",
 		"build": "webpack --mode production",
-		"postinstall": "cp node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css resources/styles/ext && cp node_modules/bpmn-js/dist/assets/bpmn-js.css resources/styles/ext && cp node_modules/bpmn-js/dist/assets/diagram-js.css resources/styles/ext && cp node_modules/bpmn-js-color-picker/colors/color-picker.css resources/styles/ext && cp node_modules/bpmn-js-bpmnlint/dist/assets/css/bpmn-js-bpmnlint.css resources/styles/ext"
+		"postinstall": "cp -R resources/js/cpd/bpmnlint-plugin-hallowelt node_modules && npx bpmnlint-pack-config -c .bpmnlintrc -o bpmn-lint.config.js -t es && cp node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css resources/styles/ext && cp node_modules/bpmn-js/dist/assets/bpmn-js.css resources/styles/ext && cp node_modules/bpmn-js/dist/assets/diagram-js.css resources/styles/ext && cp node_modules/bpmn-js-color-picker/colors/color-picker.css resources/styles/ext && cp node_modules/bpmn-js-bpmnlint/dist/assets/css/bpmn-js-bpmnlint.css resources/styles/ext"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.26.4",
@@ -50,14 +50,14 @@
 		"typescript": "^5.7.3",
 		"webpack": "^5.97.1",
 		"webpack-cli": "^6.0.1",
-		"webpack-dev-server": "^5.2.0"
+		"webpack-dev-server": "^5.2.0",
+		"bpmnlint-pack-config": "^0.8.0"
 	},
 	"dependencies": {
 		"bpmn-js": "^18.2.0",
 		"bpmn-js-bpmnlint": "^0.22.3",
 		"bpmn-js-color-picker": "^0.7.1",
 		"bpmn-js-i18n": "^2.2.0",
-		"bpmnlint": "^11.0.0",
-		"bpmnlint-pack-config": "^0.8.0"
+		"bpmnlint": "^11.0.0"
 	}
 }

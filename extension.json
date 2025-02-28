@@ -53,6 +53,13 @@
 					"extensions/CognitiveProcessDesigner/data/Content/PageTemplates/manifest.json"
 				]
 			}
+		},
+		"PDFCreator": {
+			"StylesheetsProvider": {
+				"CpdStyles": {
+					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\StylesheetsProvider\\CssStyles"
+				}
+			}
 		}
 	},
 	"AvailableRights": [
@@ -504,7 +511,8 @@
 			"value": [
 				"bpmn:Pool",
 				"bpmn:Participant",
-				"bpmn:Lane"
+				"bpmn:Lane",
+				"bpmn:SubProcess"
 			]
 		},
 		"CPDPageTemplates": {

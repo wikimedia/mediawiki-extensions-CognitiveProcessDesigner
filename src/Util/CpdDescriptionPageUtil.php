@@ -126,10 +126,12 @@ class CpdDescriptionPageUtil {
 		}
 
 		$orphanedPages = [];
-		$existingPages = array_map( fn( Title $title ) => $title->getPrefixedDBkey(),
+		$existingPages = array_map( fn ( Title $title ) => $title->getPrefixedDBkey(),
 			$this->findDescriptionPages( $process ) );
-		$pagesFromElements = array_map( fn( CpdElement $element ) => $element->getDescriptionPage()->getPrefixedDBkey(),
-			$elements );
+		$pagesFromElements = array_map(
+			fn ( CpdElement $element ) => $element->getDescriptionPage()->getPrefixedDBkey(),
+			$elements
+		);
 
 		foreach ( $existingPages as $descriptionPage ) {
 			if ( !in_array( $descriptionPage, $pagesFromElements, true ) ) {
@@ -143,7 +145,7 @@ class CpdDescriptionPageUtil {
 
 		$dbw->insert(
 			'cpd_orphaned_description_pages',
-			array_map( fn( string $page ) => [
+			array_map( fn ( string $page ) => [
 				'process' => $process,
 				'process_rev' => $revision,
 				'page_title' => $page
@@ -163,7 +165,7 @@ class CpdDescriptionPageUtil {
 	 *
 	 * @return void
 	 */
-	public function cleanUpOrphanedDescriptionPages( string $process, int $revision = null ): void {
+	public function cleanUpOrphanedDescriptionPages( string $process, ?int $revision = null ): void {
 		$dbw = $this->loadBalancer->getConnectionRef( DB_PRIMARY );
 
 		$conds = [ 'process' => $process ];

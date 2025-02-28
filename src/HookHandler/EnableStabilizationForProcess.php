@@ -27,7 +27,13 @@ class EnableStabilizationForProcess implements ContentStabilizationIsStabilizati
 		}
 
 		if ( $namespace === NS_PROCESS ) {
-			$result = true;
+
+			/**
+			 * ERM41034
+			 * Disable stabilization for Process namespace temporarily.
+			 */
+			$result = false;
+			// $result = true;
 		}
 	}
 }

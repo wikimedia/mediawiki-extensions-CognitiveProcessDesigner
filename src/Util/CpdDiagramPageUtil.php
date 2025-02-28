@@ -200,7 +200,7 @@ class CpdDiagramPageUtil {
 	 *
 	 * @return File|null
 	 */
-	public function getSvgFile( string $process, RevisionRecord $revision = null ): ?File {
+	public function getSvgFile( string $process, ?RevisionRecord $revision = null ): ?File {
 		$svgFilePage = $this->getSvgFilePage( $process );
 
 		if ( !$svgFilePage->exists() ) {
