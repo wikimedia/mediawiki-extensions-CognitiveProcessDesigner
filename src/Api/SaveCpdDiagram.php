@@ -3,8 +3,6 @@
 namespace CognitiveProcessDesigner\Api;
 
 use CognitiveProcessDesigner\CpdElementFactory;
-use CognitiveProcessDesigner\Exceptions\CpdSaveException;
-use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use CognitiveProcessDesigner\Process\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
@@ -15,7 +13,6 @@ use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
 use MWContentSerializationException;
 use MWUnknownContentModelException;
-use RuntimeException;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveCpdDiagram extends ApiBase {

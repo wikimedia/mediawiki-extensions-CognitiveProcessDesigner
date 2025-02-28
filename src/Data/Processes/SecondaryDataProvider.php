@@ -11,7 +11,8 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 	/**
 	 * @param CpdDiagramPageUtil $util
 	 */
-	public function __construct( private readonly CpdDiagramPageUtil $util ) {}
+	public function __construct( private readonly CpdDiagramPageUtil $util ) {
+	}
 
 	/**
 	 * @param IRecord &$dataSet
