@@ -14,6 +14,7 @@ import lintModule from 'bpmn-js-bpmnlint';
 import EventBus from "diagram-js/lib/core/EventBus";
 import { MessageType } from "./oojs-ui/SaveDialog";
 import CpdTranslator from "./helper/CpdTranslator";
+import CustomPaletteProvider from "./CustomPaletteProvider";
 
 class CpdModeler extends CpdTool {
 	private readonly bpmnModeler: BpmnModeler;
@@ -36,7 +37,11 @@ class CpdModeler extends CpdTool {
 				lintModule,
 				{
 					translate: [ 'value', translator.translate.bind( translator ) ]
-				}
+				},
+				{
+					__init__: ["paletteProvider"],
+					paletteProvider: ["type", CustomPaletteProvider]
+				},
 			]
 		} );
 
