@@ -318,7 +318,7 @@
 			"messages": [
 				"bs-cpd-process-overview-loading-text",
 				"bs-cpd-process-search-placeholder",
-				"bs-cpd-process-overview-no-results",
+				"bs-cpd-process-overview-no-results-text",
 				"bs-cpd-process-overview-aria-live-filtered-rows",
 				"bs-cpd-process-overview-edit-action-text",
 				"bs-cpd-process-overview-edit-action-title",

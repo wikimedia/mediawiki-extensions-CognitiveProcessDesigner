@@ -13,7 +13,7 @@
 	"bs-config-mainlinks-cpd-help": "Help message for checkbox in config, that shows entrypoint \"Cognitive Process Designer\" in the left navigation (right in RTL).",
 	"bs-cpd-process-overview-loading-text": "Loading indicator text for special page [[Special:ProcessOverview]]",
 	"bs-cpd-process-search-placeholder": "Placehoder for searchbox on [[Special:ProcessOverview]]",
-	"bs-cpd-process-overview-no-results": "Note for the user that no processes are available",
+	"bs-cpd-process-overview-no-results-text": "Note for the user that no processes are available",
 	"bs-cpd-process-overview-aria-live-filtered-rows": "Aria live counter for filtered processes",
 	"bs-cpd-process-overview-edit-action-text": "Title attribute of link opening the edit url to edit the process",
 	"bs-cpd-process-overview-edit-action-title": "Aria label attribute of link opening the edit url to edit the process\nParameters: * $1: Name of process",

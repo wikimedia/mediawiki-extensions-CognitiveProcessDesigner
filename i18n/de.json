@@ -111,5 +111,6 @@
 	"cpd-dialog-save-label-done": "Fertig",
 	"cpd-api-save-diagram-update-comment": "Diagramm aktualisiert",
 	"cpd-config-canvas-process-height-msg": "Höhe der Diagrammfläche auf der Prozessseite und im Bearbeitungsmodus festlegen",
-	"cpd-config-canvas-embedded-height-msg": "Höhe der Diagrammfläche festlegen, während sie in andere Seiten eingebettet ist"
+	"cpd-config-canvas-embedded-height-msg": "Höhe der Diagrammfläche festlegen, während sie in andere Seiten eingebettet ist",
+	"bs-cpd-process-overview-no-results-text": "Derzeit gibt es keine Prozesse. Lege jetzt den ersten an!"
 }
