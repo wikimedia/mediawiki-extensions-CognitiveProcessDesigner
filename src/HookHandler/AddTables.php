@@ -13,6 +13,7 @@ class AddTables implements LoadExtensionSchemaUpdatesHook {
 		$db = $updater->getDB();
 		$dbType = $db->getType();
 		$dir = dirname( __DIR__, 2 ) . '/sql';
-		$updater->addExtensionTable( 'cpd', "$dir/$dbType/tables-generated.sql" );
+		$updater->addExtensionTable( 'cpd_element_connections', "$dir/$dbType/tables-generated.sql" );
+		$updater->addExtensionTable( 'cpd_orphaned_description_pages', "$dir/$dbType/tables-generated.sql" );
 	}
 }

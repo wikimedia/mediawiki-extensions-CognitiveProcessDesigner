@@ -75,10 +75,14 @@ export abstract class CpdTool {
 		}
 
 		this.canvas = diagram.get( "canvas" ) as Canvas;
+		this.centerViewport();
 	}
 
 	protected centerViewport(): void {
-		this.canvas.zoom( "fit-viewport" );
+		this.canvas.zoom( "fit-viewport", {
+			x: 0,
+			y: 0
+		} );
 	}
 
 	protected throwError( message: string ): void {

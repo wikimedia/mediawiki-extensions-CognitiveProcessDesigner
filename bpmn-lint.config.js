@@ -2512,12 +2512,10 @@ var nonUniqueLabels = function () {
 
 	function check( node, reporter ) {
 		if ( !isAny( node, ['bpmn:Process', 'bpmn:SubProcess'] ) ) {
-			console.log( node );
 			return;
 		}
 
 		const allElements = node.flowElements || [];
-		console.log( allElements );
 		const labels = allElements.filter( element => element.name );
 		const uniqueLabels = new Set();
 		const duplicateLabels = [];
@@ -2533,7 +2531,7 @@ var nonUniqueLabels = function () {
 		} );
 	}
 
-	return {check};
+	return { check };
 };
 
 const {

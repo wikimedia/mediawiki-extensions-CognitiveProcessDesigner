@@ -96,5 +96,21 @@
 	"cpd-description-navigation-incoming-label": "Eingehende Verbindungen",
 	"cpd-description-navigation-outgoing-label": "Ausgehende Verbindungen",
 	"cpd-button-show-diagram": "Diagramm anzeigen",
-	"cpd-dialog-save-changes-button-label": "Speichern"
+	"cpd-dialog-save-changes-button-label": "Speichern",
+	"cpd-api-move-equal-description-pages-error-message": "Alte und neue Seiten sind gleich",
+	"cpd-error-message-missing-description-page": "Fehlende Beschreibungsseite für $1",
+	"cpd-error-message-publish-svg-file": "SVG-Datei konnte nicht veröffentlicht werden: $1",
+	"cpd-error-message-missing-svg-file": "Diagramm-SVG-Datei $1 existiert nicht",
+	"cpd-droplet-width-field-label-help": "Feste Breite für Diagramm festlegen. Leer lassen für automatische Breite",
+	"cpd-droplet-width-field-label": "Breite",
+	"cpd-droplet-height-field-label-help": "Feste Höhe für Diagramm festlegen",
+	"cpd-droplet-height-field-label": "Höhe",
+	"cpd-droplet-show-toolbar-field-label-help": "Werkzeugleiste aktivieren oder deaktivieren",
+	"cpd-droplet-show-toolbar-field-label": "Werkzeugleiste anzeigen",
+	"cpd-dialog-save-changes-button-title": "Änderungen speichern",
+	"cpd-dialog-save-label-done": "Fertig",
+	"cpd-api-save-diagram-update-comment": "Diagramm aktualisiert",
+	"cpd-config-canvas-process-height-msg": "Höhe der Diagrammfläche auf der Prozessseite und im Bearbeitungsmodus festlegen",
+	"cpd-config-canvas-embedded-height-msg": "Höhe der Diagrammfläche festlegen, während sie in andere Seiten eingebettet ist",
+	"bs-cpd-process-overview-no-results-text": "Derzeit gibt es keine Prozesse. Lege jetzt den ersten an!"
 }

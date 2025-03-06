@@ -14,6 +14,7 @@ import lintModule from 'bpmn-js-bpmnlint';
 import EventBus from "diagram-js/lib/core/EventBus";
 import { MessageType } from "./oojs-ui/SaveDialog";
 import CpdTranslator from "./helper/CpdTranslator";
+import CustomPaletteProvider from "./CustomPaletteProvider";
 
 class CpdModeler extends CpdTool {
 	private readonly bpmnModeler: BpmnModeler;
@@ -36,7 +37,11 @@ class CpdModeler extends CpdTool {
 				lintModule,
 				{
 					translate: [ 'value', translator.translate.bind( translator ) ]
-				}
+				},
+				{
+					__init__: ["paletteProvider"],
+					paletteProvider: ["type", CustomPaletteProvider]
+				},
 			]
 		} );
 
@@ -162,12 +167,8 @@ class CpdModeler extends CpdTool {
 		messageDiv.appendChild( list );
 
 		result.descriptionPages.forEach( ( descriptionPage: string ): void => {
-			const title = mw.Title.newFromText( descriptionPage );
-			const linkText = title.getFileNameTextWithoutExtension();
-			const link = `<a href="${ mw.util.getUrl( title.getPrefixedText() ) }" target="_blank">${ linkText }</a>`;
-
 			const listItem = document.createElement( "li" );
-			listItem.innerHTML = link;
+			listItem.innerHTML = this.changeLogger.createLinkFromDbKey( descriptionPage );
 			list.appendChild( listItem );
 		} );
 

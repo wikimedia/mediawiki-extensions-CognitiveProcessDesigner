@@ -7,6 +7,7 @@ use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CognitiveProcessDesigner\HookHandler\ModifyDescriptionPage;
+use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use Content;
 use DOMDocument;
 use File;
@@ -15,14 +16,12 @@ use MediaWiki\Config\Config;
 use MediaWiki\Content\ContentHandler;
 use MediaWiki\Content\JsonContent;
 use MediaWiki\Content\TextContent;
-use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Parser\ParserOutput;
-use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
@@ -44,8 +43,7 @@ class CpdDiagramPageUtil {
 	 * @param Config $config
 	 * @param ILoadBalancer $loadBalancer
 	 * @param LinkRenderer $linkRenderer
-	 * @param RevisionLookup $revisionLookup
-	 * @param StabilizationLookup $stabilizationLookup
+	 * @param IRevisionLookup $lookup
 	 */
 	public function __construct(
 		private readonly TitleFactory $titleFactory,
@@ -54,8 +52,7 @@ class CpdDiagramPageUtil {
 		private readonly Config $config,
 		private readonly ILoadBalancer $loadBalancer,
 		private readonly LinkRenderer $linkRenderer,
-		private readonly RevisionLookup $revisionLookup,
-		private readonly StabilizationLookup $stabilizationLookup
+		private readonly IRevisionLookup $lookup
 	) {
 	}
 
@@ -95,7 +92,7 @@ class CpdDiagramPageUtil {
 	public function getStableRevision( string $process ): ?RevisionRecord {
 		$diagramPage = $this->getDiagramPage( $process );
 
-		return $this->stabilizationLookup->getLastStablePoint( $diagramPage )?->getRevision();
+		return $this->lookup->getLastStableRevision( $diagramPage );
 	}
 
 	/**
@@ -161,7 +158,7 @@ class CpdDiagramPageUtil {
 		);
 		$updater->setContent( SlotRecord::MAIN, $content );
 		$svgFilePage = $this->getSvgFilePage( $process );
-		$svgFileRevision = $this->revisionLookup->getRevisionByTitle( $svgFilePage );
+		$svgFileRevision = $this->lookup->getRevisionByTitle( $svgFilePage );
 		$metaContent = new JsonContent( '{}' );
 		if ( $svgFileRevision ) {
 			if ( $diagramPage->exists() ) {
@@ -346,7 +343,7 @@ class CpdDiagramPageUtil {
 	 * @return array
 	 */
 	private function getMetaForPage( WikiPage $page, ?RevisionRecord $forRevision ): array {
-		$forRevision = $forRevision ?? $this->revisionLookup->getRevisionByTitle( $page->getTitle() );
+		$forRevision = $forRevision ?? $this->lookup->getRevisionByTitle( $page->getTitle() );
 		if ( !$forRevision ) {
 			return [];
 		}

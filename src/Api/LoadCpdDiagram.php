@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\Api;
 
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
+use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
@@ -11,7 +12,6 @@ use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Message\Message;
-use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -23,7 +23,7 @@ class LoadCpdDiagram extends ApiBase {
 	 * @param CpdXmlProcessor $xmlProcessor
 	 * @param CpdDiagramPageUtil $diagramPageUtil
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
-	 * @param RevisionLookup $revisionLookup
+	 * @param IRevisionLookup $lookup
 	 */
 	public function __construct(
 		ApiMain $main,
@@ -31,7 +31,7 @@ class LoadCpdDiagram extends ApiBase {
 		private readonly CpdXmlProcessor $xmlProcessor,
 		private readonly CpdDiagramPageUtil $diagramPageUtil,
 		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
-		private readonly RevisionLookup $revisionLookup
+		private readonly IRevisionLookup $lookup
 	) {
 		parent::__construct( $main, $action );
 	}
@@ -51,7 +51,7 @@ class LoadCpdDiagram extends ApiBase {
 
 		try {
 			if ( $revisionId ) {
-				$revision = $this->revisionLookup->getRevisionById( $revisionId );
+				$revision = $this->lookup->getRevisionById( $revisionId );
 				$content = $revision->getContent( 'main' );
 
 				if ( !$content ) {
@@ -91,7 +91,7 @@ class LoadCpdDiagram extends ApiBase {
 			$result->addValue(
 				null,
 				'descriptionPages',
-				array_map( fn ( Title $page ) => $page->getPrefixedDBkey(),
+				array_map( fn( Title $page ) => $page->getPrefixedDBkey(),
 					$this->descriptionPageUtil->findDescriptionPages( $process ) )
 			);
 

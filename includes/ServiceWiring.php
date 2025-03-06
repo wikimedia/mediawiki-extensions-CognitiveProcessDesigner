@@ -2,6 +2,7 @@
 
 use CognitiveProcessDesigner\CpdElementFactory;
 use CognitiveProcessDesigner\Process\SvgFile;
+use CognitiveProcessDesigner\RevisionLookup\CpdRevisionLookup;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
@@ -18,8 +19,7 @@ return [
 			$services->getMainConfig(),
 			$services->getDBLoadBalancer(),
 			$services->getLinkRenderer(),
-			$services->getRevisionLookup(),
-			$services->getService( 'ContentStabilization.Lookup' )
+			$services->getService( 'CpdRevisionLookup' )
 		);
 	},
 	'CpdDescriptionPageUtil' => static function ( MediaWikiServices $services ) {
@@ -29,7 +29,7 @@ return [
 			$services->getWikiPageFactory(),
 			$services->getMainConfig(),
 			$services->getService( 'CpdElementConnectionUtil' ),
-			$services->getService( 'ContentStabilization.Lookup' )
+			$services->getService( 'CpdRevisionLookup' )
 		);
 	},
 	'CpdSaveDescriptionPagesUtil' => static function ( MediaWikiServices $services ) {
@@ -59,4 +59,7 @@ return [
 			$services->getMainConfig()
 		);
 	},
+	'CpdRevisionLookup' => static function ( MediaWikiServices $services ) {
+		return new CpdRevisionLookup( $services );
+	}
 ];

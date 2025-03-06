@@ -56,16 +56,4 @@ export default class CpdElement {
 	set parent( parent: CpdElement | null ) {
 		this.bpmnElement.parent = parent?.bpmnElement;
 	}
-
-	public getDescriptionPageUrl(): string | null {
-		if ( !this.descriptionPage?.dbKey ) {
-			return null;
-		}
-
-		return this.createLinkFromDbKey( this.descriptionPage.dbKey );
-	}
-
-	private createLinkFromDbKey( dbKey: string ): string {
-		return `<a target="_blank" href="${ mw.util.getUrl( dbKey ) }">${ dbKey }</a>`;
-	}
 }

@@ -4,7 +4,7 @@ namespace CognitiveProcessDesigner\Content;
 
 use CognitiveProcessDesigner\Action\EditDiagramAction;
 use CognitiveProcessDesigner\Action\EditDiagramXmlAction;
-use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
+use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
@@ -12,7 +12,6 @@ use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\TextContentHandler;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Revision\RevisionLookup;
 use ParserOutput;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -24,8 +23,8 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	/** @var Config */
 	private Config $config;
 
-	/** @var RevisionLookup */
-	private RevisionLookup $revisionLookup;
+	/** @var IRevisionLookup */
+	private IRevisionLookup $lookup;
 
 	/**
 	 * @param string $modelId
@@ -38,7 +37,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 
 		$services = MediaWikiServices::getInstance();
 		$this->diagramPageUtil = $services->getService( 'CpdDiagramPageUtil' );
-		$this->revisionLookup = $services->getRevisionLookup();
+		$this->lookup = $services->getService( 'CpdRevisionLookup' );
 		$this->config = $services->getService( 'MainConfig' );
 	}
 
@@ -63,8 +62,6 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	 * @param Content $content
 	 * @param ContentParseParams $cpoParams
 	 * @param ParserOutput &$output
-	 *
-	 * @throws CpdInvalidContentException
 	 */
 	protected function fillParserOutput(
 		Content $content,
@@ -92,13 +89,17 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		);
 
 		// Embed svg image in the viewer hidden
-		$revision = $this->revisionLookup->getRevisionById( $revisionId );
-		$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
-		$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
+		$imageDbKey = null;
+		if ( $revisionId ) {
+			$revision = $this->lookup->getRevisionById( $revisionId );
+			$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
+			$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
+		}
 
 		$output->setRawText(
 			$templateParser->processTemplate(
-				'CpdContainer', [
+				'CpdContainer',
+				[
 					'process' => $process,
 					'revision' => $revisionId,
 					'showToolbar' => true,

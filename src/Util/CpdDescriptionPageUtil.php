@@ -5,9 +5,9 @@ namespace CognitiveProcessDesigner\Util;
 use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
 use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
+use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
-use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
@@ -21,7 +21,7 @@ class CpdDescriptionPageUtil {
 	 * @param WikiPageFactory $wikiPageFactory
 	 * @param Config $config
 	 * @param CpdElementConnectionUtil $connectionUtil
-	 * @param StabilizationLookup $lookup
+	 * @param IRevisionLookup $lookup
 	 */
 	public function __construct(
 		private readonly PageStore $pageStore,
@@ -29,7 +29,7 @@ class CpdDescriptionPageUtil {
 		private readonly WikiPageFactory $wikiPageFactory,
 		private readonly Config $config,
 		private readonly CpdElementConnectionUtil $connectionUtil,
-		private readonly StabilizationLookup $lookup
+		private readonly IRevisionLookup $lookup
 	) {
 	}
 
@@ -126,10 +126,10 @@ class CpdDescriptionPageUtil {
 		}
 
 		$orphanedPages = [];
-		$existingPages = array_map( fn ( Title $title ) => $title->getPrefixedDBkey(),
+		$existingPages = array_map( fn( Title $title ) => $title->getPrefixedDBkey(),
 			$this->findDescriptionPages( $process ) );
 		$pagesFromElements = array_map(
-			fn ( CpdElement $element ) => $element->getDescriptionPage()->getPrefixedDBkey(),
+			fn( CpdElement $element ) => $element->getDescriptionPage()->getPrefixedDBkey(),
 			$elements
 		);
 
@@ -145,7 +145,7 @@ class CpdDescriptionPageUtil {
 
 		$dbw->insert(
 			'cpd_orphaned_description_pages',
-			array_map( fn ( string $page ) => [
+			array_map( fn( string $page ) => [
 				'process' => $process,
 				'process_rev' => $revision,
 				'page_title' => $page
