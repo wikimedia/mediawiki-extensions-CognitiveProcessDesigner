@@ -2,7 +2,7 @@
 -- Source: extensions/CognitiveProcessDesigner/sql/tables.json
 -- Do not modify this file directly.
 -- See https://www.mediawiki.org/wiki/Manual:Schema_changes
-CREATE TABLE IF NOT EXISTS cpd_element_connections (
+CREATE TABLE cpd_element_connections (
   from_page VARCHAR(255) NOT NULL,
   to_page VARCHAR(255) NOT NULL,
   process VARCHAR(255) NOT NULL,
@@ -11,10 +11,10 @@ CREATE TABLE IF NOT EXISTS cpd_element_connections (
 );
 
 
-CREATE TABLE IF NOT EXISTS cpd_orphaned_description_pages (
+CREATE TABLE cpd_orphaned_description_pages (
   page_title VARCHAR(255) NOT NULL,
   process VARCHAR(255) NOT NULL,
-  process_rev VARCHAR(255) NOT NULL
+  process_rev INT NOT NULL
 );
 
 CREATE UNIQUE INDEX page_title ON cpd_orphaned_description_pages (page_title);
