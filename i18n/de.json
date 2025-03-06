@@ -89,7 +89,7 @@
 	"bs-cpd-info-dialog": "Prozessnutzung",
 	"bs-cpd-process-overview-info-action-text": "Seiteninformationen",
 	"bs-cpd-process-overview-info-action-title": "Seiteninformationen für Prozess $1",
-	"bs-cpd-actionmenuentry-new-process": "Neues Verfahren",
+	"bs-cpd-actionmenuentry-new-process": "Neuer Prozess",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Prozessname",
 	"cpd-api-save-description-page-comment": "Beschreibungsseite gespeichert",
 	"cpd-api-move-description-page-comment": "Beschreibungsseite gespeichert",
