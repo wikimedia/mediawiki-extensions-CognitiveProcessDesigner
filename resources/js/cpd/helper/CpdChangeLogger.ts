@@ -76,17 +76,36 @@ export default class CpdChangeLogger extends EventEmitter {
 	}
 
 	public addDescriptionPageChange( element: CpdElement ) {
+		if ( !element.descriptionPage ) {
+			return;
+		}
+
 		if ( element.descriptionPage?.oldDbKey ) {
 			this.appendMessage( this.renames, element, mw.message(
 				"cpd-shape-rename-with-description-page-message",
-				element.getOldDescriptionPageUrl(),
-				element.getDescriptionPageUrl()
+				this.createLinkFromDbKey( element.descriptionPage?.oldDbKey ),
+				this.createLinkFromDbKey( element.descriptionPage?.dbKey ),
 			).plain(), true );
 
 			return;
 		}
 
-		this.appendMessage( this.renames, element, mw.message( "cpd-description-page-creation-message", element.getDescriptionPageUrl() ).plain(), true );
+		this.appendMessage( this.renames, element, mw.message( "cpd-description-page-creation-message", this.createLinkFromDbKey( element.descriptionPage?.dbKey ) ).plain(), true );
+	}
+
+	public createLinkFromDbKey( dbKey: string | null ): string | null {
+		if ( !dbKey ) {
+			return null;
+		}
+
+		const splitted = dbKey.split( "/" );
+
+		if ( !splitted.shift().includes( ":" ) ) {
+			return null;
+		}
+
+		const linkText = splitted.join( "/" ).replace( /_/g, " " );
+		return `<a target="_blank" href="${ mw.util.getUrl( dbKey ) }">${ linkText }</a>`;
 	}
 
 	private onElementChanged( type: string, event: Event ): void {
@@ -150,7 +169,7 @@ export default class CpdChangeLogger extends EventEmitter {
 
 		this.appendMessage( this.deletions, element, mw.message( "cpd-shape-deletion-message", this.svgRenderer.getSVGFromElement( element ) ).plain() );
 		if ( element.descriptionPage?.exists ) {
-			this.appendMessage( this.deletions, element, mw.message( "cpd-shape-deletion-page-referenced-message", element.getDescriptionPageUrl() ).plain(), true );
+			this.appendMessage( this.deletions, element, mw.message( "cpd-shape-deletion-page-referenced-message", this.createLinkFromDbKey( element.descriptionPage?.dbKey ) ).plain(), true );
 		}
 	}
 

@@ -73,26 +73,6 @@ export default class CpdElement {
 		this.bpmnElement.parent = parent?.bpmnElement;
 	}
 
-	public getDescriptionPageUrl(): string | null {
-		if ( !this.descriptionPage?.dbKey ) {
-			return null;
-		}
-
-		return this.createLinkFromDbKey( this.descriptionPage.dbKey );
-	}
-
-	public getOldDescriptionPageUrl(): string | null {
-		if ( !this.descriptionPage?.oldDbKey ) {
-			return null;
-		}
-
-		return this.createLinkFromDbKey( this.descriptionPage.oldDbKey );
-	}
-
-	private createLinkFromDbKey( dbKey: string ): string {
-		return `<a target="_blank" href="${ mw.util.getUrl( dbKey ) }">${ dbKey }</a>`;
-	}
-
 	public toJSON(): CpdElementJson {
 		return {
 			id: this.id,

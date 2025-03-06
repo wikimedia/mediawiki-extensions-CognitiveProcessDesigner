@@ -190,12 +190,8 @@ class CpdModeler extends CpdTool {
 				this.throwError( mw.message( "cpd-error-message-mismatched-element-link", descriptionPage.elementId ).text() );
 			}
 
-			const title = mw.Title.newFromText( descriptionPage.page );
-			const linkText = title.getFileNameTextWithoutExtension();
-			const link = `<a href="${ mw.util.getUrl( title.getPrefixedText() ) }" target="_blank">${ linkText }</a>`;
-
 			const listItem = document.createElement( "li" );
-			listItem.innerHTML = link;
+			listItem.innerHTML = this.changeLogger.createLinkFromDbKey( descriptionPage.page );
 			list.appendChild( listItem );
 		} );
 
