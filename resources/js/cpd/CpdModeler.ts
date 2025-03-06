@@ -90,7 +90,6 @@ class CpdModeler extends CpdTool {
 	public async createDiagram(): Promise<void> {
 		this.bpmnModeler.attachTo( this.dom.getCanvas() );
 		await this.bpmnModeler.createDiagram();
-		this.changeLogger.addCreation( this.elementFactory.findInitialElement() );
 	}
 
 	public async getUpdatedXml(): Promise<string> {

@@ -68,16 +68,6 @@ export class CpdElementFactory {
 			.filter( ( element: CpdElement ) => element.descriptionPage?.exists );
 	}
 
-	public findInitialElement(): CpdElement {
-		const initialElement = this.findDescriptionPageEligibleElements( [ "bpmn:StartEvent" ] );
-
-		if ( initialElement.length !== 1 ) {
-			throw new Error( mw.message( "cpd-error-message-missing-initial-element" ).text() );
-		}
-
-		return this.createCpdElement( initialElement[ 0 ] );
-	}
-
 	public getSVGElement( element: CpdElement ): SVGElement {
 		return this.elementRegistry.getGraphics( element.bpmnElement );
 	}

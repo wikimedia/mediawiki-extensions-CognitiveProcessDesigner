@@ -35,7 +35,6 @@
 	"cpd-error-message-missing-label": "Label for '$1' not found",
 	"cpd-error-message-saving-diagram": "Error saving diagram: $1",
 	"cpd-error-message-missing-root-element": "No root or too many root elements found",
-	"cpd-error-message-missing-initial-element": "No initial element found",
 	"cpd-error-message-invalid-xml": "Invalid XML",
 	"cpd-error-message-missing-xml": "Missing XML",
 	"cpd-error-message-missing-diagram-page": "Missing diagram page",

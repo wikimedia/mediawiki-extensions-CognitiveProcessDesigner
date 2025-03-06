@@ -70,7 +70,6 @@
 	"cpd-error-message-missing-label": "Error message displayed when a required label is missing.",
 	"cpd-error-message-saving-diagram": "Error message displayed when saving a BPMN diagram fails.",
 	"cpd-error-message-missing-root-element": "Error message displayed when no root element or multiple root elements are found.",
-	"cpd-error-message-missing-initial-element": "Error message displayed when no initial element is found in the BPMN diagram.",
 	"cpd-error-message-invalid-xml": "Error message displayed when XML is invalid.",
 	"cpd-error-message-missing-xml": "Error message displayed when XML data is missing.",
 	"cpd-error-message-missing-diagram-page": "Error message displayed when a BPMN diagram page is missing.",
