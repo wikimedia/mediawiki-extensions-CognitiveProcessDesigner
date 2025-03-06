@@ -45,21 +45,18 @@ describe( "CpdElementFactory", () => {
 		expect( descriptionPageElements.find( ( element ) => element.id === "a" ) ).toMatchObject( {
 			descriptionPage: {
 				dbKey: "process/a",
-				isNew: false,
 				exists: true
 			}
 		} );
 		expect( descriptionPageElements.find( ( element ) => element.id === "b" ) ).toMatchObject( {
 			descriptionPage: {
 				dbKey: "process/b",
-				isNew: true,
 				exists: true
 			}
 		} );
 		expect( descriptionPageElements.find( ( element ) => element.id === "c" ) ).toMatchObject( {
 			descriptionPage: {
 				dbKey: "process/c",
-				isNew: false,
 				exists: false
 			}
 		} );
@@ -94,7 +91,7 @@ describe( "CpdElementFactory", () => {
 		registry.add( c, createSvgFixture() );
 		registry.add( d, createSvgFixture() );
 
-		const elements = factory.createElements();
+		const elements = factory.createDescriptionPageEligibleElements();
 		expect( elements ).toHaveLength( 2 );
 		elements.forEach( ( cpdElement: CpdElement ) => {
 			if ( cpdElement.id === 'a' ) {
