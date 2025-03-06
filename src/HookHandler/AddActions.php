@@ -14,7 +14,7 @@ class AddActions implements SkinTemplateNavigation__UniversalHook {
 	 */
 	public function onSkinTemplateNavigation__Universal( $sktemplate, &$links ): void {
 		$title = $sktemplate->getTitle();
-		if ( $title->exists() && $title->getContentModel() === CognitiveProcessDesignerContent::MODEL ) {
+		if ( $title->getContentModel() === CognitiveProcessDesignerContent::MODEL ) {
 			$this->addEditDiagramXmlAction( $sktemplate, $links );
 		}
 	}
