@@ -50,7 +50,6 @@
 	"cpd-shape-deletion-message": "$1 gelöscht",
 	"cpd-shape-deletion-page-referenced-message": "Seite wird referenziert: $1",
 	"cpd-shape-creation-message": "$1 erstellt",
-	"cpd-description-page-creation-message": "Seite wird erstellt: $1",
 	"cpd-shape-rename-with-description-page-message": "Die Seite wird von $1 nach $2 verschoben.",
 	"cpd-shape-rename-message": "$1 wurde in $2 umbenannt",
 	"cpd-shape-remove-label-message": "$1 Label entfernt",

@@ -3,10 +3,11 @@
 namespace CognitiveProcessDesigner;
 
 use Exception;
+use JsonSerializable;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
 
-class CpdElement {
+class CpdElement implements JsonSerializable {
 
 	/**
 	 * @param string $id
@@ -133,5 +134,19 @@ class CpdElement {
 		if ( empty( $label ) ) {
 			throw new Exception( Message::newFromKey( 'cpd-validation-missing-label', $type, $id ) );
 		}
+	}
+
+	public function jsonSerialize(): array {
+		$element = [
+			'id' => $this->id,
+			'type' => $this->type,
+			'label' => $this->label,
+		];
+
+		if ( $this->descriptionPage && $this->descriptionPage->exists() ) {
+			$element['descriptionPage'] = $this->descriptionPage->getPrefixedDBkey();
+		}
+
+		return $element;
 	}
 }

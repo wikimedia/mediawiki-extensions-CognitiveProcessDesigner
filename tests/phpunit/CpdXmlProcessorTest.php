@@ -57,7 +57,7 @@ class CpdXmlProcessorTest extends TestCase {
 		$xml = file_get_contents( $fixturePath . '/diagram.xml' );
 		$oldXml = file_get_contents( $fixturePath . '/oldDiagram.xml' );
 		$resultElements = json_decode( file_get_contents( $fixturePath . '/elementsData.json' ), true );
-		$elements = $this->xmlProcessor->makeElementsData( 'BackendElements', $xml, $oldXml );
+		$elements = $this->xmlProcessor->createElements( 'BackendElements', $xml, $oldXml );
 		$this->assertEquals( $resultElements, $elements );
 	}
 

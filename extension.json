@@ -117,7 +117,6 @@
 			"services": [
 				"CpdXmlProcessor",
 				"CpdDiagramPageUtil",
-				"CpdDescriptionPageUtil",
 				"CpdRevisionLookup"
 			]
 		},
@@ -128,7 +127,6 @@
 				"CpdDiagramPageUtil",
 				"CpdSaveDescriptionPagesUtil",
 				"CpdDescriptionPageUtil",
-				"CpdElementFactory",
 				"SvgFile"
 			]
 		},
@@ -241,8 +239,6 @@
 				"cpd-button-hide-xml",
 				"cpd-shape-creation-message",
 				"cpd-shape-deletion-message",
-				"cpd-shape-deletion-page-referenced-message",
-				"cpd-description-page-creation-message",
 				"cpd-shape-rename-message",
 				"cpd-shape-remove-label-message",
 				"cpd-log-no-changes",

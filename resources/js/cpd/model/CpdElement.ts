@@ -1,18 +1,10 @@
 import { Element } from "bpmn-js/lib/model/Types";
 
-interface ElementDescriptionPage {
-	exists: boolean;
-	dbKey: string;
-}
-
 export default class CpdElement {
 	public readonly bpmnElement: Element;
 
-	public descriptionPage: ElementDescriptionPage | null = null;
-
 	private constructor( bpmnElement: Element ) {
 		this.bpmnElement = bpmnElement;
-		this.descriptionPage = null;
 	}
 
 	public static init( bpmnElement: Element ): CpdElement {

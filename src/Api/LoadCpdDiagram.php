@@ -4,15 +4,14 @@ namespace CognitiveProcessDesigner\Api;
 
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
-use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
+use Exception;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Message\Message;
-use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class LoadCpdDiagram extends ApiBase {
@@ -22,7 +21,6 @@ class LoadCpdDiagram extends ApiBase {
 	 * @param string $action
 	 * @param CpdXmlProcessor $xmlProcessor
 	 * @param CpdDiagramPageUtil $diagramPageUtil
-	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 * @param IRevisionLookup $lookup
 	 */
 	public function __construct(
@@ -30,7 +28,6 @@ class LoadCpdDiagram extends ApiBase {
 		string $action,
 		private readonly CpdXmlProcessor $xmlProcessor,
 		private readonly CpdDiagramPageUtil $diagramPageUtil,
-		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
 		private readonly IRevisionLookup $lookup
 	) {
 		parent::__construct( $main, $action );
@@ -39,7 +36,7 @@ class LoadCpdDiagram extends ApiBase {
 	/**
 	 * @inheritDoc
 	 * @throws ApiUsageException
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function execute() {
 		$result = $this->getResult();
@@ -67,40 +64,28 @@ class LoadCpdDiagram extends ApiBase {
 				$content = $diagramPage->getContent();
 			}
 
+			$this->diagramPageUtil->validateContent( $content );
+
+			$xml = ( $content instanceof TextContent ) ? $content->getText() : '';
+			$cpdElements = $this->xmlProcessor->createElements( $process, $xml );
+
 			$svgFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
 			if ( !$svgFile ) {
 				$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
 				$warnings[] = Message::newFromKey( 'cpd-error-message-missing-svg-file', $svgFilePage->getText() );
-				$result->addValue( null, 'svgFile', null );
-			} else {
-				$result->addValue( null, 'svgFile', $svgFile->getUrl() );
 			}
 
-			$this->diagramPageUtil->validateContent( $content );
-			$xml = ( $content instanceof TextContent ) ? $content->getText() : '';
-
-			$elements = $this->xmlProcessor->makeElementsData( $process, $xml );
-
-			$result->addValue( null, 'exists', 1 );
 			$result->addValue( null, 'xml', $xml );
 			$result->addValue(
 				null,
 				'elements',
-				$elements
+				array_map( fn( $element ) => json_encode( $element ), $cpdElements )
 			);
-			$result->addValue(
-				null,
-				'descriptionPages',
-				array_map( fn( Title $page ) => $page->getPrefixedDBkey(),
-					$this->descriptionPageUtil->findDescriptionPages( $process ) )
-			);
-
+			$result->addValue( null, 'svgFile', $svgFile?->getUrl() );
 			$result->addValue( null, 'loadWarnings', $warnings );
 		} catch ( CpdInvalidContentException $e ) {
-			$result->addValue( null, 'exists', 0 );
 			$result->addValue( null, 'xml', null );
 			$result->addValue( null, 'elements', [] );
-			$result->addValue( null, 'descriptionPages', [] );
 			$result->addValue( null, 'svgFile', null );
 			$result->addValue( null, 'loadWarnings', [] );
 		}

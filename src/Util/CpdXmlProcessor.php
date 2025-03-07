@@ -2,6 +2,8 @@
 
 namespace CognitiveProcessDesigner\Util;
 
+use CognitiveProcessDesigner\CpdElement;
+use CognitiveProcessDesigner\CpdElementFactory;
 use Exception;
 use MediaWiki\Config\Config;
 use MediaWiki\Message\Message;
@@ -17,7 +19,8 @@ class CpdXmlProcessor {
 	private array $laneTypes = [];
 
 	public function __construct(
-		Config $config
+		Config $config,
+		private readonly CpdElementFactory $cpdElementFactory
 	) {
 		$this->dedicatedSubpageTypes = [];
 		if ( $config->has( 'CPDDedicatedSubpageTypes' ) ) {
@@ -35,17 +38,17 @@ class CpdXmlProcessor {
 	 * @param string $xmlString
 	 * @param string|null $oldXmlString
 	 *
-	 * @return array
+	 * @return CpdElement[]
 	 * @throws Exception
 	 */
-	public function makeElementsData( string $process, string $xmlString, ?string $oldXmlString = null ): array {
+	public function createElements( string $process, string $xmlString, ?string $oldXmlString = null ): array {
 		$descriptionPageElements = $this->createAllElementsData( $process, $xmlString );
 
 		if ( $oldXmlString ) {
 			$this->setOldDescriptionPages( $process, $oldXmlString, $descriptionPageElements );
 		}
 
-		return array_values( $descriptionPageElements );
+		return $this->cpdElementFactory->makeElements( array_values( $descriptionPageElements ) );
 	}
 
 	/**

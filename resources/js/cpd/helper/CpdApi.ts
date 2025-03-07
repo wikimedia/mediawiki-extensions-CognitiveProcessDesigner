@@ -6,13 +6,12 @@ import message from "types-mediawiki/mw/message";
 import Api from "types-mediawiki/mw/Api";
 import EventEmitter from "events";
 import { SaveSVGResult } from "bpmn-js/lib/BaseViewer";
-import CpdElement from "../model/CpdElement";
 import { CpdElementJson } from "./CpdElementFactory";
 
 export interface SaveDiagramResult {
-	svgFile: string;
 	diagramPage: string;
 	descriptionPages: string[];
+	svgFile: string;
 	saveWarnings: string[];
 }
 
@@ -21,7 +20,6 @@ export interface LoadDiagramResult {
 	elements: CpdElementJson[];
 	descriptionPages: string[];
 	svgFile: string | null;
-	exists: boolean;
 	loadWarnings: string[];
 }
 
@@ -42,7 +40,7 @@ export default class CpdApi extends EventEmitter {
 		this.process = process;
 	}
 
-	public async fetchPageContent( revision: number | null ): Promise<LoadDiagramResult> {
+	public async fetchPageContent( revision: number | null = null ): Promise<LoadDiagramResult> {
 		this.emit( CpdApi.STATUS_REQUEST_STARTED );
 
 		const data = {
@@ -55,8 +53,12 @@ export default class CpdApi extends EventEmitter {
 			data.revisionId = revision;
 		}
 
-		return this.api.post( data ).then( ( result: LoadDiagramResult ): LoadDiagramResult => {
+		return this.api.post( data ).then( ( result: any ): LoadDiagramResult => {
 			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
+
+			result.elements = result.elements.map( ( element ): CpdElementJson => JSON.parse( element ) );
+			result.descriptionPages = this.gatherDescriptionPages( result.elements );
+
 			return result;
 		} ).fail( ( errorCode: string, error: any ) => {
 			this.emit(
@@ -80,7 +82,10 @@ export default class CpdApi extends EventEmitter {
 			svg: JSON.stringify( svg.svg ),
 			saveDescriptionPages: withDescriptionPages,
 			token: mw.user.tokens.get( "csrfToken" )
-		} ).then( ( result ): SaveDiagramResult => {
+		} ).then( ( result: any ): SaveDiagramResult => {
+			const elements = result.elements.map( ( element ): CpdElementJson => JSON.parse( element ) );
+			result.descriptionPages = this.gatherDescriptionPages( elements );
+
 			if ( withDescriptionPages ) {
 				this.emit(
 					CpdApi.STATUS_REQUEST_FINISHED,
@@ -125,5 +130,15 @@ export default class CpdApi extends EventEmitter {
 			return error.error.info;
 		}
 		return errorCode === "unknown" ? error.error : errorCode;
+	}
+
+	private gatherDescriptionPages( elements: CpdElementJson[] ): string[] {
+		return elements
+			.filter( ( element: CpdElementJson ): boolean => {
+				return !!element.descriptionPage;
+			} )
+			.map( ( element: CpdElementJson ): string => {
+				return element.descriptionPage;
+			} );
 	}
 }

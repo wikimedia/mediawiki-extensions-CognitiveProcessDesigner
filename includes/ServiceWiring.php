@@ -56,7 +56,8 @@ return [
 	},
 	'CpdXmlProcessor' => static function ( MediaWikiServices $services ) {
 		return new CpdXmlProcessor(
-			$services->getMainConfig()
+			$services->getMainConfig(),
+			$services->getService( 'CpdElementFactory' )
 		);
 	},
 	'CpdRevisionLookup' => static function ( MediaWikiServices $services ) {

@@ -4,8 +4,12 @@ import CpdApi, { LoadDiagramResult } from "./helper/CpdApi";
 import { CpdElementFactory, CpdElementJson } from "./helper/CpdElementFactory";
 import BaseViewer from "bpmn-js/lib/BaseViewer";
 import Canvas from "diagram-js/lib/core/Canvas";
+import CpdElement from "./model/CpdElement";
+import Modeler from "bpmn-js/lib/Modeler";
 
 export abstract class CpdTool {
+	protected bpmnTool: BaseViewer | Modeler;
+
 	protected dom: CpdDom;
 
 	protected api: CpdApi;
@@ -22,7 +26,7 @@ export abstract class CpdTool {
 
 	protected canvas: Canvas;
 
-	protected constructor( process: string, container: HTMLElement ) {
+	protected constructor( process: string, container: HTMLElement, bpmnTool: BaseViewer ) {
 		if ( !process ) {
 			throw new Error( mw.message( "cpd-error-message-missing-config", "process" ).text() );
 		}
@@ -35,6 +39,7 @@ export abstract class CpdTool {
 			throw new Error( mw.message( "cpd-error-message-missing-config", "cpdProcessNamespace" ).text() );
 		}
 
+		this.bpmnTool = bpmnTool;
 		this.diagramPage = mw.Title.newFromText( process, processNamespace );
 
 		this.dom = new CpdDom( container, this.diagramPage );
@@ -45,36 +50,20 @@ export abstract class CpdTool {
 		this.api.on( CpdApi.STATUS_REQUEST_STARTED, this.requestStarted.bind( this ) );
 		this.api.on( CpdApi.STATUS_REQUEST_FINISHED, this.requestFinished.bind( this ) );
 		this.api.on( CpdApi.STATUS_REQUEST_FAILED, this.requestFailed.bind( this ) );
+
+		this.elementFactory = new CpdElementFactory( this.bpmnTool.get( "elementRegistry" ) );
 	}
 
-	protected async initPageContent( revision: number | null = null ): Promise<CpdElementJson[]> {
-		const pageContent: LoadDiagramResult = await this.api.fetchPageContent( revision );
-		this.xml = pageContent.xml;
-		this.dom.setSvgLink( pageContent.svgFile );
-		this.dom.setOpenDialogOptions( {
-			savePagesCheckboxState: pageContent.descriptionPages.length > 0
-		} );
-		this.descriptionPages = pageContent.descriptionPages;
-		pageContent.loadWarnings.forEach( ( warning: string ): void => {
-			this.dom.showWarning( warning );
-		} );
-
-		return pageContent.elements
-	}
-
-	// eslint-disable-next-line no-unused-vars
-	protected abstract renderDiagram( diagramXml: string, revision: number | null ): Promise<void>;
-
-	protected async attachToCanvas( diagram: BaseViewer ): Promise<void> {
-		diagram.attachTo( this.dom.getCanvas() );
+	protected async attachToCanvas(): Promise<void> {
+		this.bpmnTool.attachTo( this.dom.getCanvas() );
 
 		try {
-			await diagram.importXML( this.xml );
+			await this.bpmnTool.importXML( this.xml );
 		} catch ( e ) {
 			this.dom.showError( e );
 		}
 
-		this.canvas = diagram.get( "canvas" ) as Canvas;
+		this.canvas = this.bpmnTool.get( "canvas" ) as Canvas;
 		this.centerViewport();
 	}
 
