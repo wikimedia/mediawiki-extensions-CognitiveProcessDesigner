@@ -5,10 +5,8 @@ namespace CognitiveProcessDesigner\Api;
 use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
-use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
-use Exception;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
@@ -48,6 +46,10 @@ class LoadCpdDiagram extends ApiBase {
 
 		try {
 			$xml = $this->diagramPageUtil->getXml( $process, $revisionId );
+			if ( empty( $xml ) ) {
+				throw new CpdInvalidContentException();
+			}
+
 			$cpdElements = $this->xmlProcessor->createElements( $process, $xml );
 
 			$svgFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
