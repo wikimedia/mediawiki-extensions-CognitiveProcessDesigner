@@ -45,15 +45,14 @@ export default class CpdApi extends EventEmitter {
 
 		const data = {
 			action: "cpd-load-diagram",
-			process: this.process,
-			token: mw.user.tokens.get( "csrfToken" )
+			process: this.process
 		} as { action: string, process: string, token: string, revisionId?: number };
 
 		if ( revision ) {
 			data.revisionId = revision;
 		}
 
-		return this.api.post( data ).then( ( result: any ): LoadDiagramResult => {
+		return this.api.get( data ).then( ( result: any ): LoadDiagramResult => {
 			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
 
 			result.elements = result.elements.map( ( element ): CpdElementJson => JSON.parse( element ) );

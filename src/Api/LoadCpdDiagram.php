@@ -75,13 +75,6 @@ class LoadCpdDiagram extends ApiBase {
 	/**
 	 * @inheritDoc
 	 */
-	public function needsToken(): string {
-		return 'csrf';
-	}
-
-	/**
-	 * @inheritDoc
-	 */
 	protected function getAllowedParams(): array {
 		return [
 			'process' => [
