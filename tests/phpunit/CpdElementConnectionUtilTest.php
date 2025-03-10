@@ -64,12 +64,12 @@ class CpdElementConnectionUtilTest extends TestCase {
 			[
 				'Process:Foo/a',
 				[
-					(object)[ 'from_page' => 'Process:Foo/lane1/lane2/b' ],
-					(object)[ 'from_page' => 'Process:Foo/c' ],
+					(object)[ 'from_page' => 'Process:Foo/lane1/lane2/b', 'from_type' => 'type' ],
+					(object)[ 'from_page' => 'Process:Foo/c', 'from_type' => 'type' ],
 				],
 				[
 					[
-						'text' => 'lane2:b',
+						'text' => 'lane2:</br>b',
 						'isLaneChange' => true
 					],
 					[
@@ -81,17 +81,17 @@ class CpdElementConnectionUtilTest extends TestCase {
 			[
 				'Process:Foo/lane1/lane2/lane3/a',
 				[
-					(object)[ 'from_page' => 'Process:Foo/lane1/lane2/lane3/b' ],
-					(object)[ 'from_page' => 'Process:Foo/lane1/lane2/c' ],
-					(object)[ 'from_page' => 'Process:Foo/d' ],
+					(object)[ 'from_page' => 'Process:Foo/lane1/lane2/lane3/b', 'from_type' => 'type' ],
+					(object)[ 'from_page' => 'Process:Foo/lane1/lane2/c', 'from_type' => 'type' ],
+					(object)[ 'from_page' => 'Process:Foo/d', 'from_type' => 'type' ],
 				],
 				[
 					[
-						'text' => 'lane3:b',
+						'text' => 'b',
 						'isLaneChange' => false
 					],
 					[
-						'text' => 'lane2:c',
+						'text' => 'lane2:</br>c',
 						'isLaneChange' => true
 					],
 					[
