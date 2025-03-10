@@ -1,3 +1,4 @@
+window.ext = window.ext || {};
 window.ext.cpd = window.ext.cpd || {};
 window.ext.cpd.special = window.ext.cpd.special || {};
 
