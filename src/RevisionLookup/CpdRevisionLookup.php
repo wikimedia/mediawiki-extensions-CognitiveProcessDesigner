@@ -28,7 +28,7 @@ class CpdRevisionLookup implements IRevisionLookup {
 	 */
 	public function getLastStableRevision( PageIdentity $page ): ?RevisionRecord {
 		if ( !$this->stabilizationLookup ) {
-			$this->revisionLookup->getRevisionByTitle( $page );
+			return $this->revisionLookup->getRevisionByTitle( $page );
 		}
 
 		return $this->stabilizationLookup->getLastStablePoint( $page )?->getRevision();
