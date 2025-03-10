@@ -58,6 +58,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 
 			// Content stabilization is not enabled
 			if ( !$stableRevision ) {
+				$filteredDataSets[] = $dataSet;
 				continue;
 			}
 
