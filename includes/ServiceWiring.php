@@ -28,7 +28,6 @@ return [
 			$services->getDBLoadBalancer(),
 			$services->getWikiPageFactory(),
 			$services->getMainConfig(),
-			$services->getService( 'CpdElementConnectionUtil' ),
 			$services->getService( 'CpdRevisionLookup' )
 		);
 	},

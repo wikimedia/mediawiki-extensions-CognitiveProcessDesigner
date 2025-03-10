@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\Util;
 
 use CognitiveProcessDesigner\CpdNavigationConnection;
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
@@ -31,6 +32,7 @@ class CpdElementConnectionUtil {
 	 * @throws CpdInvalidNamespaceException
 	 * @throws CpdInvalidContentException
 	 * @throws CpdXmlProcessingException
+	 * @throws CpdCreateElementException
 	 */
 	public function getConnections( Title $title ): array {
 		$process = CpdDiagramPageUtil::getProcess( $title );
