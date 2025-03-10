@@ -122,25 +122,25 @@ class CpdDiagramPageUtil {
 			$content = $revision->getContent( 'main' );
 
 			if ( !$content ) {
-				throw new CpdInvalidContentException( 'Process page does not exist' );
+				return '';
 			}
 		} else {
 			$diagramPage = $this->getDiagramPage( $process );
 
 			if ( !$diagramPage->exists() ) {
-				throw new CpdInvalidContentException( 'Process page does not exist' );
+				return '';
 			}
 
 			$content = $diagramPage->getContent();
 		}
 
-		$this->validateContent( $content );
-
 		if ( !$content ) {
 			return '';
 		}
 
-		return ( $content instanceof TextContent ) ? $content->getText() : '';
+		$this->validateContent( $content );
+
+		return $content->getText();
 	}
 
 	/**
