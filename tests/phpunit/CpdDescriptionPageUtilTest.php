@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Tests;
 
+use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use MediaWiki\Config\Config;
@@ -41,7 +42,7 @@ class CpdDescriptionPageUtilTest extends TestCase {
 			$this->createMock( ILoadBalancer::class ),
 			$this->createMock( WikiPageFactory::class ),
 			$this->createMock( Config::class ),
-			$this->createMock( CpdElementConnectionUtil::class ),
+			$this->createMock( IRevisionLookup::class ),
 		);
 	}
 

@@ -2,8 +2,14 @@
 
 namespace CognitiveProcessDesigner\Tests;
 
+use CognitiveProcessDesigner\CpdElement;
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
+use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
+use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
+use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
 use Wikimedia\Rdbms\IDatabase;
@@ -16,8 +22,8 @@ class CpdElementConnectionUtilTest extends TestCase {
 	/** @var CpdElementConnectionUtil */
 	private CpdElementConnectionUtil $util;
 
-	/** @var IDatabase */
-	private IDatabase $db;
+	/** @var CpdXmlProcessor */
+	private CpdXmlProcessor $xmlProcessor;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -27,11 +33,11 @@ class CpdElementConnectionUtilTest extends TestCase {
 			define( 'NS_PROCESS_TALK', 1531 );
 		}
 
-		$this->db = $this->createMock( IDatabase::class );
-		$lb = $this->createMock( ILoadBalancer::class );
-		$lb->method( 'getConnection' )->willReturn( $this->db );
+		$this->xmlProcessor = $this->createMock( CpdXmlProcessor::class );
 
-		$this->util = new CpdElementConnectionUtil( $lb );
+		$this->util = new CpdElementConnectionUtil(
+			$this->createMock( CpdDiagramPageUtil::class ), $this->xmlProcessor,
+		);
 	}
 
 	/**
@@ -44,15 +50,18 @@ class CpdElementConnectionUtilTest extends TestCase {
 	 * @return void
 	 *
 	 * @throws CpdInvalidNamespaceException
+	 * @throws CpdCreateElementException
+	 * @throws CpdInvalidContentException
+	 * @throws CpdXmlProcessingException
 	 * @dataProvider provideConnections
 	 */
 	public function testCreateNavigationConnection( string $dbKey, array $connections, array $expected ): void {
 		$title = Title::newFromDBkey( $dbKey );
-		$this->db->method( 'select' )->willReturn( $connections );
-		$connections = $this->util->getIncomingConnections( $title );
+		$this->xmlProcessor->method( 'createElements' )->willReturn( $connections );
+		$connections = $this->util->getConnections( $title );
 
 		for ( $i = 0; $i < count( $connections ); $i++ ) {
-			$data = $connections[$i]->toArray();
+			$data = $connections['incoming'][$i]->toArray();
 			$this->assertNotEmpty( $data['link'] );
 			$this->assertEquals( $expected[$i]['text'], $data['text'] );
 			$this->assertEquals( $expected[$i]['isLaneChange'], $data['isLaneChange'] );
@@ -64,8 +73,26 @@ class CpdElementConnectionUtilTest extends TestCase {
 			[
 				'Process:Foo/a',
 				[
-					(object)[ 'from_page' => 'Process:Foo/lane1/lane2/b' ],
-					(object)[ 'from_page' => 'Process:Foo/c' ],
+					CpdElement::fromElementJson( [
+						'id' => 'a',
+						'type' => 'start',
+						'label' => 'a',
+						'descriptionPage' => 'Process:Foo/a',
+						'incomingLinks' => [
+							[
+								'id' => 'a',
+								'type' => 'start',
+								'label' => 'a',
+								'descriptionPage' => 'Process:Foo/lane1/lane2/b',
+							],
+							[
+								'id' => 'a',
+								'type' => 'start',
+								'label' => 'a',
+								'descriptionPage' => 'Process:Foo/c',
+							]
+						],
+					] ),
 				],
 				[
 					[
@@ -81,9 +108,32 @@ class CpdElementConnectionUtilTest extends TestCase {
 			[
 				'Process:Foo/lane1/lane2/lane3/a',
 				[
-					(object)[ 'from_page' => 'Process:Foo/lane1/lane2/lane3/b' ],
-					(object)[ 'from_page' => 'Process:Foo/lane1/lane2/c' ],
-					(object)[ 'from_page' => 'Process:Foo/d' ],
+					CpdElement::fromElementJson( [
+						'id' => 'a',
+						'type' => 'start',
+						'label' => 'a',
+						'descriptionPage' => 'Process:Foo/lane1/lane2/lane3/a',
+						'incomingLinks' => [
+							[
+								'id' => 'a',
+								'type' => 'start',
+								'label' => 'a',
+								'descriptionPage' => 'Process:Foo/lane1/lane2/lane3/b',
+							],
+							[
+								'id' => 'a',
+								'type' => 'start',
+								'label' => 'a',
+								'descriptionPage' => 'Process:Foo/lane1/lane2/c',
+							],
+							[
+								'id' => 'a',
+								'type' => 'start',
+								'label' => 'a',
+								'descriptionPage' => 'Process:Foo/d',
+							]
+						],
+					] )
 				],
 				[
 					[

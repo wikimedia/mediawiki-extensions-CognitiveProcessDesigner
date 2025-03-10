@@ -3,7 +3,6 @@
 namespace CognitiveProcessDesigner;
 
 use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
-use Exception;
 use JsonSerializable;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
@@ -49,10 +48,10 @@ class CpdElement implements JsonSerializable {
 			);
 		}
 
-		$parent = $element['parent'] ? self::fromElementJson( $element['parent'], true ) : null;
-		$incomingLinks = $element['incomingLinks'] ? array_map( fn( $link ) => self::fromElementJson( $link ),
+		$parent = !empty( $element['parent'] ) ? self::fromElementJson( $element['parent'], true ) : null;
+		$incomingLinks = !empty( $element['incomingLinks'] ) ? array_map( fn( $link ) => self::fromElementJson( $link ),
 			$element['incomingLinks'] ) : [];
-		$outgoingLinks = $element['outgoingLinks'] ? array_map( fn( $link ) => self::fromElementJson( $link ),
+		$outgoingLinks = !empty( $element['outgoingLinks'] ) ? array_map( fn( $link ) => self::fromElementJson( $link ),
 			$element['outgoingLinks'] ) : [];
 
 		return new CpdElement(
