@@ -2,139 +2,33 @@
 	{
 		"id": "StartEvent_1",
 		"type": "bpmn:StartEvent",
-		"label": "Start 1",
-		"parent": {
-			"id": "Participant_0zycuaw",
-			"type": "bpmn:Participant",
-			"label": "Parent 1"
-		},
-		"descriptionPage": "Process:BackendElements/Parent_1/Start_1",
-		"oldDescriptionPage": "Process:BackendElements/Parent_1_Old/Start_1_Old",
-		"incomingLinks": [],
-		"outgoingLinks": [
-			{
-				"id": "Activity_0hzxdmp",
-				"type": "bpmn:Task",
-				"label": "Task 44",
-				"descriptionPage": "Process:BackendElements/Parent_1/Task_44"
-			}
-		]
+		"label": "Start 1"
 	},
 	{
 		"id": "Event_0vuw67s",
 		"type": "bpmn:EndEvent",
-		"label": "End 1",
-		"parent": {
-			"id": "Participant_0zycuaw",
-			"type": "bpmn:Participant",
-			"label": "Parent 1"
-		},
-		"descriptionPage": "Process:BackendElements/Parent_1/End_1",
-		"oldDescriptionPage": "Process:BackendElements/Parent_1_Old/End_1_Old",
-		"incomingLinks": [
-			{
-				"id": "Activity_1uibj2u",
-				"type": "bpmn:Task",
-				"label": "Bask 55",
-				"descriptionPage": "Process:BackendElements/Parent_1/Bask_55"
-			}
-		],
-		"outgoingLinks": []
+		"label": "End 1"
 	},
 	{
 		"id": "Activity_0hzxdmp",
 		"type": "bpmn:Task",
-		"label": "Task 44",
-		"parent": {
-			"id": "Participant_0zycuaw",
-			"type": "bpmn:Participant",
-			"label": "Parent 1"
-		},
-		"descriptionPage": "Process:BackendElements/Parent_1/Task_44",
-		"oldDescriptionPage": "Process:BackendElements/Parent_1_Old/Task_44_Old",
-		"incomingLinks": [
-			{
-				"id": "StartEvent_1",
-				"type": "bpmn:StartEvent",
-				"label": "Start 1",
-				"descriptionPage": "Process:BackendElements/Parent_1/Start_1"
-			}
-		],
-		"outgoingLinks": [
-			{
-				"id": "Activity_1uibj2u",
-				"type": "bpmn:Task",
-				"label": "Bask 55",
-				"descriptionPage": "Process:BackendElements/Parent_1/Bask_55"
-			}
-		]
+		"label": "Task 44"
 	},
 	{
 		"id": "Activity_1uibj2u",
 		"type": "bpmn:Task",
-		"label": "Bask 55",
-		"parent": {
-			"id": "Participant_0zycuaw",
-			"type": "bpmn:Participant",
-			"label": "Parent 1"
-		},
-		"descriptionPage": "Process:BackendElements/Parent_1/Bask_55",
-		"oldDescriptionPage": "Process:BackendElements/Parent_1_Old/Bask_55_Old",
-		"incomingLinks": [
-			{
-				"id": "Activity_0hzxdmp",
-				"type": "bpmn:Task",
-				"label": "Task 44",
-				"descriptionPage": "Process:BackendElements/Parent_1/Task_44"
-			}
-		],
-		"outgoingLinks": [
-			{
-				"id": "Event_0vuw67s",
-				"type": "bpmn:EndEvent",
-				"label": "End 1",
-				"descriptionPage": "Process:BackendElements/Parent_1/End_1"
-			}
-		]
+		"label": "Bask 55"
 	},
 	{
 		"id": "Event_01x7t14",
 		"type": "bpmn:EndEvent",
 		"label": "End 2",
-		"parent": {
-			"id": "Participant_03wm6nj",
-			"type": "bpmn:Participant",
-			"label": "Parent 2"
-		},
-		"descriptionPage": "Process:BackendElements/Parent_2/End_2",
-		"incomingLinks": [
-			{
-				"id": "Event_0monjkn",
-				"type": "bpmn:StartEvent",
-				"label": "Start 2",
-				"descriptionPage": "Process:BackendElements/Parent_2/Start_2"
-			}
-		],
-		"outgoingLinks": []
+		"descriptionPage": "Process:BackendElements/Parent_2/End_2"
 	},
 	{
 		"id": "Event_0monjkn",
 		"type": "bpmn:StartEvent",
 		"label": "Start 2",
-		"parent": {
-			"id": "Participant_03wm6nj",
-			"type": "bpmn:Participant",
-			"label": "Parent 2"
-		},
-		"descriptionPage": "Process:BackendElements/Parent_2/Start_2",
-		"incomingLinks": [],
-		"outgoingLinks": [
-			{
-				"id": "Event_01x7t14",
-				"type": "bpmn:EndEvent",
-				"label": "End 2",
-				"descriptionPage": "Process:BackendElements/Parent_2/End_2"
-			}
-		]
+		"descriptionPage": "Process:BackendElements/Parent_2/Start_2"
 	}
 ]

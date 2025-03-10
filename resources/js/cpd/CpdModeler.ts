@@ -13,6 +13,7 @@ import EventBus from "diagram-js/lib/core/EventBus";
 import { MessageType } from "./oojs-ui/SaveDialog";
 import CpdTranslator from "./helper/CpdTranslator";
 import CustomPaletteProvider from "./CustomPaletteProvider";
+import CpdLinker from "./helper/CpdLinker";
 
 class CpdModeler extends CpdTool {
 	private changeLogger: CpdChangeLogger;
@@ -160,7 +161,7 @@ class CpdModeler extends CpdTool {
 		messageDiv.appendChild( list );
 
 		result.descriptionPages.forEach( ( descriptionPage: string ): void => {
-			const link = this.createLinkFromDbKey( descriptionPage );
+			const link = CpdLinker.createLinkFromDbKey( descriptionPage );
 			if ( !link ) {
 				return;
 			}
@@ -175,21 +176,6 @@ class CpdModeler extends CpdTool {
 
 	private onOpenDialog(): void {
 		this.dom.setDialogChangelog( this.changeLogger.getMessages() );
-	}
-
-	private createLinkFromDbKey( dbKey: string | null ): string | null {
-		if ( !dbKey ) {
-			return null;
-		}
-
-		const splitted = dbKey.split( "/" );
-
-		if ( !splitted.shift().includes( ":" ) ) {
-			return null;
-		}
-
-		const linkText = splitted.join( "/" ).replace( /_/g, " " );
-		return `<a target="_blank" href="${ mw.util.getUrl( dbKey ) }">${ linkText }</a>`;
 	}
 }
 

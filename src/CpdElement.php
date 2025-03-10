@@ -143,6 +143,7 @@ class CpdElement implements JsonSerializable {
 			'label' => $this->label,
 		];
 
+		$exists = $this->oldDescriptionPage && $this->oldDescriptionPage->exists();
 		if ( $this->descriptionPage && $this->descriptionPage->exists() ) {
 			$element['descriptionPage'] = $this->descriptionPage->getPrefixedDBkey();
 		}

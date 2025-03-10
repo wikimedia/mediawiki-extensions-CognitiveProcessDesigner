@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Tests;
 
+use CognitiveProcessDesigner\CpdElementFactory;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use Exception;
 use MediaWiki\Config\Config;
@@ -42,7 +43,7 @@ class CpdXmlProcessorTest extends TestCase {
 		} );
 
 		$this->xmlProcessor = new CpdXmlProcessor(
-			$configMock
+			$configMock, new CpdElementFactory()
 		);
 	}
 
@@ -58,7 +59,7 @@ class CpdXmlProcessorTest extends TestCase {
 		$oldXml = file_get_contents( $fixturePath . '/oldDiagram.xml' );
 		$resultElements = json_decode( file_get_contents( $fixturePath . '/elementsData.json' ), true );
 		$elements = $this->xmlProcessor->createElements( 'BackendElements', $xml, $oldXml );
-		$this->assertEquals( $resultElements, $elements );
+		$this->assertEquals( $resultElements, array_map( fn( $element ) => $element->jsonSerialize(), $elements ) );
 	}
 
 }
