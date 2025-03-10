@@ -2,7 +2,9 @@
 
 namespace CognitiveProcessDesigner\Api;
 
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
+use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
 use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
@@ -10,7 +12,6 @@ use Exception;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
-use MediaWiki\Content\TextContent;
 use MediaWiki\Message\Message;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -21,14 +22,12 @@ class LoadCpdDiagram extends ApiBase {
 	 * @param string $action
 	 * @param CpdXmlProcessor $xmlProcessor
 	 * @param CpdDiagramPageUtil $diagramPageUtil
-	 * @param IRevisionLookup $lookup
 	 */
 	public function __construct(
 		ApiMain $main,
 		string $action,
 		private readonly CpdXmlProcessor $xmlProcessor,
 		private readonly CpdDiagramPageUtil $diagramPageUtil,
-		private readonly IRevisionLookup $lookup
 	) {
 		parent::__construct( $main, $action );
 	}
@@ -36,7 +35,8 @@ class LoadCpdDiagram extends ApiBase {
 	/**
 	 * @inheritDoc
 	 * @throws ApiUsageException
-	 * @throws Exception
+	 * @throws CpdXmlProcessingException
+	 * @throws CpdCreateElementException
 	 */
 	public function execute() {
 		$result = $this->getResult();
@@ -47,26 +47,7 @@ class LoadCpdDiagram extends ApiBase {
 		$warnings = [];
 
 		try {
-			if ( $revisionId ) {
-				$revision = $this->lookup->getRevisionById( $revisionId );
-				$content = $revision->getContent( 'main' );
-
-				if ( !$content ) {
-					throw new CpdInvalidContentException( 'Process page does not exist' );
-				}
-			} else {
-				$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
-
-				if ( !$diagramPage->exists() ) {
-					throw new CpdInvalidContentException( 'Process page does not exist' );
-				}
-
-				$content = $diagramPage->getContent();
-			}
-
-			$this->diagramPageUtil->validateContent( $content );
-
-			$xml = ( $content instanceof TextContent ) ? $content->getText() : '';
+			$xml = $this->diagramPageUtil->getXml( $process, $revisionId );
 			$cpdElements = $this->xmlProcessor->createElements( $process, $xml );
 
 			$svgFile = $this->diagramPageUtil->getSvgFile( $process, $revision );

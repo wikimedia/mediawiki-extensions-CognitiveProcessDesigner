@@ -3,7 +3,9 @@
 namespace CognitiveProcessDesigner\HookHandler;
 
 use CognitiveProcessDesigner\CpdNavigationConnection;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
+use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use MediaWiki\Html\TemplateParser;
@@ -35,7 +37,9 @@ class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 	 * @param string &$text
 	 *
 	 * @return void
+	 * @throws CpdInvalidContentException
 	 * @throws CpdInvalidNamespaceException
+	 * @throws CpdXmlProcessingException
 	 */
 	public function onOutputPageBeforeHTML( $out, &$text ): void {
 		$title = $out->getTitle();
@@ -51,9 +55,11 @@ class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 			return;
 		}
 
+		$connections = $this->connectionUtil->getConnections( $title );
+
 		$text = $this->createNavigation(
-				$this->connectionUtil->getIncomingConnections( $title ),
-				$this->connectionUtil->getOutgoingConnections( $title )
+				$connections['incoming'],
+				$connections['outgoing'],
 			) . $text;
 
 		$out->addModuleStyles( 'ext.cpd.description.page' );

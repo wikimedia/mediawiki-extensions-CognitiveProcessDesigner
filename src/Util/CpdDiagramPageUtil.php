@@ -111,18 +111,36 @@ class CpdDiagramPageUtil {
 
 	/**
 	 * @param string $process
+	 * @param int|null $revId
 	 *
 	 * @return string
+	 * @throws CpdInvalidContentException
 	 */
-	public function getXml( string $process ): string {
-		$diagramPage = $this->getDiagramPage( $process );
-		$content = $diagramPage->getContent();
+	public function getXml( string $process, ?int $revId = null ): string {
+		if ( $revId ) {
+			$revision = $this->lookup->getRevisionById( $revId );
+			$content = $revision->getContent( 'main' );
+
+			if ( !$content ) {
+				throw new CpdInvalidContentException( 'Process page does not exist' );
+			}
+		} else {
+			$diagramPage = $this->getDiagramPage( $process );
+
+			if ( !$diagramPage->exists() ) {
+				throw new CpdInvalidContentException( 'Process page does not exist' );
+			}
+
+			$content = $diagramPage->getContent();
+		}
+
+		$this->validateContent( $content );
 
 		if ( !$content ) {
 			return '';
 		}
 
-		return $content->getText();
+		return ( $content instanceof TextContent ) ? $content->getText() : '';
 	}
 
 	/**

@@ -180,16 +180,6 @@ class CpdDescriptionPageUtil {
 		);
 	}
 
-	/**
-	 * @param CpdElement[] $elements
-	 * @param string $process
-	 *
-	 * @return void
-	 */
-	public function updateElementConnections( array $elements, string $process ): void {
-		$this->connectionUtil->updateElementConnections( $elements, $process );
-	}
-
 	private function isStabilizationEnabled(): bool {
 		$dummyPage = Title::newFromText( 'Dummy', NS_PROCESS );
 

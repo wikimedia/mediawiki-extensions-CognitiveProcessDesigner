@@ -116,8 +116,7 @@
 			"class": "\\CognitiveProcessDesigner\\Api\\LoadCpdDiagram",
 			"services": [
 				"CpdXmlProcessor",
-				"CpdDiagramPageUtil",
-				"CpdRevisionLookup"
+				"CpdDiagramPageUtil"
 			]
 		},
 		"cpd-save-diagram": {

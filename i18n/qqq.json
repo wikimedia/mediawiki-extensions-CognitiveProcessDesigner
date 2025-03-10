@@ -107,5 +107,6 @@
 	"cpd-api-move-description-page-comment": "Comment added when moving a description page.",
 	"cpd-config-canvas-process-height-msg": "Configuration setting for the height of the process canvas.",
 	"cpd-config-canvas-embedded-height-msg": "Configuration setting for the height of an embedded process canvas.",
-	"cpd-api-save-diagram-update-comment": "Comment added when updating a BPMN diagram."
+	"cpd-api-save-diagram-update-comment": "Comment added when updating a BPMN diagram.",
+	"cpd-error-xml-parse-error": "Error message displayed when parsing XML data fails."
 }

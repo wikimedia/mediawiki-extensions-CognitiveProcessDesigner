@@ -4,6 +4,8 @@ namespace CognitiveProcessDesigner\Util;
 
 use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\CpdElementFactory;
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
+use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
 use Exception;
 use MediaWiki\Config\Config;
 use MediaWiki\Message\Message;
@@ -39,9 +41,14 @@ class CpdXmlProcessor {
 	 * @param string|null $oldXmlString
 	 *
 	 * @return CpdElement[]
-	 * @throws Exception
+	 * @throws CpdXmlProcessingException
+	 * @throws CpdCreateElementException
 	 */
 	public function createElements( string $process, string $xmlString, ?string $oldXmlString = null ): array {
+		if ( empty( $xmlString ) ) {
+			return [];
+		}
+
 		$descriptionPageElements = $this->createAllElementsData( $process, $xmlString );
 
 		if ( $oldXmlString ) {
@@ -56,11 +63,17 @@ class CpdXmlProcessor {
 	 * @param string $xmlString
 	 *
 	 * @return array
-	 * @throws Exception
+	 * @throws CpdXmlProcessingException
 	 */
 	private function createAllElementsData( string $process, string $xmlString ): array {
 		$elementsData = [];
-		$xml = new SimpleXMLElement( $xmlString );
+
+		try {
+			$xml = new SimpleXMLElement( $xmlString );
+		} catch ( Exception $e ) {
+			throw new CpdXmlProcessingException( Message::newFromKey( "cpd-error-xml-parse-error" )->text() );
+		}
+
 		$xml->registerXPathNamespace( 'bpmn', 'http://www.omg.org/spec/BPMN/20100524/MODEL' );
 		$xmlElements = $xml->xpath( '//bpmn:*' );
 		foreach ( $xmlElements as $xmlElement ) {
@@ -135,16 +148,13 @@ class CpdXmlProcessor {
 	 * @param array $connections
 	 *
 	 * @return void
+	 * @throws CpdXmlProcessingException
 	 */
 	private function setConnections(
 		array &$descriptionPageElement,
 		array $descriptionPageElements,
 		array $connections
 	): void {
-		if ($descriptionPageElement['name'] === 'ab3') {
-			$foo = 'bar';
-		}
-
 		$this->setConnection(
 			$descriptionPageElement,
 			$descriptionPageElements,
@@ -198,6 +208,10 @@ class CpdXmlProcessor {
 				fn( $elementData ) => $elementData['id'] === $connection[$targetField]
 			);
 
+			if ( empty( $connectionElements ) ) {
+				continue;
+			}
+
 			$element[$connectionField][] = reset( $connectionElements );
 
 			break;
@@ -210,7 +224,7 @@ class CpdXmlProcessor {
 	 * @param string $process
 	 *
 	 * @return void
-	 * @throws Exception
+	 * @throws CpdXmlProcessingException
 	 */
 	private function setDescriptionPage(
 		array &$descriptionPageElement,
@@ -228,7 +242,7 @@ class CpdXmlProcessor {
 	 * @param array $descriptionPageElements
 	 *
 	 * @return void
-	 * @throws Exception
+	 * @throws CpdXmlProcessingException
 	 */
 	private function setOldDescriptionPages(
 		string $process,
@@ -257,11 +271,11 @@ class CpdXmlProcessor {
 	 * @param array $element
 	 *
 	 * @return string
-	 * @throws Exception
+	 * @throws CpdXmlProcessingException
 	 */
 	private function makeDescriptionPageTitle( string $process, array $element ): string {
 		if ( empty( $element['name'] ) ) {
-			throw new Exception( Message::newFromKey( "cpd-error-message-missing-label", $element["id"] )->text() );
+			throw new CpdXmlProcessingException( Message::newFromKey( "cpd-error-message-missing-label", $element["id"] )->text() );
 		}
 
 		if (
@@ -277,7 +291,7 @@ class CpdXmlProcessor {
 		$title = Title::newFromText( $titleText, NS_PROCESS );
 
 		if ( !$title ) {
-			throw new Exception( Message::newFromKey( "cpd-error-could-not-create-title", $element["id"] )->text() );
+			throw new CpdXmlProcessingException( Message::newFromKey( "cpd-error-could-not-create-title", $element["id"] )->text() );
 		}
 
 		return $title->getPrefixedDBkey();

@@ -103,5 +103,6 @@
 	"cpd-api-save-diagram-update-comment": "Diagram updated",
 	"cpd-description-navigation-incoming-label": "Incoming connections",
 	"cpd-description-navigation-outgoing-label": "Outgoing connections",
-	"cpd-button-show-diagram": "Show diagram"
+	"cpd-button-show-diagram": "Show diagram",
+	"cpd-error-xml-parse-error": "Error parsing XML"
 }

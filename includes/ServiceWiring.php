@@ -43,7 +43,8 @@ return [
 	},
 	'CpdElementConnectionUtil' => static function ( MediaWikiServices $services ) {
 		return new CpdElementConnectionUtil(
-			$services->getDBLoadBalancer()
+			$services->get( 'CpdDiagramPageUtil' ),
+			$services->get( 'CpdXmlProcessor' )
 		);
 	},
 	'CpdElementFactory' => static function ( MediaWikiServices $services ) {

@@ -2,12 +2,16 @@
 
 namespace CognitiveProcessDesigner\Api;
 
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
+use CognitiveProcessDesigner\Exceptions\CpdSaveException;
+use CognitiveProcessDesigner\Exceptions\CpdSvgException;
+use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
 use CognitiveProcessDesigner\Process\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
-use Exception;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
@@ -40,10 +44,15 @@ class SaveCpdDiagram extends ApiBase {
 
 	/**
 	 * @inheritDoc
+	 *
 	 * @throws ApiUsageException
 	 * @throws MWContentSerializationException
-	 * @throws Exception
 	 * @throws MWUnknownContentModelException
+	 * @throws CpdInvalidContentException
+	 * @throws CpdSaveException
+	 * @throws CpdSvgException
+	 * @throws CpdXmlProcessingException
+	 * @throws CpdCreateElementException
 	 */
 	public function execute() {
 		$result = $this->getResult();
@@ -67,11 +76,7 @@ class SaveCpdDiagram extends ApiBase {
 		// Save description pages
 		$warnings = [];
 		if ( $params['saveDescriptionPages'] ) {
-			$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages(
-				$user,
-				$process,
-				$cpdElements
-			);
+			$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages( $user, $cpdElements );
 		}
 
 		$result->addValue( null, 'svgFile', $svgFilePage->getPrefixedDBkey() );
