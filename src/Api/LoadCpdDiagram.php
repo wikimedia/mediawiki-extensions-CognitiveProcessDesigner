@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Api;
 
+use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
@@ -36,6 +37,7 @@ class LoadCpdDiagram extends ApiBase {
 	/**
 	 * @inheritDoc
 	 * @throws ApiUsageException
+	 * @throws CpdInvalidArgumentException
 	 */
 	public function execute() {
 		$result = $this->getResult();

@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\Util;
 
 use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
@@ -79,8 +80,13 @@ class CpdDiagramPageUtil {
 	 * @param string $process
 	 *
 	 * @return WikiPage
+	 * @throws CpdInvalidArgumentException
 	 */
 	public function getDiagramPage( string $process ): WikiPage {
+		if ( empty( $process ) ) {
+			throw new CpdInvalidArgumentException( 'Process name cannot be empty.' );
+		}
+
 		return $this->wikiPageFactory->newFromTitle( Title::newFromText( $process, NS_PROCESS ) );
 	}
 
@@ -88,6 +94,7 @@ class CpdDiagramPageUtil {
 	 * @param string $process
 	 *
 	 * @return RevisionRecord|null
+	 * @throws CpdInvalidArgumentException
 	 */
 	public function getStableRevision( string $process ): ?RevisionRecord {
 		$diagramPage = $this->getDiagramPage( $process );
@@ -118,6 +125,7 @@ class CpdDiagramPageUtil {
 	 * @return WikiPage
 	 * @throws MWContentSerializationException
 	 * @throws MWUnknownContentModelException
+	 * @throws CpdInvalidArgumentException
 	 */
 	public function createOrUpdateDiagramPage(
 		string $process,
@@ -180,6 +188,7 @@ class CpdDiagramPageUtil {
 	 * @param RevisionRecord|null $revision
 	 *
 	 * @return File|null
+	 * @throws CpdInvalidArgumentException
 	 */
 	public function getSvgFile( string $process, ?RevisionRecord $revision = null ): ?File {
 		$svgFilePage = $this->getSvgFilePage( $process );
@@ -313,6 +322,7 @@ class CpdDiagramPageUtil {
 	 * @param string $process
 	 *
 	 * @return array
+	 * @throws CpdInvalidArgumentException
 	 */
 	public function getMeta( string $process ): array {
 		$page = $this->getDiagramPage( $process );
