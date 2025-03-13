@@ -48,9 +48,6 @@
   .cpd-message-box {
     margin: @space 0;
     padding: @space @space @space 28px;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    background-color: #f9f9f9;
   }
 
   @keyframes spin {
@@ -66,7 +63,6 @@
    * Fix position of color picker
    * Overwritten from workflows extension
    */
-
   .djs-popup-backdrop {
     position: initial;
   }
@@ -81,6 +77,17 @@
     span.oo-ui-indicator-down {
       display: none;
     }
+  }
+  .oo-ui-toolbar-popups {
+	.oo-ui-toolGroup-tools {
+		z-index: 101;
+	}
+  }
+  // Fix cpd dropdown in table - ERM40484
+  table .cpd-container {
+	.oo-ui-tool-link {
+		display: flex;
+	}
   }
 }
 
@@ -108,6 +115,10 @@
 
   .error {
     color: #d33;
+  }
+
+  .warnings-box {
+    margin-bottom: @space;
   }
 }
 

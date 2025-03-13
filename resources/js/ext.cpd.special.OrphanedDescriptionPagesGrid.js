@@ -1,3 +1,4 @@
+window.ext = window.ext || {};
 window.ext.cpd = window.ext.cpd || {};
 window.ext.cpd.special = window.ext.cpd.special || {};
 
@@ -32,5 +33,5 @@ window.ext.cpd.special = window.ext.cpd.special || {};
 	OO.inheritClass( ext.cpd.special.OrphanedDescriptionPageGrid, OOJSPlus.ui.data.GridWidget );
 
 	const grid = new ext.cpd.special.OrphanedDescriptionPageGrid();
-	$( '#cpd-special-orphaned-pages' ).html( grid.$element );
+	$( '#cpd-special-orphaned-pages' ).html( grid.$element ); // eslint-disable-line no-jquery/no-global-selector
 } )( mediaWiki, $ );

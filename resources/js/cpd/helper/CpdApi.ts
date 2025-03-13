@@ -6,28 +6,21 @@ import message from "types-mediawiki/mw/message";
 import Api from "types-mediawiki/mw/Api";
 import EventEmitter from "events";
 import { SaveSVGResult } from "bpmn-js/lib/BaseViewer";
-import CpdElement from "../model/CpdElement";
+import { CpdElementJson } from "./CpdElementFactory";
 
 export interface SaveDiagramResult {
-	svgFile: string;
 	diagramPage: string;
+	descriptionPages: string[];
+	svgFile: string;
+	saveWarnings: string[];
 }
 
 export interface LoadDiagramResult {
 	xml: string | null;
+	elements: CpdElementJson[];
 	descriptionPages: string[];
 	svgFile: string | null;
-	exists: boolean;
-}
-
-export interface SaveDescriptionPagesResult {
-	descriptionPages: string[];
-	warnings: string[];
-}
-
-export interface ElementDescriptionPage {
-	elementId: string;
-	page: string;
+	loadWarnings: string[];
 }
 
 export default class CpdApi extends EventEmitter {
@@ -47,22 +40,37 @@ export default class CpdApi extends EventEmitter {
 		this.process = process;
 	}
 
-	public async fetchPageContent(): Promise<LoadDiagramResult> {
+	public async fetchPageContent( revision: number | null = null ): Promise<LoadDiagramResult> {
 		this.emit( CpdApi.STATUS_REQUEST_STARTED );
 
-		return this.api.post( {
+		const data = {
 			action: "cpd-load-diagram",
-			process: this.process,
-			token: mw.user.tokens.get( "csrfToken" )
-		} ).then( ( result: LoadDiagramResult ): LoadDiagramResult => {
+			process: this.process
+		} as { action: string, process: string, token: string, revisionId?: number };
+
+		if ( revision ) {
+			data.revisionId = revision;
+		}
+
+		return this.api.get( data ).then( ( result: any ): LoadDiagramResult => {
 			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
+
+			result.elements = result.elements.map( ( element ): CpdElementJson => JSON.parse( element ) );
+			result.descriptionPages = this.gatherDescriptionPages( result.elements );
+
 			return result;
+		} ).fail( ( errorCode: string, error: any ) => {
+			this.emit(
+				CpdApi.STATUS_REQUEST_FAILED,
+				mw.message( "cpd-api-load-diagram-error-message", this.getErrorMessage( errorCode, error ) ).text()
+			);
 		} );
 	}
 
 	public async saveDiagram(
 		xml: string,
-		svg: SaveSVGResult
+		svg: SaveSVGResult,
+		withDescriptionPages: boolean
 	): Promise<SaveDiagramResult> {
 		this.emit( CpdApi.STATUS_REQUEST_STARTED );
 
@@ -71,40 +79,34 @@ export default class CpdApi extends EventEmitter {
 			process: this.process,
 			xml: JSON.stringify( xml ),
 			svg: JSON.stringify( svg.svg ),
+			saveDescriptionPages: withDescriptionPages,
 			token: mw.user.tokens.get( "csrfToken" )
-		} ).then( ( result ): SaveDiagramResult => {
-			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
+		} ).then( ( result: any ): SaveDiagramResult => {
+			const elements = result.elements.map( ( element ): CpdElementJson => JSON.parse( element ) );
+			result.descriptionPages = this.gatherDescriptionPages( elements );
+
+			if ( withDescriptionPages ) {
+				this.emit(
+					CpdApi.STATUS_REQUEST_FINISHED,
+					mw.message( "cpd-api-save-description-pages-success-message", result.descriptionPages.length ).text()
+				);
+			} else {
+				this.emit( CpdApi.STATUS_REQUEST_FINISHED );
+			}
+
 			return result as SaveDiagramResult;
 		} ).fail( ( errorCode: string, error: any ) => {
-			this.emit(
-				CpdApi.STATUS_REQUEST_FAILED,
-				mw.message( "cpd-api-save-diagram-error-message", this.getErrorMessage( errorCode, error ) ).text()
-			);
-		} );
-	}
-
-	public async saveDescriptionPages(
-		elements: CpdElement[]
-	): Promise<SaveDescriptionPagesResult> {
-		this.emit( CpdApi.STATUS_REQUEST_STARTED );
-
-		return this.api.post( {
-			action: "cpd-save-description-pages",
-			process: this.process,
-			elements: JSON.stringify( elements ),
-			token: mw.user.tokens.get( "csrfToken" )
-		} ).then( ( result: SaveDescriptionPagesResult ): SaveDescriptionPagesResult => {
-			this.emit(
-				CpdApi.STATUS_REQUEST_FINISHED,
-				mw.message( "cpd-api-save-description-pages-success-message", result.descriptionPages.length ).text()
-			);
-
-			return result;
-		} ).fail( ( errorCode: string, error: any ) => {
-			this.emit(
-				CpdApi.STATUS_REQUEST_FAILED,
-				mw.message( "cpd-api-save-description-pages-error-message", this.getErrorMessage( errorCode, error ) ).text()
-			);
+			if ( withDescriptionPages ) {
+				this.emit(
+					CpdApi.STATUS_REQUEST_FAILED,
+					mw.message( "cpd-api-save-description-pages-error-message", this.getErrorMessage( errorCode, error ) ).text()
+				);
+			} else {
+				this.emit(
+					CpdApi.STATUS_REQUEST_FAILED,
+					mw.message( "cpd-api-save-diagram-error-message", this.getErrorMessage( errorCode, error ) ).text()
+				);
+			}
 		} );
 	}
 
@@ -127,5 +129,15 @@ export default class CpdApi extends EventEmitter {
 			return error.error.info;
 		}
 		return errorCode === "unknown" ? error.error : errorCode;
+	}
+
+	private gatherDescriptionPages( elements: CpdElementJson[] ): string[] {
+		return elements
+			.filter( ( element: CpdElementJson ): boolean => {
+				return !!element.descriptionPage;
+			} )
+			.map( ( element: CpdElementJson ): string => {
+				return element.descriptionPage;
+			} );
 	}
 }

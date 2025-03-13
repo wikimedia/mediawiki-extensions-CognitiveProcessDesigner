@@ -3,14 +3,21 @@
 namespace CognitiveProcessDesigner\HookHandler;
 
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
+use MediaWiki\Registration\ExtensionRegistry;
 use SkinTemplate;
 
 class AddNewProcess implements SkinTemplateNavigation__UniversalHook {
 	/**
+	 * // phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
+	 *
 	 * @param SkinTemplate $sktemplate
 	 * @param array &$links
 	 */
 	public function onSkinTemplateNavigation__Universal( $sktemplate, &$links ): void {
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'StandardDialogs' ) ) {
+			return;
+		}
+
 		$title = $sktemplate->getTitle();
 
 		$config = [

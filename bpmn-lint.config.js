@@ -80,7 +80,7 @@ function isDefaultFlow$1(node, flow) {
  *
  * @return {Boolean}
  */
-function is$j(node, type) {
+function is$m(node, type) {
 
   if (type.indexOf(':') === -1) {
     type = 'bpmn:' + type;
@@ -101,23 +101,23 @@ function is$j(node, type) {
  *
  * @return {Boolean}
  */
-function isAny$a(node, types) {
+function isAny$b(node, types) {
   return types.some(function(type) {
-    return is$j(node, type);
+    return is$m(node, type);
   });
 }
 
 var index_esm = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	is: is$j,
-	isAny: isAny$a
+	is: is$m,
+	isAny: isAny$b
 });
 
 var require$$0 = /*@__PURE__*/getAugmentedNamespace(index_esm);
 
 const {
-  is: is$i,
-  isAny: isAny$9
+  is: is$l,
+  isAny: isAny$a
 } = require$$0;
 
 
@@ -130,13 +130,13 @@ var endEventRequired = function() {
     const flowElements = node.flowElements || [];
 
     return (
-      flowElements.some(node => is$i(node, 'bpmn:EndEvent'))
+      flowElements.some(node => is$l(node, 'bpmn:EndEvent'))
     );
   }
 
   function check(node, reporter) {
 
-    if (!isAny$9(node, [
+    if (!isAny$a(node, [
       'bpmn:Process',
       'bpmn:SubProcess'
     ])) {
@@ -144,7 +144,7 @@ var endEventRequired = function() {
     }
 
     if (!hasEndEvent(node)) {
-      const type = is$i(node, 'bpmn:SubProcess') ? 'Sub process' : 'Process';
+      const type = is$l(node, 'bpmn:SubProcess') ? 'Sub process' : 'Process';
 
       reporter.report(node.id, type + ' is missing end event');
     }
@@ -154,7 +154,7 @@ var endEventRequired = function() {
 };
 
 const {
-  is: is$h
+  is: is$k
 } = require$$0;
 
 /**
@@ -165,7 +165,7 @@ var eventSubProcessTypedStartEvent = function() {
 
   function check(node, reporter) {
 
-    if (!is$h(node, 'bpmn:SubProcess') || !node.triggeredByEvent) {
+    if (!is$k(node, 'bpmn:SubProcess') || !node.triggeredByEvent) {
       return;
     }
 
@@ -173,7 +173,7 @@ var eventSubProcessTypedStartEvent = function() {
 
     flowElements.forEach(function(flowElement) {
 
-      if (!is$h(flowElement, 'bpmn:StartEvent')) {
+      if (!is$k(flowElement, 'bpmn:StartEvent')) {
         return false;
       }
 
@@ -192,7 +192,7 @@ var eventSubProcessTypedStartEvent = function() {
 };
 
 const {
-  isAny: isAny$8
+  isAny: isAny$9
 } = require$$0;
 
 /**
@@ -206,7 +206,7 @@ var fakeJoin = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$8(node, [
+    if (!isAny$9(node, [
       'bpmn:Activity',
       'bpmn:Event'
     ])) {
@@ -227,8 +227,8 @@ var fakeJoin = function() {
 };
 
 const {
-  is: is$g,
-  isAny: isAny$7
+  is: is$j,
+  isAny: isAny$8
 } = require$$0;
 
 
@@ -252,7 +252,7 @@ var global = function() {
 
   function check(node, reporter) {
 
-    if (!is$g(node, 'bpmn:Definitions')) {
+    if (!is$j(node, 'bpmn:Definitions')) {
       return false;
     }
 
@@ -283,30 +283,30 @@ var global = function() {
   // helpers /////////////////////////////
 
   function getRootElements(definitions) {
-    return definitions.rootElements.filter(node => isAny$7(node, [ 'bpmn:Error', 'bpmn:Escalation', 'bpmn:Message', 'bpmn:Signal' ]));
+    return definitions.rootElements.filter(node => isAny$8(node, [ 'bpmn:Error', 'bpmn:Escalation', 'bpmn:Message', 'bpmn:Signal' ]));
   }
 
   function getReferencingElements(definitions) {
     const referencingElements = [];
 
     function traverse(element) {
-      if (is$g(element, 'bpmn:Definitions') && element.get('rootElements').length) {
+      if (is$j(element, 'bpmn:Definitions') && element.get('rootElements').length) {
         element.get('rootElements').forEach(traverse);
       }
 
-      if (is$g(element, 'bpmn:FlowElementsContainer') && element.get('flowElements').length) {
+      if (is$j(element, 'bpmn:FlowElementsContainer') && element.get('flowElements').length) {
         element.get('flowElements').forEach(traverse);
       }
 
-      if (is$g(element, 'bpmn:Event') && element.get('eventDefinitions').length) {
+      if (is$j(element, 'bpmn:Event') && element.get('eventDefinitions').length) {
         element.get('eventDefinitions').forEach(eventDefinition => referencingElements.push(eventDefinition));
       }
 
-      if (is$g(element, 'bpmn:Collaboration') && element.get('messageFlows').length) {
+      if (is$j(element, 'bpmn:Collaboration') && element.get('messageFlows').length) {
         element.get('messageFlows').forEach(traverse);
       }
 
-      if (isAny$7(element, [
+      if (isAny$8(element, [
         'bpmn:MessageFlow',
         'bpmn:ReceiveTask',
         'bpmn:SendTask'
@@ -327,23 +327,23 @@ var global = function() {
   }
 
   function isReferenced(rootElement, referencingElements) {
-    if (is$g(rootElement, 'bpmn:Error')) {
+    if (is$j(rootElement, 'bpmn:Error')) {
       return referencingElements.some(referencingElement => {
-        return is$g(referencingElement, 'bpmn:ErrorEventDefinition')
+        return is$j(referencingElement, 'bpmn:ErrorEventDefinition')
           && rootElement.get('id') === referencingElement.get('errorRef')?.get('id');
       });
     }
 
-    if (is$g(rootElement, 'bpmn:Escalation')) {
+    if (is$j(rootElement, 'bpmn:Escalation')) {
       return referencingElements.some(referencingElement => {
-        return is$g(referencingElement, 'bpmn:EscalationEventDefinition')
+        return is$j(referencingElement, 'bpmn:EscalationEventDefinition')
           && rootElement.get('id') === referencingElement.get('escalationRef')?.get('id');
       });
     }
 
-    if (is$g(rootElement, 'bpmn:Message')) {
+    if (is$j(rootElement, 'bpmn:Message')) {
       return referencingElements.some(referencingElement => {
-        return isAny$7(referencingElement, [
+        return isAny$8(referencingElement, [
           'bpmn:MessageEventDefinition',
           'bpmn:MessageFlow',
           'bpmn:ReceiveTask',
@@ -352,9 +352,9 @@ var global = function() {
       });
     }
 
-    if (is$g(rootElement, 'bpmn:Signal')) {
+    if (is$j(rootElement, 'bpmn:Signal')) {
       return referencingElements.some(referencingElement => {
-        return is$g(referencingElement, 'bpmn:SignalEventDefinition')
+        return is$j(referencingElement, 'bpmn:SignalEventDefinition')
           && rootElement.get('id') === referencingElement.get('signalRef')?.get('id');
       });
     }
@@ -362,14 +362,14 @@ var global = function() {
 
   function isUnique(rootElement, rootElements) {
     return (
-      rootElements.filter(otherRootElement => is$g(otherRootElement, rootElement.$type) && rootElement.name === otherRootElement.name).length === 1
+      rootElements.filter(otherRootElement => is$j(otherRootElement, rootElement.$type) && rootElement.name === otherRootElement.name).length === 1
     );
   }
 };
 
 const {
-  is: is$f,
-  isAny: isAny$6
+  is: is$i,
+  isAny: isAny$7
 } = require$$0;
 
 
@@ -380,7 +380,7 @@ var labelRequired = function() {
 
   function check(node, reporter) {
 
-    if (isAny$6(node, [
+    if (isAny$7(node, [
       'bpmn:ParallelGateway',
       'bpmn:EventBasedGateway'
     ])) {
@@ -388,24 +388,24 @@ var labelRequired = function() {
     }
 
     // ignore joining gateways
-    if (is$f(node, 'bpmn:Gateway') && !isForking(node)) {
+    if (is$i(node, 'bpmn:Gateway') && !isForking(node)) {
       return;
     }
 
     // ignore sub-processes
-    if (is$f(node, 'bpmn:SubProcess')) {
+    if (is$i(node, 'bpmn:SubProcess')) {
 
       // TODO(nikku): better ignore expanded sub-processes only
       return;
     }
 
     // ignore sequence flow without condition
-    if (is$f(node, 'bpmn:SequenceFlow') && !hasCondition$1(node)) {
+    if (is$i(node, 'bpmn:SequenceFlow') && !hasCondition$1(node)) {
       return;
     }
 
     // ignore data objects and artifacts for now
-    if (isAny$6(node, [
+    if (isAny$7(node, [
       'bpmn:FlowNode',
       'bpmn:SequenceFlow',
       'bpmn:Participant',
@@ -523,7 +523,7 @@ function ensureArray(obj) {
  * @return {Boolean}
  */
 function has(target, key) {
-  return nativeHasOwnProperty.call(target, key);
+  return !isNil(target) && nativeHasOwnProperty.call(target, key);
 }
 
 /**
@@ -612,7 +612,7 @@ function find(collection, matcher) {
  * @param {Collection<T>} collection
  * @param {Matcher<T>} matcher
  *
- * @return {number}
+ * @return {number | string | undefined}
  */
 function findIndex(collection, matcher) {
 
@@ -1352,7 +1352,7 @@ const {
 } = dist;
 
 const {
-  is: is$e
+  is: is$h
 } = require$$0;
 
 
@@ -1372,7 +1372,7 @@ var linkEvent = function() {
 
   function check(node, reporter) {
 
-    if (!is$e(node, 'bpmn:FlowElementsContainer')) {
+    if (!is$h(node, 'bpmn:FlowElementsContainer')) {
       return;
     }
 
@@ -1431,25 +1431,25 @@ function isLinkEvent(node) {
 
   var eventDefinitions = node.eventDefinitions || [];
 
-  if (!is$e(node, 'bpmn:Event')) {
+  if (!is$h(node, 'bpmn:Event')) {
     return false;
   }
 
   return eventDefinitions.some(
-    definition => is$e(definition, 'bpmn:LinkEventDefinition')
+    definition => is$h(definition, 'bpmn:LinkEventDefinition')
   );
 }
 
 function isThrowEvent(node) {
-  return is$e(node, 'bpmn:ThrowEvent');
+  return is$h(node, 'bpmn:ThrowEvent');
 }
 
 function isCatchEvent(node) {
-  return is$e(node, 'bpmn:CatchEvent');
+  return is$h(node, 'bpmn:CatchEvent');
 }
 
 const {
-  is: is$d
+  is: is$g
 } = require$$0;
 
 const {
@@ -1464,7 +1464,7 @@ var noBpmndi = function() {
 
   function check(node, reporter) {
 
-    if (!is$d(node, 'bpmn:Definitions')) {
+    if (!is$g(node, 'bpmn:Definitions')) {
       return false;
     }
 
@@ -1553,13 +1553,13 @@ function getAllBpmnElements(rootElements) {
  */
 function getAllDiBpmnReferences(definitionsNode) {
   return flatten(
-    definitionsNode.diagrams.map((diagram) => {
+    definitionsNode.get('diagrams').map((diagram) => {
 
       const diElements = diagram.plane.planeElement || [];
 
       return diElements.map((element) => {
 
-        return element.bpmnElement.id;
+        return element.bpmnElement?.id;
       });
     })
   );
@@ -1582,7 +1582,7 @@ function hasChildLaneSet(element) {
 var helper = {};
 
 const {
-  is: is$c
+  is: is$f
 } = require$$0;
 
 /**
@@ -1598,7 +1598,7 @@ function disallowNodeType$2(type) {
 
     function check(node, reporter) {
 
-      if (is$c(node, type)) {
+      if (is$f(node, type)) {
         reporter.report(node.id, 'Element has disallowed type <' + type + '>');
       }
     }
@@ -1634,7 +1634,7 @@ function findParent$1(node, type) {
     return node;
   }
 
-  if (is$c(parent, type)) {
+  if (is$f(parent, type)) {
     return parent;
   }
 
@@ -1648,8 +1648,8 @@ const disallowNodeType$1 = helper.disallowNodeType;
 var noComplexGateway = disallowNodeType$1('bpmn:ComplexGateway');
 
 const {
-  isAny: isAny$5,
-  is: is$b
+  isAny: isAny$6,
+  is: is$e
 } = require$$0;
 
 
@@ -1662,7 +1662,7 @@ var noDisconnected = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$5(node, [
+    if (!isAny$6(node, [
       'bpmn:Task',
       'bpmn:Gateway',
       'bpmn:SubProcess',
@@ -1698,7 +1698,7 @@ function isCompensationBoundary(node) {
 
   var eventDefinitions = node.eventDefinitions;
 
-  if (!is$b(node, 'bpmn:BoundaryEvent')) {
+  if (!is$e(node, 'bpmn:BoundaryEvent')) {
     return false;
   }
 
@@ -1706,7 +1706,7 @@ function isCompensationBoundary(node) {
     return false;
   }
 
-  return is$b(eventDefinitions[0], 'bpmn:CompensateEventDefinition');
+  return is$e(eventDefinitions[0], 'bpmn:CompensateEventDefinition');
 }
 
 function isCompensationActivity(node) {
@@ -1722,7 +1722,7 @@ function isCompensationLinked(node) {
 }
 
 const {
-  is: is$a
+  is: is$d
 } = require$$0;
 
 /**
@@ -1739,7 +1739,7 @@ var noDuplicateSequenceFlows = function() {
 
   function check(node, reporter) {
 
-    if (!is$a(node, 'bpmn:SequenceFlow')) {
+    if (!is$d(node, 'bpmn:SequenceFlow')) {
       return;
     }
 
@@ -1787,7 +1787,7 @@ function flowKey(flow) {
 }
 
 const {
-  is: is$9
+  is: is$c
 } = require$$0;
 
 
@@ -1799,7 +1799,7 @@ var noGatewayJoinFork = function() {
 
   function check(node, reporter) {
 
-    if (!is$9(node, 'bpmn:Gateway')) {
+    if (!is$c(node, 'bpmn:Gateway')) {
       return;
     }
 
@@ -1818,7 +1818,7 @@ var noGatewayJoinFork = function() {
 };
 
 const {
-  isAny: isAny$4
+  isAny: isAny$5
 } = require$$0;
 
 
@@ -1833,7 +1833,7 @@ var noImplicitSplit = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$4(node, [
+    if (!isAny$5(node, [
       'bpmn:Activity',
       'bpmn:Event'
     ])) {
@@ -1869,8 +1869,8 @@ function isDefaultFlow(node, flow) {
 }
 
 const {
-  is: is$8,
-  isAny: isAny$3
+  is: is$b,
+  isAny: isAny$4
 } = require$$0;
 
 const {
@@ -1886,7 +1886,7 @@ var noImplicitEnd = function() {
     const eventDefinitions = node.eventDefinitions || [];
 
     return eventDefinitions.length && eventDefinitions.every(
-      definition => is$8(definition, 'bpmn:LinkEventDefinition')
+      definition => is$b(definition, 'bpmn:LinkEventDefinition')
     );
   }
 
@@ -1894,7 +1894,7 @@ var noImplicitEnd = function() {
     const eventDefinitions = node.eventDefinitions || [];
 
     return eventDefinitions.length && eventDefinitions.every(
-      definition => is$8(definition, 'bpmn:CompensateEventDefinition')
+      definition => is$b(definition, 'bpmn:CompensateEventDefinition')
     );
   }
 
@@ -1904,7 +1904,7 @@ var noImplicitEnd = function() {
     const artifacts = parent.artifacts || [];
 
     return artifacts.some((element) => {
-      if (!is$8(element, 'bpmn:Association')) {
+      if (!is$b(element, 'bpmn:Association')) {
         return false;
       }
 
@@ -1921,23 +1921,23 @@ var noImplicitEnd = function() {
   function isImplicitEnd(node) {
     const outgoing = node.outgoing || [];
 
-    if (is$8(node, 'bpmn:SubProcess') && node.triggeredByEvent) {
+    if (is$b(node, 'bpmn:SubProcess') && node.triggeredByEvent) {
       return false;
     }
 
-    if (is$8(node, 'bpmn:IntermediateThrowEvent') && isLinkEvent(node)) {
+    if (is$b(node, 'bpmn:IntermediateThrowEvent') && isLinkEvent(node)) {
       return false;
     }
 
-    if (is$8(node, 'bpmn:EndEvent')) {
+    if (is$b(node, 'bpmn:EndEvent')) {
       return false;
     }
 
-    if (is$8(node, 'bpmn:BoundaryEvent') && isCompensationEvent(node) && hasCompensationActivity(node)) {
+    if (is$b(node, 'bpmn:BoundaryEvent') && isCompensationEvent(node) && hasCompensationActivity(node)) {
       return false;
     }
 
-    if (is$8(node, 'bpmn:Task') && isForCompensation(node)) {
+    if (is$b(node, 'bpmn:Task') && isForCompensation(node)) {
       return false;
     }
 
@@ -1946,7 +1946,7 @@ var noImplicitEnd = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$3(node, [ 'bpmn:Event', 'bpmn:Activity', 'bpmn:Gateway' ])) {
+    if (!isAny$4(node, [ 'bpmn:Event', 'bpmn:Activity', 'bpmn:Gateway' ])) {
       return;
     }
 
@@ -1959,8 +1959,8 @@ var noImplicitEnd = function() {
 };
 
 const {
-  is: is$7,
-  isAny: isAny$2
+  is: is$a,
+  isAny: isAny$3
 } = require$$0;
 
 
@@ -1973,26 +1973,26 @@ var noImplicitStart = function() {
     const eventDefinitions = node.eventDefinitions || [];
 
     return eventDefinitions.length && eventDefinitions.every(
-      definition => is$7(definition, 'bpmn:LinkEventDefinition')
+      definition => is$a(definition, 'bpmn:LinkEventDefinition')
     );
   }
 
   function isImplicitStart(node) {
     const incoming = node.incoming || [];
 
-    if (is$7(node, 'bpmn:Activity') && node.isForCompensation) {
+    if (is$a(node, 'bpmn:Activity') && node.isForCompensation) {
       return false;
     }
 
-    if (is$7(node, 'bpmn:SubProcess') && node.triggeredByEvent) {
+    if (is$a(node, 'bpmn:SubProcess') && node.triggeredByEvent) {
       return false;
     }
 
-    if (is$7(node, 'bpmn:IntermediateCatchEvent') && isLinkEvent(node)) {
+    if (is$a(node, 'bpmn:IntermediateCatchEvent') && isLinkEvent(node)) {
       return false;
     }
 
-    if (isAny$2(node, [ 'bpmn:StartEvent', 'bpmn:BoundaryEvent' ])) {
+    if (isAny$3(node, [ 'bpmn:StartEvent', 'bpmn:BoundaryEvent' ])) {
       return false;
     }
 
@@ -2001,7 +2001,7 @@ var noImplicitStart = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$2(node, [ 'bpmn:Event', 'bpmn:Activity', 'bpmn:Gateway' ])) {
+    if (!isAny$3(node, [ 'bpmn:Event', 'bpmn:Activity', 'bpmn:Gateway' ])) {
       return;
     }
 
@@ -2018,7 +2018,7 @@ const disallowNodeType = helper.disallowNodeType;
 var noInclusiveGateway = disallowNodeType('bpmn:InclusiveGateway');
 
 const {
-  is: is$6
+  is: is$9
 } = require$$0;
 
 
@@ -2030,7 +2030,7 @@ const {
 var noOverlappingElements = function() {
 
   function check(node, reporter) {
-    if (!is$6(node, 'bpmn:Definitions')) {
+    if (!is$9(node, 'bpmn:Definitions')) {
       return;
     }
 
@@ -2041,7 +2041,7 @@ var noOverlappingElements = function() {
     const processElementsParentDiMap = new Map(); // map with sub/process as key and its parent boundary di object
 
     rootElements
-      .filter(element => is$6(element, 'bpmn:Collaboration'))
+      .filter(element => is$9(element, 'bpmn:Collaboration'))
       .forEach(collaboration => {
         const participants = collaboration.participants || [];
         checkElementsArray(participants, elementsToReport, diObjects);
@@ -2052,7 +2052,7 @@ var noOverlappingElements = function() {
       });
 
     rootElements
-      .filter(element => is$6(element, 'bpmn:Process'))
+      .filter(element => is$9(element, 'bpmn:Process'))
       .forEach(process => {
         const parentDi = processElementsParentDiMap.get(process) || {};
         checkProcess(process, elementsToReport, elementsOutsideToReport, diObjects, parentDi);
@@ -2094,7 +2094,7 @@ function checkProcess(node, elementsToReport, elementsOutsideToReport, diObjects
   //
   flowElementsWithDi.forEach(element => {
     if (
-      !is$6(element, 'bpmn:DataStoreReference') &&
+      !is$9(element, 'bpmn:DataStoreReference') &&
       isOutsideParentBoundary(diObjects.get(element).bounds, parentDi.bounds)
     ) {
       elementsOutsideToReport.add(element);
@@ -2102,7 +2102,7 @@ function checkProcess(node, elementsToReport, elementsOutsideToReport, diObjects
   });
 
   // recurse into subprocesses
-  const subProcesses = flowElements.filter(element => is$6(element, 'bpmn:SubProcess'));
+  const subProcesses = flowElements.filter(element => is$9(element, 'bpmn:SubProcess'));
   subProcesses.forEach(subProcess => {
     const subProcessDi = diObjects.get(subProcess) || {};
     const subProcessParentBoundary = subProcessDi.isExpanded ? subProcessDi : {};
@@ -2127,7 +2127,15 @@ function checkElementsArray(elements, elementsToReport, diObjects) {
         continue;
       }
 
-      if (isCollision(diObjects.get(element).bounds, diObjects.get(element2).bounds)) {
+      const bounds1 = diObjects.get(element)?.bounds;
+      const bounds2 = diObjects.get(element2)?.bounds;
+
+      // ignore if an element doesn't have bounds
+      if (!bounds1 || !bounds2) {
+        continue;
+      }
+
+      if (isCollision(bounds1, bounds2)) {
         elementsToReport.add(element);
         elementsToReport.add(element2);
       }
@@ -2169,7 +2177,7 @@ function isCollision(firstBounds, secondBounds) {
  * Checks if shape bounds has all necessary values for collision check
  */
 function isValidShapeElement(bounds) {
-  return !!bounds && is$6(bounds, 'dc:Bounds') &&
+  return !!bounds && is$9(bounds, 'dc:Bounds') &&
     typeof (bounds.x) === 'number' &&
     typeof (bounds.y) === 'number' &&
     typeof (bounds.width) === 'number' &&
@@ -2200,7 +2208,7 @@ function getAllDiObjects(node) {
 }
 
 const {
-  is: is$5
+  is: is$8
 } = require$$0;
 
 /**
@@ -2211,7 +2219,7 @@ var singleBlankStartEvent = function() {
 
   function check(node, reporter) {
 
-    if (!is$5(node, 'bpmn:FlowElementsContainer')) {
+    if (!is$8(node, 'bpmn:FlowElementsContainer')) {
       return;
     }
 
@@ -2219,7 +2227,7 @@ var singleBlankStartEvent = function() {
 
     const blankStartEvents = flowElements.filter(function(flowElement) {
 
-      if (!is$5(flowElement, 'bpmn:StartEvent')) {
+      if (!is$8(flowElement, 'bpmn:StartEvent')) {
         return false;
       }
 
@@ -2229,7 +2237,7 @@ var singleBlankStartEvent = function() {
     });
 
     if (blankStartEvents.length > 1) {
-      const type = is$5(node, 'bpmn:SubProcess') ? 'Sub process' : 'Process';
+      const type = is$8(node, 'bpmn:SubProcess') ? 'Sub process' : 'Process';
 
       reporter.report(node.id, type + ' has multiple blank start events');
     }
@@ -2242,7 +2250,7 @@ var singleBlankStartEvent = function() {
 };
 
 const {
-  is: is$4
+  is: is$7
 } = require$$0;
 
 
@@ -2253,7 +2261,7 @@ var singleEventDefinition = function() {
 
   function check(node, reporter) {
 
-    if (!is$4(node, 'bpmn:Event')) {
+    if (!is$7(node, 'bpmn:Event')) {
       return;
     }
 
@@ -2271,8 +2279,8 @@ var singleEventDefinition = function() {
 };
 
 const {
-  is: is$3,
-  isAny: isAny$1
+  is: is$6,
+  isAny: isAny$2
 } = require$$0;
 
 
@@ -2285,13 +2293,13 @@ var startEventRequired = function() {
     const flowElements = node.flowElements || [];
 
     return (
-      flowElements.some(node => is$3(node, 'bpmn:StartEvent'))
+      flowElements.some(node => is$6(node, 'bpmn:StartEvent'))
     );
   }
 
   function check(node, reporter) {
 
-    if (!isAny$1(node, [
+    if (!isAny$2(node, [
       'bpmn:Process',
       'bpmn:SubProcess'
     ])) {
@@ -2299,7 +2307,7 @@ var startEventRequired = function() {
     }
 
     if (!hasStartEvent(node)) {
-      const type = is$3(node, 'bpmn:SubProcess') ? 'Sub process' : 'Process';
+      const type = is$6(node, 'bpmn:SubProcess') ? 'Sub process' : 'Process';
 
       reporter.report(node.id, type + ' is missing start event');
     }
@@ -2309,7 +2317,7 @@ var startEventRequired = function() {
 };
 
 const {
-  is: is$2
+  is: is$5
 } = require$$0;
 
 
@@ -2321,7 +2329,7 @@ var subProcessBlankStartEvent = function() {
 
   function check(node, reporter) {
 
-    if (!is$2(node, 'bpmn:SubProcess') || node.triggeredByEvent) {
+    if (!is$5(node, 'bpmn:SubProcess') || node.triggeredByEvent) {
       return;
     }
 
@@ -2329,7 +2337,7 @@ var subProcessBlankStartEvent = function() {
 
     flowElements.forEach(function(flowElement) {
 
-      if (!is$2(flowElement, 'bpmn:StartEvent')) {
+      if (!is$5(flowElement, 'bpmn:StartEvent')) {
         return false;
       }
 
@@ -2348,7 +2356,7 @@ var subProcessBlankStartEvent = function() {
 };
 
 const {
-  is: is$1
+  is: is$4
 } = require$$0;
 
 /**
@@ -2360,7 +2368,7 @@ var superfluousGateway = function() {
 
   function check(node, reporter) {
 
-    if (!is$1(node, 'bpmn:Gateway')) {
+    if (!is$4(node, 'bpmn:Gateway')) {
       return;
     }
 
@@ -2379,7 +2387,7 @@ var superfluousGateway = function() {
 };
 
 const {
-  is, isAny
+  is: is$3, isAny: isAny$1
 } = require$$0;
 
 /**
@@ -2391,14 +2399,14 @@ var superfluousTermination = function() {
 
   function check(node, reporter) {
 
-    if (!isAny(node, [ 'bpmn:Process', 'bpmn:SubProcess' ])) {
+    if (!isAny$1(node, [ 'bpmn:Process', 'bpmn:SubProcess' ])) {
       return;
     }
 
     const flowElements = node.flowElements || [];
 
     const ends = flowElements.filter(
-      element => is(element, 'bpmn:FlowNode') && (element.outgoing || []).length === 0
+      element => is$3(element, 'bpmn:FlowNode') && (element.outgoing || []).length === 0
     );
 
     const terminateEnds = ends.filter(isTerminateEnd);
@@ -2429,18 +2437,136 @@ var superfluousTermination = function() {
 };
 
 function isTerminateEnd(element) {
-  return is(element, 'bpmn:EndEvent') && (element.eventDefinitions || []).some(
-    eventDefinition => is(eventDefinition, 'bpmn:TerminateEventDefinition')
+  return is$3(element, 'bpmn:EndEvent') && (element.eventDefinitions || []).some(
+    eventDefinition => is$3(eventDefinition, 'bpmn:TerminateEventDefinition')
   );
 }
 
 function isInterruptingEventSub(element) {
-  const isEventSub = is(element, 'bpmn:SubProcess') && element.triggeredByEvent;
+  const isEventSub = is$3(element, 'bpmn:SubProcess') && element.triggeredByEvent;
 
   return isEventSub && (element.flowElements || []).some(
-    element => is(element, 'bpmn:StartEvent') && element.isInterrupting
+    element => is$3(element, 'bpmn:StartEvent') && element.isInterrupting
   );
 }
+
+const {
+	is: is$2
+} = require$$0;
+
+
+/**
+ * Rule that reports gateways without labels.
+ */
+var missingGatewayLabel = function () {
+
+	function check( node, reporter ) {
+		if ( !is$2( node, 'bpmn:Gateway' ) ) {
+			return;
+		}
+
+		const name = (node.name || '').trim();
+
+		if (name.length === 0) {
+			reporter.report(node.id, 'Element is missing label/name', [ 'name' ]);
+		}
+	}
+
+	return { check };
+};
+
+const {
+	is: is$1
+} = require$$0;
+
+
+/**
+ * Rule that reports sub processes without labels.
+ */
+var missingSubprocessLabel = function () {
+
+	function check( node, reporter ) {
+		if ( !is$1( node, 'bpmn:SubProcess' ) ) {
+			return;
+		}
+
+		const name = (node.name || '').trim();
+
+		if (name.length === 0) {
+			reporter.report(node.id, 'Element is missing label/name', [ 'name' ]);
+		}
+	}
+
+	return { check };
+};
+
+const {
+	isAny
+} = require$$0;
+
+
+/**
+ * Rule that reports labels that are not unique.
+ */
+var nonUniqueLabels = function () {
+
+	function check( node, reporter ) {
+		if ( !isAny( node, ['bpmn:Process', 'bpmn:SubProcess'] ) ) {
+			return;
+		}
+
+		const allElements = node.flowElements || [];
+		const labels = allElements.filter( element => element.name );
+		const uniqueLabels = new Set();
+		const duplicateLabels = [];
+		labels.forEach( label => {
+			if ( uniqueLabels.has( label.name ) ) {
+				duplicateLabels.push( label );
+			} else {
+				uniqueLabels.add( label.name );
+			}
+		} );
+		duplicateLabels.forEach( label => {
+			reporter.report( label.id, 'Label is not unique', ['name'] );
+		} );
+	}
+
+	return { check };
+};
+
+const {
+	is
+} = require$$0;
+
+
+/**
+ * Rule that reports labels that are not unique between participants.
+ */
+var nonUniqueParticipantLabels = function () {
+
+	function check( node, reporter ) {
+		if ( !is( node, 'bpmn:Collaboration' ) ) {
+			return;
+		}
+
+		const allParticipants = node.participants || [];
+		const labels = allParticipants.filter(element => element.name);
+		const uniqueLabels = new Set();
+		const duplicateLabels = [];
+		labels.forEach(label => {
+			if (uniqueLabels.has(label.name)) {
+				duplicateLabels.push(label);
+			} else {
+				uniqueLabels.add(label.name);
+			}
+		});
+		duplicateLabels.forEach(label => {
+			reporter.report(label.id, 'Label is not unique', [ 'name' ]);
+		});
+	}
+
+	return { check };
+};
 
 const cache = {};
 
@@ -2494,7 +2620,11 @@ const rules = {
   "start-event-required": "error",
   "sub-process-blank-start-event": "error",
   "superfluous-gateway": "warn",
-  "superfluous-termination": "warn"
+  "superfluous-termination": "warn",
+  "hallowelt/missing-gateway-label": "error",
+  "hallowelt/missing-subprocess-label": "error",
+  "hallowelt/non-unique-labels": "error",
+  "hallowelt/non-unique-participant-labels": "error"
 };
 
 const config = {
@@ -2551,5 +2681,13 @@ cache['bpmnlint/sub-process-blank-start-event'] = subProcessBlankStartEvent;
 cache['bpmnlint/superfluous-gateway'] = superfluousGateway;
 
 cache['bpmnlint/superfluous-termination'] = superfluousTermination;
+
+cache['bpmnlint-plugin-hallowelt/missing-gateway-label'] = missingGatewayLabel;
+
+cache['bpmnlint-plugin-hallowelt/missing-subprocess-label'] = missingSubprocessLabel;
+
+cache['bpmnlint-plugin-hallowelt/non-unique-labels'] = nonUniqueLabels;
+
+cache['bpmnlint-plugin-hallowelt/non-unique-participant-labels'] = nonUniqueParticipantLabels;
 
 export { config, bundle as default, resolver };

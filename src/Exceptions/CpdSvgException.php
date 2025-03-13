@@ -2,6 +2,8 @@
 
 namespace CognitiveProcessDesigner\Exceptions;
 
-class CpdSvgException extends \Exception {
+use Exception;
+
+class CpdSvgException extends Exception {
 
 }

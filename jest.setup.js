@@ -7,6 +7,9 @@ global.mw.Title.newFromText = function ( text ) {
 		}
 	};
 };
+global.mw.util.getUrl = function ( dbKey ) {
+	return "/jest/index.php?title=" + dbKey;
+};
 global.mw.config = {
 	get( key ) {
 		switch ( key ) {

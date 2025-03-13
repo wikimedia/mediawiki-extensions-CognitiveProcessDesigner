@@ -3,7 +3,7 @@ import EventEmitter from "events";
 import util from "types-mediawiki/mw/util";
 // noinspection ES6UnusedImports
 import Title from "types-mediawiki/mw/Title";
-import CpdSaveDialog from "./CpdSaveDialog";
+import CpdSaveDialog, { OpenDialogOptions } from "./CpdSaveDialog";
 import Button from "../oojs-ui/Button";
 import ShowXmlButton from "../oojs-ui/ShowXmlButton";
 import LinkButton from "../oojs-ui/LinkButton";
@@ -14,6 +14,7 @@ import SvgFileLinkButton from "../oojs-ui/SvgFileLinkButton";
 import { ChangeLogMessages } from "./CpdChangeLogger";
 import CenterViewportButton from "../oojs-ui/CenterViewportButton";
 import { MessageType } from "../oojs-ui/SaveDialog";
+import ShowDiagramButton from "../oojs-ui/ShowDiagramButton";
 import ToolGroupSetupMap = OO.ui.Toolbar.ToolGroupSetupMap;
 
 interface HtmlElement extends HTMLElement {
@@ -45,6 +46,8 @@ export default class CpdDom extends EventEmitter {
 
 	private showXmlBtn: ShowXmlButton;
 
+	private showDiagramBtn: ShowDiagramButton;
+
 	private centerViewportBtn: CenterViewportButton;
 
 	private svgFileLink: LinkButton;
@@ -59,6 +62,8 @@ export default class CpdDom extends EventEmitter {
 
 	private isEdit: boolean = false;
 
+	private openDialogOptions: OpenDialogOptions = null;
+
 	public constructor( container: HTMLElement, diagramPage: mw.Title ) {
 		super();
 		this.container = container;
@@ -67,6 +72,10 @@ export default class CpdDom extends EventEmitter {
 
 	public onSave( withDescriptionPages: boolean = false ): void {
 		this.emit( "save", withDescriptionPages );
+	}
+
+	public onSaveDone(): void {
+		this.emit( "saveDone" );
 	}
 
 	public onCancel(): void {
@@ -79,7 +88,7 @@ export default class CpdDom extends EventEmitter {
 
 	public onOpenDialog(): void {
 		this.emit( "openDialog" );
-		this.saveDialog?.open();
+		this.saveDialog?.open( this.openDialogOptions );
 	}
 
 	public toggleView(): void {
@@ -98,14 +107,16 @@ export default class CpdDom extends EventEmitter {
 		this.xmlContainer.innerHTML = xml;
 		this.xmlContainer.show();
 		this.canvas.hide();
-		this.showXmlBtn?.setHideLabelAndIcon();
+		this.showXmlBtn?.setActive( true );
+		this.showDiagramBtn?.setActive( false );
 		this.centerViewportBtn?.setDisabled( true );
 	}
 
 	private showCanvas(): void {
 		this.xmlContainer.hide();
 		this.canvas.show();
-		this.showXmlBtn?.setShowLabelAndIcon();
+		this.showXmlBtn?.setActive( false );
+		this.showDiagramBtn?.setActive( true );
 		this.centerViewportBtn?.setDisabled( false );
 	}
 
@@ -120,6 +131,8 @@ export default class CpdDom extends EventEmitter {
 		} else {
 			this.saveDialog?.popPending();
 			this.showXmlBtn?.setDisabled( false );
+			this.showDiagramBtn?.setDisabled( false );
+			this.showDiagramBtn?.setActive( true );
 			this.centerViewportBtn?.setDisabled( false );
 			this.openDialogBtn?.setDisabled( false );
 			this.cancelBtn?.setDisabled( false );
@@ -134,10 +147,15 @@ export default class CpdDom extends EventEmitter {
 		this.svgFileLink?.setLink( svgFile );
 	}
 
+	public setOpenDialogOptions( options: OpenDialogOptions ): void {
+		this.openDialogOptions = options;
+	}
+
 	public disableButtons(): void {
 		this.openDialogBtn?.setDisabled( true );
 		this.cancelBtn?.setDisabled( true );
 		this.showXmlBtn?.setDisabled( true );
+		this.showDiagramBtn?.setDisabled( true );
 		this.centerViewportBtn?.setDisabled( true );
 	}
 
@@ -165,25 +183,25 @@ export default class CpdDom extends EventEmitter {
 		saveDialog.showChanges();
 	}
 
-	public showMessage( message: HTMLDivElement | string | null, type: MessageType = MessageType.MESSAGE ): void {
+	public showMessage( message: string | null, type: MessageType = MessageType.MESSAGE ): void {
 		if ( !message ) {
 			return;
 		}
 
-		if ( typeof message === "string" ) {
-			const messageDiv = document.createElement( "div" );
-			messageDiv.innerHTML = message;
-			message = messageDiv;
+		if ( this.isEdit ) {
+			if ( this.saveDialog?.isOpened() ) {
+				this.saveDialog?.addPostSaveMessage( message, type );
+				this.showDialogChangesPanel();
+
+				return;
+			}
 		}
 
-		if ( !this.isEdit ) {
-			this.messageBox.append( message );
-			this.messageBox.show();
-			return;
-		}
+		const messageWidget = new OO.ui.MessageWidget( { type: type, inline: true } );
+		messageWidget.setLabel( message );
 
-		this.saveDialog?.addPostSaveMessage( message, type );
-		this.showDialogChangesPanel();
+		this.messageBox.append( messageWidget.$element.get( 0 ) );
+		this.messageBox.show();
 	}
 
 	public showSuccess( message: string ): void {
@@ -198,13 +216,19 @@ export default class CpdDom extends EventEmitter {
 		this.diagramPageLink?.setDisabled( true );
 		this.disableButtons();
 
-		if ( !this.isEdit ) {
-			this.messageBox.append( message );
-			this.messageBox.show();
-			return;
+		if ( this.isEdit ) {
+			if ( this.saveDialog?.isOpened() ) {
+				this.saveDialog?.addError( message );
+
+				return;
+			}
 		}
 
-		this.saveDialog?.addError( message );
+		const messageWidget = new OO.ui.MessageWidget( { type: 'error', inline: true } );
+		messageWidget.setLabel( message );
+
+		this.messageBox.append( messageWidget.$element.get( 0 ) );
+		this.messageBox.show();
 	}
 
 	public initDomElements( isEdit: boolean ): void {
@@ -257,6 +281,7 @@ export default class CpdDom extends EventEmitter {
 
 		toolFactory.register( ShowXmlButton );
 		toolFactory.register( CenterViewportButton );
+		toolFactory.register( ShowDiagramButton );
 
 		const withDiagramPageLink = mw.config.get( "wgPageName" ) !== this.diagramPage.getPrefixedDb();
 		if ( !this.isEdit ) {
@@ -265,6 +290,7 @@ export default class CpdDom extends EventEmitter {
 				toolFactory.register( DiagramPageLinkButton );
 			}
 			secondaryBarButtons.push( ShowXmlButton.static.name );
+			secondaryBarButtons.push( ShowDiagramButton.static.name );
 		}
 
 		const primaryBarConfig = {
@@ -285,6 +311,7 @@ export default class CpdDom extends EventEmitter {
 		if ( this.isEdit ) {
 			this.saveDialog = new CpdSaveDialog();
 			this.saveDialog.on( "save", this.onSave.bind( this ) );
+			this.saveDialog.on( "saveDone", this.onSaveDone.bind( this ) );
 
 			toolFactory.register( OpenDialogButton );
 			toolFactory.register( CancelButton );
@@ -313,6 +340,11 @@ export default class CpdDom extends EventEmitter {
 			if ( item.constructor === ShowXmlButton ) {
 				this.showXmlBtn = item;
 				this.showXmlBtn.onSelect = this.toggleView.bind( this );
+			}
+
+			if ( item.constructor === ShowDiagramButton ) {
+				this.showDiagramBtn = item;
+				this.showDiagramBtn.onSelect = this.toggleView.bind( this );
 			}
 
 			if ( item.constructor === CenterViewportButton ) {

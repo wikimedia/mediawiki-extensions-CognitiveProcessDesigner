@@ -2,6 +2,10 @@ import EventEmitter from "events";
 import SaveDialog, { MessageType, Mode } from "../oojs-ui/SaveDialog";
 import { ChangeLogMessages } from "./CpdChangeLogger";
 
+export interface OpenDialogOptions {
+	savePagesCheckboxState: boolean;
+}
+
 export default class CpdSaveDialog extends EventEmitter {
 	private readonly dialog: SaveDialog;
 
@@ -22,6 +26,9 @@ export default class CpdSaveDialog extends EventEmitter {
 			if ( action === "back" ) {
 				return new OO.ui.Process( this.onBack.bind( this ) );
 			}
+			if ( action === "saveDone" ) {
+				return new OO.ui.Process( this.onSaveDone.bind( this ) );
+			}
 
 			throw new Error( "Dialog action not implemented" );
 		};
@@ -36,8 +43,13 @@ export default class CpdSaveDialog extends EventEmitter {
 		this.dialog.close();
 	}
 
-	public open(): void {
+	public open( options? : OpenDialogOptions ): void {
 		this.dialog.open();
+		this.dialog.setSavePagesCheckboxState( options?.savePagesCheckboxState ?? false );
+	}
+
+	public isOpened(): boolean {
+		return this.dialog.isOpened();
 	}
 
 	public showChanges(): void {
@@ -48,8 +60,11 @@ export default class CpdSaveDialog extends EventEmitter {
 		return this.dialog.hasPostSaveMessages();
 	}
 
-	public addPostSaveMessage( message: HTMLDivElement, type: MessageType ): void {
-		this.dialog.addPostSaveMessage( message, type );
+	public addPostSaveMessage( message: string, type: MessageType ): void {
+		const messageDiv = document.createElement( "div" );
+		messageDiv.innerHTML = message;
+
+		this.dialog.addPostSaveMessage( messageDiv, type );
 	}
 
 	public addError( message: string ): void {
@@ -73,6 +88,10 @@ export default class CpdSaveDialog extends EventEmitter {
 
 	private onSave(): void {
 		this.emit( "save", this.dialog.withSavePages() );
+	}
+
+	private onSaveDone(): void {
+		this.emit( "saveDone" );
 	}
 
 	private onReview(): void {

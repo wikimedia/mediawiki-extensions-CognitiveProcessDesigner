@@ -7,7 +7,7 @@ export enum Mode {
 }
 
 export enum MessageType {
-	MESSAGE = "message",
+	MESSAGE = "notice",
 	WARNING = "warning"
 }
 
@@ -27,6 +27,8 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 
 	private postSaveWarnings: HTMLDivElement;
 
+	private savePagesCheckbox: OO.ui.CheckboxInputWidget;
+
 	private changeLogMessages: ChangeLogMessages;
 
 	private saveWithPages: boolean = false;
@@ -36,6 +38,12 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 			name: "saveDialog",
 			title: mw.msg( "cpd-dialog-save-label-save" ),
 			actions: [
+				{
+					action: "saveDone",
+					label: mw.msg( "cpd-dialog-save-label-done" ),
+					flags: [ "primary", "progressive" ],
+					modes: [ Mode.CHANGES ]
+				},
 				{
 					action: "save",
 					label: mw.msg( "savechanges" ),
@@ -128,7 +136,7 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	public addPostSaveMessage( message: HTMLDivElement, type: MessageType ): void {
 		if ( type === MessageType.WARNING ) {
 			const warningWidget = new OO.ui.MessageWidget( { type: "warning" } );
-			warningWidget.setLabel( message );
+			warningWidget.setLabel( message.innerText );
 			this.postSaveWarnings.append( warningWidget.$element.get( 0 ) );
 		}
 
@@ -149,6 +157,24 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	public hasPostSaveMessages(): boolean {
 		return this.postSaveMessages.children.length > 0 ||
 			this.postSaveWarnings.children.length > 0;
+	}
+
+	public onRetryButtonClick(): void {
+		// @ts-ignore
+		super.onRetryButtonClick();
+		this.clearPostSaveMessages();
+	}
+
+	public showErrors( errors: OO.ui.Error[] | OO.ui.Error ): void {
+		// @ts-ignore
+		super.showErrors( errors );
+
+		this.setTitle( mw.msg( "cpd-dialog-save-label-changes-with-error" ) );
+		this.updateSize();
+	}
+
+	public setSavePagesCheckboxState( state: boolean ): void {
+		this.savePagesCheckbox.setSelected( state );
 	}
 
 	private onSetup(): void {
@@ -177,11 +203,11 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	private initSavePanel(): OO.ui.PanelLayout {
 		const panel = new OO.ui.PanelLayout( { padded: true, expanded: false } );
 
-		const savePagesCheckbox = new OO.ui.CheckboxInputWidget( {
+		this.savePagesCheckbox = new OO.ui.CheckboxInputWidget( {
 			value: "save-with-description-pages"
 		} );
-		savePagesCheckbox.connect( this, { change: this.onSavePagesCheckboxChange } );
-		const fieldLayout = new OO.ui.FieldLayout( savePagesCheckbox, {
+		this.savePagesCheckbox.connect( this, { change: this.onSavePagesCheckboxChange } );
+		const fieldLayout = new OO.ui.FieldLayout( this.savePagesCheckbox, {
 			align: "inline",
 			label: mw.msg( "cpd-dialog-save-label-description-pages-checkbox" )
 		} );
@@ -204,6 +230,7 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		const panel = new OO.ui.PanelLayout( { padded: true, expanded: false, scrollable: true } );
 
 		this.postSaveWarnings = document.createElement( "div" );
+		this.postSaveWarnings.classList.add( "warnings-box" );
 		panel.$element.append( this.postSaveWarnings );
 
 		this.postSaveMessages = document.createElement( "div" );
@@ -241,19 +268,5 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 	private onSavePagesCheckboxChange( selected: boolean ): void {
 		this.saveWithPages = selected;
 		this.updateReviewContent();
-	}
-
-	public onRetryButtonClick(): void {
-		// @ts-ignore
-		super.onRetryButtonClick();
-		this.clearPostSaveMessages();
-	}
-
-	public showErrors( errors: OO.ui.Error[] | OO.ui.Error ): void {
-		// @ts-ignore
-		super.showErrors( errors );
-
-		this.setTitle( mw.msg( "cpd-dialog-save-label-changes-with-error" ) );
-		this.updateSize();
 	}
 }

@@ -2,85 +2,78 @@
 
 namespace CognitiveProcessDesigner\Api;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
-use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
+use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
-use MediaWiki\Title\Title;
-use Status;
+use CognitiveProcessDesigner\Util\CpdXmlProcessor;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Message\Message;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class LoadCpdDiagram extends ApiBase {
 
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $diagramPageUtil;
-
-	/** @var CpdDescriptionPageUtil */
-	private CpdDescriptionPageUtil $descriptionPageUtil;
-
 	/**
 	 * @param ApiMain $main
 	 * @param string $action
+	 * @param CpdXmlProcessor $xmlProcessor
 	 * @param CpdDiagramPageUtil $diagramPageUtil
-	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 */
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		CpdDiagramPageUtil $diagramPageUtil,
-		CpdDescriptionPageUtil $descriptionPageUtil
+		private readonly CpdXmlProcessor $xmlProcessor,
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
 	) {
 		parent::__construct( $main, $action );
-
-		$this->diagramPageUtil = $diagramPageUtil;
-		$this->descriptionPageUtil = $descriptionPageUtil;
 	}
 
 	/**
 	 * @inheritDoc
 	 * @throws ApiUsageException
+	 * @throws CpdXmlProcessingException
+	 * @throws CpdCreateElementException
+	 * @throws CpdInvalidArgumentException
 	 */
 	public function execute() {
 		$result = $this->getResult();
 		$params = $this->extractRequestParams();
 		$process = $params['process'];
-		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		$revisionId = $params['revisionId'];
+		$revision = null;
+		$warnings = [];
 
 		try {
-			$this->diagramPageUtil->validateContent( $diagramPage );
+			$xml = $this->diagramPageUtil->getXml( $process, $revisionId );
+			if ( empty( $xml ) ) {
+				throw new CpdInvalidContentException();
+			}
+
+			$cpdElements = $this->xmlProcessor->createElements( $process, $xml );
+
+			$svgFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
+			if ( !$svgFile ) {
+				$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
+				$warnings[] = Message::newFromKey( 'cpd-error-message-missing-svg-file', $svgFilePage->getText() );
+			}
+
+			$result->addValue( null, 'xml', $xml );
+			$result->addValue(
+				null,
+				'elements',
+				array_map( fn( $element ) => json_encode( $element ), $cpdElements )
+			);
+			$result->addValue( null, 'svgFile', $svgFile?->getUrl() );
+			$result->addValue( null, 'loadWarnings', $warnings );
 		} catch ( CpdInvalidContentException $e ) {
-			$result->addValue( null, 'exists', 0 );
 			$result->addValue( null, 'xml', null );
-			$result->addValue( null, 'descriptionPages', [] );
+			$result->addValue( null, 'elements', [] );
 			$result->addValue( null, 'svgFile', null );
-
-			return;
+			$result->addValue( null, 'loadWarnings', [] );
 		}
-
-		$result->addValue( null, 'exists', 1 );
-		$result->addValue( null, 'xml', $diagramPage->getContent()->getText() );
-		$result->addValue(
-			null,
-			'descriptionPages',
-			array_map( fn( Title $page ) => $page->getPrefixedDBkey(),
-				$this->descriptionPageUtil->findDescriptionPages( $process ) )
-		);
-
-		$svgFile = $this->diagramPageUtil->getSvgFile( $process );
-		if ( !$svgFile ) {
-			throw new ApiUsageException( null, Status::newFatal( "Diagram svg file does not exist" ) );
-		}
-
-		$result->addValue( null, 'svgFile', $svgFile->getUrl() );
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function needsToken(): string {
-		return 'csrf';
 	}
 
 	/**
@@ -91,6 +84,10 @@ class LoadCpdDiagram extends ApiBase {
 			'process' => [
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true
+			],
+			'revisionId' => [
+				ParamValidator::PARAM_TYPE => 'integer',
+				ParamValidator::PARAM_REQUIRED => false
 			]
 		];
 	}

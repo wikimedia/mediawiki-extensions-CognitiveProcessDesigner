@@ -24,4 +24,7 @@ export default class SvgFileLinkButton extends LinkButton {
 		super.setLink( path );
 		this.$link.attr( "target", "_blank" );
 	}
+
+	setActive() {
+	}
 }

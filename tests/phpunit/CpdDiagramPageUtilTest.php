@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CpdDiagramPageUtilTest extends TestCase {
 	/**
-	 * @covers ::getProcessFromTitle
+	 * @covers ::getProcess
 	 *
 	 * @param Title $title
 	 * @param string $process
@@ -22,15 +22,15 @@ class CpdDiagramPageUtilTest extends TestCase {
 	 * @dataProvider provideTitles
 	 * @throws CpdInvalidNamespaceException
 	 */
-	public function testGetProcessFromTitle( Title $title, string $process ): void {
+	public function testGetProcess( Title $title, string $process ): void {
 		if ( $process === 'exception' ) {
 			$this->expectException( CpdInvalidNamespaceException::class );
-			CpdDiagramPageUtil::getProcessFromTitle( $title );
+			CpdDiagramPageUtil::getProcess( $title );
 
 			return;
 		}
 
-		$this->assertEquals( $process, CpdDiagramPageUtil::getProcessFromTitle( $title ) );
+		$this->assertEquals( $process, CpdDiagramPageUtil::getProcess( $title ) );
 	}
 
 	/**

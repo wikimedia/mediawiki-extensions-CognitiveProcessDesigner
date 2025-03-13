@@ -2,6 +2,8 @@
 
 namespace CognitiveProcessDesigner\Exceptions;
 
-class CpdInvalidNamespaceException extends \Exception {
+use Exception;
+
+class CpdInvalidNamespaceException extends Exception {
 
 }

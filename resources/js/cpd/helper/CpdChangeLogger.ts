@@ -71,24 +71,6 @@ export default class CpdChangeLogger extends EventEmitter {
 		return this.mergeMessages( this.creations, this.deletions, this.renames );
 	}
 
-	public addCreation( element: CpdElement ): void {
-		this.onElementCreated( element );
-	}
-
-	public addDescriptionPageChange( element: CpdElement ) {
-		if ( element.descriptionPage?.oldDbKey ) {
-			this.appendMessage( this.renames, element, mw.message(
-				"cpd-shape-rename-with-description-page-message",
-				element.getOldDescriptionPageUrl(),
-				element.getDescriptionPageUrl()
-			).plain(), true );
-
-			return;
-		}
-
-		this.appendMessage( this.renames, element, mw.message( "cpd-description-page-creation-message", element.getDescriptionPageUrl() ).plain(), true );
-	}
-
 	private onElementChanged( type: string, event: Event ): void {
 		const shape = event[ "context" ][ "element" ];
 
@@ -96,7 +78,7 @@ export default class CpdChangeLogger extends EventEmitter {
 			return;
 		}
 
-		const element = this.factory.createFromShape( shape );
+		const element = this.factory.createCpdElement( shape );
 
 		if ( type === CpdChangeLogger.ELEMENT_RENAME ) {
 			this.onElementRenamed( element, event );
@@ -111,7 +93,7 @@ export default class CpdChangeLogger extends EventEmitter {
 		}
 
 		shapes.forEach( ( shape: Shape ) => {
-			const element = this.factory.createFromShape( shape );
+			const element = this.factory.createCpdElement( shape );
 
 			if ( type === CpdChangeLogger.ELEMENT_DELETE ) {
 				this.onElementDeleted( element );
@@ -149,9 +131,6 @@ export default class CpdChangeLogger extends EventEmitter {
 		}
 
 		this.appendMessage( this.deletions, element, mw.message( "cpd-shape-deletion-message", this.svgRenderer.getSVGFromElement( element ) ).plain() );
-		if ( element.descriptionPage?.exists ) {
-			this.appendMessage( this.deletions, element, mw.message( "cpd-shape-deletion-page-referenced-message", element.getDescriptionPageUrl() ).plain(), true );
-		}
 	}
 
 	private onElementRenamed( element: CpdElement, event: Event ): void {
@@ -172,10 +151,6 @@ export default class CpdChangeLogger extends EventEmitter {
 		}
 
 		this.appendMessage( this.renames, element, mw.message( "cpd-shape-rename-message", this.svgRenderer.getSVGFromElement( element ), newLabel ).plain() );
-
-		if ( element.descriptionPage?.oldDbKey ) {
-			this.appendMessage( this.renames, element, mw.message( "cpd-shape-rename-with-description-page-message", element.getDescriptionPageUrl() ).plain(), true );
-		}
 	}
 
 	private appendMessage(
@@ -184,11 +159,6 @@ export default class CpdChangeLogger extends EventEmitter {
 		message: string,
 		onlyWithPages: boolean = false
 	): void {
-		// Append message to the messages object only if element is eligible for description page
-		if ( !this.factory.isDescriptionPageEligible( element ) ) {
-			return;
-		}
-
 		if ( !messages[ element.id ] ) {
 			messages[ element.id ] = [];
 		}

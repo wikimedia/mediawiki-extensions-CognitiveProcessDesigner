@@ -2,31 +2,30 @@
 
 namespace CognitiveProcessDesigner\Data\Processes;
 
+use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MWStake\MediaWiki\Component\DataStore\IRecord;
 
 class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\SecondaryDataProvider {
 
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $util;
-
 	/**
 	 * @param CpdDiagramPageUtil $util
 	 */
-	public function __construct( CpdDiagramPageUtil $util ) {
-		$this->util = $util;
+	public function __construct( private readonly CpdDiagramPageUtil $util ) {
 	}
 
 	/**
 	 * @param IRecord &$dataSet
 	 *
 	 * @return void
+	 * @noinspection PhpParameterByRefIsNotUsedAsReferenceInspection
+	 * @throws CpdInvalidArgumentException
 	 */
 	protected function doExtend( &$dataSet ) {
 		$process = $dataSet->get( Record::PROCESS );
 		$diagramPage = $this->util->getDiagramPage( $process );
-		$svgFile = $this->util->getSvgFile( $process );
+		$svgFile = $this->util->getSvgFile( $process, $this->util->getStableRevision( $process ) );
 
 		$dataSet->set( Record::DB_KEY, $diagramPage->getTitle()->getPrefixedDBkey() );
 		$dataSet->set( Record::URL, $diagramPage->getTitle()->getLocalURL() );
@@ -35,7 +34,10 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 		$isNew = false;
 		// Check if the content is invalid or if there is no content. Then the page is new.
 		try {
-			$this->util->validateContent( $diagramPage );
+			if ( !$diagramPage->exists() ) {
+				throw new CpdInvalidContentException( 'Process page does not exist' );
+			}
+			$this->util->validateContent( $diagramPage->getContent() );
 		} catch ( CpdInvalidContentException $e ) {
 			$isNew = true;
 		}

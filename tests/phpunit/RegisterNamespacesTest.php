@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Tests;
 
+use Exception;
 use MediaWikiLangTestCase;
 
 /**
@@ -27,7 +28,7 @@ class RegisterNamespacesTest extends MediaWikiLangTestCase {
 	 * @covers ::onCanonicalNamespaces
 	 *
 	 * @return void
-	 * @throws \MWException
+	 * @throws Exception
 	 */
 	public function testNamespaceNameFallback(): void {
 		$this->mergeMwGlobalArrayValue( 'wgExtraNamespaces', [
@@ -45,7 +46,7 @@ class RegisterNamespacesTest extends MediaWikiLangTestCase {
 	 * @covers ::onCanonicalNamespaces
 	 *
 	 * @return void
-	 * @throws \MWException
+	 * @throws Exception
 	 */
 	public function testNamespaceNameCollisionException(): void {
 		$this->expectExceptionMessage(

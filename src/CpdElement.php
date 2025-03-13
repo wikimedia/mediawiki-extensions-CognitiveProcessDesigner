@@ -2,52 +2,12 @@
 
 namespace CognitiveProcessDesigner;
 
-use InvalidArgumentException;
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
 use JsonSerializable;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
 
 class CpdElement implements JsonSerializable {
-
-	/**
-	 * @var string
-	 */
-	private string $id;
-
-	/**
-	 * @var string
-	 */
-	private string $type;
-
-	/**
-	 * @var string|null
-	 */
-	private ?string $label;
-
-	/**
-	 * @var CpdElement|null
-	 */
-	private ?CpdElement $parent;
-
-	/**
-	 * @var Title|null
-	 */
-	private ?Title $descriptionPage;
-
-	/**
-	 * @var Title|null
-	 */
-	private ?Title $oldDescriptionPage;
-
-	/**
-	 * @var CpdElement[]
-	 */
-	private array $incomingLinks;
-
-	/**
-	 * @var CpdElement[]
-	 */
-	private array $outgoingLinks;
 
 	/**
 	 * @param string $id
@@ -60,46 +20,46 @@ class CpdElement implements JsonSerializable {
 	 * @param CpdElement|null $parent
 	 */
 	private function __construct(
-		string $id,
-		string $type,
-		?string $label = null,
-		?Title $descriptionPage = null,
-		?Title $oldDescriptionPage = null,
-		array $incomingLinks = [],
-		array $outgoingLinks = [],
-		?CpdElement $parent = null
+		private readonly string $id,
+		private readonly string $type,
+		private readonly ?string $label = null,
+		private readonly ?Title $descriptionPage = null,
+		private readonly ?Title $oldDescriptionPage = null,
+		private readonly array $incomingLinks = [],
+		private readonly array $outgoingLinks = [],
+		private readonly ?CpdElement $parent = null
 	) {
-		$this->id = $id;
-		$this->type = $type;
-		$this->label = $label;
-		$this->parent = $parent;
-		$this->descriptionPage = $descriptionPage;
-		$this->oldDescriptionPage = $oldDescriptionPage;
-		$this->incomingLinks = $incomingLinks;
-		$this->outgoingLinks = $outgoingLinks;
 	}
 
 	/**
 	 * @param array $element
+	 * @param bool $isParent
 	 *
 	 * @return CpdElement
+	 * @throws CpdCreateElementException
 	 */
-	public static function fromElementJson( array $element, $isParent = false ): CpdElement {
+	public static function fromElementJson( array $element, bool $isParent = false ): CpdElement {
 		// Validate the JSON data only if it is not a parent element
 		if ( !$isParent ) {
-			self::validateJson( $element );
+			self::validateJson(
+				$element['id'],
+				$element['type'],
+				$element['label']
+			);
 		}
 
-		$parent = $element['parent'] ? self::fromElementJson( $element['parent'], true ) : null;
-		$incomingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['incomingLinks'] );
-		$outgoingLinks = array_map( fn( $link ) => self::fromElementJson( $link ), $element['outgoingLinks'] );
+		$parent = !empty( $element['parent'] ) ? self::fromElementJson( $element['parent'], true ) : null;
+		$incomingLinks = !empty( $element['incomingLinks'] ) ? array_map( fn( $link ) => self::fromElementJson( $link ),
+			$element['incomingLinks'] ) : [];
+		$outgoingLinks = !empty( $element['outgoingLinks'] ) ? array_map( fn( $link ) => self::fromElementJson( $link ),
+			$element['outgoingLinks'] ) : [];
 
 		return new CpdElement(
 			$element['id'],
 			$element['type'],
 			$element['label'],
-			$element['descriptionPage'] ? Title::newFromDBkey( $element['descriptionPage'] ) : null,
-			$element['oldDescriptionPage'] ? Title::newFromDBkey( $element['oldDescriptionPage'] ) : null,
+			!empty( $element['descriptionPage'] ) ? Title::newFromDBkey( $element['descriptionPage'] ) : null,
+			!empty( $element['oldDescriptionPage'] ) ? Title::newFromDBkey( $element['oldDescriptionPage'] ) : null,
 			$incomingLinks,
 			$outgoingLinks,
 			$parent
@@ -163,25 +123,30 @@ class CpdElement implements JsonSerializable {
 	}
 
 	/**
-	 * @return array
-	 */
-	public function jsonSerialize(): array {
-		return [
-			'elementId' => $this->getId(),
-			'page' => $this->getDescriptionPage()->getPrefixedDBkey(),
-		];
-	}
-
-	/**
-	 * @param array $element
+	 * @param string $id
+	 * @param string $type
+	 * @param string|null $label
 	 *
 	 * @return void
+	 * @throws CpdCreateElementException
 	 */
-	private static function validateJson( array $element ): void {
-		$id = $element['id'];
-		$type = $element['type'];
-		if ( empty( $element['label'] ) ) {
-			throw new InvalidArgumentException( Message::newFromKey( 'cpd-validation-missing-label', $type, $id ) );
+	private static function validateJson( string $id, string $type, ?string $label ): void {
+		if ( empty( $label ) ) {
+			throw new CpdCreateElementException( Message::newFromKey( 'cpd-validation-missing-label', $type, $id ) );
 		}
+	}
+
+	public function jsonSerialize(): array {
+		$element = [
+			'id' => $this->id,
+			'type' => $this->type,
+			'label' => $this->label,
+		];
+
+		if ( $this->descriptionPage && $this->descriptionPage->exists() ) {
+			$element['descriptionPage'] = $this->descriptionPage->getPrefixedDBkey();
+		}
+
+		return $element;
 	}
 }

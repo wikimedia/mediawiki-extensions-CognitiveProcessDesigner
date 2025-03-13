@@ -1,11 +1,9 @@
 import BpmnModeler from "bpmn-js/lib/Modeler";
 import BpmnColorPickerModule from "../../../node_modules/bpmn-js-color-picker/colors/index";
 import { SaveSVGResult } from "bpmn-js/lib/BaseViewer";
-import { ElementDescriptionPage } from "./helper/CpdApi";
+import { LoadDiagramResult, SaveDiagramResult } from "./helper/CpdApi";
 import { CpdTool } from "./CpdTool";
-import CpdElement from "./model/CpdElement";
 import CpdChangeLogger from "./helper/CpdChangeLogger";
-import { CpdElementFactory } from "./helper/CpdElementFactory";
 import CpdValidator from "./helper/CpdValidator";
 import CpdInlineSvgRenderer from "./helper/CpdInlineSvgRenderer";
 import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
@@ -14,20 +12,15 @@ import lintModule from 'bpmn-js-bpmnlint';
 import EventBus from "diagram-js/lib/core/EventBus";
 import { MessageType } from "./oojs-ui/SaveDialog";
 import CpdTranslator from "./helper/CpdTranslator";
+import CustomPaletteProvider from "./CustomPaletteProvider";
+import CpdLinker from "./helper/CpdLinker";
 
 class CpdModeler extends CpdTool {
-	private bpmnModeler: BpmnModeler;
-
 	private changeLogger: CpdChangeLogger;
 
-	private initialElements: CpdElement[] = [];
-
 	public constructor( process: string, container: HTMLElement ) {
-		super( process, container );
-
 		const translator = new CpdTranslator( mw.config.get( "wgUserLanguage" ) );
-
-		this.bpmnModeler = new BpmnModeler( {
+		const bpmnModeler = new BpmnModeler( {
 			linting: {
 				bpmnlint: bpmnlintConfig
 			},
@@ -36,63 +29,69 @@ class CpdModeler extends CpdTool {
 				lintModule,
 				{
 					translate: [ 'value', translator.translate.bind( translator ) ]
-				}
-			],
-			keyboard: {
-				bindTo: window
-			}
+				},
+				{
+					__init__: [ "paletteProvider" ],
+					paletteProvider: [ "type", CustomPaletteProvider ]
+				},
+			]
 		} );
+
+		super( process, container, bpmnModeler );
 
 		this.dom.initDomElements( true );
 		this.dom.on( "save", this.onSave.bind( this ) );
+		this.dom.on( "saveDone", this.onSaveDone.bind( this ) );
 		this.dom.on( "cancel", this.onCancel.bind( this ) );
 		this.dom.on( "openDialog", this.onOpenDialog.bind( this ) );
 
-		this.renderDiagram( process );
+		const elementRegistry = this.bpmnTool.get( "elementRegistry" ) as ElementRegistry;
+		const svgRenderer = new CpdInlineSvgRenderer( elementRegistry );
+		const eventBus = this.bpmnTool.get( "eventBus" ) as EventBus;
+
+		this.changeLogger = new CpdChangeLogger( eventBus, this.elementFactory, svgRenderer );
+		const validator = new CpdValidator( eventBus );
+		validator.on( CpdValidator.VALIDATION_EVENT, this.onValidation.bind( this ) );
+
+		this.renderDiagram();
 	}
 
-	protected async renderDiagram( process: string ): Promise<void> {
-		await this.initPageContent();
+	private async renderDiagram(): Promise<void> {
+		const pageContent: LoadDiagramResult = await this.api.fetchPageContent();
 
-		const elementRegistry = this.bpmnModeler.get( "elementRegistry" ) as ElementRegistry;
-		const svgRenderer = new CpdInlineSvgRenderer( elementRegistry );
-		const eventBus = this.bpmnModeler.get( "eventBus" ) as EventBus;
+		pageContent.loadWarnings.forEach( ( warning: string ): void => {
+			this.dom.showWarning( warning );
+		} );
 
-		this.elementFactory = new CpdElementFactory(
-			elementRegistry,
-			process,
-			this.descriptionPages
-		);
-		this.changeLogger = new CpdChangeLogger( eventBus, this.elementFactory, svgRenderer );
-		const validator = new CpdValidator( eventBus, elementRegistry );
-		validator.on( CpdValidator.VALIDATION_EVENT, this.onValidation.bind( this ) );
+		this.xml = pageContent.xml;
 
 		if ( !this.xml ) {
 			try {
 				await this.createDiagram();
+
+				return;
 			} catch ( e ) {
 				this.dom.showError( e );
 			}
-
-			return;
 		}
 
-		await this.attachToCanvas( this.bpmnModeler );
-		await this.initDescriptionPageElements();
-	}
+		await this.attachToCanvas();
 
-	private async initDescriptionPageElements(): Promise<void> {
-		this.initialElements = this.elementFactory.findElementsWithExistingDescriptionPage();
+		this.dom.setSvgLink( pageContent.svgFile );
+		this.dom.setOpenDialogOptions( {
+			savePagesCheckboxState: pageContent.descriptionPages.length > 0
+		} );
 	}
 
 	public async createDiagram(): Promise<void> {
-		this.bpmnModeler.attachTo( this.dom.getCanvas() );
-		await this.bpmnModeler.createDiagram();
-		this.changeLogger.addCreation( this.elementFactory.findInitialElement() );
+		this.bpmnTool.attachTo( this.dom.getCanvas() );
+
+		// @ts-ignore
+		await this.bpmnTool.createDiagram();
 	}
 
 	public async getUpdatedXml(): Promise<string> {
-		const saveXmlResult = await this.bpmnModeler.saveXML();
+		const saveXmlResult = await this.bpmnTool.saveXML();
 
 		if ( saveXmlResult.error || !saveXmlResult.xml ) {
 			throw new Error( mw.message(
@@ -107,7 +106,7 @@ class CpdModeler extends CpdTool {
 	}
 
 	public async getSVG(): Promise<SaveSVGResult> {
-		return this.bpmnModeler.saveSVG();
+		return this.bpmnTool.saveSVG();
 	}
 
 	private onValidation( isValid: boolean ): void {
@@ -119,26 +118,37 @@ class CpdModeler extends CpdTool {
 	}
 
 	private async onSave( withPages: boolean ): Promise<void> {
-		if ( withPages ) {
-			await this.updateElementDescriptionPages();
-		}
-
 		this.xml = await this.getUpdatedXml();
 		const svgResult = await this.getSVG();
-		await this.api.saveDiagram(
+
+		const result = await this.api.saveDiagram(
 			this.xml,
-			svgResult
+			svgResult,
+			withPages
 		);
+
+		// Reload the page in view mode
+		if ( !withPages ) {
+			this.reloadInViewMode();
+
+			return;
+		}
+
+		this.showAfterSaveMessages( result );
 		this.changeLogger.reset();
 		this.dom.showDialogChangesPanel();
 	}
 
-	private async updateElementDescriptionPages(): Promise<void> {
-		const elements = this.elementFactory.createDescriptionPageEligibleElements();
-		this.applyDescriptionPageChanges( elements );
+	private onSaveDone(): void {
+		this.reloadInViewMode();
+	}
 
-		const result = await this.api.saveDescriptionPages( elements );
-		result.warnings.forEach( ( warning: string ): void => {
+	private reloadInViewMode(): void {
+		window.open( mw.util.getUrl( mw.config.get( "wgPageName" ) ), "_self" );
+	}
+
+	private showAfterSaveMessages( result: SaveDiagramResult ): void {
+		result.saveWarnings.forEach( ( warning: string ): void => {
 			this.dom.showWarning( warning );
 		} );
 
@@ -146,69 +156,27 @@ class CpdModeler extends CpdTool {
 			return;
 		}
 
-		const descriptionPages = result.descriptionPages.map(
-			( descriptionPage: string ): ElementDescriptionPage => JSON.parse( descriptionPage )
-		);
-
-		if ( descriptionPages.length === 0 ) {
-			return;
-		}
-
 		const messageDiv = document.createElement( "div" );
 		const list = document.createElement( "ul" );
 		messageDiv.appendChild( list );
 
-		descriptionPages.forEach( ( descriptionPage: ElementDescriptionPage ): void => {
-			const element: CpdElement | undefined = elements
-				.find( ( el: CpdElement ): boolean => el.id === descriptionPage.elementId );
-
-			if ( !element ) {
-				this.throwError( mw.message( "cpd-error-message-missing-element-link", descriptionPage.elementId ).text() );
+		result.descriptionPages.forEach( ( descriptionPage: string ): void => {
+			const link = CpdLinker.createLinkFromDbKey( descriptionPage );
+			if ( !link ) {
+				return;
 			}
-
-			if ( element.descriptionPage?.dbKey !== descriptionPage.page ) {
-				this.throwError( mw.message( "cpd-error-message-mismatched-element-link", descriptionPage.elementId ).text() );
-			}
-
-			const title = mw.Title.newFromText( descriptionPage.page );
-			const linkText = title.getNameText().split( '/' ).pop();
-			const link = `<a href="${ mw.util.getUrl( title.getPrefixedText() ) }" target="_blank">${ linkText }</a>`;
 
 			const listItem = document.createElement( "li" );
 			listItem.innerHTML = link;
 			list.appendChild( listItem );
 		} );
 
-		this.dom.showMessage( messageDiv, MessageType.MESSAGE );
+		this.dom.showMessage( messageDiv.innerHTML, MessageType.MESSAGE );
 	}
 
 	private onOpenDialog(): void {
-		const descriptionPageElements = this.elementFactory.createDescriptionPageEligibleElements();
-
-		this.applyDescriptionPageChanges( descriptionPageElements );
 		this.dom.setDialogChangelog( this.changeLogger.getMessages() );
-	}
-
-	private applyDescriptionPageChanges( elements: CpdElement[] ): void {
-		elements.forEach( ( element: CpdElement ): void => {
-			if ( !element.descriptionPage ) {
-				return;
-			}
-
-			const initialElement = this.initialElements.find(
-				( el: CpdElement ): boolean => el.id === element.id
-			);
-			if ( !initialElement ) {
-				this.changeLogger.addDescriptionPageChange( element );
-				return;
-			}
-
-			if ( initialElement.descriptionPage?.dbKey !== element.descriptionPage?.dbKey ) {
-				element.descriptionPage.oldDbKey = initialElement.descriptionPage?.dbKey;
-				this.changeLogger.addDescriptionPageChange( element );
-			}
-		} );
 	}
 }
 
-new CpdModeler( mw.config.get( "cpdProcess" ), document.querySelector( "[data-process]" ) );
+new CpdModeler( mw.config.get( "cpdProcess" ) as string, document.querySelector( "[data-process]" ) );

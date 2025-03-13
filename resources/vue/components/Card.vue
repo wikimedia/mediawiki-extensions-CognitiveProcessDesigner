@@ -17,6 +17,7 @@
                 v-bind:iconclass="primaryAction.iconClass"
                 v-bind:datatitle="primaryAction.dataTitle"
         ></action>
+      </ul>
     </div>
   </div>
 </template>
@@ -49,7 +50,7 @@ module.exports = {
         title: mw.message( titleMsgKey, this.process ).escaped(),
         href: this.edit_url,
         class: 'bs-card-edit-action',
-        iconClass: 'icon-edit'
+        iconClass: 'bi-pencil-fill'
       } );
     }
 
@@ -60,8 +61,8 @@ module.exports = {
       href: mw.util.getUrl( this.db_key, {
         action: 'info'
       } ),
-      class: 'bs-card-info-action page-tree-action-info',
-      iconClass: 'bs-icon-info',
+      class: 'bs-card-info-action cpd-action-info',
+      iconClass: 'bi-info-circle',
       dataTitle: this.db_key
     } );
 
@@ -80,10 +81,10 @@ module.exports = {
 <style lang="css">
 .bs-card {
   position: relative;
-  width: 320px;
+  width: 325px;
   height: 450px;
   border: 1px solid #d7d7d7;
-  margin: 20px 26px;
+  margin: 20px 20px;
 }
 
 .bs-card.new {
@@ -113,6 +114,8 @@ module.exports = {
   background-repeat: no-repeat;
   background-position: center center;
   background-image: url('../../img/default-diagram.svg');
+  background-origin: content-box;
+  padding: 10px;
 }
 
 .bs-card-body {
@@ -134,9 +137,7 @@ module.exports = {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 47px;
   width: 100%;
-  padding: 10px 10px 0 10px;
 }
 
 .bs-card-actions {
@@ -144,6 +145,8 @@ module.exports = {
   justify-content: space-between;
   list-style: none;
   margin: 0;
+  flex-wrap: wrap;
+  padding: 15px 0;
 }
 
 .bs-card-actions > li {

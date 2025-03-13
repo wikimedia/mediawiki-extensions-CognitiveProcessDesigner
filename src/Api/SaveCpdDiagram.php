@@ -2,71 +2,102 @@
 
 namespace CognitiveProcessDesigner\Api;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
+use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
+use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
 use CognitiveProcessDesigner\Process\SvgFile;
+use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
+use CognitiveProcessDesigner\Util\CpdXmlProcessor;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
 use MWContentSerializationException;
-use MWException;
+use MWUnknownContentModelException;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveCpdDiagram extends ApiBase {
-	/**
-	 * @var SvgFile
-	 */
-	private SvgFile $svgFile;
-
-	/**
-	 * @var CpdDiagramPageUtil
-	 */
-	private CpdDiagramPageUtil $diagramPageUtil;
 
 	/**
 	 * @param ApiMain $main
 	 * @param string $action
+	 * @param CpdXmlProcessor $xmlProcessor
 	 * @param CpdDiagramPageUtil $diagramPageUtil
+	 * @param CpdSaveDescriptionPagesUtil $saveDescriptionPagesUtil
+	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 * @param SvgFile $svgFile
 	 */
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		CpdDiagramPageUtil $diagramPageUtil,
-		SvgFile $svgFile
+		private readonly CpdXmlProcessor $xmlProcessor,
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly CpdSaveDescriptionPagesUtil $saveDescriptionPagesUtil,
+		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
+		private readonly SvgFile $svgFile
 	) {
 		parent::__construct( $main, $action );
-
-		$this->svgFile = $svgFile;
-		$this->diagramPageUtil = $diagramPageUtil;
 	}
 
 	/**
 	 * @inheritDoc
+	 *
 	 * @throws ApiUsageException
 	 * @throws MWContentSerializationException
-	 * @throws MWException
+	 * @throws MWUnknownContentModelException
+	 * @throws CpdInvalidContentException
+	 * @throws CpdSaveException
+	 * @throws CpdSvgException
+	 * @throws CpdXmlProcessingException
+	 * @throws CpdCreateElementException
 	 */
 	public function execute() {
+		$result = $this->getResult();
 		$user = $this->getContext()->getUser();
 		$params = $this->extractRequestParams();
 		$process = $params['process'];
 		$xml = json_decode( $params['xml'], true );
 		$svg = json_decode( $params['svg'], true );
 
-		$diagramPage = $this->diagramPageUtil->createOrUpdateDiagramPage( $process, $user, $xml );
-		$svgFile = $this->diagramPageUtil->getSvgFilePage( $process );
+		$cpdElements = $this->xmlProcessor->createElements(
+			$process,
+			$xml,
+			$this->diagramPageUtil->getXml( $process )
+		);
 
-		try {
-			$this->svgFile->save( $svgFile, $svg, $user );
-		} catch ( CpdSvgException $e ) {
-			$this->getResult()->addValue( null, 'error', $e->getMessage() );
+		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
+		$file = $this->svgFile->save( $svgFilePage, $svg, $user );
 
-			return;
+		$diagramPage = $this->diagramPageUtil->createOrUpdateDiagramPage( $process, $user, $xml, $file );
+
+		// Save description pages
+		$warnings = [];
+		if ( $params['saveDescriptionPages'] ) {
+			$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages( $user, $cpdElements );
 		}
 
-		$this->getResult()->addValue( null, 'svgFile', $svgFile->getPrefixedDBkey() );
-		$this->getResult()->addValue( null, 'diagramPage', $diagramPage->getTitle()->getPrefixedDBkey() );
+		$result->addValue( null, 'svgFile', $svgFilePage->getPrefixedDBkey() );
+		$result->addValue( null, 'diagramPage', $diagramPage->getTitle()->getPrefixedDBkey() );
+		$result->addValue(
+			null,
+			'elements',
+			array_map( fn( $element ) => json_encode( $element ), $cpdElements )
+		);
+		$result->addValue(
+			null,
+			'saveWarnings',
+			$warnings
+		);
+
+		// Process possible orphaned description pages after processing description pages, e.g. renaming
+		$this->descriptionPageUtil->updateOrphanedDescriptionPages(
+			$cpdElements,
+			$process,
+			$diagramPage->getRevisionRecord()->getId()
+		);
 	}
 
 	/**
@@ -92,6 +123,11 @@ class SaveCpdDiagram extends ApiBase {
 			'svg' => [
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true
+			],
+			'saveDescriptionPages' => [
+				ParamValidator::PARAM_TYPE => 'boolean',
+				ParamValidator::PARAM_REQUIRED => true,
+				ParamValidator::PARAM_DEFAULT => false
 			]
 		];
 	}

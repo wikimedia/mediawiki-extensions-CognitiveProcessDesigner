@@ -14,14 +14,10 @@ use MediaWiki\Title\Title;
 
 class OnPageDeleteComplete implements PageDeleteCompleteHook {
 
-	/** @var CpdDescriptionPageUtil */
-	private CpdDescriptionPageUtil $descriptionPageUtil;
-
 	/**
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 */
-	public function __construct( CpdDescriptionPageUtil $descriptionPageUtil ) {
-		$this->descriptionPageUtil = $descriptionPageUtil;
+	public function __construct( private readonly CpdDescriptionPageUtil $descriptionPageUtil ) {
 	}
 
 	/**
@@ -37,10 +33,10 @@ class OnPageDeleteComplete implements PageDeleteCompleteHook {
 		int $archivedRevisionCount
 	) {
 		try {
-			$process = CpdDiagramPageUtil::getProcessFromTitle(
+			$process = CpdDiagramPageUtil::getProcess(
 				Title::newFromText( $page->getDBkey(), $page->getNamespace() )
 			);
-			$this->descriptionPageUtil->updateOrphanedDescriptionPages( [], $process );
+			$this->descriptionPageUtil->cleanUpOrphanedDescriptionPages( $process );
 		} catch ( CpdInvalidNamespaceException $e ) {
 			// Do nothing
 		}

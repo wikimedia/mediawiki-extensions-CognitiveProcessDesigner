@@ -8,12 +8,13 @@ use SkinTemplate;
 
 class AddActions implements SkinTemplateNavigation__UniversalHook {
 	/**
+	 * // phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
 	 * @param SkinTemplate $sktemplate
 	 * @param array &$links
 	 */
 	public function onSkinTemplateNavigation__Universal( $sktemplate, &$links ): void {
 		$title = $sktemplate->getTitle();
-		if ( $title->exists() && $title->getContentModel() === CognitiveProcessDesignerContent::MODEL ) {
+		if ( $title->getContentModel() === CognitiveProcessDesignerContent::MODEL ) {
 			$this->addEditDiagramXmlAction( $sktemplate, $links );
 		}
 	}
@@ -24,7 +25,7 @@ class AddActions implements SkinTemplateNavigation__UniversalHook {
 	 *
 	 * @return void
 	 */
-	private function addEditDiagramXmlAction( SkinTemplate $sktemplate, array &$links ) {
+	private function addEditDiagramXmlAction( SkinTemplate $sktemplate, array &$links ): void {
 		if ( !isset( $links['views']['edit'] ) ) {
 			return;
 		}

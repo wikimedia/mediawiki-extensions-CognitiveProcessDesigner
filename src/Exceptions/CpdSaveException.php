@@ -2,6 +2,8 @@
 
 namespace CognitiveProcessDesigner\Exceptions;
 
-class CpdSaveException extends \Exception {
+use Exception;
+
+class CpdSaveException extends Exception {
 
 }

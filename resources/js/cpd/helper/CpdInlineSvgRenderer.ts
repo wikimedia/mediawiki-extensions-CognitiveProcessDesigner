@@ -35,9 +35,8 @@ export default class CpdInlineSvgRenderer {
 		width += 15;
 		height += 15;
 
-		let type = element.type;
 		// ERM39844 remove the "bpmn:" prefix from the type
-		type = element.type.replace( "bpmn:", "" );
+		const type = element.type.replace( "bpmn:", "" );
 
 		const largeCls = this.largeTypes.includes( type ) ? "large" : "";
 

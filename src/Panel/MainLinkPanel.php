@@ -2,10 +2,10 @@
 
 namespace CognitiveProcessDesigner\Panel;
 
+use Exception;
 use MediaWiki\Message\Message;
-use MWException;
+use MediaWiki\SpecialPage\SpecialPage;
 use MWStake\MediaWiki\Component\CommonUserInterface\Component\RestrictedTextLink;
-use SpecialPage;
 
 class MainLinkPanel extends RestrictedTextLink {
 	public function __construct() {
@@ -30,7 +30,7 @@ class MainLinkPanel extends RestrictedTextLink {
 
 	/**
 	 * @return string
-	 * @throws MWException
+	 * @throws Exception
 	 */
 	public function getHref(): string {
 		$specialPage = SpecialPage::getTitleFor( 'ProcessOverview' );

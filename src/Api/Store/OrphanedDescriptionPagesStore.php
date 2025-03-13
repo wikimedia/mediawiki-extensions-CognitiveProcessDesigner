@@ -2,10 +2,11 @@
 
 namespace CognitiveProcessDesigner\Api\Store;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
 use CognitiveProcessDesigner\Data\OrphanedDescriptionPages\Store;
+use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 use Wikimedia\ParamValidator\ParamValidator;
 use Wikimedia\Rdbms\ILoadBalancer;
@@ -23,14 +24,16 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 	 * @param ApiMain $main
 	 * @param string $action
 	 * @param ILoadBalancer $loadBalancer
+	 * @param CpdDiagramPageUtil $cpdDiagramPageUtil
 	 */
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		ILoadBalancer $loadBalancer
+		ILoadBalancer $loadBalancer,
+		CpdDiagramPageUtil $cpdDiagramPageUtil
 	) {
 		parent::__construct( $main, $action );
-		$this->store = new Store( $loadBalancer );
+		$this->store = new Store( $loadBalancer, $cpdDiagramPageUtil );
 	}
 
 	/**
@@ -53,7 +56,7 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 		$result->addValue(
 			null,
 			'results',
-			array_map( fn( $record ) => $record->getData(), $records )
+			array_map( fn ( $record ) => $record->getData(), $records )
 		);
 
 		$result->addValue(
@@ -87,7 +90,7 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 	 * @return array
 	 */
 	private function getFilter( array $params ): array {
-		if ( is_array( $params ) && isset( $params['filter'] ) ) {
+		if ( isset( $params['filter'] ) ) {
 			return json_decode( $params['filter'], 1 );
 		}
 
@@ -100,7 +103,7 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 	 * @return array
 	 */
 	private function getSort( array $params ): array {
-		if ( is_array( $params ) && isset( $params['sort'] ) ) {
+		if ( isset( $params['sort'] ) ) {
 			return json_decode( $params['sort'], 1 );
 		}
 

@@ -2,20 +2,17 @@
 
 namespace CognitiveProcessDesigner\Api;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\HookHandler\BpmnTag;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class GetDiagramUsage extends ApiBase {
-
-	/** @var CpdDiagramPageUtil */
-	private CpdDiagramPageUtil $diagramPageUtil;
 
 	/**
 	 * @param ApiMain $main
@@ -25,11 +22,9 @@ class GetDiagramUsage extends ApiBase {
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		CpdDiagramPageUtil $diagramPageUtil
+		private readonly CpdDiagramPageUtil $diagramPageUtil
 	) {
 		parent::__construct( $main, $action );
-
-		$this->diagramPageUtil = $diagramPageUtil;
 	}
 
 	/**
@@ -52,7 +47,7 @@ class GetDiagramUsage extends ApiBase {
 
 		try {
 			// Process pages can only have one process
-			$processes = [ CpdDiagramPageUtil::getProcessFromTitle( $title ) ];
+			$processes = [ CpdDiagramPageUtil::getProcess( $title ) ];
 		} catch ( CpdInvalidNamespaceException $e ) {
 			$services = MediaWikiServices::getInstance();
 			$pageFactory = $services->getWikiPageFactory();

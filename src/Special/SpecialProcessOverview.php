@@ -2,8 +2,9 @@
 
 namespace CognitiveProcessDesigner\Special;
 
-use SpecialPage;
-use TemplateParser;
+use MediaWiki\Html\TemplateParser;
+use MediaWiki\Registration\ExtensionRegistry;
+use MediaWiki\SpecialPage\SpecialPage;
 
 class SpecialProcessOverview extends SpecialPage {
 	/** @var TemplateParser */
@@ -30,6 +31,10 @@ class SpecialProcessOverview extends SpecialPage {
 
 		$out->setPageTitle( $this->msg( 'processoverview' )->text() );
 		$out->addModules( "ext.cpd.special.processoverview" );
+		$modules = ExtensionRegistry::getInstance()->getAttribute(
+			'CognitiveProcessDesignerProcessOverviewPluginModules'
+		);
+		$out->addModules( $modules );
 
 		$html = $this->templateParser->processTemplate(
 			'SpecialProcessOverview', [

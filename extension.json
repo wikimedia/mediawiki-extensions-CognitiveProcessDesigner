@@ -1,511 +1,536 @@
 {
-    "name": "CognitiveProcessDesigner",
-    "version": "4.0.0",
-    "license-name": "GPL-3.0-only",
-    "author": [
-        "[https://www.hallowelt.com Hallo Welt! GmbH]",
-        "Daniel Riedmüller"
-    ],
-    "url": "https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer",
-    "descriptionmsg": "cognitiveprocessdesigner-desc",
-    "load_composer_autoloader": true,
-    "callback": "mwsInitComponents",
-    "requires": {
-        "MediaWiki": ">= 1.43.0",
-        "extensions": {
-            "OOJSPlus": ">= 3.0.0",
-            "StandardDialogs": ">= 3.0.0"
-        }
-    },
-    "attributes": {
-        "BlueSpiceFoundation": {
-            "PermissionRegistry": {
-                "cognitiveprocessdesigner-editbpmn": {
-                    "type": "global",
-                    "roles": [
-                        "admin",
-                        "editor",
-                        "maintenanceadmin"
-                    ]
-                }
-            },
-            "ConfigDefinitionRegistry": {
-                "CPDMainLinksCognitiveProcessDesigner": "\\CognitiveProcessDesigner\\ConfigDefinition\\MainLinksCognitiveProcessDesigner::getInstance"
-            }
-        },
-        "BlueSpiceVisualEditorConnector": {
-            "TagDefinitions": [
-                "ext.cpd.visualEditorTagDefinition"
-            ]
-        },
-        "ContentDroplets": {
-            "Droplets": {
-                "bpmn-diagram": {
-                    "class": "\\CognitiveProcessDesigner\\ContentDroplets\\BPMNDiagramDroplet"
-                }
-            }
-        },
-        "MWStakeContentProvisioner": {
-            "ContentManifests": {
-                "DefaultContentProvisioner": [
-                    "extensions/CognitiveProcessDesigner/data/Content/PageTemplates/manifest.json"
-                ]
-            }
-        }
-    },
-    "AvailableRights": [
-        "cognitiveprocessdesigner-editbpmn"
-    ],
-    "GroupPermissions": {
-        "*": {
-            "cognitiveprocessdesigner-editbpmn": false
-        },
-        "user": {
-            "cognitiveprocessdesigner-editbpmn": true
-        },
-        "sysop": {
-            "cognitiveprocessdesigner-editbpmn": true
-        }
-    },
-    "MessagesDirs": {
-        "CognitiveProcessDesigner": "i18n"
-    },
-    "AutoloadNamespaces": {
-        "CognitiveProcessDesigner\\": "src/"
-    },
-    "namespaces": [
-        {
-            "id": 1530,
-            "constant": "NS_PROCESS",
-            "name": "Process",
-            "conditional": true,
-            "subpages": true
-        },
-        {
-            "id": 1531,
-            "constant": "NS_PROCESS_TALK",
-            "name": "Process_talk",
-            "conditional": true
-        }
-    ],
-    "ContentHandlers": {
-        "CPD": "\\CognitiveProcessDesigner\\Content\\CognitiveProcessDesignerContentHandler"
-    },
-    "JobClasses": {
-        "cpdCreateDescriptionPage": "\\CognitiveProcessDesigner\\Job\\SaveDescriptionPage"
-    },
-    "SpecialPages": {
-        "OrphanedProcessDescriptionPages": {
-            "class": "\\CognitiveProcessDesigner\\Special\\SpecialOrphanedDescriptionPages",
-            "services": [
-                "DBLoadBalancer",
-                "LinkRenderer"
-            ]
-        },
-        "ProcessOverview": {
-            "class": "\\CognitiveProcessDesigner\\Special\\SpecialProcessOverview"
-        }
-    },
-    "APIModules": {
-        "cpd-load-diagram": {
-            "class": "\\CognitiveProcessDesigner\\Api\\LoadCpdDiagram",
-            "services": [
-                "CpdDiagramPageUtil",
-                "CpdDescriptionPageUtil"
-            ]
-        },
-        "cpd-save-diagram": {
-            "class": "\\CognitiveProcessDesigner\\Api\\SaveCpdDiagram",
-            "services": [
-                "CpdDiagramPageUtil",
-                "SvgFile"
-            ]
-        },
-        "cpd-save-description-pages": {
-            "class": "\\CognitiveProcessDesigner\\Api\\SaveCpdDescriptionPages",
-            "services": [
-                "CpdElementFactory",
-                "CpdDiagramPageUtil",
-                "CpdDescriptionPageUtil",
-                "JobQueueGroup",
-                "LinkRenderer"
-            ]
-        },
-        "cpd-syntax-highlight-xml": {
-            "class": "\\CognitiveProcessDesigner\\Api\\SyntaxHighlightXml",
-            "services": [
-                "Parser"
-            ]
-        },
-        "cpd-process-overview-store": {
-            "class": "\\CognitiveProcessDesigner\\Api\\Store\\ProcessesOverviewStore",
-            "services": [
-                "DBLoadBalancer",
-                "CpdDiagramPageUtil"
-            ]
-        },
-        "cpd-orphaned-description-pages-store": {
-            "class": "\\CognitiveProcessDesigner\\Api\\Store\\OrphanedDescriptionPagesStore",
-            "services": [
-                "DBLoadBalancer"
-            ]
-        },
-        "cpd-diagram-usage": {
-            "class": "\\CognitiveProcessDesigner\\Api\\GetDiagramUsage",
-            "services": [
-                "CpdDiagramPageUtil"
-            ]
-        }
-    },
-    "ResourceModules": {
-        "ext.cpd.viewer": {
-            "localBasePath": "",
-            "scripts": [
-                "resources/js/dist/cpd.viewer.bundle.js"
-            ],
-            "dependencies": [
-                "mediawiki.api",
-                "mediawiki.Title",
-                "oojs-ui.styles.icons-editing-advanced",
-                "oojs-ui.styles.icons-media",
-                "oojs-ui.styles.icons-accessibility",
-                "oojs-ui"
-            ],
-            "styles": [
-                "resources/styles/ext/bpmn-embedded.css",
-                "resources/styles/ext/bpmn-js.css",
-                "resources/styles/ext/diagram-js.css",
-                "resources/styles/pygments.generated.css",
-                "resources/styles/cpd.less"
-            ],
-            "messages": [
-                "cpd-api-load-diagram-error-message",
-                "cpd-api-load-diagram-missing-message",
-                "cpd-api-load-diagram-missingtitle-error-message",
-                "cpd-error-message-missing-config",
-                "cpd-error-message-missing-element-link",
-                "cpd-error-message-missing-element",
-                "cpd-error-message-missing-xml",
-                "cpd-error-message-saving-diagram",
-                "cpd-error-message-missing-root-element",
-                "cpd-error-message-invalid-xml",
-                "cpd-warning-message-diagram-not-initialized",
-                "cpd-warning-message-diagram-not-initialized-create-it",
-                "cpd-link-svg-title",
-                "cpd-link-diagram-page-title",
-                "cpd-button-show-xml",
-                "cpd-button-hide-xml",
-                "cpd-button-center-viewport"
-            ]
-        },
-        "ext.cpd.modeler": {
-            "localBasePath": "",
-            "scripts": [
-                "resources/js/dist/cpd.modeler.bundle.js"
-            ],
-            "dependencies": [
-                "mediawiki.api",
-                "mediawiki.Title",
-                "oojs-ui"
-            ],
-            "styles": [
-                "resources/styles/ext/bpmn-embedded.css",
-                "resources/styles/ext/bpmn-js.css",
-                "resources/styles/ext/diagram-js.css",
-                "resources/styles/ext/color-picker.css",
-                "resources/styles/ext/bpmn-js-bpmnlint.css",
-                "resources/styles/cpd.less"
-            ],
-            "messages": [
-                "cpd-api-save-diagram-success-message",
-                "cpd-api-save-diagram-error-message",
-                "cpd-api-save-description-pages-success-message",
-                "cpd-api-save-description-pages-error-message",
-                "cpd-api-load-diagram-success-message",
-                "cpd-api-load-diagram-error-message",
-                "cpd-api-load-diagram-missingtitle-error-message",
-                "cpd-error-message-not-process",
-                "cpd-error-message-missing-config",
-                "cpd-error-message-missing-element-link",
-                "cpd-error-message-mismatched-element-link",
-                "cpd-error-message-missing-label",
-                "cpd-error-message-saving-diagram",
-                "cpd-error-message-missing-root-element",
-                "cpd-error-message-missing-initial-element",
-                "cpd-error-message-invalid-xml",
-                "cpd-no-changes-warning-message",
-                "cpd-dialog-save-changes-button-title",
-                "cpd-button-cancel-title",
-                "cpd-button-show-xml",
-                "cpd-button-hide-xml",
-                "cpd-shape-creation-message",
-                "cpd-shape-deletion-message",
-                "cpd-shape-deletion-page-referenced-message",
-                "cpd-description-page-creation-message",
-                "cpd-shape-rename-message",
-                "cpd-shape-rename-with-description-page-message",
-                "cpd-shape-remove-label-message",
-                "cpd-log-no-changes",
-                "savechanges",
-                "savechanges-start",
-                "cpd-dialog-save-changes-headline",
-                "cpd-dialog-save-label-description-pages-checkbox",
-                "cpd-dialog-save-label-review",
-                "cpd-dialog-save-label-save",
-                "cpd-dialog-save-label-changes",
-                "cpd-dialog-save-label-changes-with-error",
-                "cpd-dialog-save-label-resume-editing",
-                "cpd-button-center-viewport"
-            ]
-        },
-        "ext.cpd.visualEditorTagDefinition": {
-            "scripts": [
-                "js/ve/ext.cpd.ui.processInputWidget.js",
-                "js/ve/ext.cpd.visualEditorTagDefinition.js"
-            ],
-			"styles": [
-				"styles/bpmn.droplet.css"
+	"name": "CognitiveProcessDesigner",
+	"version": "4.0.0",
+	"license-name": "GPL-3.0-only",
+	"author": [
+		"[https://www.hallowelt.com Hallo Welt! GmbH]",
+		"Daniel Riedmüller"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:Cognitive_Process_Designer",
+	"descriptionmsg": "cognitiveprocessdesigner-desc",
+	"load_composer_autoloader": true,
+	"callback": "CognitiveProcessDesigner\\Setup::callback",
+	"requires": {
+		"MediaWiki": ">= 1.43.0",
+		"extensions": {
+			"OOJSPlus": ">= 3.0.0"
+		}
+	},
+	"attributes": {
+		"CognitiveProcessDesigner": {
+			"ProcessOverviewPluginModules": []
+		},
+		"BlueSpiceFoundation": {
+			"PermissionRegistry": {
+				"cognitiveprocessdesigner-editbpmn": {
+					"type": "global",
+					"roles": [
+						"admin",
+						"editor",
+						"maintenanceadmin"
+					]
+				}
+			},
+			"ConfigDefinitionRegistry": {
+				"CPDMainLinksCognitiveProcessDesigner": "\\CognitiveProcessDesigner\\ConfigDefinition\\MainLinksCognitiveProcessDesigner::getInstance"
+			}
+		},
+		"VisualEditor": {
+			"PluginModules": [
+				"ext.cpd.visualEditorTagDefinition"
+			]
+		},
+		"ContentDroplets": {
+			"Droplets": {
+				"bpmn-diagram": {
+					"class": "\\CognitiveProcessDesigner\\ContentDroplets\\BPMNDiagramDroplet"
+				}
+			}
+		},
+		"MWStakeContentProvisioner": {
+			"ContentManifests": {
+				"DefaultContentProvisioner": [
+					"extensions/CognitiveProcessDesigner/data/Content/PageTemplates/manifest.json"
+				]
+			}
+		},
+		"PDFCreator": {
+			"StylesheetsProvider": {
+				"CpdStyles": {
+					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\StylesheetsProvider\\CssStyles"
+				}
+			}
+		}
+	},
+	"AvailableRights": [
+		"cognitiveprocessdesigner-editbpmn"
+	],
+	"GroupPermissions": {
+		"*": {
+			"cognitiveprocessdesigner-editbpmn": false
+		},
+		"user": {
+			"cognitiveprocessdesigner-editbpmn": true
+		},
+		"sysop": {
+			"cognitiveprocessdesigner-editbpmn": true
+		}
+	},
+	"MessagesDirs": {
+		"CognitiveProcessDesigner": "i18n"
+	},
+	"AutoloadNamespaces": {
+		"CognitiveProcessDesigner\\": "src/"
+	},
+	"namespaces": [
+		{
+			"id": 1530,
+			"constant": "NS_PROCESS",
+			"name": "Process",
+			"conditional": true,
+			"subpages": true
+		},
+		{
+			"id": 1531,
+			"constant": "NS_PROCESS_TALK",
+			"name": "Process_talk",
+			"conditional": true
+		}
+	],
+	"ContentHandlers": {
+		"CPD": "\\CognitiveProcessDesigner\\Content\\CognitiveProcessDesignerContentHandler"
+	},
+	"JobClasses": {
+		"cpdCreateDescriptionPage": "\\CognitiveProcessDesigner\\Job\\SaveDescriptionPage"
+	},
+	"SpecialPages": {
+		"OrphanedProcessDescriptionPages": {
+			"class": "\\CognitiveProcessDesigner\\Special\\SpecialOrphanedDescriptionPages"
+		},
+		"ProcessOverview": {
+			"class": "\\CognitiveProcessDesigner\\Special\\SpecialProcessOverview"
+		}
+	},
+	"APIModules": {
+		"cpd-load-diagram": {
+			"class": "\\CognitiveProcessDesigner\\Api\\LoadCpdDiagram",
+			"services": [
+				"CpdXmlProcessor",
+				"CpdDiagramPageUtil"
+			]
+		},
+		"cpd-save-diagram": {
+			"class": "\\CognitiveProcessDesigner\\Api\\SaveCpdDiagram",
+			"services": [
+				"CpdXmlProcessor",
+				"CpdDiagramPageUtil",
+				"CpdSaveDescriptionPagesUtil",
+				"CpdDescriptionPageUtil",
+				"SvgFile"
+			]
+		},
+		"cpd-syntax-highlight-xml": {
+			"class": "\\CognitiveProcessDesigner\\Api\\SyntaxHighlightXml",
+			"services": [
+				"Parser"
+			]
+		},
+		"cpd-process-overview-store": {
+			"class": "\\CognitiveProcessDesigner\\Api\\Store\\ProcessesOverviewStore",
+			"services": [
+				"DBLoadBalancer",
+				"CpdDiagramPageUtil"
+			]
+		},
+		"cpd-orphaned-description-pages-store": {
+			"class": "\\CognitiveProcessDesigner\\Api\\Store\\OrphanedDescriptionPagesStore",
+			"services": [
+				"DBLoadBalancer",
+				"CpdDiagramPageUtil"
+			]
+		},
+		"cpd-diagram-usage": {
+			"class": "\\CognitiveProcessDesigner\\Api\\GetDiagramUsage",
+			"services": [
+				"CpdDiagramPageUtil"
+			]
+		}
+	},
+	"ResourceModules": {
+		"ext.cpd.viewer": {
+			"localBasePath": "",
+			"scripts": [
+				"resources/js/dist/cpd.viewer.bundle.js"
 			],
-            "messages": [
-                "cpd-droplet-name",
-                "cpd-droplet-description",
-                "cpd-droplet-process-field-label",
-                "cpd-droplet-process-field-label-help",
-                "cpd-droplet-width-field-label",
-                "cpd-droplet-width-field-label-help",
-                "cpd-droplet-height-field-label",
-                "cpd-droplet-height-field-label-help",
-                "cpd-droplet-show-toolbar-field-label",
-                "cpd-droplet-show-toolbar-field-label-help"
-            ],
-            "dependencies": [
-                "ext.visualEditor.mwcore",
-                "ext.bluespice.visualEditorConnector.tags.classes",
-                "mediawiki.widgets"
-            ]
-        },
-        "ext.cpd.special.orphaneddescriptionpages": {
-            "scripts": [
-                "js/ext.cpd.special.OrphanedDescriptionPagesGrid.js"
-            ],
-            "messages": [
-                "cpd-orphaned-description-pages-column-process-title",
-                "cpd-orphaned-description-pages-column-dbkey-title"
-            ],
-            "dependencies": [
-                "oojs-ui",
-                "ext.oOJSPlus.data"
-            ]
-        },
-        "ext.cpd.special.processoverview": {
-            "es6": true,
-            "packageFiles": [
-                "vue/init.js",
-                "vue/components/App.vue",
-                "vue/components/Grid.vue",
-                "vue/components/Card.vue",
-                "vue/components/Action.vue"
-            ],
-            "targets": [
-                "desktop",
-                "mobile"
-            ],
-            "messages": [
-                "bs-cpd-process-overview-loading-text",
-                "bs-cpd-process-search-placeholder",
-                "bs-cpd-process-overview-no-results",
-                "bs-cpd-process-overview-aria-live-filtered-rows",
-                "bs-cpd-process-overview-edit-action-text",
-                "bs-cpd-process-overview-edit-action-title",
-                "bs-cpd-process-overview-create-action-text",
-                "bs-cpd-process-overview-create-action-title",
-                "bs-cpd-process-overview-card-title",
-                "bs-cpd-process-overview-info-action-text",
-                "bs-cpd-process-overview-info-action-title"
-            ],
-            "styles": [
-                "styles/cpd.overview.special.css"
-            ],
-            "dependencies": [
-                "mediawiki.api",
-                "vue",
-                "@wikimedia/codex",
-                "ext.standardDialogs.allpages"
-            ]
-        },
+			"dependencies": [
+				"mediawiki.api",
+				"mediawiki.Title",
+				"oojs-ui.styles.icons-editing-advanced",
+				"oojs-ui.styles.icons-media",
+				"oojs-ui.styles.icons-accessibility",
+				"oojs-ui"
+			],
+			"styles": [
+				"resources/styles/ext/bpmn-embedded.css",
+				"resources/styles/ext/bpmn-js.css",
+				"resources/styles/ext/diagram-js.css",
+				"resources/styles/ext/pygments.generated.css",
+				"resources/styles/cpd.less"
+			],
+			"messages": [
+				"cpd-api-load-diagram-error-message",
+				"cpd-api-load-diagram-missing-message",
+				"cpd-api-load-diagram-missingtitle-error-message",
+				"cpd-error-message-missing-config",
+				"cpd-error-message-missing-element",
+				"cpd-error-message-missing-xml",
+				"cpd-error-message-saving-diagram",
+				"cpd-error-message-missing-root-element",
+				"cpd-error-message-invalid-xml",
+				"cpd-warning-message-diagram-not-initialized",
+				"cpd-warning-message-diagram-not-initialized-create-it",
+				"cpd-link-svg-title",
+				"cpd-link-diagram-page-title",
+				"cpd-button-show-xml",
+				"cpd-button-show-diagram",
+				"cpd-button-center-viewport"
+			]
+		},
+		"ext.cpd.modeler": {
+			"localBasePath": "",
+			"scripts": [
+				"resources/js/dist/cpd.modeler.bundle.js"
+			],
+			"dependencies": [
+				"mediawiki.api",
+				"mediawiki.Title",
+				"oojs-ui"
+			],
+			"styles": [
+				"resources/styles/ext/bpmn-embedded.css",
+				"resources/styles/ext/bpmn-js.css",
+				"resources/styles/ext/diagram-js.css",
+				"resources/styles/ext/color-picker.css",
+				"resources/styles/ext/bpmn-js-bpmnlint.css",
+				"resources/styles/cpd.less"
+			],
+			"messages": [
+				"cpd-api-save-diagram-success-message",
+				"cpd-api-save-diagram-error-message",
+				"cpd-api-save-description-pages-success-message",
+				"cpd-api-save-description-pages-error-message",
+				"cpd-api-load-diagram-success-message",
+				"cpd-api-load-diagram-error-message",
+				"cpd-api-load-diagram-missingtitle-error-message",
+				"cpd-error-message-not-process",
+				"cpd-error-message-missing-config",
+				"cpd-error-message-missing-label",
+				"cpd-error-message-saving-diagram",
+				"cpd-error-message-missing-root-element",
+				"cpd-error-message-missing-initial-element",
+				"cpd-error-message-invalid-xml",
+				"cpd-error-message-missing-description-page",
+				"cpd-no-changes-warning-message",
+				"cpd-dialog-save-changes-button-title",
+				"cpd-dialog-save-changes-button-label",
+				"cpd-button-cancel-title",
+				"cpd-button-show-xml",
+				"cpd-button-hide-xml",
+				"cpd-shape-creation-message",
+				"cpd-shape-deletion-message",
+				"cpd-shape-rename-message",
+				"cpd-shape-remove-label-message",
+				"cpd-log-no-changes",
+				"savechanges",
+				"savechanges-start",
+				"cpd-dialog-save-changes-headline",
+				"cpd-dialog-save-label-description-pages-checkbox",
+				"cpd-dialog-save-label-review",
+				"cpd-dialog-save-label-save",
+				"cpd-dialog-save-label-changes",
+				"cpd-dialog-save-label-changes-with-error",
+				"cpd-dialog-save-label-resume-editing",
+				"cpd-dialog-save-label-done",
+				"cpd-button-center-viewport"
+			]
+		},
+		"ext.cpd.visualEditorTagDefinition": {
+			"scripts": [
+				"js/ve/ce/CPDProcessNode.js",
+				"js/ve/dm/CPDProcessNode.js",
+				"js/ve/ui/CPDProcessNodeInspector.js",
+				"js/ve/ui/CPDProcessNodeInspectorTool.js"
+			],
+			"styles": [
+				"styles/bpmn.droplet.css",
+				"styles/cpd.diagram.preview.less"
+			],
+			"messages": [
+				"cpd-droplet-name",
+				"cpd-droplet-description",
+				"cpd-droplet-process-field-label",
+				"cpd-droplet-process-field-label-help",
+				"cpd-droplet-width-field-label",
+				"cpd-droplet-width-field-label-help",
+				"cpd-droplet-height-field-label",
+				"cpd-droplet-height-field-label-help",
+				"cpd-droplet-show-toolbar-field-label",
+				"cpd-droplet-show-toolbar-field-label-help"
+			],
+			"dependencies": [
+				"ext.visualEditor.mwcore",
+				"ext.cpd.widgets"
+			]
+		},
+		"ext.cpd.special.orphaneddescriptionpages": {
+			"scripts": [
+				"js/ext.cpd.special.OrphanedDescriptionPagesGrid.js"
+			],
+			"messages": [
+				"cpd-orphaned-description-pages-column-process-title",
+				"cpd-orphaned-description-pages-column-dbkey-title"
+			],
+			"dependencies": [
+				"oojs-ui",
+				"ext.oOJSPlus.data"
+			]
+		},
+		"ext.cpd.special.processoverview": {
+			"es6": true,
+			"packageFiles": [
+				"vue/init.js",
+				"vue/components/App.vue",
+				"vue/components/Grid.vue",
+				"vue/components/Card.vue",
+				"vue/components/Action.vue"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
+			],
+			"messages": [
+				"bs-cpd-process-overview-loading-text",
+				"bs-cpd-process-search-placeholder",
+				"bs-cpd-process-overview-no-results-text",
+				"bs-cpd-process-overview-aria-live-filtered-rows",
+				"bs-cpd-process-overview-edit-action-text",
+				"bs-cpd-process-overview-edit-action-title",
+				"bs-cpd-process-overview-create-action-text",
+				"bs-cpd-process-overview-create-action-title",
+				"bs-cpd-process-overview-card-title",
+				"bs-cpd-process-overview-info-action-text",
+				"bs-cpd-process-overview-info-action-title"
+			],
+			"styles": [
+				"styles/cpd.overview.special.css"
+			],
+			"dependencies": [
+				"mediawiki.api",
+				"vue",
+				"@wikimedia/codex"
+			]
+		},
 		"ext.cpd.diagram.preview": {
 			"styles": [
 				"styles/cpd.diagram.preview.less"
 			]
 		},
-        "ext.cpd.description.page": {
-            "styles": [
-                "styles/cpd.navigation.connections.less",
-                "styles/cpd.description.page.less"
-            ]
-        },
-        "ext.cpd.dialoginfo.pages": {
-            "scripts": [
-                "js/ext.cpd.DiagramUsageInformationPage.js"
-            ],
-            "messages": [
-                "bs-cpd-info-dialog",
-                "cpd-process-usage-description",
-                "cpd-process-usage-no-pages-description",
-                "cpd-process-usage-not-embedded-description",
-                "cpd-process-usage-special-page-description",
-                "cpd-process-usage-undocumented-error"
-            ],
-            "dependencies": [
-                "ext.bluespice",
-                "mediawiki.api"
-            ]
-        },
-        "ext.cpd.newprocessdialog": {
-            "scripts": [
-                "js/ext.cpd.NewProcessDialog.js"
-            ],
-            "messages": [
-                "bs-cpd-actionmenuentry-new-process",
-                "bs-cpd-actionmenuentry-new-process-input-label"
-            ],
-            "dependencies": [
-                "ext.standardDialogs.ui.NewPageDialog"
-            ]
-        }
-    },
-    "ServiceWiringFiles": [
-        "includes/ServiceWiring.php"
-    ],
-    "Hooks": {
-        "CanonicalNamespaces": "registerNamespaces",
-        "ParserFirstCallInit": "tag",
-        "ContentHandlerDefaultModelFor": "setCPDContentType",
-        "BlueSpiceDiscoveryTemplateDataProviderAfterInit": "addEditLink",
-        "SkinTemplateNavigation::Universal": [
-            "addActions",
-            "addNewProcess"
-        ],
-        "CodeEditorGetPageLanguage": "integrateCodeEditor",
-        "OutputPageBeforeHTML": [
-            "modifyDescriptionPages",
-            "addResources"
-        ],
-        "LoadExtensionSchemaUpdates": "addTables",
-        "PageDeleteComplete": "onPageDeleteComplete",
-        "MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface",
-        "StandardDialogsRegisterPageInfoPanelModules": "standardDialogs"
-    },
-    "HookHandlers": {
-        "tag": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\BpmnTag",
-            "services": [
-                "CpdDiagramPageUtil"
-            ]
-        },
-        "registerNamespaces": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\RegisterNamespaces",
-            "services": [
-                "MainConfig"
-            ]
-        },
-        "setCPDContentType": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\SetCpdContentType"
-        },
-        "addEditLink": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\DiscoverySkin"
-        },
-        "addActions": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\AddActions"
-        },
-        "addNewProcess": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\AddNewProcess"
-        },
-        "integrateCodeEditor": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\IntegrateCodeEditor"
-        },
-        "modifyDescriptionPages": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\ModifyDescriptionPage",
-            "services": [
-                "CpdDescriptionPageUtil",
-                "CpdElementConnectionUtil",
-                "LinkRenderer"
-            ]
-        },
-        "addTables": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\AddTables"
-        },
-        "onPageDeleteComplete": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\OnPageDeleteComplete",
-            "services": [
-                "CpdDescriptionPageUtil"
-            ]
-        },
-        "commonUserInterface": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\CommonUserInterface",
-            "services": [
-                "MainConfig"
-            ]
-        },
-        "standardDialogs": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\StandardDialogs"
-        },
-        "addResources": {
-            "class": "\\CognitiveProcessDesigner\\HookHandler\\AddResources",
-            "services": [
-                "MainConfig"
-            ]
-        }
-    },
-    "ResourceFileModulePaths": {
-        "localBasePath": "resources",
-        "remoteExtPath": "CognitiveProcessDesigner/resources"
-    },
-    "config_prefix": "wg",
-    "config": {
-        "CPDFallbackNSNames": {
-            "value": [
-                "CPD",
-                "CPD_talk"
-            ]
-        },
-        "CPDDedicatedSubpageTypes": {
-            "value": [
-                "bpmn:Gateway",
-                "bpmn:ExclusiveGateway",
-                "bpmn:Task",
-                "bpmn:StartEvent",
-                "bpmn:EndEvent"
-            ]
-        },
-        "CPDLaneTypes": {
-            "value": [
-                "bpmn:Pool",
-                "bpmn:Participant",
-                "bpmn:Lane"
-            ]
-        },
-        "CPDPageTemplates": {
-            "value": {
-                "*": "Template:CPD/GenericBPMN",
-                "bpmn:Task": "Template:CPD/Task"
-            }
-        },
-        "CPDCanvasProcessHeight": {
-            "value": 600,
-            "descriptionmsg": "cpd-config-canvas-process-height-msg"
-        },
-        "CPDCanvasEmbeddedHeight": {
-            "value": 600,
-            "descriptionmsg": "cpd-config-canvas-embedded-height-msg"
-        },
-        "CPDMainLinksCognitiveProcessDesigner": {
-            "value": false,
-            "descriptionmsg": "bs-config-mainlinks-cpd-label"
-        }
-    },
-    "Actions": {
-        "editcpdsource": "\\CognitiveProcessDesigner\\Action\\EditDiagramXmlAction"
-    },
-    "manifest_version": 2
+		"ext.cpd.description.page": {
+			"styles": [
+				"styles/cpd.navigation.connections.less",
+				"styles/cpd.description.page.less"
+			]
+		},
+		"ext.cpd.dialoginfo.pages": {
+			"scripts": [
+				"js/ext.cpd.DiagramUsageInformationPage.js"
+			],
+			"messages": [
+				"bs-cpd-info-dialog",
+				"cpd-process-usage-description",
+				"cpd-process-usage-no-pages-description",
+				"cpd-process-usage-not-embedded-description",
+				"cpd-process-usage-special-page-description",
+				"cpd-process-usage-undocumented-error"
+			],
+			"dependencies": [
+				"ext.bluespice",
+				"mediawiki.api"
+			]
+		},
+		"ext.cpd.newprocessdialog": {
+			"scripts": [
+				"js/ext.cpd.NewProcessDialog.js"
+			],
+			"messages": [
+				"bs-cpd-actionmenuentry-new-process",
+				"bs-cpd-actionmenuentry-new-process-input-label"
+			],
+			"dependencies": [
+				"ext.standardDialogs.ui.NewPageDialog"
+			]
+		},
+		"ext.cpd.widgets": {
+			"scripts": [
+				"js/ui/ProcessInputWidget.js"
+			],
+			"dependencies": [
+				"mediawiki.widgets"
+			]
+		}
+	},
+	"ServiceWiringFiles": [
+		"includes/ServiceWiring.php"
+	],
+	"Hooks": {
+		"CanonicalNamespaces": "registerNamespaces",
+		"ParserFirstCallInit": "tag",
+		"ContentHandlerDefaultModelFor": "setCPDContentType",
+		"BlueSpiceDiscoveryTemplateDataProviderAfterInit": "addEditLink",
+		"SkinTemplateNavigation::Universal": [
+			"addActions",
+			"addNewProcess"
+		],
+		"CodeEditorGetPageLanguage": "integrateCodeEditor",
+		"OutputPageBeforeHTML": [
+			"modifyDescriptionPages",
+			"addResources"
+		],
+		"LoadExtensionSchemaUpdates": "addTables",
+		"PageDeleteComplete": "onPageDeleteComplete",
+		"MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface",
+		"StandardDialogsRegisterPageInfoPanelModules": "standardDialogs",
+		"MediaWikiServices": "registerMetaSlot",
+		"ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess",
+		"ContentStabilizationStablePointAdded": "stablePointAdded"
+	},
+	"HookHandlers": {
+		"tag": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\BpmnTag",
+			"services": [
+				"CpdDiagramPageUtil",
+				"HookContainer"
+			]
+		},
+		"registerNamespaces": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\RegisterNamespaces",
+			"services": [
+				"MainConfig"
+			]
+		},
+		"setCPDContentType": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\SetCpdContentType"
+		},
+		"addEditLink": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\DiscoverySkin"
+		},
+		"addActions": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddActions"
+		},
+		"addNewProcess": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddNewProcess"
+		},
+		"integrateCodeEditor": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\IntegrateCodeEditor"
+		},
+		"modifyDescriptionPages": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\ModifyDescriptionPage",
+			"services": [
+				"CpdDescriptionPageUtil",
+				"CpdElementConnectionUtil"
+			]
+		},
+		"addTables": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddTables"
+		},
+		"onPageDeleteComplete": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\OnPageDeleteComplete",
+			"services": [
+				"CpdDescriptionPageUtil"
+			]
+		},
+		"commonUserInterface": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\CommonUserInterface",
+			"services": [
+				"MainConfig"
+			]
+		},
+		"standardDialogs": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\StandardDialogs"
+		},
+		"addResources": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddResources",
+			"services": [
+				"MainConfig"
+			]
+		},
+		"registerMetaSlot": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\RegisterProcessMetadataSlot"
+		},
+		"enableStabilizationForProcess": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\EnableStabilizationForProcess",
+			"services": [
+				"ContentStabilization._Config"
+			]
+		},
+		"stablePointAdded": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\StablePointAdded",
+			"services": [
+				"CpdDiagramPageUtil",
+				"CpdDescriptionPageUtil"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "CognitiveProcessDesigner/resources"
+	},
+	"config_prefix": "wg",
+	"config": {
+		"CPDFallbackNSNames": {
+			"value": [
+				"CPD",
+				"CPD_talk"
+			]
+		},
+		"CPDDedicatedSubpageTypes": {
+			"value": [
+				"bpmn:Gateway",
+				"bpmn:ExclusiveGateway",
+				"bpmn:Task",
+				"bpmn:StartEvent",
+				"bpmn:EndEvent"
+			]
+		},
+		"CPDLaneTypes": {
+			"value": [
+				"bpmn:Pool",
+				"bpmn:Participant",
+				"bpmn:Lane",
+				"bpmn:SubProcess"
+			]
+		},
+		"CPDPageTemplates": {
+			"value": {
+				"*": "Template:CPD/GenericBPMN",
+				"bpmn:Task": "Template:CPD/Task"
+			}
+		},
+		"CPDCanvasProcessHeight": {
+			"value": 600,
+			"descriptionmsg": "cpd-config-canvas-process-height-msg"
+		},
+		"CPDCanvasEmbeddedHeight": {
+			"value": 300,
+			"descriptionmsg": "cpd-config-canvas-embedded-height-msg"
+		},
+		"CPDMainLinksCognitiveProcessDesigner": {
+			"value": false,
+			"descriptionmsg": "bs-config-mainlinks-cpd-label"
+		}
+	},
+	"Actions": {
+		"editcpdsource": "\\CognitiveProcessDesigner\\Action\\EditDiagramXmlAction"
+	},
+	"manifest_version": 2
 }

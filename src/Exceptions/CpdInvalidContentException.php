@@ -2,6 +2,8 @@
 
 namespace CognitiveProcessDesigner\Exceptions;
 
-class CpdInvalidContentException extends \Exception {
+use Exception;
+
+class CpdInvalidContentException extends Exception {
 
 }

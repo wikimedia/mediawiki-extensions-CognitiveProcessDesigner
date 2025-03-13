@@ -5,34 +5,22 @@ namespace CognitiveProcessDesigner\Rest;
 use MediaHandler;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Rest\Handler;
+use MediaWiki\Specials\SpecialUpload;
 use MediaWiki\Title\Title;
-use MimeAnalyzer;
 use MWFileProps;
 use RepoGroup;
-use SpecialUpload;
-use TempFSFile;
 use Wikimedia\AtEase\AtEase;
+use Wikimedia\FileBackend\FSFile\TempFSFile;
+use Wikimedia\Mime\MimeAnalyzer;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveSvgHandler extends Handler {
 
 	/**
-	 * @var MimeAnalyzer
-	 */
-	private $mimeAnalyzer;
-
-	/**
-	 * @var RepoGroup
-	 */
-	private $repoGroup;
-
-	/**
 	 * @param MimeAnalyzer $mimeAnalyzer
 	 * @param RepoGroup $repoGroup
 	 */
-	public function __construct( MimeAnalyzer $mimeAnalyzer, RepoGroup $repoGroup ) {
-		$this->mimeAnalyzer = $mimeAnalyzer;
-		$this->repoGroup = $repoGroup;
+	public function __construct( private readonly MimeAnalyzer $mimeAnalyzer, private readonly RepoGroup $repoGroup ) {
 	}
 
 	/**
@@ -95,7 +83,7 @@ class SaveSvgHandler extends Handler {
 		$status = $repoFile->recordUpload3( $archive->value, '', $commentText, $user, $props );
 		if ( !$status->isGood() ) {
 			// Check for case if file already exists. Then no error here
-			if ( $status->getErrors()[0]['message'] !== 'fileexists-no-change' ) {
+			if ( $status->getMessages()[0]['message'] !== 'fileexists-no-change' ) {
 				return $this->getResponseFactory()->createJson( [
 					'success' => false,
 					'error' => 'Error when recording file upload'

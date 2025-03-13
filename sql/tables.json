@@ -1,37 +1,5 @@
 [
 	{
-		"name": "cpd_element_connections",
-		"comment": "Stores connections between cpd elements, including the elements type.",
-		"columns": [
-			{
-				"name": "from_page",
-				"type": "string",
-				"options": { "notnull": true }
-			},
-			{
-				"name": "to_page",
-				"type": "string",
-				"options": { "notnull": true }
-			},
-			{
-				"name": "process",
-				"type": "string",
-				"options": { "notnull": true }
-			},
-			{
-				"name": "from_type",
-				"type": "string",
-				"options": { "notnull": true }
-			},
-			{
-				"name": "to_type",
-				"type": "string",
-				"options": { "notnull": true }
-			}
-		],
-		"indexes": []
-	},
-	{
 		"name": "cpd_orphaned_description_pages",
 		"comment": "Stores page titles of orphaned description pages, which are not used in any process.",
 		"columns": [
@@ -43,6 +11,11 @@
 			{
 				"name": "process",
 				"type": "string",
+				"options": { "notnull": true }
+			},
+			{
+				"name": "process_rev",
+				"type": "integer",
 				"options": { "notnull": true }
 			}
 		],

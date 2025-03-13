@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Data\OrphanedDescriptionPages;
 
+use InvalidArgumentException;
 use MWStake\MediaWiki\Component\DataStore\Filter;
 use MWStake\MediaWiki\Component\DataStore\Filter\StringValue;
 use MWStake\MediaWiki\Component\DataStore\IPrimaryDataProvider;
@@ -10,17 +11,12 @@ use stdClass;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class PrimaryDataProvider implements IPrimaryDataProvider {
-
-	/** @var ILoadBalancer */
-	private $loadBalancer;
-
 	/**
 	 * @param ILoadBalancer $loadBalancer
 	 */
 	public function __construct(
-		ILoadBalancer $loadBalancer
+		private readonly ILoadBalancer $loadBalancer
 	) {
-		$this->loadBalancer = $loadBalancer;
 	}
 
 	/**
@@ -36,7 +32,8 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 			'cpd_orphaned_description_pages',
 			[
 				'page_title',
-				'process'
+				'process',
+				'process_rev'
 			],
 			$filterConds
 		);
@@ -45,6 +42,7 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 		foreach ( $rows as $row ) {
 			$data = new stdClass();
 			$data->process = $row->process;
+			$data->process_rev = $row->process_rev;
 			$data->title = $row->page_title;
 			$records[] = new Record( $data );
 		}
@@ -65,7 +63,7 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 				$comparison = $filter->getComparison();
 
 				if ( $comparison !== "ct" ) {
-					throw new \InvalidArgumentException( "Only 'ct' comparison is supported" );
+					throw new InvalidArgumentException( "Only 'ct' comparison is supported" );
 				}
 
 				$conds[] = "{$filter->getField()} LIKE '%{$filter->getValue()}%'";

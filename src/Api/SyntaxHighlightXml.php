@@ -2,21 +2,17 @@
 
 namespace CognitiveProcessDesigner\Api;
 
-use ApiBase;
-use ApiMain;
-use ApiUsageException;
 use DOMDocument;
-use ExtensionRegistry;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOptions;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
-use Parser;
-use ParserOptions;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SyntaxHighlightXml extends ApiBase {
-	/**
-	 * @var Parser
-	 */
-	private Parser $parser;
 
 	/**
 	 * @param ApiMain $main
@@ -26,10 +22,9 @@ class SyntaxHighlightXml extends ApiBase {
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		Parser $parser
+		private readonly Parser $parser
 	) {
 		parent::__construct( $main, $action );
-		$this->parser = $parser;
 	}
 
 	/**
@@ -63,11 +58,13 @@ class SyntaxHighlightXml extends ApiBase {
 			$xml = "<pre>$xml</pre>";
 		}
 
-		return $this->parser->parse(
+		$output = $this->parser->parse(
 			$xml,
 			Title::newMainPage(),
 			ParserOptions::newFromUser( $this->getUser() )
-		)->getText();
+		);
+
+		return $output->getRawText();
 	}
 
 	/**

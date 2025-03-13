@@ -1,32 +1,44 @@
 {
-  "root": true,
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 2017
-  },
-  "plugins": [
-    "@typescript-eslint"
-  ],
-  "extends": [
-    "wikimedia/client-es6",
-    "wikimedia/jquery",
-    "wikimedia/mediawiki"
-  ],
-  "rules": {
-    "no-implicit-globals": "off",
-    "quotes": "off",
-    "no-use-before-define": "off",
-    "no-restricted-syntax": "off",
-    "es-x/no-class-fields": "off",
-    "es-x/no-async-functions": "off",
-    "no-new": "off",
-    "mediawiki/no-nodelist-unsupported-methods": "off",
-    "no-unsafe-optional-chaining": "off",
-    "es-x/no-optional-chaining": "off",
-    "es-x/no-rest-spread-properties": "off",
-    "es-x/no-object-values-entries": "off",
-    "es-x/no-object-values": "off",
-    "es-x/no-array-prototype-includes": "off"
-  }
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaVersion": 2017
+	},
+	"plugins": [
+		"@typescript-eslint"
+	],
+	"extends": [
+		"wikimedia/client-es6",
+		"wikimedia/jquery",
+		"wikimedia/mediawiki"
+	],
+	"globals": {
+		"blueSpice": "readonly",
+		"bs": "readonly",
+		"ext": "readonly",
+		"jQuery": "readonly",
+		"mediaWiki": "readonly",
+		"OOJSPlus": "readonly"
+	},
+	"rules": {
+		"es-x/no-object-entries": "off",
+		"max-len": "off",
+		"no-implicit-globals": "off",
+		"quotes": "off",
+		"no-use-before-define": "off",
+		"no-restricted-syntax": "off",
+		"es-x/no-class-fields": "off",
+		"es-x/no-async-functions": "off",
+		"no-new": "off",
+		"mediawiki/no-nodelist-unsupported-methods": "off",
+		"no-unsafe-optional-chaining": "off",
+		"es-x/no-optional-chaining": "off",
+		"es-x/no-rest-spread-properties": "off",
+		"es-x/no-object-values-entries": "off",
+		"es-x/no-object-values": "off",
+		"es-x/no-array-prototype-includes": "off",
+		"es-x/no-regexp-s-flag": "off",
+		"es-x/no-string-prototype-matchall": "off"
+	}
 }

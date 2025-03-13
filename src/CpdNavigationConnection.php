@@ -5,15 +5,6 @@ namespace CognitiveProcessDesigner;
 class CpdNavigationConnection {
 
 	/** @var string */
-	private string $text;
-
-	/** @var string */
-	private string $link;
-
-	/** @var bool */
-	private bool $isLaneChange;
-
-	/** @var string */
 	private string $type;
 
 	/**
@@ -22,24 +13,26 @@ class CpdNavigationConnection {
 	 * @param string $type
 	 * @param bool $isLaneChange
 	 */
-	public function __construct( string $text, string $link, string $type, bool $isLaneChange ) {
-		$this->text = $text;
-		$this->link = $link;
-		$this->isLaneChange = $isLaneChange;
+	public function __construct(
+		private readonly string $text,
+		private readonly string $link,
+		string $type,
+		private readonly bool $isLaneChange
+	) {
 		$this->type = $this->mapTypeToCls( $type );
 	}
 
 	/**
+	 * Class names are derived by type by convention:
+	 * - without bpmn:
+	 * - all lowercase
+	 *
 	 * @param string $type
 	 *
 	 * @return string
 	 */
 	private function mapTypeToCls( string $type ): string {
-		return match ( $type ) {
-			'bpmn:StartEvent' => 'start',
-			'bpmn:EndEvent' => 'end',
-			default => '',
-		};
+		return str_replace( 'bpmn:', '', strtolower( $type ) );
 	}
 
 	/**

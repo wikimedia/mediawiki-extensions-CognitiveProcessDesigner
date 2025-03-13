@@ -14,15 +14,9 @@ class RegisterNamespaces implements CanonicalNamespacesHook {
 	private const NS_TALK = 1531;
 
 	/**
-	 * @var Config
-	 */
-	private Config $config;
-
-	/**
 	 * @param Config $config
 	 */
-	public function __construct( Config $config ) {
-		$this->config = $config;
+	public function __construct( private readonly Config $config ) {
 	}
 
 	/**

@@ -7,7 +7,7 @@ ext.cpd.NewProcessDialog = function NewProcessDialog( config ) {
 OO.inheritClass( ext.cpd.NewProcessDialog, StandardDialogs.ui.NewPageDialog );
 
 ext.cpd.NewProcessDialog.prototype.makeSetupProcessData = function () {
-	data = ext.cpd.NewProcessDialog.super.prototype.makeSetupProcessData.call( this );
+	var data = ext.cpd.NewProcessDialog.super.prototype.makeSetupProcessData.call( this );
 	data.title = mw.message( 'bs-cpd-actionmenuentry-new-process' ).plain();
 
 	return data;
@@ -36,16 +36,16 @@ ext.cpd.NewProcessDialog.prototype.getFormItems = function () {
 
 ext.cpd.NewProcessDialog.prototype.makeDoneActionProcess = function () {
 	this.newTitle = mw.Title.newFromText( this.titleInputWidget.getValue(), this.namespace );
-	return new OO.ui.Process( function () {}, this );
+	return new OO.ui.Process( ( () => {} ), this );
 };
 
-$( document ).on( 'click', '#ca-cpd-create-process, #ca-cpd-create-new-process', function ( e ) {
+$( document ).on( 'click', '#ca-cpd-create-process, #ca-cpd-create-new-process', ( e ) => {
 	const diag = new ext.cpd.NewProcessDialog( {
 		proc: 'standarddialogs-dlg-new-page',
 		namespace: 1530
 	} );
-	diag.on( 'actioncompleted', function ( newTitle ) {
-		window.location.href = newTitle.getUrl( {action: 'edit'} );
+	diag.on( 'actioncompleted', ( newTitle ) => {
+		window.location.href = newTitle.getUrl( { action: 'edit' } );
 	} );
 	diag.show();
 

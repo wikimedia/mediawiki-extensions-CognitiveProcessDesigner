@@ -10,7 +10,9 @@ use Wikimedia\ParamValidator\ParamValidator;
 
 class ProcessStatusHandler extends SimpleHandler {
 
-	/** @inheritDoc */
+	/**
+	 * @inheritDoc
+	 */
 	public function getParamSettings() {
 		return [
 			'processId' => [
@@ -21,6 +23,10 @@ class ProcessStatusHandler extends SimpleHandler {
 		];
 	}
 
+	/**
+	 * @inheritDoc
+	 * @throws Exception
+	 */
 	public function run() {
 		$request = $this->getRequest();
 		$processId = $request->getPathParam( 'processId' );

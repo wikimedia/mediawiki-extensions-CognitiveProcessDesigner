@@ -4,44 +4,48 @@ namespace CognitiveProcessDesigner\HookHandler;
 
 use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use Exception;
 use File;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Hook\ParserFirstCallInitHook;
-use MWException;
-use Parser;
-use ParserOutput;
-use PPFrame;
-use TemplateParser;
+use MediaWiki\HookContainer\HookContainer;
+use MediaWiki\Html\TemplateParser;
+use MediaWiki\Message\Message;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Parser\PPFrame;
+use MediaWiki\Revision\RevisionRecord;
+use WikiPage;
 
 class BpmnTag implements ParserFirstCallInitHook {
 	public const PROCESS_PROP_NAME = 'cpd-process';
 
 	/**
-	 * @var CpdDiagramPageUtil
-	 */
-	private CpdDiagramPageUtil $diagramPageUtil;
-
-	/**
 	 * @param CpdDiagramPageUtil $diagramPageUtil
+	 * @param HookContainer $hookContainer
 	 */
-	public function __construct( CpdDiagramPageUtil $diagramPageUtil ) {
-		$this->diagramPageUtil = $diagramPageUtil;
+	public function __construct(
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly HookContainer $hookContainer
+	) {
 	}
 
 	/**
 	 * @param Parser $parser
 	 *
-	 * @throws MWException
+	 * @throws Exception
 	 */
 	public function onParserFirstCallInit( $parser ) {
 		$parser->setHook(
-			'bpmn', [
+			'bpmn',
+			[
 				$this,
 				'renderTag'
 			]
 		);
 		$parser->setHook(
-			'bs:bpmn', [
+			'bs:bpmn',
+			[
 				$this,
 				'renderTag'
 			]
@@ -64,12 +68,12 @@ class BpmnTag implements ParserFirstCallInitHook {
 		PPFrame $frame
 	): string {
 		// Validate required parameters
-		if ( !isset( $args['process'] ) ) {
-			throw new CpdInvalidArgumentException( 'Missing required parameter "process"' );
+		if ( empty( $args['process'] ) ) {
+			return Message::newFromKey( "cpd-error-message-missing-parameter-process" )->escaped();
 		}
 
-		if ( !isset( $args['height'] ) ) {
-			throw new CpdInvalidArgumentException( 'Missing required parameter "height"' );
+		if ( empty( $args['height'] ) ) {
+			return Message::newFromKey( "cpd-error-message-missing-parameter-height" )->escaped();
 		}
 
 		// Sanitize the process parameter as db key. Replace spaces with underscores.
@@ -79,14 +83,35 @@ class BpmnTag implements ParserFirstCallInitHook {
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
 
-		$imageFile = $this->diagramPageUtil->getSvgFile( $process );
+		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		$diagramRevision = $diagramPage->getRevisionRecord();
+		$this->hookContainer->run(
+			'CognitiveProcessDesignerBeforeRender',
+			[
+				$parser->getPage(),
+				$diagramPage,
+				&$diagramRevision
+			]
+		);
+		$imageFile = $this->diagramPageUtil->getSvgFile(
+			$process,
+			!$diagramRevision?->isCurrent() ? $diagramRevision : null
+		);
 
 		// Show svg image if the page is in edit mode
 		if ( $this->isEdit() ) {
 			return $this->buildEditOutput( $imageFile, $templateParser, $parser->getOutput(), $process, $args );
 		}
 
-		return $this->buildViewOutput( $imageFile, $templateParser, $parser, $process, $args );
+		return $this->buildViewOutput(
+			$imageFile,
+			$templateParser,
+			$parser,
+			$process,
+			$args,
+			$diagramPage,
+			$diagramRevision
+		);
 	}
 
 	/**
@@ -111,7 +136,8 @@ class BpmnTag implements ParserFirstCallInitHook {
 		$output->addModuleStyles( [ 'ext.cpd.diagram.preview' ] );
 
 		return $templateParser->processTemplate(
-			'CpdDiagramPreview', [
+			'CpdDiagramPreview',
+			[
 				'process' => $process,
 				'img' => $imageFile?->getFullUrl(),
 				'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
@@ -126,6 +152,8 @@ class BpmnTag implements ParserFirstCallInitHook {
 	 * @param Parser $parser
 	 * @param string $process
 	 * @param array $args
+	 * @param WikiPage $diagramPage
+	 * @param RevisionRecord|null $diagramRevision
 	 *
 	 * @return string
 	 */
@@ -134,7 +162,9 @@ class BpmnTag implements ParserFirstCallInitHook {
 		TemplateParser $templateParser,
 		Parser $parser,
 		string $process,
-		array $args
+		array $args,
+		WikiPage $diagramPage,
+		?RevisionRecord $diagramRevision
 	): string {
 		$output = $parser->getOutput();
 		$this->addProcessPageProperty( $output, $process );
@@ -144,15 +174,24 @@ class BpmnTag implements ParserFirstCallInitHook {
 		// Embed svg image in the viewer hidden
 		$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
 
-		return $templateParser->processTemplate(
-			'CpdContainer', [
-				'process' => $process,
-				'showToolbar' => !empty( $args['toolbar'] ) ? !( $args['toolbar'] === "false" ) : true,
-				'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
-				'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%',
-				'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
-			]
-		);
+		$data = [
+			'process' => $process,
+			'showToolbar' => !empty( $args['toolbar'] ) ? !( $args['toolbar'] === "false" ) : null,
+			'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
+			'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%',
+			'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
+		];
+
+		if ( $diagramRevision instanceof RevisionRecord ) {
+			$data['revision'] = $diagramRevision->getId();
+			$output->addTemplate(
+				$diagramPage->getTitle(),
+				$diagramPage->getId(),
+				$diagramRevision->getId()
+			);
+		}
+
+		return $templateParser->processTemplate( 'CpdContainer', $data );
 	}
 
 	/**
@@ -180,7 +219,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 	 */
 	private function isEdit(): bool {
 		$request = RequestContext::getMain()->getRequest();
-		$action = $request->getVal( 'action', $request->getVal( 'veaction', null ) );
+		$action = $request->getVal( 'action', $request->getVal( 'veaction' ) );
 
 		return $action === 'edit' || $action === 'visualeditor';
 	}
