@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\Api;
 
 use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
@@ -53,6 +54,7 @@ class SaveCpdDiagram extends ApiBase {
 	 * @throws CpdSvgException
 	 * @throws CpdXmlProcessingException
 	 * @throws CpdCreateElementException
+	 * @throws CpdInvalidArgumentException
 	 */
 	public function execute() {
 		$result = $this->getResult();

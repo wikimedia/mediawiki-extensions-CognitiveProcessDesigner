@@ -39,11 +39,9 @@ class LoadCpdDiagram extends ApiBase {
 	 * @throws CpdInvalidArgumentException
 	 */
 	public function execute() {
-		$result = $this->getResult();
 		$params = $this->extractRequestParams();
 		$process = $params['process'];
 		$revisionId = $params['revisionId'];
-		$revision = null;
 		$warnings = [];
 
 		try {
@@ -52,28 +50,31 @@ class LoadCpdDiagram extends ApiBase {
 				throw new CpdInvalidContentException();
 			}
 
-			$cpdElements = $this->xmlProcessor->createElements( $process, $xml );
-
-			$svgFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
+			$svgFile = $this->diagramPageUtil->getSvgFile( $process, $revisionId );
 			if ( !$svgFile ) {
 				$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
 				$warnings[] = Message::newFromKey( 'cpd-error-message-missing-svg-file', $svgFilePage->getText() );
 			}
 
-			$result->addValue( null, 'xml', $xml );
-			$result->addValue(
-				null,
-				'elements',
-				array_map( fn( $element ) => json_encode( $element ), $cpdElements )
+			$cpdElements = $this->xmlProcessor->createElements( $process, $xml );
+
+			$this->setResultValues(
+				$xml,
+				array_map( fn( $element ) => json_encode( $element ), $cpdElements ),
+				$svgFile?->getUrl(),
+				$warnings
 			);
-			$result->addValue( null, 'svgFile', $svgFile?->getUrl() );
-			$result->addValue( null, 'loadWarnings', $warnings );
 		} catch ( CpdInvalidContentException $e ) {
-			$result->addValue( null, 'xml', null );
-			$result->addValue( null, 'elements', [] );
-			$result->addValue( null, 'svgFile', null );
-			$result->addValue( null, 'loadWarnings', [] );
+			$this->setResultValues( null, [], null, [] );
 		}
+	}
+
+	private function setResultValues( ?string $xml, array $elements, ?string $svgFile, array $loadWarnings ): void {
+		$result = $this->getResult();
+		$result->addValue( null, 'xml', $xml );
+		$result->addValue( null, 'elements', $elements );
+		$result->addValue( null, 'svgFile', $svgFile );
+		$result->addValue( null, 'loadWarnings', $loadWarnings );
 	}
 
 	/**

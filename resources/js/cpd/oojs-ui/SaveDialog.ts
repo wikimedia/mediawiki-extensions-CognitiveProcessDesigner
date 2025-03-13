@@ -1,4 +1,5 @@
 import { ChangeLogMessages, MessageObject } from "../helper/CpdChangeLogger";
+import HtmlSnippet = OO.ui.HtmlSnippet;
 
 export enum Mode {
 	SAVE = "save",
@@ -135,8 +136,10 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 
 	public addPostSaveMessage( message: HTMLDivElement, type: MessageType ): void {
 		if ( type === MessageType.WARNING ) {
-			const warningWidget = new OO.ui.MessageWidget( { type: "warning" } );
-			warningWidget.setLabel( message.innerText );
+			const warningWidget = new OO.ui.MessageWidget( {
+				type: "warning",
+				label: new HtmlSnippet( message.innerText )
+			} );
 			this.postSaveWarnings.append( warningWidget.$element.get( 0 ) );
 		}
 

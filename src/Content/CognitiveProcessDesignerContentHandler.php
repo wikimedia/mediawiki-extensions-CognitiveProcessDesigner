@@ -4,7 +4,7 @@ namespace CognitiveProcessDesigner\Content;
 
 use CognitiveProcessDesigner\Action\EditDiagramAction;
 use CognitiveProcessDesigner\Action\EditDiagramXmlAction;
-use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
@@ -23,9 +23,6 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	/** @var Config */
 	private Config $config;
 
-	/** @var IRevisionLookup */
-	private IRevisionLookup $lookup;
-
 	/**
 	 * @param string $modelId
 	 *
@@ -37,7 +34,6 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 
 		$services = MediaWikiServices::getInstance();
 		$this->diagramPageUtil = $services->getService( 'CpdDiagramPageUtil' );
-		$this->lookup = $services->getService( 'CpdRevisionLookup' );
 		$this->config = $services->getService( 'MainConfig' );
 	}
 
@@ -62,6 +58,8 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	 * @param Content $content
 	 * @param ContentParseParams $cpoParams
 	 * @param ParserOutput &$output
+	 *
+	 * @throws CpdInvalidArgumentException
 	 */
 	protected function fillParserOutput(
 		Content $content,
@@ -91,8 +89,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		// Embed svg image in the viewer hidden
 		$imageDbKey = null;
 		if ( $revisionId ) {
-			$revision = $this->lookup->getRevisionById( $revisionId );
-			$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revision );
+			$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revisionId );
 			$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
 		}
 

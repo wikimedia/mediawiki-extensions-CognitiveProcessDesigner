@@ -16,6 +16,7 @@ import CenterViewportButton from "../oojs-ui/CenterViewportButton";
 import { MessageType } from "../oojs-ui/SaveDialog";
 import ShowDiagramButton from "../oojs-ui/ShowDiagramButton";
 import ToolGroupSetupMap = OO.ui.Toolbar.ToolGroupSetupMap;
+import HtmlSnippet = OO.ui.HtmlSnippet;
 
 interface HtmlElement extends HTMLElement {
 	hide: () => void;
@@ -197,8 +198,11 @@ export default class CpdDom extends EventEmitter {
 			}
 		}
 
-		const messageWidget = new OO.ui.MessageWidget( { type: type, inline: true } );
-		messageWidget.setLabel( message );
+		const messageWidget = new OO.ui.MessageWidget( {
+			type: type,
+			inline: true,
+			label: new HtmlSnippet( message )
+		} );
 
 		this.messageBox.append( messageWidget.$element.get( 0 ) );
 		this.messageBox.show();
@@ -224,8 +228,11 @@ export default class CpdDom extends EventEmitter {
 			}
 		}
 
-		const messageWidget = new OO.ui.MessageWidget( { type: 'error', inline: true } );
-		messageWidget.setLabel( message );
+		const messageWidget = new OO.ui.MessageWidget( {
+			type: 'error',
+			inline: true,
+			label: new HtmlSnippet( message )
+		} );
 
 		this.messageBox.append( messageWidget.$element.get( 0 ) );
 		this.messageBox.show();

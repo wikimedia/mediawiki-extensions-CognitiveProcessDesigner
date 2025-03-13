@@ -122,6 +122,7 @@ class CpdDiagramPageUtil {
 	 *
 	 * @return string
 	 * @throws CpdInvalidContentException
+	 * @throws CpdInvalidArgumentException
 	 */
 	public function getXml( string $process, ?int $revId = null ): string {
 		if ( $revId ) {
@@ -219,12 +220,12 @@ class CpdDiagramPageUtil {
 
 	/**
 	 * @param string $process
-	 * @param RevisionRecord|null $revision
+	 * @param int|null $revId
 	 *
 	 * @return File|null
 	 * @throws CpdInvalidArgumentException
 	 */
-	public function getSvgFile( string $process, ?RevisionRecord $revision = null ): ?File {
+	public function getSvgFile( string $process, ?int $revId = null ): ?File {
 		$svgFilePage = $this->getSvgFilePage( $process );
 
 		if ( !$svgFilePage->exists() ) {
@@ -232,6 +233,11 @@ class CpdDiagramPageUtil {
 		}
 
 		$options = [];
+		$revision = null;
+		if ( $revId ) {
+			$revision = $this->lookup->getRevisionById( $revId );
+		}
+
 		if ( $revision && !$revision->isCurrent() ) {
 			$meta = $this->getMetaForPage( $this->getDiagramPage( $process ), $revision );
 			if ( $meta['cpd-svg-ts'] ) {
