@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Saraiki"
+			"Saraiki",
+			"Umar Shahid"
 		]
 	},
 	"cpd-orphaned-description-pages-column-dbkey-title": "عنوان",
 	"cpd-button-cancel-title": "منسوخ",
 	"cpd-api-load-diagram-missingtitle-error-message": "$1 کائنی لبھا",
+	"cpd-error-message-publish-svg-file": "فائل شائع کائنی تھی سڳی:$1",
 	"cpd-editor-title": "تساں $1 لکھدے پئے ہو",
 	"cpd-editor-title-create": "خلقو $1",
 	"cpd-shape-deletion-message": "$1 مٹ ڳیا",

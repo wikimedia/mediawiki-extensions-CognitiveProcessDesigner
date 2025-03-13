@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Eihel",
 			"Florian COLLIN",
 			"Mahabarata",
+			"McDutchie",
 			"Pols12",
 			"SleaY",
 			"Wladek92"
@@ -18,7 +20,7 @@
 	"cpd-button-cancel-title": "Annuler",
 	"cpd-button-show-xml": "Afficher le XML brut",
 	"cpd-button-hide-xml": "Cacher le XML brut",
-	"cpd-button-center-viewport": "Diagramme central",
+	"cpd-button-center-viewport": "Centrer le diagramme",
 	"cpd-link-diagram-page-title": "Accéder à la page du diagramme",
 	"cpd-link-svg-title": "Télécharger le diagramme au format SVG",
 	"cpd-api-save-diagram-param-svg": "SVG encodé en JSON pour être téléversé sur le wiki",
@@ -44,6 +46,7 @@
 	"cpd-error-message-invalid-xml": "XML invalide",
 	"cpd-error-message-missing-xml": "XML manquant",
 	"cpd-error-message-missing-diagram-page": "Page de diagramme manquante",
+	"cpd-error-message-publish-svg-file": "Impossible de publier le fichier SVG : $1",
 	"cpd-warning-message-diagram-not-initialized": "Le processus $1 n'a pas encore été créé. Veuillez vous rendre sur la <a href='$2'>page du processus</a> et le créer.",
 	"cpd-warning-message-diagram-not-initialized-create-it": "Le diagramme n'a pas encore été créé. Veuillez le <a href='$1'>créer</a>.",
 	"cpd-editor-title": "Modification de $1",
@@ -66,8 +69,7 @@
 	"cpd-droplet-height-field-label": "Hauteur",
 	"cpd-droplet-show-toolbar-field-label-help": "Activer ou désactiver la barre d'outils",
 	"cpd-droplet-show-toolbar-field-label": "Afficher la barre d'outils",
-	"cpd-validation-missing-label": "$1 n'a pas d'étiquette",
-	"cpd-validation-duplicate-label": "$1 est utilisée plusieurs fois dans $2",
+	"cpd-validation-missing-label": "L'élément $1 $2 n'a pas de libellé",
 	"cpd-log-no-changes": "Aucune modification",
 	"cpd-process-usage-description": "Les pages suivantes intègrent le processus $1",
 	"cpd-process-usage-no-pages-description": "Aucune page n'intègre pour l'instant le processus $1",
