@@ -1,4 +1,5 @@
 <table class="cpd-navigation-connections">
+  {{#incoming.length}}
 	<tr>
 		<th>{{incomingheading}}</th>
 		<td>
@@ -9,6 +10,8 @@
 			</div>
 		</td>
 	</tr>
+  {{/incoming.length}}
+  {{#outgoing.length}}
 	<tr>
 		<th>{{outgoingheading}}</th>
 		<td>
@@ -19,5 +22,5 @@
 			</div>
 		</td>
 	</tr>
+  {{/outgoing.length}}
 </table>
-
