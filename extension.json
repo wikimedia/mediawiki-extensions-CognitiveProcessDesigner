@@ -115,18 +115,17 @@
 		"cpd-load-diagram": {
 			"class": "\\CognitiveProcessDesigner\\Api\\LoadCpdDiagram",
 			"services": [
-				"CpdDiagramPageUtil",
-				"CpdDescriptionPageUtil",
-				"CpdRevisionLookup"
+				"CpdXmlProcessor",
+				"CpdDiagramPageUtil"
 			]
 		},
 		"cpd-save-diagram": {
 			"class": "\\CognitiveProcessDesigner\\Api\\SaveCpdDiagram",
 			"services": [
+				"CpdXmlProcessor",
 				"CpdDiagramPageUtil",
 				"CpdSaveDescriptionPagesUtil",
 				"CpdDescriptionPageUtil",
-				"CpdElementFactory",
 				"SvgFile"
 			]
 		},
@@ -183,7 +182,6 @@
 				"cpd-api-load-diagram-missing-message",
 				"cpd-api-load-diagram-missingtitle-error-message",
 				"cpd-error-message-missing-config",
-				"cpd-error-message-missing-element-link",
 				"cpd-error-message-missing-element",
 				"cpd-error-message-missing-xml",
 				"cpd-error-message-saving-diagram",
@@ -226,8 +224,6 @@
 				"cpd-api-load-diagram-missingtitle-error-message",
 				"cpd-error-message-not-process",
 				"cpd-error-message-missing-config",
-				"cpd-error-message-missing-element-link",
-				"cpd-error-message-mismatched-element-link",
 				"cpd-error-message-missing-label",
 				"cpd-error-message-saving-diagram",
 				"cpd-error-message-missing-root-element",
@@ -242,10 +238,7 @@
 				"cpd-button-hide-xml",
 				"cpd-shape-creation-message",
 				"cpd-shape-deletion-message",
-				"cpd-shape-deletion-page-referenced-message",
-				"cpd-description-page-creation-message",
 				"cpd-shape-rename-message",
-				"cpd-shape-rename-with-description-page-message",
 				"cpd-shape-remove-label-message",
 				"cpd-log-no-changes",
 				"savechanges",

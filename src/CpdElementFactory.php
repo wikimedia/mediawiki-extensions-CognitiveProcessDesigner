@@ -2,14 +2,16 @@
 
 namespace CognitiveProcessDesigner;
 
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
 use Exception;
 
 class CpdElementFactory {
+
 	/**
 	 * @param array $elements
 	 *
 	 * @return CpdElement[]
-	 * @throws Exception
+	 * @throws CpdCreateElementException
 	 */
 	public function makeElements( array $elements ): array {
 		return array_map( function ( $element ) {
@@ -21,7 +23,7 @@ class CpdElementFactory {
 	 * @param array $element
 	 *
 	 * @return CpdElement
-	 * @throws Exception
+	 * @throws CpdCreateElementException
 	 */
 	public function makeElement( array $element ): CpdElement {
 		return CpdElement::fromElementJson( $element );

@@ -34,32 +34,12 @@ class CpdSaveDescriptionPagesUtil {
 
 	/**
 	 * @param User $user
-	 * @param string $process
 	 * @param CpdElement[] $elements
 	 *
 	 * @return array
 	 * @throws CpdSaveException
 	 */
-	public function saveDescriptionPages( User $user, string $process, array $elements ): array {
-		$warnings = $this->processDescriptionPages( $elements, $user );
-
-		try {
-			$this->descriptionPageUtil->updateElementConnections( $elements, $process );
-		} catch ( Exception $e ) {
-			throw new CpdSaveException( $e->getMessage() );
-		}
-
-		return $warnings;
-	}
-
-	/**
-	 * @param CpdElement[] $elements
-	 * @param User $user
-	 *
-	 * @return array
-	 * @throws CpdSaveException
-	 */
-	private function processDescriptionPages( array $elements, User $user ): array {
+	public function saveDescriptionPages( User $user, array $elements ): array {
 		if ( empty( $elements ) ) {
 			throw new CpdSaveException( 'No elements to save' );
 		}

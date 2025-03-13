@@ -1,34 +1,10 @@
 import { Element } from "bpmn-js/lib/model/Types";
 
-export interface CpdElementJson {
-	id: string;
-	type: string;
-	label: string | null;
-	parent: CpdElement | null;
-	descriptionPage: string | null;
-	oldDescriptionPage: string | null;
-	incomingLinks: CpdElementJson[];
-	outgoingLinks: CpdElementJson[];
-}
-
-interface ElementDescriptionPage {
-	exists: boolean;
-	dbKey: string;
-	oldDbKey?: string | undefined;
-}
-
 export default class CpdElement {
 	public readonly bpmnElement: Element;
 
-	public descriptionPage: ElementDescriptionPage | null = null;
-
-	public incomingLinks: CpdElementJson[] = [];
-
-	public outgoingLinks: CpdElementJson[] = [];
-
 	private constructor( bpmnElement: Element ) {
 		this.bpmnElement = bpmnElement;
-		this.descriptionPage = null;
 	}
 
 	public static init( bpmnElement: Element ): CpdElement {
@@ -71,18 +47,5 @@ export default class CpdElement {
 
 	set parent( parent: CpdElement | null ) {
 		this.bpmnElement.parent = parent?.bpmnElement;
-	}
-
-	public toJSON(): CpdElementJson {
-		return {
-			id: this.id,
-			type: this.type,
-			label: this.label,
-			parent: this.parent,
-			descriptionPage: this.descriptionPage?.dbKey,
-			oldDescriptionPage: this.descriptionPage?.oldDbKey,
-			incomingLinks: this.incomingLinks,
-			outgoingLinks: this.outgoingLinks
-		};
 	}
 }

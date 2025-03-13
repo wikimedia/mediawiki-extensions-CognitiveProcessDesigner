@@ -1,0 +1,34 @@
+[
+	{
+		"id": "StartEvent_1",
+		"type": "bpmn:StartEvent",
+		"label": "Start 1"
+	},
+	{
+		"id": "Event_0vuw67s",
+		"type": "bpmn:EndEvent",
+		"label": "End 1"
+	},
+	{
+		"id": "Activity_0hzxdmp",
+		"type": "bpmn:Task",
+		"label": "Task 44"
+	},
+	{
+		"id": "Activity_1uibj2u",
+		"type": "bpmn:Task",
+		"label": "Bask 55"
+	},
+	{
+		"id": "Event_01x7t14",
+		"type": "bpmn:EndEvent",
+		"label": "End 2",
+		"descriptionPage": "Process:BackendElements/Parent_2/End_2"
+	},
+	{
+		"id": "Event_0monjkn",
+		"type": "bpmn:StartEvent",
+		"label": "Start 2",
+		"descriptionPage": "Process:BackendElements/Parent_2/Start_2"
+	}
+]

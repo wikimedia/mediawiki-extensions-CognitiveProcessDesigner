@@ -118,6 +118,40 @@ class CpdDiagramPageUtil {
 
 	/**
 	 * @param string $process
+	 * @param int|null $revId
+	 *
+	 * @return string
+	 * @throws CpdInvalidContentException
+	 */
+	public function getXml( string $process, ?int $revId = null ): string {
+		if ( $revId ) {
+			$revision = $this->lookup->getRevisionById( $revId );
+			$content = $revision->getContent( 'main' );
+
+			if ( !$content ) {
+				return '';
+			}
+		} else {
+			$diagramPage = $this->getDiagramPage( $process );
+
+			if ( !$diagramPage->exists() ) {
+				return '';
+			}
+
+			$content = $diagramPage->getContent();
+		}
+
+		if ( !$content ) {
+			return '';
+		}
+
+		$this->validateContent( $content );
+
+		return $content->getText();
+	}
+
+	/**
+	 * @param string $process
 	 * @param User $user
 	 * @param string $xml
 	 * @param File $svgFile
@@ -365,5 +399,4 @@ class CpdDiagramPageUtil {
 
 		return new JsonContent( json_encode( $meta ) );
 	}
-
 }

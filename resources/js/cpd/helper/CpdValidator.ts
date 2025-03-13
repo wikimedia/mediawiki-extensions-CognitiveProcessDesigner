@@ -18,7 +18,7 @@ interface LinterIssue {
 export default class CpdValidator extends EventEmitter {
 	public static readonly VALIDATION_EVENT: string = "validation";
 
-	public constructor( eventBus: EventBus, elementRegistry: ElementRegistry ) {
+	public constructor( eventBus: EventBus ) {
 		super();
 
 		eventBus.on( "linting.completed", ( event: LinterEvent ) => {

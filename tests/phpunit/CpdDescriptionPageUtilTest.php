@@ -42,7 +42,6 @@ class CpdDescriptionPageUtilTest extends TestCase {
 			$this->createMock( ILoadBalancer::class ),
 			$this->createMock( WikiPageFactory::class ),
 			$this->createMock( Config::class ),
-			$this->createMock( CpdElementConnectionUtil::class ),
 			$this->createMock( IRevisionLookup::class ),
 		);
 	}

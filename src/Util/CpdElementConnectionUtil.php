@@ -4,103 +4,108 @@ namespace CognitiveProcessDesigner\Util;
 
 use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\CpdNavigationConnection;
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
+use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
 use MediaWiki\Title\Title;
-use Wikimedia\Rdbms\ILoadBalancer;
 
 class CpdElementConnectionUtil {
 
 	/**
-	 * @param ILoadBalancer $loadBalancer
+	 * @param CpdDiagramPageUtil $diagramPageUtil
+	 * @param CpdXmlProcessor $xmlProcessor
 	 */
 	public function __construct(
-		private readonly ILoadBalancer $loadBalancer
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly CpdXmlProcessor $xmlProcessor,
 	) {
 	}
 
 	/**
-	 * @param CpdElement[] $elements
-	 * @param string $process
+	 * @param Title $title
 	 *
-	 * @return void
+	 * @return array [
+	 * 'incoming' => CpdNavigationConnection[],
+	 * 'outgoing' => CpdNavigationConnection[]
+	 * ]
+	 *
+	 * @throws CpdInvalidNamespaceException
+	 * @throws CpdInvalidContentException
+	 * @throws CpdXmlProcessingException
+	 * @throws CpdCreateElementException
 	 */
-	public function updateElementConnections( array $elements, string $process ): void {
-		$dbw = $this->loadBalancer->getConnectionRef( DB_PRIMARY );
+	public function getConnections( Title $title ): array {
+		$connections = [
+			'incoming' => [],
+			'outgoing' => []
+		];
 
-		// Clear rows from this process
-		$dbw->delete(
-			'cpd_element_connections',
-			[ 'process' => $process ],
-			__METHOD__
-		);
+		$element = $this->findElementForPage( $title );
+		if ( !$element ) {
+			return $connections;
+		}
 
-		foreach ( $elements as $element ) {
-			foreach ( $element->getOutgoingLinks() as $outgoingLink ) {
-				$dbw->insert(
-					'cpd_element_connections',
-					[
-						'process' => $process,
-						'from_page' => $element->getDescriptionPage()->getPrefixedDBkey(),
-						'from_type' => $element->getType(),
-						'to_page' => $outgoingLink->getDescriptionPage()->getPrefixedDBkey(),
-						'to_type' => $outgoingLink->getType()
-					],
-					__METHOD__
-				);
+		foreach ( $element->getOutgoingLinks() as $outgoingLink ) {
+			$connections['outgoing'][] = $this->createNavigationConnection(
+				$outgoingLink->getDescriptionPage()->getPrefixedDBkey(),
+				$outgoingLink->getType(),
+				$title
+			);
+		}
+		foreach ( $element->getIncomingLinks() as $incomingLink ) {
+			$connections['incoming'][] = $this->createNavigationConnection(
+				$incomingLink->getDescriptionPage()->getPrefixedDBkey(),
+				$incomingLink->getType(),
+				$title
+			);
+		}
+
+		return $connections;
+	}
+
+	/**
+	 * Find element corresponding to the title
+	 *
+	 * @param Title $title
+	 *
+	 * @return CpdElement|null
+	 * @throws CpdCreateElementException
+	 * @throws CpdInvalidContentException
+	 * @throws CpdInvalidNamespaceException
+	 * @throws CpdXmlProcessingException
+	 */
+	private function findElementForPage( Title $title ): CpdElement|null {
+		$process = CpdDiagramPageUtil::getProcess( $title );
+		$xml = $this->diagramPageUtil->getXml( CpdDiagramPageUtil::getProcess( $title ) );
+
+		$element = null;
+		foreach ( $this->xmlProcessor->createElements( $process, $xml ) as $element ) {
+			if ( $element->getDescriptionPage()->equals( $title ) ) {
+				break;
 			}
 		}
+
+		return $element;
 	}
 
 	/**
-	 * @param Title $title
+	 * Include last lane in the connection text when it is a lane change
 	 *
-	 * @return CpdNavigationConnection[]
+	 * @param Title $title
+	 * @param bool $isLaneChange
+	 *
+	 * @return string
 	 * @throws CpdInvalidNamespaceException
 	 */
-	public function getIncomingConnections( Title $title ): array {
-		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
-		$rows = $dbr->select(
-			'cpd_element_connections',
-			[
-				'from_page',
-				'from_type'
-			],
-			[ 'to_page' => $title->getPrefixedDBkey() ],
-			__METHOD__
-		);
-
-		$connections = [];
-		foreach ( $rows as $row ) {
-			$connections[] = $this->createNavigationConnection( $row->from_page, $row->from_type, $title );
+	private static function createConnectionText( Title $title, bool $isLaneChange = true ): string {
+		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $title );
+		$lastLane = array_pop( $lanes );
+		if ( !$lastLane || !$isLaneChange ) {
+			return $title->getSubpageText();
 		}
 
-		return $connections;
-	}
-
-	/**
-	 * @param Title $title
-	 *
-	 * @return CpdNavigationConnection[]
-	 * @throws CpdInvalidNamespaceException
-	 */
-	public function getOutgoingConnections( Title $title ): array {
-		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
-		$rows = $dbr->select(
-			'cpd_element_connections',
-			[
-				'to_page',
-				'to_type'
-			],
-			[ 'from_page' => $title->getPrefixedDBkey() ],
-			__METHOD__
-		);
-
-		$connections = [];
-		foreach ( $rows as $row ) {
-			$connections[] = $this->createNavigationConnection( $row->to_page, $row->to_type, $title );
-		}
-
-		return $connections;
+		return sprintf( '%s:</br>%s', $lastLane, $title->getSubpageText() );
 	}
 
 	/**
@@ -120,24 +125,5 @@ class CpdElementConnectionUtil {
 		return new CpdNavigationConnection(
 			self::createConnectionText( $target, $isLaneChange ), $link, $type, $isLaneChange
 		);
-	}
-
-	/**
-	 * Include last lane in the connection text when it is a lane change
-	 *
-	 * @param Title $title
-	 * @param bool $isLaneChange
-	 *
-	 * @return string
-	 * @throws CpdInvalidNamespaceException
-	 */
-	public static function createConnectionText( Title $title, bool $isLaneChange = true ): string {
-		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $title );
-		$lastLane = array_pop( $lanes );
-		if ( !$lastLane || !$isLaneChange ) {
-			return $title->getSubpageText();
-		}
-
-		return sprintf( '%s:</br>%s', $lastLane, $title->getSubpageText() );
 	}
 }

@@ -20,7 +20,6 @@ class CpdDescriptionPageUtil {
 	 * @param ILoadBalancer $loadBalancer
 	 * @param WikiPageFactory $wikiPageFactory
 	 * @param Config $config
-	 * @param CpdElementConnectionUtil $connectionUtil
 	 * @param IRevisionLookup $lookup
 	 */
 	public function __construct(
@@ -28,7 +27,6 @@ class CpdDescriptionPageUtil {
 		private readonly ILoadBalancer $loadBalancer,
 		private readonly WikiPageFactory $wikiPageFactory,
 		private readonly Config $config,
-		private readonly CpdElementConnectionUtil $connectionUtil,
 		private readonly IRevisionLookup $lookup
 	) {
 	}
@@ -178,16 +176,6 @@ class CpdDescriptionPageUtil {
 			$conds,
 			__METHOD__
 		);
-	}
-
-	/**
-	 * @param CpdElement[] $elements
-	 * @param string $process
-	 *
-	 * @return void
-	 */
-	public function updateElementConnections( array $elements, string $process ): void {
-		$this->connectionUtil->updateElementConnections( $elements, $process );
 	}
 
 	private function isStabilizationEnabled(): bool {

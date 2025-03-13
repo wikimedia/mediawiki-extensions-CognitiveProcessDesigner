@@ -31,13 +31,10 @@
 	"cpd-api-load-diagram-missingtitle-error-message": "$1 not found",
 	"cpd-error-message-not-process": "Page $1 is not a process",
 	"cpd-error-message-missing-config": "Missing config: '$1'",
-	"cpd-error-message-missing-element-link": "Element for link '$1' not found",
-	"cpd-error-message-mismatched-element-link": "Element for link '$1' does not match",
 	"cpd-error-message-missing-element": "Element '$1' not found",
 	"cpd-error-message-missing-label": "Label for '$1' not found",
 	"cpd-error-message-saving-diagram": "Error saving diagram: $1",
 	"cpd-error-message-missing-root-element": "No root or too many root elements found",
-	"cpd-error-message-missing-initial-element": "No initial element found",
 	"cpd-error-message-invalid-xml": "Invalid XML",
 	"cpd-error-message-missing-xml": "Missing XML",
 	"cpd-error-message-missing-diagram-page": "Missing diagram page",
@@ -54,8 +51,6 @@
 	"cpd-shape-deletion-message": "$1 deleted",
 	"cpd-shape-deletion-page-referenced-message": "Page is referenced: $1",
 	"cpd-shape-creation-message": "$1 created",
-	"cpd-description-page-creation-message": "Page will be created: $1",
-	"cpd-shape-rename-with-description-page-message": "Page will be moved from $1 to $2",
 	"cpd-shape-rename-message": "$1 renamed to $2",
 	"cpd-shape-remove-label-message": "$1 label removed",
 	"cpd-droplet-name": "Process",
@@ -110,5 +105,6 @@
 	"cpd-api-save-diagram-update-comment": "Diagram updated",
 	"cpd-description-navigation-incoming-label": "Incoming connections",
 	"cpd-description-navigation-outgoing-label": "Outgoing connections",
-	"cpd-button-show-diagram": "Show diagram"
+	"cpd-button-show-diagram": "Show diagram",
+	"cpd-error-xml-parse-error": "Error parsing XML"
 }

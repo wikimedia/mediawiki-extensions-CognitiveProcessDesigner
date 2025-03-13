@@ -7,6 +7,7 @@ use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
+use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use MediaWiki\MediaWikiServices;
 
 return [
@@ -27,7 +28,6 @@ return [
 			$services->getDBLoadBalancer(),
 			$services->getWikiPageFactory(),
 			$services->getMainConfig(),
-			$services->getService( 'CpdElementConnectionUtil' ),
 			$services->getService( 'CpdRevisionLookup' )
 		);
 	},
@@ -42,7 +42,8 @@ return [
 	},
 	'CpdElementConnectionUtil' => static function ( MediaWikiServices $services ) {
 		return new CpdElementConnectionUtil(
-			$services->getDBLoadBalancer()
+			$services->get( 'CpdDiagramPageUtil' ),
+			$services->get( 'CpdXmlProcessor' )
 		);
 	},
 	'CpdElementFactory' => static function ( MediaWikiServices $services ) {
@@ -53,7 +54,13 @@ return [
 			$services->getMimeAnalyzer(), $services->getRepoGroup()
 		);
 	},
+	'CpdXmlProcessor' => static function ( MediaWikiServices $services ) {
+		return new CpdXmlProcessor(
+			$services->getMainConfig(),
+			$services->getService( 'CpdElementFactory' )
+		);
+	},
 	'CpdRevisionLookup' => static function ( MediaWikiServices $services ) {
 		return new CpdRevisionLookup( $services );
-	},
+	}
 ];
