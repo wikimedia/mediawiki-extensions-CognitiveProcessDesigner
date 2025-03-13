@@ -213,8 +213,6 @@ class CpdXmlProcessor {
 			}
 
 			$element[$connectionField][] = reset( $connectionElements );
-
-			break;
 		}
 	}
 
@@ -324,18 +322,18 @@ class CpdXmlProcessor {
 
 		if ( !empty( $element['incomingLinks'] ) ) {
 			foreach ( $element['incomingLinks'] as &$link ) {
+				$this->cleanUpData( $link, true );
 				unset( $link['incomingLinks'] );
 				unset( $link['outgoingLinks'] );
 			}
-			$this->cleanUpData( $link, true );
 		}
 
 		if ( !empty( $element['outgoingLinks'] ) ) {
 			foreach ( $element['outgoingLinks'] as &$link ) {
+				$this->cleanUpData( $link, true );
 				unset( $link['incomingLinks'] );
 				unset( $link['outgoingLinks'] );
 			}
-			$this->cleanUpData( $link, true );
 		}
 	}
 }

@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\HookHandler;
 
 use CognitiveProcessDesigner\CpdNavigationConnection;
+use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
@@ -40,6 +41,7 @@ class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 	 * @throws CpdInvalidContentException
 	 * @throws CpdInvalidNamespaceException
 	 * @throws CpdXmlProcessingException
+	 * @throws CpdCreateElementException
 	 */
 	public function onOutputPageBeforeHTML( $out, &$text ): void {
 		$title = $out->getTitle();
