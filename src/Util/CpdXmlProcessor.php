@@ -148,7 +148,6 @@ class CpdXmlProcessor {
 	 * @param array $connections
 	 *
 	 * @return void
-	 * @throws CpdXmlProcessingException
 	 */
 	private function setConnections(
 		array &$descriptionPageElement,
