@@ -1,10 +1,9 @@
 import CpdDom from "./helper/CpdDom";
 import CpdXml from "./helper/CpdXml";
-import CpdApi, { LoadDiagramResult } from "./helper/CpdApi";
-import { CpdElementFactory, CpdElementJson } from "./helper/CpdElementFactory";
+import CpdApi from "./helper/CpdApi";
+import { CpdElementFactory } from "./helper/CpdElementFactory";
 import BaseViewer from "bpmn-js/lib/BaseViewer";
 import Canvas from "diagram-js/lib/core/Canvas";
-import CpdElement from "./model/CpdElement";
 import Modeler from "bpmn-js/lib/Modeler";
 
 export abstract class CpdTool {
@@ -17,8 +16,6 @@ export abstract class CpdTool {
 	protected xmlHelper: CpdXml;
 
 	protected xml: string;
-
-	protected descriptionPages: string[];
 
 	protected elementFactory: CpdElementFactory;
 

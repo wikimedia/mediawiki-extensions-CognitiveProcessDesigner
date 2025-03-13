@@ -50,7 +50,7 @@ class CpdModeler extends CpdTool {
 		const eventBus = this.bpmnTool.get( "eventBus" ) as EventBus;
 
 		this.changeLogger = new CpdChangeLogger( eventBus, this.elementFactory, svgRenderer );
-		const validator = new CpdValidator( eventBus, elementRegistry );
+		const validator = new CpdValidator( eventBus );
 		validator.on( CpdValidator.VALIDATION_EVENT, this.onValidation.bind( this ) );
 
 		this.renderDiagram();
