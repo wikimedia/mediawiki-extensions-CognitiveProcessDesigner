@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Data\Processes;
 
+use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MWStake\MediaWiki\Component\DataStore\IRecord;
@@ -19,6 +20,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 	 *
 	 * @return void
 	 * @noinspection PhpParameterByRefIsNotUsedAsReferenceInspection
+	 * @throws CpdInvalidArgumentException
 	 */
 	protected function doExtend( &$dataSet ) {
 		$process = $dataSet->get( Record::PROCESS );
