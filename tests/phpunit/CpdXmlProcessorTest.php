@@ -32,7 +32,7 @@ class CpdXmlProcessorTest extends TestCase {
 		];
 		$configMock = $this->createMock( Config::class );
 		$configMock->method( 'has' )->willReturn( true );
-		$configMock->method( 'get' )->willReturnCallback( function ( $arg ) use ( $subpageTypes, $laneTypes ) {
+		$configMock->method( 'get' )->willReturnCallback( static function ( $arg ) use ( $subpageTypes, $laneTypes ) {
 			if ( $arg === 'CPDLaneTypes' ) {
 				return $laneTypes;
 			} elseif ( $arg === 'CPDDedicatedSubpageTypes' ) {
@@ -59,7 +59,7 @@ class CpdXmlProcessorTest extends TestCase {
 		$oldXml = file_get_contents( $fixturePath . '/oldDiagram.xml' );
 		$resultElements = json_decode( file_get_contents( $fixturePath . '/elementsData.json' ), true );
 		$elements = $this->xmlProcessor->createElements( 'BackendElements', $xml, $oldXml );
-		$this->assertEquals( $resultElements, array_map( fn( $element ) => $element->jsonSerialize(), $elements ) );
+		$this->assertEquals( $resultElements, array_map( static fn ( $element ) => $element->jsonSerialize(), $elements ) );
 	}
 
 }

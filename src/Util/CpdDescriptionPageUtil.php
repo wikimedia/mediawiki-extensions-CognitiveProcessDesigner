@@ -124,10 +124,10 @@ class CpdDescriptionPageUtil {
 		}
 
 		$orphanedPages = [];
-		$existingPages = array_map( fn( Title $title ) => $title->getPrefixedDBkey(),
+		$existingPages = array_map( static fn ( Title $title ) => $title->getPrefixedDBkey(),
 			$this->findDescriptionPages( $process ) );
 		$pagesFromElements = array_map(
-			fn( CpdElement $element ) => $element->getDescriptionPage()->getPrefixedDBkey(),
+			static fn ( CpdElement $element ) => $element->getDescriptionPage()->getPrefixedDBkey(),
 			$elements
 		);
 
@@ -143,7 +143,7 @@ class CpdDescriptionPageUtil {
 
 		$dbw->insert(
 			'cpd_orphaned_description_pages',
-			array_map( fn( string $page ) => [
+			array_map( static fn ( string $page ) => [
 				'process' => $process,
 				'process_rev' => $revision,
 				'page_title' => $page

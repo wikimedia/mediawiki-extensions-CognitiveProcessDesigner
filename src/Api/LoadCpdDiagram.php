@@ -60,7 +60,7 @@ class LoadCpdDiagram extends ApiBase {
 
 			$this->setResultValues(
 				$xml,
-				array_map( fn( $element ) => json_encode( $element ), $cpdElements ),
+				array_map( static fn ( $element ) => json_encode( $element ), $cpdElements ),
 				$svgFile?->getUrl(),
 				$warnings
 			);
