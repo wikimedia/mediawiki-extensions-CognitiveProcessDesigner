@@ -12,10 +12,13 @@
 	"cpd-error-message-publish-svg-file": "Објављивање SVG датотеке није успело: $1",
 	"cpd-editor-title": "Уређивање $1",
 	"cpd-editor-title-create": "Направи $1",
-	"cpd-shape-rename-message": "$1 преименован у $2",
+	"cpd-shape-rename-message": "$1 преименован у „$2”",
 	"cpd-droplet-width-field-label": "Ширина",
 	"cpd-droplet-height-field-label": "Висина",
 	"cpd-dialog-save-changes-button-title": "Сачувај измене",
+	"cpd-dialog-save-changes-button-label": "Сачувај",
+	"cpd-dialog-save-label-done": "Урађено",
 	"bs-cpd-process-overview-create-action-text": "Направи",
-	"bs-cpd-process-overview-info-action-text": "Информације о страници"
+	"bs-cpd-process-overview-info-action-text": "Информације о страници",
+	"cpd-button-show-diagram": "Прикажи дијаграм"
 }
