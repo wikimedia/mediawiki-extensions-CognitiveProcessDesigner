@@ -93,10 +93,15 @@ class BpmnTag implements ParserFirstCallInitHook {
 				&$diagramRevision
 			]
 		);
-		$imageFile = $this->diagramPageUtil->getSvgFile(
-			$process,
-			!$diagramRevision?->isCurrent() ? $diagramRevision->getId() : null
-		);
+
+		$revId = null;
+		if ( $diagramRevision ) {
+			if ( !$diagramRevision->isCurrent() ) {
+				$revId = $diagramRevision->getId();
+			}
+		}
+
+		$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revId );
 
 		// Show svg image if the page is in edit mode
 		if ( $this->isEdit() ) {
