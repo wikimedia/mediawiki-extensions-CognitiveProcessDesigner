@@ -84,7 +84,7 @@ class CpdDiagramPageUtil {
 	 */
 	public function getDiagramPage( string $process ): WikiPage {
 		if ( empty( $process ) ) {
-			throw new CpdInvalidArgumentException( 'Process name cannot be empty.' );
+			throw new CpdInvalidArgumentException( 'Process name cannot be empty' );
 		}
 
 		return $this->wikiPageFactory->newFromTitle( Title::newFromText( $process, NS_PROCESS ) );
@@ -186,7 +186,12 @@ class CpdDiagramPageUtil {
 		$updater->setContent( SlotRecord::MAIN, $content );
 		$svgFilePage = $this->getSvgFilePage( $process );
 		$svgFileRevision = $this->lookup->getRevisionByTitle( $svgFilePage );
-		$metaContent = new JsonContent( '{}' );
+
+		$metaContent = new JsonContent( json_encode( [
+			'cpd-svg-ts' => null,
+			'cpd-svg-sha1' => null,
+		] ) );
+
 		if ( $svgFileRevision ) {
 			if ( $diagramPage->exists() ) {
 				$metaContent = $this->getUpdatedMetaContent( $diagramPage, [
@@ -240,8 +245,17 @@ class CpdDiagramPageUtil {
 
 		if ( $revision && !$revision->isCurrent() ) {
 			$meta = $this->getMetaForPage( $this->getDiagramPage( $process ), $revision );
-			if ( $meta['cpd-svg-ts'] ) {
-				$options['time'] = $meta['cpd-svg-ts'];
+
+			if ( array_key_exists( 'cpd-svg-ts', $meta ) ) {
+				if ( $meta['cpd-svg-ts'] ) {
+					$options['time'] = $meta['cpd-svg-ts'];
+				} else {
+					// Set to first revision timestamp
+					$revision = $this->lookup->getFirstRevision( $svgFilePage );
+					if ( $revision ) {
+						$options['time'] = $revision->getTimestamp();
+					}
+				}
 			}
 		}
 

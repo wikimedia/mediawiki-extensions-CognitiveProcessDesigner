@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\RevisionLookup;
 
 use MediaWiki\Extension\ContentStabilization\StabilizationLookup;
+use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageIdentity;
 use MediaWiki\Revision\RevisionLookup;
@@ -63,5 +64,14 @@ class CpdRevisionLookup implements IRevisionLookup {
 	 */
 	public function getRevisionById( int $revId ): ?RevisionRecord {
 		return $this->revisionLookup->getRevisionById( $revId );
+	}
+
+	/**
+	 * @param LinkTarget|PageIdentity $page
+	 *
+	 * @return RevisionRecord|null
+	 */
+	public function getFirstRevision( LinkTarget|PageIdentity $page ): ?RevisionRecord {
+		return $this->revisionLookup->getFirstRevision( $page );
 	}
 }

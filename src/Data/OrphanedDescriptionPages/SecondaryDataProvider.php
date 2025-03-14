@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Data\OrphanedDescriptionPages;
 
+use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Title\Title;
 use MWStake\MediaWiki\Component\DataStore\IRecord;
@@ -49,6 +50,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 	 * @param array $dataSets
 	 *
 	 * @return IRecord[]
+	 * @throws CpdInvalidArgumentException
 	 */
 	private function filterUnstableRevisions( array $dataSets ): array {
 		$filteredDataSets = [];
