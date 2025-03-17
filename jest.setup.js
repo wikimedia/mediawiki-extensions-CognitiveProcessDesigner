@@ -1,4 +1,4 @@
-var mockMediaWiki = require( "@wikimedia/mw-node-qunit/src/mockMediaWiki.js" );
+const mockMediaWiki = require( "@wikimedia/mw-node-qunit/src/mockMediaWiki.js" );
 global.mw = mockMediaWiki();
 global.mw.Title.newFromText = function ( text ) {
 	return {

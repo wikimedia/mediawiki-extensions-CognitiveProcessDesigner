@@ -5,7 +5,7 @@ ext.cpd.ve = ext.cpd.ve || {};
 ext.cpd.ve.ce = ext.cpd.ve.ce || {};
 
 ext.cpd.ve.ce.CPDProcessNode = function () {
-	ext.cpd.ve.ce.CPDProcessNode.super.apply( this, arguments);
+	ext.cpd.ve.ce.CPDProcessNode.super.apply( this, arguments );
 };
 
 OO.inheritClass( ext.cpd.ve.ce.CPDProcessNode, ve.ce.MWExtensionNode );

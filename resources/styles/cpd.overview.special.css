@@ -2,8 +2,7 @@
 	cursor: progress;
 	width: 100%;
 	min-height: 300px;
-	background: linear-gradient(0.25turn, transparent, #fff, transparent),
-	linear-gradient(#eee, #eee);
+	background: linear-gradient( 0.25turn, transparent, #fff, transparent ), linear-gradient( #eee, #eee );
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: -315px 0, 0 0, 0 190px, 50px 195px;

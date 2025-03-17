@@ -5,7 +5,6 @@
 		@color-bg-outgoing: #DFECFC;
 		@color-border-incoming: #94C11F;
 		@color-border-outgoing: #2B80EA;
-
 		width: 100%;
 		margin-bottom: 50px;
 
@@ -35,9 +34,9 @@
 			&.incoming {
 				background-color: @color-bg-incoming;
 
-				&:after {
+				&::after {
 					content: '';
-					background-image: url( ./../img/task_incoming.svg);
+					background-image: url( ./../img/task_incoming.svg );
 					background-size: 15px 18px;
 					background-position: center;
 					background-repeat: no-repeat;
@@ -46,19 +45,23 @@
 					display: inline-block;
 					margin-left: 5px;
 				}
-				&.startevent:after {
-					background-image: url( ./../img/start-incoming.svg);
+
+				&.startevent::after {
+					background-image: url( ./../img/start-incoming.svg );
 					background-size: 15px 15px;
 				}
+
 				&.cpd-lane-change {
 					border-color: @color-border-incoming;
 				}
 			}
+
 			&.outgoing {
 				background-color: @color-bg-outgoing;
-				&:before {
+
+				&::before {
 					content: '';
-					background-image: url( ./../img/task_outgoing.svg);
+					background-image: url( ./../img/task_outgoing.svg );
 					background-size: 15px 18px;
 					background-position: center;
 					background-repeat: no-repeat;
@@ -67,15 +70,16 @@
 					display: inline-block;
 					margin-right: 5px;
 				}
+
 				&.endevent::before {
-					background-image: url( ./../img/end-outgoing.svg);
+					background-image: url( ./../img/end-outgoing.svg );
 					background-size: 15px 15px;
 				}
+
 				&.cpd-lane-change {
 					border-color: @color-border-outgoing;
 				}
 			}
 		}
 	}
-
 }

@@ -97,7 +97,7 @@ ext.cpd.ve.ui.CPDProcessNodeInspector.prototype.setLayouts = function () {
 ext.cpd.ve.ui.CPDProcessNodeInspector.prototype.getSetupProcess = function ( data ) {
 	return ext.cpd.ve.ui.CPDProcessNodeInspector.super.prototype.getSetupProcess.call( this, data )
 		.next( function () {
-			var attributes = this.selectedNode.getAttribute( 'mw' ).attrs;
+			const attributes = this.selectedNode.getAttribute( 'mw' ).attrs;
 
 			this.processTitleInput.setValue( attributes.process || '' );
 			this.width.setValue( attributes.width || '' );

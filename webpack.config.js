@@ -1,4 +1,4 @@
-var path = require( 'path' );
+const path = require( 'path' );
 
 module.exports = {
 	mode: 'development',
@@ -11,17 +11,17 @@ module.exports = {
 		filename: 'cpd.[name].bundle.js'
 	},
 	resolve: {
-		extensions: ['.ts', '.js', '.json']
+		extensions: [ '.ts', '.js', '.json' ]
 	},
 	module: {
-		rules: [{
+		rules: [ {
 			test: /\.bpmn$/,
 			type: 'asset/source'
 		}, {
 			test: /\.ts?$/,
 			exclude: /node_modules/,
 			loader: 'ts-loader'
-		}],
+		} ]
 	},
 	watchOptions: {
 		// for some systems, watching many files can result in a lot of CPU or memory usage

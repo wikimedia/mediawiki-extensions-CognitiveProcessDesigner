@@ -7,7 +7,7 @@
 		const dfdList = getStoreData();
 		const h = Vue.h;
 
-		dfdList.done( ( items ) => {
+		dfdList.then( ( items ) => {
 			const vm = Vue.createMwApp( {
 				mounted: function () {
 					deferred.resolve( this.$el );
@@ -26,16 +26,16 @@
 	function getStoreData() {
 		const dfd = $.Deferred();
 
-		mw.loader.using( 'mediawiki.api' ).done( () => {
+		mw.loader.using( 'mediawiki.api' ).then( () => {
 			const api = new mw.Api();
 			api.abort();
 			api.get( { action: 'cpd-process-overview-store' } )
-				.done( ( response ) => {
+				.then( ( response ) => {
 					dfd.resolve( JSON.parse( response.results ) );
-				} ).fail( () => {
+				}, ( () => {
 					console.error( 'loading processes failed' ); // eslint-disable-line no-console
 					dfd.reject();
-				} );
+				} ) );
 		} );
 
 		return dfd.promise();

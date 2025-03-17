@@ -8,7 +8,7 @@
 		ext.cpd.info.DiagramUsageInformationPage.super.call( this, name, config );
 	};
 
-	OO.inheritClass( ext.cpd.info.DiagramUsageInformationPage, StandardDialogs.ui.BasePage ); // eslint-disable-line no-undef
+	OO.inheritClass( ext.cpd.info.DiagramUsageInformationPage, StandardDialogs.ui.BasePage );
 
 	ext.cpd.info.DiagramUsageInformationPage.prototype.setupOutlineItem = function () {
 		ext.cpd.info.DiagramUsageInformationPage.super.prototype.setupOutlineItem.apply( this, arguments );
@@ -29,23 +29,23 @@
 			api.get( {
 				action: 'cpd-diagram-usage',
 				page: this.pageName
-			} ).done( ( data ) => {
+			} ).then( ( data ) => {
 				if ( !data.links ) {
 					this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-undocumented-error' ).plain() + '.' );
 					return;
 				}
 
-				Object.entries( data.links ).forEach( ( data ) => {
-					const [ process, processLinks ] = data;
+				Object.entries( data.links ).forEach( ( link ) => {
+					const [ process, processLinks ] = link;
 					this.addDiagramUsageLinkList( process, processLinks );
 				} );
-			} ).fail( ( errorType, data ) => {
-				if ( data.error === 'isSpecial' ) {
+			}, ( errorType, errorData ) => {
+				if ( errorData.error === 'isSpecial' ) {
 					this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-special-page-description' ).plain() + '.' );
 					return;
 				}
 
-				if ( data.error === 'noProcess' ) {
+				if ( errorData.error === 'noProcess' ) {
 					this.$diagramUsageHtml.text( mw.message( 'cpd-process-usage-not-embedded-description' ).plain() + '.' );
 					return;
 				}
@@ -81,6 +81,6 @@
 		links.forEach( ( link ) => $linkList.append( $( '<li>' ).append( link ) ) );
 	};
 
-	registryPageInformation.register( 'diagram_usage_infos', ext.cpd.info.DiagramUsageInformationPage ); // eslint-disable-line no-undef
+	registryPageInformation.register( 'diagram_usage_infos', ext.cpd.info.DiagramUsageInformationPage );
 
 } )( mediaWiki );

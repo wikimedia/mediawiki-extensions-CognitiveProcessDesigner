@@ -9,17 +9,29 @@
 		"@typescript-eslint"
 	],
 	"extends": [
-		"wikimedia/client-es6",
-		"wikimedia/jquery",
-		"wikimedia/mediawiki"
+		"wikimedia/client/es2016",
+		"wikimedia/jquery"
 	],
+	"env": {
+		"browser": true,
+		"node": true,
+		"es6": true
+	},
 	"globals": {
 		"blueSpice": "readonly",
 		"bs": "readonly",
 		"ext": "readonly",
 		"jQuery": "readonly",
 		"mediaWiki": "readonly",
-		"OOJSPlus": "readonly"
+		"OOJSPlus": "readonly",
+		"OO": "readonly",
+		"ve": "readonly",
+		"mw": "readonly",
+		"jest": "readonly",
+		"cfg": "readonly",
+		"StandardDialogs": "readonly",
+		"registryPageInformation": "readonly",
+		"__dirname": true
 	},
 	"rules": {
 		"es-x/no-object-entries": "off",

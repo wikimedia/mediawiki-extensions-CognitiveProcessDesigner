@@ -7,7 +7,7 @@ ext.cpd.NewProcessDialog = function NewProcessDialog( config ) {
 OO.inheritClass( ext.cpd.NewProcessDialog, StandardDialogs.ui.NewPageDialog );
 
 ext.cpd.NewProcessDialog.prototype.makeSetupProcessData = function () {
-	var data = ext.cpd.NewProcessDialog.super.prototype.makeSetupProcessData.call( this );
+	const data = ext.cpd.NewProcessDialog.super.prototype.makeSetupProcessData.call( this );
 	data.title = mw.message( 'bs-cpd-actionmenuentry-new-process' ).plain();
 
 	return data;

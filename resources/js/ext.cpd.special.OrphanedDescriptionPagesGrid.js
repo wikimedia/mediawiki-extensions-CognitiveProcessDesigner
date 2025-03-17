@@ -3,7 +3,7 @@ window.ext.cpd = window.ext.cpd || {};
 window.ext.cpd.special = window.ext.cpd.special || {};
 
 ( ( mw, $ ) => {
-	ext.cpd.special.OrphanedDescriptionPageGrid = function ( cfg ) {
+	ext.cpd.special.OrphanedDescriptionPageGrid = function () {
 		const store = new OOJSPlus.ui.data.store.RemoteStore( {
 			action: 'cpd-orphaned-description-pages-store'
 		} );

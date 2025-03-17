@@ -2,11 +2,12 @@ const {
 	is
 } = require( 'bpmnlint-utils' );
 
-
 /**
  * Rule that reports gateways without labels.
  *
  * Attention: run npm install and commit changed bpmn-lint.config.js after changing this file.
+ *
+ * @return {Object}
  */
 module.exports = function () {
 
@@ -15,10 +16,10 @@ module.exports = function () {
 			return;
 		}
 
-		const name = (node.name || '').trim();
+		const name = ( node.name || '' ).trim();
 
-		if (name.length === 0) {
-			reporter.report(node.id, 'Element is missing label/name', [ 'name' ]);
+		if ( name.length === 0 ) {
+			reporter.report( node.id, 'Element is missing label/name', [ 'name' ] );
 		}
 	}
 
