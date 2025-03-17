@@ -12,8 +12,6 @@ use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
-use Wikimedia\Rdbms\IDatabase;
-use Wikimedia\Rdbms\ILoadBalancer;
 
 /**
  * @coversDefaultClass \CognitiveProcessDesigner\Util\CpdElementConnectionUtil

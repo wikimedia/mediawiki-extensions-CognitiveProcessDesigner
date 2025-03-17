@@ -4,7 +4,6 @@ namespace CognitiveProcessDesigner\Tests;
 
 use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
-use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
 use MediaWiki\Config\Config;
 use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;

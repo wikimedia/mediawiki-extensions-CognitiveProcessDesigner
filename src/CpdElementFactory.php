@@ -3,7 +3,6 @@
 namespace CognitiveProcessDesigner;
 
 use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
-use Exception;
 
 class CpdElementFactory {
 

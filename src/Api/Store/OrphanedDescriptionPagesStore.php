@@ -56,7 +56,7 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 		$result->addValue(
 			null,
 			'results',
-			array_map( fn ( $record ) => $record->getData(), $records )
+			array_map( static fn ( $record ) => $record->getData(), $records )
 		);
 
 		$result->addValue(

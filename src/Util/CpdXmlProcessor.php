@@ -121,11 +121,11 @@ class CpdXmlProcessor {
 	 * @return array
 	 */
 	private function filterByType( array $elementsData, array $type ): array {
-		return array_filter( $elementsData, fn( $elementData ) => in_array( $elementData['type'], $type ) );
+		return array_filter( $elementsData, static fn ( $elementData ) => in_array( $elementData['type'], $type ) );
 	}
 
 	/**
-	 * @param array $descriptionPageElement
+	 * @param array &$descriptionPageElement
 	 * @param array $parents
 	 *
 	 * @return void
@@ -143,7 +143,7 @@ class CpdXmlProcessor {
 	}
 
 	/**
-	 * @param array $descriptionPageElement
+	 * @param array &$descriptionPageElement
 	 * @param array $descriptionPageElements
 	 * @param array $connections
 	 *
@@ -174,7 +174,7 @@ class CpdXmlProcessor {
 	}
 
 	/**
-	 * @param array $element
+	 * @param array &$element
 	 * @param array $descriptionPageElements
 	 * @param array $connections
 	 * @param string $connectionField
@@ -204,7 +204,7 @@ class CpdXmlProcessor {
 
 			$connectionElements = array_filter(
 				$descriptionPageElements,
-				fn( $elementData ) => $elementData['id'] === $connection[$targetField]
+				static fn ( $elementData ) => $elementData['id'] === $connection[$targetField]
 			);
 
 			if ( empty( $connectionElements ) ) {
@@ -215,9 +215,8 @@ class CpdXmlProcessor {
 		}
 	}
 
-
 	/**
-	 * @param array $descriptionPageElement
+	 * @param array &$descriptionPageElement
 	 * @param string $process
 	 *
 	 * @return void
@@ -236,7 +235,7 @@ class CpdXmlProcessor {
 	/**
 	 * @param string $process
 	 * @param string $oldXmlString
-	 * @param array $descriptionPageElements
+	 * @param array &$descriptionPageElements
 	 *
 	 * @return void
 	 * @throws CpdXmlProcessingException
@@ -250,7 +249,7 @@ class CpdXmlProcessor {
 		foreach ( $descriptionPageElements as &$element ) {
 			$filteredElements = array_filter(
 				$oldDescriptionPageElements,
-				fn( $elementData ) => $elementData['id'] === $element['id']
+				static fn ( $elementData ) => $elementData['id'] === $element['id']
 			);
 			$oldDescriptionPageElement = reset( $filteredElements );
 			if ( $oldDescriptionPageElement ) {
@@ -297,7 +296,7 @@ class CpdXmlProcessor {
 	/**
 	 * Remove temporary and unused fields from the data
 	 *
-	 * @param array $element
+	 * @param array &$element
 	 * @param bool $removeParentField
 	 *
 	 * @return void

@@ -86,7 +86,7 @@ class SaveCpdDiagram extends ApiBase {
 		$result->addValue(
 			null,
 			'elements',
-			array_map( fn( $element ) => json_encode( $element ), $cpdElements )
+			array_map( static fn ( $element ) => json_encode( $element ), $cpdElements )
 		);
 		$result->addValue(
 			null,
