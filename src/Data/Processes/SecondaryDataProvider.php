@@ -25,7 +25,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 	protected function doExtend( &$dataSet ) {
 		$process = $dataSet->get( Record::PROCESS );
 		$diagramPage = $this->util->getDiagramPage( $process );
-		$svgFile = $this->util->getSvgFile( $process, $this->util->getStableRevision( $process ) );
+		$svgFile = $this->util->getSvgFile( $process, $this->util->getStableRevision( $process )?->getId() );
 
 		$dataSet->set( Record::DB_KEY, $diagramPage->getTitle()->getPrefixedDBkey() );
 		$dataSet->set( Record::URL, $diagramPage->getTitle()->getLocalURL() );
