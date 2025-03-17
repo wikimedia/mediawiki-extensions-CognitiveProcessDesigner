@@ -1,26 +1,27 @@
 <template>
-	<div v-if="hasData">
-		<div class="bs-process-search">
-			<cdx-search-input
-				:clearable="true"
-				:placeholder="searchPlaceholderLabel"
-				:aria-label="searchPlaceholderLabel"
-				@update:model-value="getSearchResults"
-			></cdx-search-input>
-		</div>
-		<div class="bs-grid">
-			<grid v-bind:cards="cards"></grid>
-		</div>
-		<div
-			id="bs-process-aria-live"
-			aria-live="polite"
-		>{{ ariaLiveInitial }}
-		</div>
-	</div>
-	<div class="cpd-process-empty" v-else>
-		<span class="cpd-process-empty-image" ></span>
-		<span class="cpd-process-empty-label">{{ emptyMsg }}</span>
-	</div>
+  <div v-if="hasData">
+    <div class="bs-process-search">
+      <cdx-search-input
+          v-model="searchInputValue"
+          :clearable="true"
+          :placeholder="searchPlaceholderLabel"
+          :aria-label="searchPlaceholderLabel"
+          @update:model-value="getSearchResults"
+      ></cdx-search-input>
+    </div>
+    <div class="bs-grid">
+      <grid v-bind:cards="cards"></grid>
+    </div>
+    <div
+        id="bs-process-aria-live"
+        aria-live="polite"
+    >{{ ariaLiveInitial }}
+    </div>
+  </div>
+  <div class="cpd-process-empty" v-else>
+    <span class="cpd-process-empty-image"></span>
+    <span class="cpd-process-empty-label">{{ emptyMsg }}</span>
+  </div>
 </template>
 
 <script>
@@ -45,7 +46,10 @@ module.exports = exports = {
       card.isVisible = true
     } );
 
+    const initialSearchInputValue = '';
+
     return {
+      searchInputValue: initialSearchInputValue,
       cards: this.items,
       hasData: this.items.length > 0,
       emptyMsg: mw.message( 'bs-cpd-process-overview-no-results-text' ).text(),
@@ -68,7 +72,7 @@ module.exports = exports = {
 };
 
 function updateAriaLiveSection( count ) {
-  text = mw.message( 'bs-cpd-process-overview-aria-live-filtered-rows', count ).toString();
+  const text = mw.message( 'bs-cpd-process-overview-aria-live-filtered-rows', count ).toString();
   $( '#bs-process-aria-live' ).html( text );
 }
 
@@ -86,25 +90,27 @@ function updateAriaLiveSection( count ) {
 }
 
 .cpd-process-empty {
-	padding: 20px;
+  padding: 20px;
 }
+
 .cpd-process-empty-image {
-	height: 180px;
-	width: 180px;
-	display: block;
-	background-position: center;
-	background-size: 100% 100%;
-	background-image: url( ./../../img/create_process.svg );
-	background-color: rgba(62, 83, 137, 0.1);
-	background-repeat: no-repeat;
-	margin: 0 auto 40px;
-	border-radius: 100%;
+  height: 180px;
+  width: 180px;
+  display: block;
+  background-position: center;
+  background-size: 100% 100%;
+  background-image: url(./../../img/create_process.svg);
+  background-color: rgba(62, 83, 137, 0.1);
+  background-repeat: no-repeat;
+  margin: 0 auto 40px;
+  border-radius: 100%;
 }
+
 .cpd-process-empty-label {
-	display: block;
-	text-align: center;
-	margin: 0;
-	font-weight: 700;
+  display: block;
+  text-align: center;
+  margin: 0;
+  font-weight: 700;
 }
 
 #bs-process-aria-live {
