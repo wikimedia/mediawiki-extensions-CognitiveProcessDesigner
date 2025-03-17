@@ -41,11 +41,13 @@
 	"cpd-process-usage-undocumented-error": "문서화되지 않은 오류가 발생했습니다",
 	"cpd-dialog-save-changes-headline": "변경사항 저장",
 	"cpd-dialog-save-changes-button-title": "변경사항 저장",
+	"cpd-dialog-save-changes-button-label": "저장",
 	"cpd-dialog-save-label-review": "바뀐 내용 검토",
 	"cpd-dialog-save-label-save": "바뀐 내용 저장하기",
 	"cpd-dialog-save-label-changes": "변경된 사항을 저장했습니다",
 	"cpd-dialog-save-label-changes-with-error": "오류가 발생했습니다",
 	"cpd-dialog-save-label-resume-editing": "계속 편집하기",
+	"cpd-dialog-save-label-done": "완료",
 	"bs-cpd-mainlinks-label": "프로세스",
 	"bs-cpd-process-overview-edit-action-text": "편집",
 	"bs-cpd-process-overview-edit-action-title": "프로세스 $1 편집",
@@ -57,5 +59,9 @@
 	"bs-cpd-actionmenuentry-new-process": "새 프로세스",
 	"bs-cpd-actionmenuentry-new-process-input-label": "프로세스 이름",
 	"cpd-api-save-description-page-comment": "설명 문서가 저장되었습니다",
-	"cpd-api-move-description-page-comment": "설명 문서가 이동되었습니다"
+	"cpd-api-move-description-page-comment": "설명 문서가 이동되었습니다",
+	"cpd-description-navigation-incoming-label": "들어오는 연결",
+	"cpd-description-navigation-outgoing-label": "나가는 연결",
+	"cpd-button-show-diagram": "다이어그램 표시",
+	"cpd-error-xml-parse-error": "XML 구문 분석 오류"
 }

@@ -26,7 +26,7 @@
 	"cpd-editor-title-create": "$1 uleeën",
 	"cpd-shape-deletion-message": "$1 geläscht",
 	"cpd-shape-creation-message": "$1 ugeluecht",
-	"cpd-shape-rename-message": "$1 ëmbenannt op $2",
+	"cpd-shape-rename-message": "$1 ëmbenannt op „$2“",
 	"cpd-shape-remove-label-message": "$1 Etikett ewechgeholl",
 	"cpd-droplet-name": "Prozess",
 	"cpd-droplet-process-field-label": "Prozess",

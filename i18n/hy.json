@@ -4,5 +4,7 @@
 			"Kareyac"
 		]
 	},
-	"cpd-dialog-save-changes-button-title": "Պահպանել փոփոխությունները"
+	"cpd-dialog-save-changes-button-title": "Պահպանել փոփոխությունները",
+	"cpd-dialog-save-changes-button-label": "Հիշել",
+	"cpd-dialog-save-label-done": "Արված է"
 }
