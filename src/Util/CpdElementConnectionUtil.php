@@ -5,6 +5,7 @@ namespace CognitiveProcessDesigner\Util;
 use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\CpdNavigationConnection;
 use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
@@ -34,6 +35,7 @@ class CpdElementConnectionUtil {
 	 * @throws CpdInvalidContentException
 	 * @throws CpdXmlProcessingException
 	 * @throws CpdCreateElementException
+	 * @throws CpdInvalidArgumentException
 	 */
 	public function getConnections( Title $title ): array {
 		$connections = [
@@ -74,10 +76,16 @@ class CpdElementConnectionUtil {
 	 * @throws CpdInvalidContentException
 	 * @throws CpdInvalidNamespaceException
 	 * @throws CpdXmlProcessingException
+	 * @throws CpdInvalidArgumentException
 	 */
 	private function findElementForPage( Title $title ): CpdElement|null {
 		$process = CpdDiagramPageUtil::getProcess( $title );
-		$xml = $this->diagramPageUtil->getXml( CpdDiagramPageUtil::getProcess( $title ) );
+		$xml = $this->diagramPageUtil->getXml(
+			CpdDiagramPageUtil::getProcess( $title ),
+			$this->diagramPageUtil->getStableRevision(
+				$process
+			)?->getId()
+		);
 
 		$element = null;
 		foreach ( $this->xmlProcessor->createElements( $process, $xml ) as $element ) {
