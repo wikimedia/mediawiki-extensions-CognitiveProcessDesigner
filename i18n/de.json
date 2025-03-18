@@ -3,7 +3,8 @@
 		"authors": [
 			"Brettchenweber",
 			"Mschlindwein",
-			"Mukeber"
+			"Mukeber",
+			"MLRodrigue"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "BPMN Prozesse mit einer grafischen Benutzeroberfläche in Semantic MediaWiki zeichnen",
@@ -103,6 +104,7 @@
 	"cpd-error-message-invalid-xml": "Ungültiges XML",
 	"cpd-error-message-missing-xml": "Fehlendes XML",
 	"cpd-error-message-missing-diagram-page": "Fehlende Diagrammseite",
+	"cpd-error-message-publish-svg-file": "SVG-Datei konnte nicht veröffentlicht werden: $1",
 	"cpd-warning-message-diagram-not-initialized": "Prozess $1 wurde noch nicht erstellt. Bitte gehe zur <a href='$2'>Prozessseite</a> und erstelle ihn.",
 	"cpd-warning-message-diagram-not-initialized-create-it": "Das Diagramm wurde noch nicht erstellt. Bitte <a href='$1'>erstelle </a> es.",
 	"cpd-editor-title": "Bearbeiten von $1",
@@ -119,6 +121,12 @@
 	"cpd-droplet-description": "Bearbeitbares BPMN-Diagramm",
 	"cpd-droplet-process-field-label-help": "Suche nach vorhandenen Prozessen, indem du den Namen des Prozesses eingibst",
 	"cpd-droplet-process-field-label": "Prozess",
+	"cpd-droplet-width-field-label-help": "Lege eine feste Breite für das Diagramm fest. Für die automatische Breite leer lassen",
+	"cpd-droplet-width-field-label": "Breite",
+	"cpd-droplet-height-field-label-help": "Lege eine feste Höhe für das Diagramm fest",
+	"cpd-droplet-height-field-label": "Höhe",
+	"cpd-droplet-show-toolbar-field-label-help": "Symbolleiste aktivieren oder deaktivieren",
+	"cpd-droplet-show-toolbar-field-label": "Symbolleiste anzeigen",
 	"cpd-validation-missing-label": "Element $1 $2 hat kein Label",
 	"cpd-log-no-changes": "Keine Änderungen",
 	"cpd-process-usage-description": "Die folgenden Seiten betten den Prozess $1 ein",
@@ -149,8 +157,10 @@
 	"bs-cpd-info-dialog": "Prozessnutzung",
 	"bs-cpd-process-overview-info-action-text": "Seiteninformationen",
 	"bs-cpd-process-overview-info-action-title": "Seiteninformationen für Prozess $1",
-	"bs-cpd-actionmenuentry-new-process": "Neues Verfahren",
+	"bs-cpd-actionmenuentry-new-process": "Neuer Prozess",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Prozessname",
 	"cpd-api-save-description-page-comment": "Beschreibungsseite gespeichert",
-	"cpd-api-move-description-page-comment": "Beschreibungsseite gespeichert"
+	"cpd-api-move-description-page-comment": "Beschreibungsseite gespeichert",
+	"cpd-config-canvas-process-height-msg": "Höhe der Diagrammfläche auf der Prozessseite und im Bearbeitungsmodus festlegen",
+	"cpd-config-canvas-embedded-height-msg": "Höhe der Diagrammfläche festlegen, während sie in andere Seiten eingebettet ist"
 }
