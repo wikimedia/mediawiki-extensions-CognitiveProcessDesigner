@@ -1,53 +1,78 @@
-import { diff } from '../../../node_modules/bpmn-js-differ';
 import BpmnModdle from '../../../node_modules/bpmn-moddle/dist';
 import { ModdleElement } from "bpmn-js/lib/model/Types";
 import NavigatedViewer from "bpmn-js/lib/NavigatedViewer";
-import CpdApi, { LoadDiagramResult } from "./helper/CpdApi";
+import CpdApi from "./helper/CpdApi";
 import EventBus from "diagram-js/lib/core/EventBus";
+import Canvas from "diagram-js/lib/core/Canvas";
+
+enum SyncState {
+	NewToOld,
+	OldToNew,
+	None
+}
 
 export default class CpdBpmnDiffer {
+	private static readonly VIEWBOX_CHANGE_END_EVENT: string = "canvas.viewbox.changed";
+	private static readonly VIEWBOX_CHANGE_START_EVENT: string = "canvas.viewbox.changing";
 
 	private container: HTMLDivElement;
 	private readonly process: string;
 	private api: CpdApi;
+	private syncState: SyncState
 
-	public constructor( containerId: string, process: string, newRevision: number, oldRevision: number ) {
-		this.container = document.getElementById( containerId ) as HTMLDivElement;
+	public constructor( container: HTMLDivElement, process: string, newRevision: number, oldRevision: number ) {
+		this.container = container;
 		this.process = process;
 		this.api = new CpdApi( this.process );
-		this.initModels( newRevision, oldRevision );
+		this.syncState = SyncState.None;
+
+		this.init( newRevision, oldRevision );
 	}
 
-	private async initModels( newRevision: number, oldRevision: number ): Promise<void> {
+	private async init( newRevision: number, oldRevision: number ): Promise<void> {
 		const leftContainer = document.createElement( "div" );
 		const rightContainer = document.createElement( "div" );
 		this.container.appendChild( leftContainer );
 		this.container.appendChild( rightContainer );
 
-		const bpmnViewerLeft = new NavigatedViewer();
-		let pageContent: LoadDiagramResult = await this.api.fetchPageContent( oldRevision );
-		bpmnViewerLeft.attachTo( leftContainer );
-		bpmnViewerLeft.importXML( pageContent.xml );
-		const bpmnViewerLeftCanvas = bpmnViewerLeft.get( "canvas" );
-		const eventBus = bpmnViewerLeft.get( "eventBus" ) as EventBus
-		console.log(eventBus)
-		eventBus.on('drag.start', function(event) {
-			console.log('dragging start');
-		});
+		try {
+			const [ newRevViewer, oldRevViewer ] = await Promise.all( [
+				this.initDiagram( newRevision, leftContainer ),
+				this.initDiagram( oldRevision, rightContainer ),
+			] );
 
-		eventBus.on('drag.init', function(event) {
-			console.log('dragging init');
-		});
+			const newRevCanvas = newRevViewer.get( "canvas" ) as Canvas;
+			const oldRevCanvas = oldRevViewer.get( "canvas" ) as Canvas;
 
-		eventBus.on('drag.end', function(event) {
-			console.log('dragging end');
-		});
+			this.enableCanvasSync( newRevViewer.get( "eventBus" ), newRevCanvas, oldRevCanvas, SyncState.NewToOld );
+			this.enableCanvasSync( oldRevViewer.get( "eventBus" ), oldRevCanvas, newRevCanvas, SyncState.OldToNew );
+		} catch ( error ) {
+			console.error( "Error initializing diagrams:", error );
+		}
+	}
 
-		const bpmnViewerRight = new NavigatedViewer();
-		pageContent = await this.api.fetchPageContent( oldRevision );
-		bpmnViewerRight.attachTo( rightContainer );
-		bpmnViewerRight.importXML( pageContent.xml );
-		const bpmnViewerRightCanvas = bpmnViewerLeft.get( "canvas" );
+	private async initDiagram( revision: number, container: HTMLDivElement ): Promise<NavigatedViewer> {
+		const viewer = new NavigatedViewer();
+		const pageContent = await this.api.fetchPageContent( revision );
+		await viewer.importXML( pageContent.xml );
+		viewer.attachTo( container );
+
+		return viewer;
+	}
+
+	private enableCanvasSync( eventBus: EventBus, canvasA: Canvas, canvasB: Canvas, syncDirection: SyncState ): void {
+		eventBus.on( CpdBpmnDiffer.VIEWBOX_CHANGE_START_EVENT, () => {
+			if ( this.syncState !== syncDirection && this.syncState !== SyncState.None ) {
+				return;
+			}
+
+			this.syncState = syncDirection;
+			canvasB.viewbox( canvasA.viewbox() )
+		} );
+
+		eventBus.on( CpdBpmnDiffer.VIEWBOX_CHANGE_END_EVENT, () => {
+			this.syncState = SyncState.None;
+		} );
 	}
 
 	private async loadModel( diagramXML: string ): Promise<ModdleElement> {
@@ -58,7 +83,7 @@ export default class CpdBpmnDiffer {
 }
 
 new CpdBpmnDiffer(
-	mw.config.get( "cpdDiffContainer" ) as string,
+	document.getElementById( mw.config.get( "cpdDiffContainer" ) as string ) as HTMLDivElement,
 	mw.config.get( "cpdProcess" ) as string,
 	mw.config.get( "cpdDiffNewRevision" ) as number,
 	mw.config.get( "cpdDiffOldRevision" ) as number
