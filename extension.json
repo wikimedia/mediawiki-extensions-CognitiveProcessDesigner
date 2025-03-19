@@ -364,6 +364,17 @@
 			"dependencies": [
 				"mediawiki.widgets"
 			]
+		},
+		"ext.cpd.bpmndiffer": {
+			"scripts": [
+				"js/dist/cpd.bpmnDiffer.bundle.js"
+			],
+			"dependencies": [
+				"mediawiki.api"
+			],
+			"styles": [
+				"styles/cpd.diff.less"
+			]
 		}
 	},
 	"ServiceWiringFiles": [
@@ -389,7 +400,8 @@
 		"StandardDialogsRegisterPageInfoPanelModules": "standardDialogs",
 		"MediaWikiServices": "registerMetaSlot",
 		"ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess",
-		"ContentStabilizationStablePointAdded": "stablePointAdded"
+		"ContentStabilizationStablePointAdded": "stablePointAdded",
+		"DifferenceEngineViewHeader": "bpmnDiffer"
 	},
 	"HookHandlers": {
 		"tag": {
@@ -465,6 +477,12 @@
 			"services": [
 				"CpdDiagramPageUtil",
 				"CpdDescriptionPageUtil"
+			]
+		},
+		"bpmnDiffer": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\BpmnDiffer",
+			"services": [
+				"MainConfig"
 			]
 		}
 	},

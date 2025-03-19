@@ -54,6 +54,18 @@ export default class CpdChangeLogger extends EventEmitter {
 		) );
 		eventBus.on( CpdChangeLogger.DIAGRAM_CHANGED, this.onDiagramChanged.bind( this ) );
 
+		eventBus.on('drag.start', function(event) {
+			console.log('dragging start');
+		});
+
+		eventBus.on('drag.init', function(event) {
+			console.log('dragging init');
+		});
+
+		eventBus.on('drag.end', function(event) {
+			console.log('dragging end');
+		});
+
 		this.svgRenderer = svgRenderer;
 		this.factory = factory;
 
