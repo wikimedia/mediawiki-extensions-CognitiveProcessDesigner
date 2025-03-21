@@ -1,14 +1,24 @@
+import { diff } from '../../../node_modules/bpmn-js-differ';
 import BpmnModdle from '../../../node_modules/bpmn-moddle/dist';
 import { ModdleElement } from "bpmn-js/lib/model/Types";
 import NavigatedViewer from "bpmn-js/lib/NavigatedViewer";
 import CpdApi from "./helper/CpdApi";
 import EventBus from "diagram-js/lib/core/EventBus";
 import Canvas from "diagram-js/lib/core/Canvas";
+import Overlays from "diagram-js/lib/features/overlays/Overlays";
+import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
 
 enum SyncState {
 	NewToOld,
 	OldToNew,
 	None
+}
+
+interface Changes {
+	layoutChanged: string[]
+	changed: string[]
+	removed: string[]
+	added: string[]
 }
 
 export default class CpdBpmnDiffer {
@@ -20,7 +30,12 @@ export default class CpdBpmnDiffer {
 	private api: CpdApi;
 	private syncState: SyncState
 
-	public constructor( container: HTMLDivElement, process: string, newRevision: number, oldRevision: number ) {
+	public constructor(
+		container: HTMLDivElement,
+		process: string,
+		newRevision: number,
+		oldRevision: number
+	) {
 		this.container = container;
 		this.process = process;
 		this.api = new CpdApi( this.process );
@@ -35,29 +50,92 @@ export default class CpdBpmnDiffer {
 		this.container.appendChild( leftContainer );
 		this.container.appendChild( rightContainer );
 
-		try {
-			const [ newRevViewer, oldRevViewer ] = await Promise.all( [
-				this.initDiagram( newRevision, leftContainer ),
-				this.initDiagram( oldRevision, rightContainer ),
-			] );
+		const [ newRevViewer, oldRevViewer ] = await Promise.all( [
+			this.initViewer( newRevision, leftContainer ),
+			this.initViewer( oldRevision, rightContainer ),
+		] );
 
-			const newRevCanvas = newRevViewer.get( "canvas" ) as Canvas;
-			const oldRevCanvas = oldRevViewer.get( "canvas" ) as Canvas;
+		this.initCanvasSync( newRevViewer.viewer, oldRevViewer.viewer );
 
-			this.enableCanvasSync( newRevViewer.get( "eventBus" ), newRevCanvas, oldRevCanvas, SyncState.NewToOld );
-			this.enableCanvasSync( oldRevViewer.get( "eventBus" ), oldRevCanvas, newRevCanvas, SyncState.OldToNew );
-		} catch ( error ) {
-			console.error( "Error initializing diagrams:", error );
-		}
+		const changes = await this.computeChanges( newRevViewer.xml, oldRevViewer.xml );
+		this.addChangeOverlays( changes, newRevViewer.viewer );
+		this.addChangeOverlays( changes, oldRevViewer.viewer );
 	}
 
-	private async initDiagram( revision: number, container: HTMLDivElement ): Promise<NavigatedViewer> {
-		const viewer = new NavigatedViewer();
+	private addChangeOverlays( changes: Changes, viewer: NavigatedViewer ): void {
+		const overlays = viewer.get( "overlays" ) as Overlays;
+		const elementRegistry = viewer.get( "elementRegistry" ) as ElementRegistry;
+		this.applyChanges( changes.added, elementRegistry, overlays, 'added' );
+		this.applyChanges( changes.removed, elementRegistry, overlays, 'removed' );
+		this.applyChanges( changes.changed, elementRegistry, overlays, 'changed' );
+		this.applyChanges( changes.layoutChanged, elementRegistry, overlays, 'layoutChanged' );
+	}
+
+	private applyChanges(
+		elements: string[],
+		elementRegistry: ElementRegistry,
+		overlays: Overlays,
+		type: string
+	): void {
+		elements.forEach( ( id: string ) => {
+			const shape = elementRegistry.get( id );
+
+			if ( !shape ) {
+				return;
+			}
+
+			const overlayHtml = document.createElement( "div" );
+			overlayHtml.classList.add( "diff-overlay" );
+			overlayHtml.classList.add( type );
+
+			overlays.add( id, {
+				position: {
+					top: 0,
+					left: 0
+				},
+				html: overlayHtml
+			} );
+		} );
+	}
+
+	private async initViewer( revision: number, container: HTMLDivElement ): Promise<{
+		viewer: NavigatedViewer;
+		xml: string;
+	}> {
 		const pageContent = await this.api.fetchPageContent( revision );
-		await viewer.importXML( pageContent.xml );
+		const xml = pageContent.xml;
+		const viewer = new NavigatedViewer();
+		await viewer.importXML( xml );
 		viewer.attachTo( container );
 
-		return viewer;
+		return {
+			viewer,
+			xml
+		};
+	}
+
+	private initCanvasSync( newViewer: NavigatedViewer, oldViewer: NavigatedViewer ): void {
+		const newRevCanvas = newViewer.get( "canvas" ) as Canvas;
+		const oldRevCanvas = oldViewer.get( "canvas" ) as Canvas;
+
+		this.enableCanvasSync( newViewer.get( "eventBus" ), newRevCanvas, oldRevCanvas, SyncState.NewToOld );
+		this.enableCanvasSync( oldViewer.get( "eventBus" ), oldRevCanvas, newRevCanvas, SyncState.OldToNew );
+	}
+
+	private async computeChanges( newXml: string, oldXml: string ): Promise<Changes> {
+		const [ newRootElement, oldRootElement ] = await Promise.all( [
+			this.loadBpmnModdle( newXml ),
+			this.loadBpmnModdle( oldXml ),
+		] );
+
+		const changes = diff( newRootElement, oldRootElement );
+
+		return {
+			layoutChanged: Object.keys( changes._layoutChanged ),
+			changed: Object.keys( changes._changed ),
+			removed: Object.keys( changes._removed ),
+			added: Object.keys( changes._added )
+		}
 	}
 
 	private enableCanvasSync( eventBus: EventBus, canvasA: Canvas, canvasB: Canvas, syncDirection: SyncState ): void {
@@ -75,9 +153,10 @@ export default class CpdBpmnDiffer {
 		} );
 	}
 
-	private async loadModel( diagramXML: string ): Promise<ModdleElement> {
+	private async loadBpmnModdle( diagramXML: string ): Promise<ModdleElement> {
 		const bpmnModdle = new BpmnModdle();
 		const { rootElement } = await bpmnModdle.fromXML( diagramXML );
+
 		return rootElement;
 	}
 }
