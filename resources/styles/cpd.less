@@ -1,0 +1,134 @@
+@space: 12px;
+
+.mw-body-content {
+	.cpd-container {
+		width: 100%;
+		overflow: auto;
+		display: flex;
+		flex-direction: column;
+		margin: 0;
+		padding: 0;
+
+		.djs-label {
+			pointer-events: none;
+		}
+	}
+
+	.cpd-canvas {
+		flex-grow: 1;
+	}
+
+	.cpd-link {
+		display: block;
+
+		&[ disabled ] {
+			color: #ccc;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+
+	.cpd-toolbar {
+		display: flex;
+		align-items: flex-end;
+		flex-direction: column;
+
+		a,
+		button {
+			margin-bottom: @space;
+			display: block;
+		}
+	}
+
+	div.hidden,
+	a.hidden,
+	button.hidden {
+		display: none;
+	}
+
+	.cpd-message-box {
+		margin: @space 0;
+		padding: @space @space @space 28px;
+	}
+
+	@keyframes spin {
+		0% {
+			transform: rotate( 0deg );
+		}
+
+		100% {
+			transform: rotate( 360deg );
+		}
+	}
+
+	/**
+   * Fix position of color picker
+   * Overwritten from workflows extension
+   */
+	.djs-popup-backdrop {
+		position: initial;
+	}
+
+	a[ aria-disabled='true' ] {
+		pointer-events: none;
+	}
+
+	.oo-ui-popupToolGroup.oo-ui-indicatorElement .oo-ui-popupToolGroup-handle {
+		padding-right: 0;
+
+		span.oo-ui-indicator-down {
+			display: none;
+		}
+	}
+
+	.oo-ui-toolbar-popups {
+		.oo-ui-toolGroup-tools {
+			z-index: 101;
+		}
+	}
+	// Fix cpd dropdown in table - ERM40484
+	table .cpd-container {
+		.oo-ui-tool-link {
+			display: flex;
+		}
+	}
+}
+
+// Save dialog
+.oo-ui-window-body {
+	div.cpd-validation-container {
+		color: #d33;
+
+		h3 {
+			color: #d33;
+		}
+	}
+
+	span.cpd-inline-svg {
+		svg {
+			width: 40px;
+		}
+
+		&.large {
+			svg {
+				width: 180px;
+			}
+		}
+	}
+
+	.error {
+		color: #d33;
+	}
+
+	.warnings-box {
+		margin-bottom: @space;
+	}
+}
+
+// Hide contentSub div if empty
+#contentSub:empty {
+	display: none;
+}

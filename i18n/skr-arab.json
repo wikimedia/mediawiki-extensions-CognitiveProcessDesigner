@@ -7,7 +7,6 @@
 	},
 	"cpd-orphaned-description-pages-column-dbkey-title": "عنوان",
 	"cpd-button-cancel-title": "منسوخ",
-	"cpd-api-load-diagram-missingtitle-error-message": "$1 کائنی لبھا",
 	"cpd-error-message-publish-svg-file": "فائل شائع کائنی تھی سڳی:$1",
 	"cpd-editor-title": "تساں $1 لکھدے پئے ہو",
 	"cpd-editor-title-create": "خلقو $1",
@@ -17,6 +16,7 @@
 	"cpd-droplet-width-field-label": "چوڑائی",
 	"cpd-dialog-save-changes-headline": "تبدیلیاں محفوظ کرو",
 	"cpd-dialog-save-label-changes-with-error": "خرابی تھی ڳئی ہے",
+	"cpd-dialog-save-label-done": "تھی ڳیا",
 	"bs-cpd-process-overview-edit-action-text": "لکھو",
 	"bs-cpd-process-overview-create-action-text": "بݨاؤ",
 	"bs-cpd-process-overview-info-action-text": "معلومات ورقہ"

@@ -4,9 +4,7 @@
 			"Kareyac"
 		]
 	},
-	"cpd-yes": "Այո",
-	"cpd-no": "Ոչ",
-	"cpd-keyboard-shortcuts-select-all": "Նշել ամբողջը",
-	"cpd-btn-label-save": "Հիշել",
-	"cpd-dialog-save-changes-button-title": "Պահպանել փոփոխությունները"
+	"cpd-dialog-save-changes-button-title": "Պահպանել փոփոխությունները",
+	"cpd-dialog-save-changes-button-label": "Հիշել",
+	"cpd-dialog-save-label-done": "Արված է"
 }

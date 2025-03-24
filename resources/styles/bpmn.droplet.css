@@ -1,7 +1,3 @@
 .droplet .icon-droplet.droplet-bpmn {
-	background-image: url( './../img/contentdroplets-bpmn-icon.svg' );
-}
-
-.oo-ui-icon-bpmn {
-	background-image: url( ../img/bpmn-icon-greyscale.svg );
+	background-image: url( ./../img/contentdroplets-bpmn-icon.svg );
 }

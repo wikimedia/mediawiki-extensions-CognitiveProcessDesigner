@@ -5,11 +5,14 @@ namespace CognitiveProcessDesigner\Rest;
 use Exception;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\SimpleHandler;
+use MWStake\MediaWiki\Component\ProcessManager\ProcessManager;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ProcessStatusHandler extends SimpleHandler {
 
-	/** @inheritDoc */
+	/**
+	 * @inheritDoc
+	 */
 	public function getParamSettings() {
 		return [
 			'processId' => [
@@ -20,11 +23,15 @@ class ProcessStatusHandler extends SimpleHandler {
 		];
 	}
 
+	/**
+	 * @inheritDoc
+	 * @throws Exception
+	 */
 	public function run() {
 		$request = $this->getRequest();
 		$processId = $request->getPathParam( 'processId' );
 
-		/** @var \MWStake\MediaWiki\Component\ProcessManager\ProcessManager $processManager */
+		/** @var ProcessManager $processManager */
 		$processManager = MediaWikiServices::getInstance()->getService( 'ProcessManager' );
 		$processInfo = $processManager->getProcessInfo( $processId );
 

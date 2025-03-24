@@ -1,1 +1,0 @@
-Files and structure taken from https://unpkg.com/browse/bpmn-js@6.4.0/dist/

@@ -4,13 +4,6 @@
 			"Kareyac"
 		]
 	},
-	"cpd-yes": "Да",
-	"cpd-no": "Нет",
-	"cpd-show-details": "Показать подробности",
-	"cpd-keyboard-shortcuts-undo": "Отменить",
-	"cpd-keyboard-shortcuts-redo": "Повторить",
-	"cpd-btn-label-save": "Сохранить",
-	"cpd-saved": "Сохранено",
 	"cpd-droplet-width-field-label": "Ширина",
 	"cpd-droplet-show-toolbar-field-label": "Показать панель инструментов",
 	"bs-cpd-actionmenuentry-new-process": "Новый процесс"

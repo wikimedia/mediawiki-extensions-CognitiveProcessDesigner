@@ -2,19 +2,5 @@
 	"@metadata": {
 		"authors": []
 	},
-	"specialpages-group-semantic-process": "Proses Semantik",
-	"cpd-yes": "Ya",
-	"cpd-keyboard-shortcuts-direct-editing": "Suntingan langsung",
-	"cpd-keyboard-shortcuts-space": "Alat ruang",
-	"cpd-btn-label-save": "Simpan",
-	"cpd-open-page-label": "Buka laman",
-	"cpd-page-forms-label": "Bentuk laman",
-	"cpd-saved": "Disimpan",
-	"cpd-api-save-diagram-elements-update-comment": "Kemas kini unsur gambar rajah selepas menyimpan gambar rajah.",
-	"cpd-diagram-save-dialog-title": "Menyimpan gambar rajah...",
-	"cpd-diagram-save-dialog-span": "Menyimpan $1 {{PLURAL:$1|unsur}}...",
-	"cpd-error-dialog-title": "Ralat berlaku!",
-	"cpd-droplet-bpmn-name": "Gambar rajah BPMN",
-	"cpd-droplet-bpmn-description": "Gambar rajah BPNM yang boleh diedit",
 	"cpd-droplet-description": "Gambar rajah BPNM yang boleh diedit"
 }

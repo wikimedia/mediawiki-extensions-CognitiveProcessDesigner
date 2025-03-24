@@ -1,0 +1,5 @@
+vendor/
+resources/js/dist
+resources/vue/components
+**/*.json
+bpmn-lint.config.js

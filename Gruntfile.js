@@ -1,23 +1,32 @@
-/* eslint-env node, es6 */
+/* eslint-env node */
 module.exports = function ( grunt ) {
-	grunt.loadNpmTasks( 'grunt-eslint' );
-	grunt.loadNpmTasks( 'grunt-banana-checker' );
+	const conf = grunt.file.readJSON( 'extension.json' );
 
-	var conf = grunt.file.readJSON( 'extension.json' );
+	grunt.loadNpmTasks( 'grunt-banana-checker' );
+	grunt.loadNpmTasks( 'grunt-eslint' );
+	grunt.loadNpmTasks( 'grunt-stylelint' );
+
 	grunt.initConfig( {
-		banana: conf.MessagesDirs,
 		eslint: {
+			options: {
+				cache: true,
+				fix: grunt.option( 'fix' )
+			},
+			all: '.'
+		},
+		stylelint: {
 			options: {
 				cache: true
 			},
 			all: [
-				'**/*.json',
+				'**/*.{css,less}',
 				'!node_modules/**',
 				'!vendor/**'
 			]
-		}
+		},
+		banana: conf.MessagesDirs
 	} );
 
-	grunt.registerTask( 'test', [ 'eslint', 'banana' ] );
+	grunt.registerTask( 'test', [ 'eslint', 'stylelint', 'banana' ] );
 	grunt.registerTask( 'default', 'test' );
 };
