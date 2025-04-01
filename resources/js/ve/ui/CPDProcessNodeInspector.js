@@ -28,7 +28,7 @@ ext.cpd.ve.ui.CPDProcessNodeInspector.static.dir = 'ltr';
 
 // This tag does not have any content
 ext.cpd.ve.ui.CPDProcessNodeInspector.static.allowedEmpty = true;
-ext.cpd.ve.ui.CPDProcessNodeInspector.static.selfCloseEmptyBody = false;
+ext.cpd.ve.ui.CPDProcessNodeInspector.static.selfCloseEmptyBody = true;
 
 ext.cpd.ve.ui.CPDProcessNodeInspector.prototype.initialize = function () {
 	ext.cpd.ve.ui.CPDProcessNodeInspector.super.prototype.initialize.call( this );

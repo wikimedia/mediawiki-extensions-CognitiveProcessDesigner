@@ -367,10 +367,21 @@
 		},
 		"ext.cpd.bpmndiffer": {
 			"scripts": [
+				"js/ve/ve.init.mw.DiffLoader.js",
+				"js/ve/ve.ui.DiffElement.js",
 				"js/dist/cpd.bpmnDiffer.bundle.js"
 			],
 			"dependencies": [
+				"ext.visualEditor.mwcore",
 				"mediawiki.api"
+			],
+			"styles": [
+				"styles/cpd.diff.less"
+			]
+		},
+		"ext.cpd.cpddiffer": {
+			"scripts": [
+				"js/dist/cpd.bpmnDiffer.bundle.js"
 			],
 			"styles": [
 				"styles/cpd.diff.less"
@@ -401,7 +412,8 @@
 		"MediaWikiServices": "registerMetaSlot",
 		"ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess",
 		"ContentStabilizationStablePointAdded": "stablePointAdded",
-		"DifferenceEngineViewHeader": "bpmnDiffer"
+		"DifferenceEngineViewHeader": "bpmnDiffer",
+		"TextSlotDiffRendererTablePrefix": "bpmnDiffer"
 	},
 	"HookHandlers": {
 		"tag": {

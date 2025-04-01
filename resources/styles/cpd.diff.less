@@ -7,4 +7,31 @@
 	> div {
 		flex: 50;
 	}
+
+	.diff-overlay {
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		pointer-events: none;
+		opacity: 0.75;
+		position: absolute;
+		left: -15px;
+		top: -15px;
+
+		&.added {
+			background-color: green;
+		}
+
+		&.removed {
+			background-color: red;
+		}
+
+		&.changed {
+			background-color: blue;
+		}
+
+		&.layoutChanged {
+			background-color: yellow;
+		}
+	}
 }

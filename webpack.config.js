@@ -3,8 +3,6 @@ const path = require( 'path' );
 module.exports = {
 	mode: 'development',
 	entry: {
-		viewer: './resources/js/cpd/CpdViewer.ts',
-		modeler: './resources/js/cpd/CpdModeler.ts',
 		bpmnDiffer: './resources/js/cpd/CpdBpmnDiffer.ts',
 	},
 	output: {
