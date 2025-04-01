@@ -72,7 +72,12 @@ class BpmnTag implements ParserFirstCallInitHook {
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
 
-		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		try {
+			$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		} catch ( CpdInvalidArgumentException $e ) {
+			return Message::newFromKey( "cpd-error-message-missing-diagram-page", $process )->escaped();
+		}
+
 		$diagramRevision = $diagramPage->getRevisionRecord();
 		$this->hookContainer->run(
 			'CognitiveProcessDesignerBeforeRender',

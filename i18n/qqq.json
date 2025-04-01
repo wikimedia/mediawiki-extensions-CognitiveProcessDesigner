@@ -35,7 +35,7 @@
 	"cpd-error-message-saving-diagram": "Error message displayed when saving a BPMN diagram fails.",
 	"cpd-error-message-invalid-xml": "Error message displayed when XML is invalid.",
 	"cpd-error-message-missing-xml": "Error message displayed when XML data is missing.",
-	"cpd-error-message-missing-diagram-page": "Error message displayed when a BPMN diagram page is missing.",
+	"cpd-error-message-missing-diagram-page": "Error message displayed when a BPMN diagram page is missing.\n\nParameters:\n* $1: Name of process",
 	"cpd-error-message-publish-svg-file": "Error message displayed when publishing an SVG file fails.",
 	"cpd-error-message-missing-svg-file": "Error message displayed when the requested SVG file does not exist.",
 	"cpd-error-message-missing-parameter-process": "Error message displayed when a required parameter is missing.",
