@@ -43,13 +43,6 @@ class BpmnTag implements ParserFirstCallInitHook {
 				'renderTag'
 			]
 		);
-		$parser->setHook(
-			'bs:bpmn',
-			[
-				$this,
-				'renderTag'
-			]
-		);
 	}
 
 	/**
@@ -68,22 +61,23 @@ class BpmnTag implements ParserFirstCallInitHook {
 		PPFrame $frame
 	): string {
 		// Validate required parameters
-		if ( empty( $args['process'] ) ) {
+		if ( empty( $args['process'] ) && empty( $args['name'] ) ) {
 			return Message::newFromKey( "cpd-error-message-missing-parameter-process" )->escaped();
 		}
 
-		if ( empty( $args['height'] ) ) {
-			return Message::newFromKey( "cpd-error-message-missing-parameter-height" )->escaped();
-		}
-
 		// Sanitize the process parameter as db key. Replace spaces with underscores.
-		$process = str_replace( ' ', '_', $args['process'] );
+		$process = str_replace( ' ', '_', $args['process'] ?? $args['name'] );
 
 		$templateParser = new TemplateParser(
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
 
-		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		try {
+			$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		} catch ( CpdInvalidArgumentException $e ) {
+			return Message::newFromKey( "cpd-error-message-missing-diagram-page", $process )->escaped();
+		}
+
 		$diagramRevision = $diagramPage->getRevisionRecord();
 		$this->hookContainer->run(
 			'CognitiveProcessDesignerBeforeRender',

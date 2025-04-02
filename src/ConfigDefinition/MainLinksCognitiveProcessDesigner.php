@@ -2,12 +2,11 @@
 
 namespace CognitiveProcessDesigner\ConfigDefinition;
 
-use BlueSpice\Bookshelf\ISettingPaths;
 use BlueSpice\ConfigDefinition\BooleanSetting;
 use BlueSpice\ConfigDefinition\IOverwriteGlobal;
 use MediaWiki\Registration\ExtensionRegistry;
 
-class MainLinksCognitiveProcessDesigner extends BooleanSetting implements ISettingPaths, IOverwriteGlobal {
+class MainLinksCognitiveProcessDesigner extends BooleanSetting implements IOverwriteGlobal {
 
 	private const EXTENSION_NAME = 'CognitiveProcessDesigner';
 
