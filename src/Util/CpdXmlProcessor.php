@@ -238,14 +238,19 @@ class CpdXmlProcessor {
 	 * @param array &$descriptionPageElements
 	 *
 	 * @return void
-	 * @throws CpdXmlProcessingException
 	 */
 	private function setOldDescriptionPages(
 		string $process,
 		string $oldXmlString,
 		array &$descriptionPageElements,
 	): void {
-		$oldDescriptionPageElements = $this->createAllElementsData( $process, $oldXmlString );
+		try {
+			$oldDescriptionPageElements = $this->createAllElementsData( $process, $oldXmlString );
+		} catch( Exception $e ) {
+			// If the old XML string is invalid, we can't set old description pages
+			return;
+		}
+
 		foreach ( $descriptionPageElements as &$element ) {
 			$filteredElements = array_filter(
 				$oldDescriptionPageElements,
