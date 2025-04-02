@@ -34,6 +34,7 @@
 	"cpd-error-message-missing-label": "Error message displayed when a required label is missing.",
 	"cpd-error-message-saving-diagram": "Error message displayed when saving a BPMN diagram fails.",
 	"cpd-error-message-invalid-xml": "Error message displayed when XML is invalid.",
+	"cpd-error-message-invalid-bpmn": "Error message displayed when BPMN is invalid.",
 	"cpd-error-message-missing-xml": "Error message displayed when XML data is missing.",
 	"cpd-error-message-missing-diagram-page": "Error message displayed when a BPMN diagram page is missing.\n\nParameters:\n* $1: Name of process",
 	"cpd-error-message-publish-svg-file": "Error message displayed when publishing an SVG file fails.",
