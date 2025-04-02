@@ -31,6 +31,7 @@
 	"cpd-error-message-missing-label": "Label for '$1' not found",
 	"cpd-error-message-saving-diagram": "Error saving diagram: $1",
 	"cpd-error-message-invalid-xml": "Invalid XML",
+	"cpd-error-message-invalid-bpmn": "Invalid BPMN",
 	"cpd-error-message-missing-xml": "Missing XML",
 	"cpd-error-message-missing-diagram-page": "Missing diagram page: $1",
 	"cpd-error-message-publish-svg-file": "Could not publish SVG file: $1",
