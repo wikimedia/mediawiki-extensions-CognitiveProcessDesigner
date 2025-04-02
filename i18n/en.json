@@ -32,7 +32,7 @@
 	"cpd-error-message-saving-diagram": "Error saving diagram: $1",
 	"cpd-error-message-invalid-xml": "Invalid XML",
 	"cpd-error-message-missing-xml": "Missing XML",
-	"cpd-error-message-missing-diagram-page": "Missing diagram page",
+	"cpd-error-message-missing-diagram-page": "Missing diagram page: $1",
 	"cpd-error-message-publish-svg-file": "Could not publish SVG file: $1",
 	"cpd-error-message-missing-svg-file": "Diagram SVG file $1 does not exist",
 	"cpd-error-message-missing-parameter-process": "Missing required parameter \"process\"",
@@ -98,5 +98,6 @@
 	"cpd-description-navigation-incoming-label": "Incoming connections",
 	"cpd-description-navigation-outgoing-label": "Outgoing connections",
 	"cpd-button-show-diagram": "Show diagram",
-	"cpd-error-xml-parse-error": "Error parsing XML"
+	"cpd-error-xml-parse-error": "Error parsing XML",
+	"cpd-error-message-invalid-bpmn": "Invalid BPMN"
 }
