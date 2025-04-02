@@ -56,7 +56,12 @@ class LoadCpdDiagram extends ApiBase {
 				$warnings[] = Message::newFromKey( 'cpd-error-message-missing-svg-file', $svgFilePage->getText() );
 			}
 
-			$cpdElements = $this->xmlProcessor->createElements( $process, $xml );
+			try {
+				$cpdElements = $this->xmlProcessor->createElements( $process, $xml );
+			} catch( CpdXmlProcessingException $e ) {
+				$warnings[] = Message::newFromKey( 'cpd-error-message-invalid-bpmn' );
+				$cpdElements = [];
+			}
 
 			$this->setResultValues(
 				$xml,

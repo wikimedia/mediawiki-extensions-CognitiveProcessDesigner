@@ -87,7 +87,11 @@ class CpdDiagramPageUtil {
 			throw new CpdInvalidArgumentException( 'Process name cannot be empty' );
 		}
 
-		return $this->wikiPageFactory->newFromTitle( Title::newFromText( $process, NS_PROCESS ) );
+		try {
+			return $this->wikiPageFactory->newFromTitle( Title::newFromText( $process, NS_PROCESS ) );
+		} catch ( TypeError $e ) {
+			throw new CpdInvalidArgumentException( 'Diagram page not found' );
+		}
 	}
 
 	/**
