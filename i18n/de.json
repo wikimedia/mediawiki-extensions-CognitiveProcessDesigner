@@ -36,7 +36,7 @@
 	"cpd-error-message-missing-xml": "Fehlendes XML",
 	"cpd-error-message-missing-diagram-page": "Fehlende Diagrammseite",
 	"cpd-error-message-publish-svg-file": "SVG-Datei konnte nicht veröffentlicht werden: $1",
-	"cpd-error-message-missing-svg-file": "Diagramm-SVG-Datei $1 existiert nicht",
+	"cpd-error-message-missing-svg-file": "Diagramm-SVG-Datei $1 existiert nicht. Bitte bearbeite und speichere das Diagramm, um diese zu erstellen.",
 	"cpd-warning-message-diagram-not-initialized": "Prozess $1 wurde noch nicht erstellt. Bitte gehe zur <a href='$2'>Prozessseite</a> und erstelle ihn.",
 	"cpd-warning-message-diagram-not-initialized-create-it": "Das Diagramm wurde noch nicht erstellt. Bitte <a href='$1'>erstelle </a> es.",
 	"cpd-editor-title": "Bearbeiten von $1",
