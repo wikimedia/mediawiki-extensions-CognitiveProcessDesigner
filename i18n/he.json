@@ -35,7 +35,6 @@
 	"cpd-error-message-publish-svg-file": "לא ניתן לפרסם קובץ SVG‏: $1",
 	"cpd-error-message-missing-svg-file": "קובץ SVG עם תרשים $1 אינו קיים",
 	"cpd-error-message-missing-parameter-process": "חסר הפרמטר הנדרש \"process\"",
-	"cpd-error-message-missing-parameter-height": "חסר הפרמטר הנדרש \"height\"",
 	"cpd-warning-message-diagram-not-initialized": "התהליך $1 עדיין לא נוצר. נא להיכנס <a href='$2'>לדף התהליך</a> וליצור אותו.",
 	"cpd-warning-message-diagram-not-initialized-create-it": "התרשים עדיין לא נוצר. נא <a href='$1'>ליצור</a> אותו.",
 	"cpd-editor-title": "עריכת $1",
