@@ -21,16 +21,6 @@
 			"ProcessOverviewPluginModules": []
 		},
 		"BlueSpiceFoundation": {
-			"PermissionRegistry": {
-				"cognitiveprocessdesigner-editbpmn": {
-					"type": "global",
-					"roles": [
-						"admin",
-						"editor",
-						"maintenanceadmin"
-					]
-				}
-			},
 			"ConfigDefinitionRegistry": {
 				"CPDMainLinksCognitiveProcessDesigner": "\\CognitiveProcessDesigner\\ConfigDefinition\\MainLinksCognitiveProcessDesigner::getInstance"
 			}
@@ -62,19 +52,8 @@
 			}
 		}
 	},
-	"AvailableRights": [
-		"cognitiveprocessdesigner-editbpmn"
-	],
-	"GroupPermissions": {
-		"*": {
-			"cognitiveprocessdesigner-editbpmn": false
-		},
-		"user": {
-			"cognitiveprocessdesigner-editbpmn": true
-		},
-		"sysop": {
-			"cognitiveprocessdesigner-editbpmn": true
-		}
+	"ExtensionMessagesFiles": {
+		"CognitiveProcessDesigner.alias": "languages/CognitiveProcessDesigner.special.alias.php"
 	},
 	"MessagesDirs": {
 		"CognitiveProcessDesigner": "i18n"
@@ -210,11 +189,9 @@
 				"resources/styles/cpd.less"
 			],
 			"messages": [
-				"cpd-api-save-diagram-success-message",
 				"cpd-api-save-diagram-error-message",
 				"cpd-api-save-description-pages-success-message",
 				"cpd-api-save-description-pages-error-message",
-				"cpd-api-load-diagram-success-message",
 				"cpd-api-load-diagram-error-message",
 				"cpd-error-message-missing-config",
 				"cpd-error-message-saving-diagram",
@@ -223,14 +200,12 @@
 				"cpd-dialog-save-changes-button-label",
 				"cpd-button-cancel-title",
 				"cpd-button-show-xml",
-				"cpd-button-hide-xml",
 				"cpd-shape-creation-message",
 				"cpd-shape-deletion-message",
 				"cpd-shape-rename-message",
 				"cpd-shape-remove-label-message",
 				"cpd-log-no-changes",
 				"savechanges",
-				"cpd-dialog-save-changes-headline",
 				"cpd-dialog-save-label-description-pages-checkbox",
 				"cpd-dialog-save-label-review",
 				"cpd-dialog-save-label-save",
@@ -351,10 +326,12 @@
 			],
 			"messages": [
 				"bs-cpd-actionmenuentry-new-process",
-				"bs-cpd-actionmenuentry-new-process-input-label"
+				"bs-cpd-actionmenuentry-new-process-input-label",
+				"cpd-button-cancel-title",
+				"cpd-dialog-save-label-done"
 			],
 			"dependencies": [
-				"ext.standardDialogs.ui.NewPageDialog"
+				"oojs-ui"
 			]
 		},
 		"ext.cpd.widgets": {

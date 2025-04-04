@@ -246,7 +246,7 @@ class CpdXmlProcessor {
 	): void {
 		try {
 			$oldDescriptionPageElements = $this->createAllElementsData( $process, $oldXmlString );
-		} catch( Exception $e ) {
+		} catch ( Exception $e ) {
 			// If the old XML string is invalid, we can't set old description pages
 			return;
 		}
@@ -288,6 +288,8 @@ class CpdXmlProcessor {
 		} else {
 			$titleText = "{$process}/{$element['name']}";
 		}
+
+		$titleText = $this->sanitizeTitle( $titleText );
 
 		$title = Title::newFromText( $titleText, NS_PROCESS );
 
@@ -338,5 +340,15 @@ class CpdXmlProcessor {
 				unset( $link['outgoingLinks'] );
 			}
 		}
+	}
+
+	/**
+	 * @param string $titleText
+	 *
+	 * @return string
+	 */
+	private function sanitizeTitle( string $titleText ): string {
+		$titleText = str_replace( "\n", "", $titleText );
+		return $titleText;
 	}
 }

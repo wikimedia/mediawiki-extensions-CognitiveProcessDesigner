@@ -74,7 +74,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 		$canvasHeight = $this->config->get( 'CPDCanvasProcessHeight' );
 
 		$output = $parser->parse(
-			null,
+			'',
 			$page,
 			$cpoParams->getParserOptions()
 		);

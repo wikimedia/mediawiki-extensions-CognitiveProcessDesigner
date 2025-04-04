@@ -159,61 +159,46 @@ class CpdDiagramPageUtil {
 	 * @param string $process
 	 * @param User $user
 	 * @param string $xml
-	 * @param File $svgFile
+	 * @param File|null $svgFile
 	 *
 	 * @return WikiPage
+	 * @throws CpdInvalidArgumentException
 	 * @throws MWContentSerializationException
 	 * @throws MWUnknownContentModelException
-	 * @throws CpdInvalidArgumentException
 	 */
 	public function createOrUpdateDiagramPage(
 		string $process,
 		User $user,
 		string $xml,
-		File $svgFile
+		?File $svgFile = null
 	): WikiPage {
-		$diagramPage = $this->getDiagramPage( $process );
-
-		$updater = $diagramPage->newPageUpdater( $user );
-
 		$domxml = new DOMDocument( '1.0' );
 		$domxml->preserveWhiteSpace = false;
 		$domxml->formatOutput = true;
 		$domxml->loadXML( $xml );
 		$formattedXml = $domxml->saveXML();
 
+		$diagramPage = $this->getDiagramPage( $process );
 		$content = ContentHandler::makeContent(
 			$formattedXml,
 			$diagramPage->getTitle(),
 			CognitiveProcessDesignerContent::MODEL
 		);
+
+		$updater = $diagramPage->newPageUpdater( $user );
 		$updater->setContent( SlotRecord::MAIN, $content );
-		$svgFilePage = $this->getSvgFilePage( $process );
-		$svgFileRevision = $this->lookup->getRevisionByTitle( $svgFilePage );
+		$updater->setContent(
+			CONTENT_SLOT_CPD_PROCESS_META,
+			$this->createSvgMetaContent( $process, $diagramPage, $svgFile )
+		);
 
-		$metaContent = new JsonContent( json_encode( [
-			'cpd-svg-ts' => null,
-			'cpd-svg-sha1' => null,
-		] ) );
-
-		if ( $svgFileRevision ) {
-			if ( $diagramPage->exists() ) {
-				$metaContent = $this->getUpdatedMetaContent( $diagramPage, [
-					'cpd-svg-ts' => $svgFileRevision->getTimestamp(),
-					'cpd-svg-sha1' => $svgFile->getSha1(),
-				] );
-			} else {
-				$metaContent = new JsonContent( json_encode( [
-					'cpd-svg-ts' => $svgFileRevision->getTimestamp(),
-					'cpd-svg-sha1' => $svgFile->getSha1(),
-				] ) );
-			}
-		}
-
-		$updater->setContent( CONTENT_SLOT_CPD_PROCESS_META, $metaContent );
 		$comment = Message::newFromKey( 'cpd-api-save-diagram-update-comment' );
 		$commentStore = CommentStoreComment::newUnsavedComment( $comment );
 		$updater->saveRevision( $commentStore, $diagramPage->exists() ? EDIT_UPDATE : EDIT_NEW );
+
+		if ( !$updater->wasSuccessful() ) {
+			throw new CpdInvalidArgumentException( "Failed to save diagram page for process $process" );
+		}
 
 		return $diagramPage;
 	}
@@ -322,26 +307,38 @@ class CpdDiagramPageUtil {
 	): void {
 		if ( $output instanceof OutputPage ) {
 			$output->addJsConfigVars( 'cpdProcess', $process );
-		} else {
-			$output->appendJsConfigVar( 'cpdProcesses', $process );
-		}
-
-		$output->addJsConfigVars( 'cpdProcessNamespace', NS_PROCESS );
-
-		if ( $this->config->has( 'CPDLaneTypes' ) ) {
-			$output->addJsConfigVars( 'cpdLaneTypes', $this->config->get( 'CPDLaneTypes' ) );
-		}
-		if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
+			$output->addJsConfigVars( 'cpdProcessNamespace', NS_PROCESS );
 			$output->addJsConfigVars(
-				'cpdDedicatedSubpageTypes',
-				$this->config->get( 'CPDDedicatedSubpageTypes' )
+				'cpdReturnToQueryParam',
+				ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
 			);
+
+			if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
+				$types = $this->config->get( 'CPDDedicatedSubpageTypes' );
+				// Ensure compatibility with appendJsConfigVar
+				$compat = [];
+				foreach ( $types as $type ) {
+					$compat[$type] = true;
+				}
+
+				$output->addJsConfigVars( 'cpdDedicatedSubpageTypes', $compat );
+			}
+
+			return;
 		}
 
-		$output->addJsConfigVars(
+		$output->appendJsConfigVar( 'cpdProcesses', $process );
+		$output->setJsConfigVar( 'cpdProcessNamespace', NS_PROCESS );
+		$output->setJsConfigVar(
 			'cpdReturnToQueryParam',
 			ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
 		);
+
+		if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
+			foreach ( $this->config->get( 'CPDDedicatedSubpageTypes' ) as $type ) {
+				$output->appendJsConfigVar( 'cpdDedicatedSubpageTypes', $type );
+			}
+		}
 	}
 
 	/**
@@ -412,14 +409,40 @@ class CpdDiagramPageUtil {
 	}
 
 	/**
+	 * @param string $process
 	 * @param WikiPage $diagramPage
-	 * @param array $newData
+	 * @param File|null $svgFile
 	 *
 	 * @return JsonContent
 	 */
-	private function getUpdatedMetaContent( WikiPage $diagramPage, array $newData ): JsonContent {
-		$meta = $this->getMetaForPage( $diagramPage, null );
-		$meta = array_merge( $meta, $newData );
+	private function createSvgMetaContent(
+		string $process,
+		WikiPage $diagramPage,
+		?File $svgFile = null
+	): JsonContent {
+		$meta = [
+			'cpd-svg-ts' => null,
+			'cpd-svg-sha1' => null,
+		];
+
+		if ( $svgFile ) {
+			$svgFilePage = $this->getSvgFilePage( $process );
+			$svgFileRevision = $this->lookup->getRevisionByTitle( $svgFilePage );
+
+			if ( $svgFileRevision ) {
+				if ( $diagramPage->exists() ) {
+					$meta = array_merge( $this->getMetaForPage( $diagramPage, null ), [
+						'cpd-svg-ts' => $svgFileRevision->getTimestamp(),
+						'cpd-svg-sha1' => $svgFile->getSha1(),
+					] );
+				} else {
+					$meta = [
+						'cpd-svg-ts' => $svgFileRevision->getTimestamp(),
+						'cpd-svg-sha1' => $svgFile->getSha1(),
+					];
+				}
+			}
+		}
 
 		return new JsonContent( json_encode( $meta ) );
 	}
