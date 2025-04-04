@@ -26,6 +26,8 @@
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|Die folgende $1|Die folgenden $1|0=Keine}} {{PLURAL:$1|Beschreibungsseite wurde|Beschreibungsseiten wurden}} gespeichert:",
 	"cpd-description-page-does-not-exist-anymore-warning": "Beschreibungsseite $1 existiert nicht mehr",
 	"cpd-description-page-has-no-property-warning": "Element $1 hat keine Beschreibungsseiteneigenschaft",
+	"cpd-save-description-page-empty-set-warning": "Keine Elemente zum Speichern",
+	"cpd-save-description-page-duplicate-warning": "Element $1 hat eine doppelte Beschreibungsseite",
 	"cpd-api-save-description-pages-error-message": "Fehler beim Speichern der Beschreibungsseiten: $1",
 	"cpd-api-move-equal-description-pages-error-message": "Alte und neue Seiten sind gleich",
 	"cpd-api-load-diagram-error-message": "Fehler beim Laden des Diagramms: $1",

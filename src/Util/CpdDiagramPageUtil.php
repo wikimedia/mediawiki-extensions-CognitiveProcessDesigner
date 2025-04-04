@@ -194,11 +194,10 @@ class CpdDiagramPageUtil {
 
 		$comment = Message::newFromKey( 'cpd-api-save-diagram-update-comment' );
 		$commentStore = CommentStoreComment::newUnsavedComment( $comment );
-		$exists = $diagramPage->exists();
-		$revisionRecord = $updater->saveRevision( $commentStore, $diagramPage->exists() ? EDIT_UPDATE : EDIT_NEW );
+		$updater->saveRevision( $commentStore, $diagramPage->exists() ? EDIT_UPDATE : EDIT_NEW );
 
-		if ( !$revisionRecord ) {
-			//throw new CpdInvalidArgumentException( "Failed to save diagram page for process $process"  );
+		if ( !$updater->wasSuccessful() ) {
+			throw new CpdInvalidArgumentException( "Failed to save diagram page for process $process" );
 		}
 
 		return $diagramPage;
@@ -309,41 +308,42 @@ class CpdDiagramPageUtil {
 		if ( $output instanceof OutputPage ) {
 			$output->addJsConfigVars( 'cpdProcess', $process );
 			$output->addJsConfigVars( 'cpdProcessNamespace', NS_PROCESS );
-
-			if ( $this->config->has( 'CPDLaneTypes' ) ) {
-				$output->addJsConfigVars( 'cpdLaneTypes', $this->config->get( 'CPDLaneTypes' ) );
-			}
-			if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
-				$output->addJsConfigVars(
-					'cpdDedicatedSubpageTypes',
-					$this->config->get( 'CPDDedicatedSubpageTypes' )
-				);
-			}
-
 			$output->addJsConfigVars(
 				'cpdReturnToQueryParam',
 				ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
 			);
-
-			return;
+		} else {
+			$output->appendJsConfigVar( 'cpdProcesses', $process );
+			$output->appendJsConfigVar( 'cpdProcessNamespace', NS_PROCESS );
+			$output->appendJsConfigVar(
+				'cpdReturnToQueryParam',
+				ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
+			);
 		}
 
-		$output->appendJsConfigVar( 'cpdProcesses', $process );
-		$output->appendJsConfigVar( 'cpdProcessNamespace', NS_PROCESS );
 		if ( $this->config->has( 'CPDLaneTypes' ) ) {
-			foreach ( $this->config->get( 'CPDLaneTypes' ) as $value ) {
-				$output->appendJsConfigVar( 'cpdLaneTypes', $value );
+			$laneTypes = $this->config->get( 'CPDLaneTypes' );
+
+			if ( $output instanceof OutputPage ) {
+				$output->addJsConfigVars( 'cpdLaneTypes', $laneTypes );
+			} else {
+				foreach ( $laneTypes as $type ) {
+					$output->appendJsConfigVar( 'cpdLaneTypes', $type );
+				}
 			}
 		}
+
 		if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
-			foreach ( $this->config->get( 'CPDDedicatedSubpageTypes' ) as $value ) {
-				$output->appendJsConfigVar( 'cpdDedicatedSubpageTypes', $value );
+			$subpageTypes = $this->config->get( 'CPDDedicatedSubpageTypes' );
+
+			if ( $output instanceof OutputPage ) {
+				$output->addJsConfigVars( 'cpdDedicatedSubpageTypes', $subpageTypes );
+			} else {
+				foreach ( $subpageTypes as $type ) {
+					$output->appendJsConfigVar( 'cpdDedicatedSubpageTypes', $type );
+				}
 			}
 		}
-		$output->appendJsConfigVar(
-			'cpdReturnToQueryParam',
-			ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
-		);
 	}
 
 	/**

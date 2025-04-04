@@ -37,16 +37,25 @@ class CpdSaveDescriptionPagesUtil {
 	 * @param CpdElement[] $elements
 	 *
 	 * @return array
-	 * @throws CpdSaveException
 	 */
 	public function saveDescriptionPages( User $user, array $elements ): array {
+		$warnings = [];
+
 		if ( empty( $elements ) ) {
-			throw new CpdSaveException( 'No elements to save' );
+			$warnings[] = Message::newFromKey( "cpd-save-description-page-empty-set-warning" )->escaped();
+
+			return $warnings;
 		}
 
-		$warnings = [];
-		$this->validateElements( $elements );
 		foreach ( $elements as $element ) {
+			try {
+				$this->validateElement( $element, $elements );
+			} catch ( CpdSaveException $e ) {
+				$warnings[] = $e->getMessage();
+
+				continue;
+			}
+
 			$warnings = array_merge(
 				$warnings,
 				$this->processPage( $element, $user )
@@ -64,28 +73,13 @@ class CpdSaveDescriptionPagesUtil {
 	 * @param User $user
 	 *
 	 * @return array
-	 * @throws CpdSaveException
 	 */
 	private function processPage( CpdElement $element, User $user ): array {
 		$warnings = [];
 
 		$descriptionPage = $element->getDescriptionPage();
-		if ( !$descriptionPage ) {
-			$warnings[] = Message::newFromKey(
-				'cpd-description-page-has-no-property-warning',
-				$element->getId()
-			)->text();
-
-			return $warnings;
-		}
-
-		try {
-			$this->diagramPageUtil->validateNamespace( $descriptionPage );
-		} catch ( CpdInvalidNamespaceException $e ) {
-			throw new CpdSaveException( $e->getMessage() );
-		}
-
 		$oldDescriptionPage = $element->getOldDescriptionPage();
+
 		if ( $oldDescriptionPage ) {
 			// If the old description page does not exist, add a warning and create the new description page
 			if ( !$oldDescriptionPage->exists() ) {
@@ -97,17 +91,26 @@ class CpdSaveDescriptionPagesUtil {
 					)
 				)->text();
 			} else {
-				$this->moveDescriptionPage( $element, $user );
+				try {
+					$this->moveDescriptionPage( $element, $user );
+				} catch ( CpdSaveException $e ) {
+					$warnings[] = $e->getMessage();
+				}
 
 				return $warnings;
 			}
 		}
 
+		// If the description page already exists do nothing
 		if ( $descriptionPage->exists() ) {
 			return $warnings;
 		}
 
-		$this->createDescriptionPage( $element, $user );
+		try {
+			$this->createDescriptionPage( $element, $user );
+		} catch ( CpdSaveException $e ) {
+			$warnings[] = $e->getMessage();
+		}
 
 		return $warnings;
 	}
@@ -156,13 +159,6 @@ class CpdSaveDescriptionPagesUtil {
 	 * @throws CpdSaveException
 	 */
 	private function createDescriptionPage( CpdElement $element, User $user ): void {
-		$content = $this->descriptionPageUtil->generateContentByType( $element->getType() );
-		if ( !$content ) {
-			throw new CpdSaveException(
-				Message::newFromKey( 'cpd-error-message-missing-xml' )
-			);
-		}
-
 		$descriptionPageTitle = $element->getDescriptionPage();
 		if ( !$descriptionPageTitle ) {
 			throw new CpdSaveException(
@@ -172,21 +168,15 @@ class CpdSaveDescriptionPagesUtil {
 
 		$descriptionPage = $this->wikiPageFactory->newFromTitle( $descriptionPageTitle );
 		$updater = $descriptionPage->newPageUpdater( $user );
-		$updater->setContent( SlotRecord::MAIN, $content );
-
+		$updater->setContent(
+			SlotRecord::MAIN,
+			$this->descriptionPageUtil->generateContentByType( $element->getType() )
+		);
 		$comment = Message::newFromKey( 'cpd-api-save-description-page-comment' );
 		$commentStore = CommentStoreComment::newUnsavedComment( $comment );
-
-		try {
-			$result = $updater->saveRevision( $commentStore, EDIT_NEW );
-		} catch ( Exception $e ) {
-			throw new CpdSaveException( $e->getMessage() );
-		}
+		$updater->saveRevision( $commentStore, EDIT_NEW );
 
 		if ( !$updater->wasSuccessful() ) {
-			throw new CpdSaveException( $updater->getStatus()->getMessage() );
-		}
-		if ( $result === null ) {
 			throw new CpdSaveException( "Failed to save description page {$updater->getPage()->getDBkey()}" );
 		}
 	}
@@ -195,22 +185,34 @@ class CpdSaveDescriptionPagesUtil {
 	 * Check for required description pages
 	 * and duplicate description pages
 	 *
+	 * @param CpdElement $element
 	 * @param CpdElement[] $elements
 	 *
 	 * @throws CpdSaveException
 	 */
-	private function validateElements( array $elements ): void {
-		$descriptionPages = [];
-		foreach ( $elements as $element ) {
-			if ( !$element->getDescriptionPage() ) {
-				throw new CpdSaveException( "Element {$element->getId()} has no description page property" );
+	private function validateElement( CpdElement $element, array $elements ): void {
+		if ( !$element->getDescriptionPage() ) {
+			throw new CpdSaveException(
+				Message::newFromKey( "cpd-description-page-has-no-property-warning", $element->getId() )->escaped()
+			);
+		}
+
+		try {
+			$this->diagramPageUtil->validateNamespace( $element->getDescriptionPage() );
+		} catch ( CpdInvalidNamespaceException $e ) {
+			throw new CpdSaveException( $e->getMessage() );
+		}
+
+		foreach ( $elements as $compareWith ) {
+			if ( $element->getId() === $compareWith->getId() ) {
+				continue;
 			}
 
-			if ( in_array( $element->getDescriptionPage(), $descriptionPages ) ) {
-				throw new CpdSaveException( "Duplicate description page {$element->getDescriptionPage()}" );
+			if ( $element->getDescriptionPage()->equals( $compareWith->getDescriptionPage() ) ) {
+				throw new CpdSaveException(
+					"cpd-save-description-page-duplicate-warning", $element->getDescriptionPage()->getPrefixedDBkey()
+				);
 			}
-
-			$descriptionPages[] = $element->getDescriptionPage();
 		}
 	}
 }

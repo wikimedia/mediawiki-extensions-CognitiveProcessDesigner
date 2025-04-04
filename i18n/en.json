@@ -24,6 +24,8 @@
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=Following description page has been saved:|Following $1 description pages have been saved:|0=No description pages have been saved.}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "Description page $1 does not exist anymore",
 	"cpd-description-page-has-no-property-warning": "Element $1 has no description page property",
+	"cpd-save-description-page-empty-set-warning": "No elements to save",
+	"cpd-save-description-page-duplicate-warning": "Duplicate description page $1",
 	"cpd-api-save-description-pages-error-message": "Error while saving description pages: $1",
 	"cpd-api-move-equal-description-pages-error-message": "Old and new pages are equal",
 	"cpd-api-load-diagram-error-message": "Error while loading diagram: $1",

@@ -27,6 +27,8 @@
 	"cpd-api-save-description-pages-success-message": "Success message displayed when description pages are saved.",
 	"cpd-description-page-does-not-exist-anymore-warning": "Warning message displayed when a description page no longer exists.",
 	"cpd-description-page-has-no-property-warning": "Warning message displayed when an element has no associated description page property.",
+	"cpd-save-description-page-empty-set-warning": "Warning message displayed when there are no elements to save.",
+	"cpd-save-description-page-duplicate-warning": "Warning message displayed when a duplicate description page is detected.",
 	"cpd-api-save-description-pages-error-message": "Error message displayed when saving description pages fails.",
 	"cpd-api-move-equal-description-pages-error-message": "Error message when attempting to move a description page to the same location.",
 	"cpd-api-load-diagram-error-message": "Error message displayed when loading a BPMN diagram fails.",
