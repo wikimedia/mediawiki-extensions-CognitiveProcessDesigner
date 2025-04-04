@@ -210,7 +210,10 @@ class CpdSaveDescriptionPagesUtil {
 
 			if ( $element->getDescriptionPage()->equals( $compareWith->getDescriptionPage() ) ) {
 				throw new CpdSaveException(
-					"cpd-save-description-page-duplicate-warning", $element->getDescriptionPage()->getPrefixedDBkey()
+					Message::newFromKey(
+						"cpd-save-description-page-duplicate-warning",
+						$element->getDescriptionPage()->getPrefixedDBkey()
+					)->escaped()
 				);
 			}
 		}

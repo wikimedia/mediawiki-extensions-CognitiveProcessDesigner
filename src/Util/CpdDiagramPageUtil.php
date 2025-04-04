@@ -312,36 +312,31 @@ class CpdDiagramPageUtil {
 				'cpdReturnToQueryParam',
 				ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
 			);
-		} else {
-			$output->appendJsConfigVar( 'cpdProcesses', $process );
-			$output->appendJsConfigVar( 'cpdProcessNamespace', NS_PROCESS );
-			$output->appendJsConfigVar(
-				'cpdReturnToQueryParam',
-				ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
-			);
-		}
 
-		if ( $this->config->has( 'CPDLaneTypes' ) ) {
-			$laneTypes = $this->config->get( 'CPDLaneTypes' );
-
-			if ( $output instanceof OutputPage ) {
-				$output->addJsConfigVars( 'cpdLaneTypes', $laneTypes );
-			} else {
-				foreach ( $laneTypes as $type ) {
-					$output->appendJsConfigVar( 'cpdLaneTypes', $type );
+			if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
+				$types = $this->config->get( 'CPDDedicatedSubpageTypes' );
+				// Ensure compatibility with appendJsConfigVar
+				$compat = [];
+				foreach ($types as $type) {
+					$compat[$type] = true;
 				}
+
+				$output->addJsConfigVars( 'cpdDedicatedSubpageTypes', $compat );
 			}
+
+			return;
 		}
+
+		$output->appendJsConfigVar( 'cpdProcesses', $process );
+		$output->setJsConfigVar( 'cpdProcessNamespace', NS_PROCESS );
+		$output->setJsConfigVar(
+			'cpdReturnToQueryParam',
+			ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
+		);
 
 		if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
-			$subpageTypes = $this->config->get( 'CPDDedicatedSubpageTypes' );
-
-			if ( $output instanceof OutputPage ) {
-				$output->addJsConfigVars( 'cpdDedicatedSubpageTypes', $subpageTypes );
-			} else {
-				foreach ( $subpageTypes as $type ) {
-					$output->appendJsConfigVar( 'cpdDedicatedSubpageTypes', $type );
-				}
+			foreach ( $this->config->get( 'CPDDedicatedSubpageTypes' ) as $type ) {
+				$output->appendJsConfigVar( 'cpdDedicatedSubpageTypes', $type );
 			}
 		}
 	}

@@ -72,17 +72,18 @@ class MigrateDiagrams extends Maintenance {
 
 		$legacyPages = $this->findAllLegacyBpmnPages();
 		$pagesCount = count( $legacyPages );
-		$this->output( "Start migrating $pagesCount diagrams \n" );
+		$this->outputLine( "Start migrating $pagesCount diagrams" );
 		foreach ( $legacyPages as $count => $page ) {
 			$count += 1;
-			$prefixMessage = "($count/$pagesCount) $page | ";
+			$countString = "($count/$pagesCount)";
+			$this->outputLine( "$countString [Migrating] $page" );
 			try {
 				$newDiagramPage = $this->migrateLegacyDiagram( $page );
 				$this->makeRedirect( $page, $newDiagramPage );
-				$this->output( $prefixMessage . "Process page created: $newDiagramPage  \n" );
+				$this->outputLine( "$countString [Success] Process page created: $newDiagramPage" );
 			} catch ( Exception $e ) {
 				$errorMessage = $e->getMessage();
-				$this->error( $prefixMessage . "Warning: $errorMessage" );
+				$this->error( "$countString [Error] $errorMessage" );
 			}
 		}
 
@@ -111,6 +112,11 @@ class MigrateDiagrams extends Maintenance {
 
 		$text = $content->getText();
 		$process = $this->extractProcessNameFromContent( $text );
+
+		if ( $this->diagramPageUtil->getDiagramPage( $process )->exists() ) {
+			throw new CpdInvalidArgumentException( "Page for process $process already exists" );
+		}
+
 		$xml = $this->extractXmlFromContent( $text );
 		$legacyDescriptionPages = $this->extractDescriptionPagesFromContent( $text );
 
@@ -118,7 +124,7 @@ class MigrateDiagrams extends Maintenance {
 
 		$warnings = $this->migrateLegacyDescriptionPages( $legacyDescriptionPages, $process, $xml );
 		foreach ( $warnings as $warning ) {
-			$this->output( "$warning\n" );
+			$this->outputLine( "[Warning] $warning" );
 		}
 
 		return $diagramPage;
@@ -255,6 +261,9 @@ class MigrateDiagrams extends Maintenance {
 		// Remove [[Category:BPMN ...]] and {{BPMN_Element ...}}
 		$text = preg_replace( '/\[\[Category:BPMN [^\]]+\]\]|\{\{BPMN_Element[^}]+\}\}/', '', $text );
 
+		// Remove {{#set: ...}}
+		$text = preg_replace('/\{\{#set:[^}]+\}\}/', '', $text);
+
 		// Remove <div class="cdp-data">...</div> including content inside
 		$text = preg_replace( '/<div class="cdp-data">.*?<\/div>/s', '', $text );
 
@@ -322,6 +331,7 @@ class MigrateDiagrams extends Maintenance {
 
 		$process = $idMatch[1];
 		$process = str_replace( ':', '_', $process );
+		$process = str_replace( '"', '', $process );
 
 		return trim( $process );
 	}
@@ -434,6 +444,10 @@ class MigrateDiagrams extends Maintenance {
 		);
 
 		return $updater->wasSuccessful();
+	}
+
+	private function outputLine( string $message ): void {
+		$this->output( $message . "\n" );
 	}
 }
 

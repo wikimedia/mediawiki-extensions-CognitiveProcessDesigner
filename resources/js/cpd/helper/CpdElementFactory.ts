@@ -19,7 +19,7 @@ export class CpdElementFactory {
 
 	public constructor( elementRegistry: ElementRegistry ) {
 		this.elementRegistry = elementRegistry;
-		this.subpageTypes = mw.config.get( "cpdDedicatedSubpageTypes" ) as Array<string>;
+		this.subpageTypes = Object.keys( mw.config.get( "cpdDedicatedSubpageTypes" ) ) as Array<string>;
 
 		if ( !this.subpageTypes ) {
 			throw new Error( mw.message(
