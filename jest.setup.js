@@ -15,8 +15,6 @@ global.mw.config = {
 		switch ( key ) {
 			case "cpdDedicatedSubpageTypes":
 				return [ "task", "event" ];
-			case "cpdLaneTypes":
-				return [];
 			case "cpdProcessNamespace":
 				return "Process";
 			default:
