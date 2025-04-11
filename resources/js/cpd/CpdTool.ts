@@ -51,10 +51,6 @@ export abstract class CpdTool {
 		this.elementFactory = new CpdElementFactory( this.bpmnTool.get( "elementRegistry" ) );
 	}
 
-	public getXml(): string {
-		return this.xml;
-	}
-
 	protected async attachToCanvas(): Promise<void> {
 		this.bpmnTool.attachTo( this.dom.getCanvas() );
 

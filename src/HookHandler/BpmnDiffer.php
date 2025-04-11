@@ -9,15 +9,11 @@ use MediaWiki\Config\Config;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Diff\Hook\DifferenceEngineViewHeaderHook;
 use MediaWiki\Diff\Hook\TextSlotDiffRendererTablePrefixHook;
-use MediaWiki\Html\Html;
 use OOUI\ButtonGroupWidget;
 use OOUI\ButtonWidget;
 use TextSlotDiffRenderer;
 
 class BpmnDiffer implements DifferenceEngineViewHeaderHook, TextSlotDiffRendererTablePrefixHook {
-
-	private const CPD_DIFF_CONTAINER_ID = 'cpd-diff-container';
-	private const CPD_DIFF_BUTTON_CONTAINER_ID = 'cpd-diff-button-container';
 
 	/**
 	 * @param Config $config
@@ -32,9 +28,8 @@ class BpmnDiffer implements DifferenceEngineViewHeaderHook, TextSlotDiffRenderer
 	 *
 	 * @return void
 	 */
-	public function onDifferenceEngineViewHeader( $differenceEngine ) {
+	public function onDifferenceEngineViewHeader( $differenceEngine ): void {
 		$new = $differenceEngine->getNewRevision();
-		$old = $differenceEngine->getOldRevision();
 
 		try {
 			$process = CpdDiagramPageUtil::getProcess( $new->getPage() );
@@ -43,26 +38,13 @@ class BpmnDiffer implements DifferenceEngineViewHeaderHook, TextSlotDiffRenderer
 			return;
 		}
 
-		$diffContainerHeight = $this->config->get( 'CPDCanvasProcessHeight' );
-		$diffContainerHtml = Html::rawElement(
-			'div',
-			[
-				'id' => self::CPD_DIFF_CONTAINER_ID,
-				'style' => "height: {$diffContainerHeight}px; display: flex;"
-			]
-		);
-
 		$out = $differenceEngine->getOutput();
 		$out->addJsConfigVars( [
-			'cpdDiffContainer' => self::CPD_DIFF_CONTAINER_ID,
-			'cpdDiffButtonContainer' => self::CPD_DIFF_BUTTON_CONTAINER_ID,
 			'cpdProcess' => $process,
-			'cpdDiffNewRevision' => $new->getId(),
-			'cpdDiffOldRevision' => $old->getId()
+			'cpdDiffContainerHeight' => $this->config->get( 'CPDCanvasProcessHeight' ),
 		] );
 		$out->enableOOUI();
 		$out->addModules( [ 'ext.cpd.bpmndiffer' ] );
-		$out->prependHTML( $diffContainerHtml );
 	}
 
 	/**
@@ -78,50 +60,34 @@ class BpmnDiffer implements DifferenceEngineViewHeaderHook, TextSlotDiffRenderer
 		TextSlotDiffRenderer $textSlotDiffRenderer,
 		IContextSource $context,
 		array &$parts
-	) {
+	): void {
 		if ( $textSlotDiffRenderer->getContentModel() !== CognitiveProcessDesignerContent::MODEL ) {
 			return;
 		}
 
-		/**
-		 * new ButtonGroupWidget( [
-		 * 'items' => [
-		 * new ButtonWidget( [
-		 * 'data' => 'visual',
-		 * 'icon' => 'eye',
-		 * 'label' => $output->msg( 'visualeditor-savedialog-review-visual' )->plain()
-		 * ] ),
-		 * new ButtonWidget( [
-		 * 'data' => 'source',
-		 * 'icon' => 'wikiText',
-		 * 'active' => true,
-		 * 'label' => $output->msg( 'visualeditor-savedialog-review-wikitext' )->plain()
-		 * ] )
-		 * ]
-		 * ] ) .
-		 * '</div>';
-		 */
-
 		$output = $context->getOutput();
-		$diffButtonContainerId = self::CPD_DIFF_BUTTON_CONTAINER_ID;
 		$parts['50_ve-init-mw-diffPage-diffMode'] = '<div class="ve-init-mw-diffPage-diffMode">' .
-			// Will be replaced by a ButtonSelectWidget in JS
-			new ButtonGroupWidget( [
-				'items' => [
-					new ButtonWidget( [
-						'data' => 'visual',
-						'icon' => 'eye',
-						'disabled' => true,
-						'label' => $output->msg( 'visualeditor-savedialog-review-visual' )->plain()
-					] ),
-					new ButtonWidget( [
-						'data' => 'source',
-						'icon' => 'wikiText',
-						'active' => true,
-						'label' => $output->msg( 'visualeditor-savedialog-review-wikitext' )->plain()
-					] )
-				]
-			] ) .
-			'</div>';
+													// Will be replaced by a ButtonSelectWidget in JS
+													new ButtonGroupWidget( [
+														'items' => [
+															new ButtonWidget( [
+																'data' => 'visual',
+																'icon' => 'eye',
+																'disabled' => true,
+																'label' => $output->msg(
+																	'visualeditor-savedialog-review-visual'
+																)->plain()
+															] ),
+															new ButtonWidget( [
+																'data' => 'source',
+																'icon' => 'wikiText',
+																'active' => true,
+																'label' => $output->msg(
+																	'visualeditor-savedialog-review-wikitext'
+																)->plain()
+															] )
+														]
+													] ) .
+													'</div>';
 	}
 }

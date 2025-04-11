@@ -367,13 +367,12 @@
 		},
 		"ext.cpd.bpmndiffer": {
 			"scripts": [
-				"js/ve/ve.init.mw.DiffLoader.js",
-				"js/ve/ve.ui.DiffElement.js",
-				"js/dist/cpd.bpmnDiffer.bundle.js"
+				"js/ve/ve.ui.DiffElement.js"
 			],
 			"dependencies": [
 				"ext.visualEditor.mwcore",
-				"mediawiki.api"
+				"mediawiki.api",
+				"ext.cpd.cpddiffer"
 			],
 			"styles": [
 				"styles/cpd.diff.less"
