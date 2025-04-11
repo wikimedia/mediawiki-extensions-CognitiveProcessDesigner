@@ -23,6 +23,7 @@
 	"cpd-error-message-missing-label": "Etikett fir „$1“ net fonnt",
 	"cpd-error-message-saving-diagram": "Feeler beim Späichere vum Diagramm: $1",
 	"cpd-error-message-invalid-xml": "Ongültegen XML",
+	"cpd-error-message-invalid-bpmn": "Ongültege BPMN",
 	"cpd-editor-title-create": "$1 uleeën",
 	"cpd-shape-deletion-message": "$1 geläscht",
 	"cpd-shape-creation-message": "$1 ugeluecht",
