@@ -36,7 +36,7 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 			],
 			[ "p.page_content_model = '$cpdContentModel'" ],
 			__METHOD__,
-			['ORDER BY' => 'p.page_title']
+			[ 'ORDER BY' => 'p.page_title' ]
 		);
 
 		$records = [];

@@ -58,7 +58,7 @@ class LoadCpdDiagram extends ApiBase {
 
 			try {
 				$cpdElements = $this->xmlProcessor->createElements( $process, $xml );
-			} catch( CpdXmlProcessingException $e ) {
+			} catch ( CpdXmlProcessingException $e ) {
 				$warnings[] = Message::newFromKey( 'cpd-error-message-invalid-bpmn' );
 				$cpdElements = [];
 			}

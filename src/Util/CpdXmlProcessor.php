@@ -89,7 +89,7 @@ class CpdXmlProcessor {
 
 			$attributes = $xmlElement->attributes();
 			foreach ( $attributes as $key => $value ) {
-				$elementData[$key] = (string)$value;
+				$elementData[ $key ] = (string)$value;
 			}
 
 			$elementsData[] = $elementData;
@@ -191,27 +191,27 @@ class CpdXmlProcessor {
 		string $sourceField,
 		string $targetField
 	): void {
-		$element[$connectionField] = [];
+		$element[ $connectionField ] = [];
 
 		foreach ( $connections as $connection ) {
-			if ( empty( $connection[$sourceField] ) || empty( $connection[$targetField] ) ) {
+			if ( empty( $connection[ $sourceField ] ) || empty( $connection[ $targetField ] ) ) {
 				continue;
 			}
 
-			if ( $element['id'] !== $connection[$sourceField] ) {
+			if ( $element['id'] !== $connection[ $sourceField ] ) {
 				continue;
 			}
 
 			$connectionElements = array_filter(
 				$descriptionPageElements,
-				static fn ( $elementData ) => $elementData['id'] === $connection[$targetField]
+				static fn ( $elementData ) => $elementData['id'] === $connection[ $targetField ]
 			);
 
 			if ( empty( $connectionElements ) ) {
 				continue;
 			}
 
-			$element[$connectionField][] = reset( $connectionElements );
+			$element[ $connectionField ][] = reset( $connectionElements );
 		}
 	}
 
@@ -246,7 +246,7 @@ class CpdXmlProcessor {
 	): void {
 		try {
 			$oldDescriptionPageElements = $this->createAllElementsData( $process, $oldXmlString );
-		} catch( Exception $e ) {
+		} catch ( Exception $e ) {
 			// If the old XML string is invalid, we can't set old description pages
 			return;
 		}
@@ -276,13 +276,14 @@ class CpdXmlProcessor {
 	 */
 	private function makeDescriptionPageTitle( string $process, array $element ): string {
 		if ( empty( $element['name'] ) ) {
-			throw new CpdXmlProcessingException( Message::newFromKey( "cpd-error-message-missing-label", $element["id"] )->text() );
+			throw new CpdXmlProcessingException(
+				Message::newFromKey( "cpd-error-message-missing-label", $element["id"] )->text()
+			);
 		}
 
-		if (
-			!empty( $element['parent'] ) &&
-			!empty( $element['parent']['name'] ) &&
-			in_array( $element['parent']['type'], $this->laneTypes )
+		if ( !empty( $element['parent'] ) &&
+			 !empty( $element['parent']['name'] ) &&
+			 in_array( $element['parent']['type'], $this->laneTypes )
 		) {
 			$titleText = "$process/{$element['parent']['name']}/{$element['name']}";
 		} else {
@@ -292,7 +293,9 @@ class CpdXmlProcessor {
 		$title = Title::newFromText( $titleText, NS_PROCESS );
 
 		if ( !$title ) {
-			throw new CpdXmlProcessingException( Message::newFromKey( "cpd-error-could-not-create-title", $element["id"] )->text() );
+			throw new CpdXmlProcessingException(
+				Message::newFromKey( "cpd-error-could-not-create-title", $element["id"] )->text()
+			);
 		}
 
 		return $title->getPrefixedDBkey();

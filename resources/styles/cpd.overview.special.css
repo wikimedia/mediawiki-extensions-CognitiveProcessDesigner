@@ -1,16 +1,59 @@
-#bs-cpd-wrapper.loading .loader {
-	cursor: progress;
+.loading > div {
+	margin: 20px 0;
+}
+
+.card-line {
+	display: flex;
+	flex-wrap: wrap;
 	width: 100%;
-	min-height: 300px;
-	background: linear-gradient( 0.25turn, transparent, #fff, transparent ), linear-gradient( #eee, #eee );
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: -315px 0, 0 0, 0 190px, 50px 195px;
+	justify-content: space-between;
+}
+
+.card-skeleton {
+	width: 300px;
+	border-radius: 12px;
+	overflow: hidden;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	padding: 16px;
+	box-sizing: border-box;
+}
+
+.skeleton {
+	background: linear-gradient(90deg, #eee, #ddd, #eee);
+	background-size: 200% 100%;
 	animation: loading 1.5s infinite;
+	border-radius: 8px;
+}
+
+.skeleton-img {
+	width: 100%;
+	height: 180px;
+	margin-bottom: 12px;
+}
+
+.skeleton-line {
+	height: 14px;
+	margin: 8px 0;
+}
+
+.skeleton-line.short {
+	width: 60%;
+}
+
+.skeleton-line.medium {
+	width: 80%;
+}
+
+.skeleton-line.long {
+	width: 100%;
 }
 
 @keyframes loading {
-	to {
-		background-position: 315px 0, 0 0, 0 190px, 50px 195px;
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
 	}
 }
