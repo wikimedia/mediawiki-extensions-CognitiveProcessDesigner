@@ -31,6 +31,7 @@
 	"cpd-error-message-missing-label": "Label voor \"$1\" niet gevonden",
 	"cpd-error-message-saving-diagram": "Fout bij het opslaan van diagram: $1",
 	"cpd-error-message-invalid-xml": "Ongeldige XML",
+	"cpd-error-message-invalid-bpmn": "Onjuiste BPMN",
 	"cpd-error-message-missing-xml": "XML ontbreekt",
 	"cpd-error-message-missing-diagram-page": "Diagrampagina ontbreekt: $1",
 	"cpd-error-message-publish-svg-file": "Het SVG-bestand kon niet worden gepubliceerd: $1",
