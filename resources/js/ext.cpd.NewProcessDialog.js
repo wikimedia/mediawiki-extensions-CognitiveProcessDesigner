@@ -135,7 +135,7 @@ ext.cpd.NewProcessDialog.prototype.getActionCompletedEventArgs = function () {
 	return [ this.newTitle ];
 };
 
-$( document ).on( 'click', '#ca-cpd-create-process, #ca-cpd-create-new-process', ( e ) => {
+$( document ).on( 'click', '#ca-cpd-create-process, #ca-cpd-create-new-process, .cpd-create-new-process', ( e ) => {
 	const diag = new ext.cpd.NewProcessDialog( {
 		proc: 'standarddialogs-dlg-new-page',
 		namespace: 1530
