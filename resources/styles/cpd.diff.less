@@ -1,8 +1,9 @@
 #cpd-diff-container {
 	@classes: added, removed, changed, layoutChanged;
 	@colors: #94c11f, #bd1d1d, #2b80ea, #951b81;
-	@icons: \F4FE, \F2EA, \F4CB, \F110;
-	@opacity: 0.7;
+	@icons: \F4FE, \F2EA, \F4C9, \F110;
+	@opacity: 0.6;
+	@circleSize: 25px;
 
 	display: flex;
 	flex-direction: row;
@@ -14,21 +15,30 @@
 	}
 
 	.diff-overlay {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 20px;
-		height: 20px;
-		font-family: 'bootstrap-icons';
-		font-size: 24px;
+		width: @circleSize;
+		height: @circleSize;
+		font-size: @circleSize;
+		text-align: center;
 		border-radius: 50%;
-		border-style: solid;
-		border-width: 2px;
 		pointer-events: none;
 		opacity: @opacity;
 		position: absolute;
-		left: -15px;
-		top: -15px;
+		left: -(@circleSize - 3px);
+		top: -(@circleSize - 3px);
+
+		&::before {
+			content: '';
+			display: block;
+			font-family: 'bootstrap-icons';
+			color: #fff;
+			text-align: center;
+			line-height: 24px;
+			font-size: 24px;
+		}
+
+		&.changed::before, &.layoutChanged::before {
+			font-size: 12px;
+		}
 	}
 
 	.loop(@i: 1) when (@i <= length(@classes)) {
@@ -41,12 +51,10 @@
 		}
 
 		.diff-overlay.@{class} {
-			border-color: @color;
+			background-color: @color;
 
 			&::before {
-				font-family: 'bootstrap-icons';
 				content: "@{icon}";
-				color: @color;
 			}
 		}
 

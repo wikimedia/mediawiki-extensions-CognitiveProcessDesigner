@@ -88,7 +88,6 @@ export class CpdBpmnDiffer {
 				return;
 			}
 
-			console.log(shape.type)
 			if ( CpdBpmnDiffer.NO_DIFF_TYPES.includes( shape.type ) ) {
 				return;
 			}
