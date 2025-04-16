@@ -19,8 +19,10 @@
     </div>
   </div>
   <div class="cpd-process-empty" v-else>
-    <span class="cpd-process-empty-image"></span>
-    <span class="cpd-process-empty-label">{{ emptyMsg }}</span>
+	<a href="" class="cpd-create-new-process">
+		<span class="cpd-process-empty-image"></span>
+		<span class="cpd-process-empty-label">{{ emptyMsg }}</span>
+	</a>
   </div>
 </template>
 
