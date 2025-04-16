@@ -5,7 +5,6 @@ namespace CognitiveProcessDesigner\Api;
 use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
-use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
 use CognitiveProcessDesigner\Process\SvgFile;
@@ -47,22 +46,23 @@ class SaveCpdDiagram extends ApiBase {
 	 * @inheritDoc
 	 *
 	 * @throws ApiUsageException
-	 * @throws MWContentSerializationException
-	 * @throws MWUnknownContentModelException
-	 * @throws CpdInvalidContentException
-	 * @throws CpdSaveException
-	 * @throws CpdSvgException
-	 * @throws CpdXmlProcessingException
 	 * @throws CpdCreateElementException
 	 * @throws CpdInvalidArgumentException
+	 * @throws CpdInvalidContentException
+	 * @throws CpdXmlProcessingException
+	 * @throws MWContentSerializationException
+	 * @throws MWUnknownContentModelException
 	 */
 	public function execute() {
 		$result = $this->getResult();
 		$user = $this->getContext()->getUser();
 		$params = $this->extractRequestParams();
 		$process = $params['process'];
+		$svg = $params['svg'];
+		if ( !empty( $svg ) ) {
+			$svg = json_decode( $params['svg'], true );
+		}
 		$xml = json_decode( $params['xml'], true );
-		$svg = json_decode( $params['svg'], true );
 
 		$cpdElements = $this->xmlProcessor->createElements(
 			$process,
@@ -71,7 +71,11 @@ class SaveCpdDiagram extends ApiBase {
 		);
 
 		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
-		$file = $this->svgFile->save( $svgFilePage, $svg, $user );
+		try {
+			$file = $this->svgFile->save( $svgFilePage, $svg, $user );
+		} catch ( CpdSvgException $e ) {
+			$file = null;
+		}
 
 		$diagramPage = $this->diagramPageUtil->createOrUpdateDiagramPage( $process, $user, $xml, $file );
 
@@ -124,7 +128,8 @@ class SaveCpdDiagram extends ApiBase {
 			],
 			'svg' => [
 				ParamValidator::PARAM_TYPE => 'string',
-				ParamValidator::PARAM_REQUIRED => true
+				ParamValidator::PARAM_REQUIRED => false,
+				ParamValidator::PARAM_DEFAULT => ''
 			],
 			'saveDescriptionPages' => [
 				ParamValidator::PARAM_TYPE => 'boolean',

@@ -1,9 +1,8 @@
 {
 	"extends": "bpmnlint:recommended",
 	"rules": {
-		"hallowelt/missing-gateway-label": "error",
-		"hallowelt/missing-subprocess-label": "error",
-		"hallowelt/non-unique-labels": "error",
-		"hallowelt/non-unique-participant-labels": "error"
+		"mediawiki-cpd/missing-gateway-label": "error",
+		"mediawiki-cpd/non-unique-labels": "error",
+		"mediawiki-cpd/non-unique-participant-labels": "error"
 	}
 }

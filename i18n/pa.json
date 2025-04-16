@@ -5,7 +5,7 @@
 		]
 	},
 	"cpd-ui-action-edit-xml": "XML ਸੋਧੋ",
-	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=ਹੇਠਾਂ ਦਿੱਤੇ ਵੇਰਵੇ ਵਾਲੇ ਸਫ਼ੇ|ਹੇਠਾਂ ਦਿੱਤੇ $1 ਦੇ ਵੇਰਵੇ ਸਫ਼ੇ|0=ਕੋਈ ਵੀ ਵੇਰਵੇ ਸਫ਼ੇ ਨਹੀਂ}} ਸੰਭਾਲੇ ਗਏ ਹਨ:",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=ਹੇਠਾਂ ਦਿੱਤੇ ਵੇਰਵੇ ਵਾਲੇ ਵਰਕੇ ਨੂੰ ਸਾਂਭਿਆ ਗਿਆ ਏ:|ਹੇਠਾਂ ਦਿੱਤੇ ਗਏ $1 ਦੇ ਵੇਰਵੇ ਵਰਕਿਆਂ ਨੂੰ ਸੰਭਾਲਿਆ ਗਿਆ ਏ|0=ਕੋਈ ਵੀ ਵੇਰਵੇ ਵਰਕਿਆਂ ਨੂੰ ਸਾਂਭਿਆ ਨਹੀਂ ਗਿਆ ਏ।}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "ਵੇਰਵਾ ਸਫ਼ਾ $1 ਹੁਣ ਮੌਜੂਦ ਨਹੀਂ ਏ",
 	"cpd-api-save-description-pages-error-message": "ਵੇਰਵਾ ਸਫ਼ਿਆਂ ਨੂੰ ਸਾੰਭਣ ਵੇਲੇ ਗਲਤੀ ਆਈ: $1",
 	"cpd-shape-rename-message": "$1 ਦਾ ਨਾਂ ਬਦਲ ਕੇ $2 ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ",

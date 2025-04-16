@@ -35,7 +35,8 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 				'process',
 				'process_rev'
 			],
-			$filterConds
+			$filterConds,
+			__METHOD__
 		);
 
 		$records = [];
