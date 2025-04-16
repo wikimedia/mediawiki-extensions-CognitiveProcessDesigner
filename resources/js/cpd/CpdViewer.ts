@@ -141,7 +141,7 @@ export default class CpdViewer extends CpdTool {
 }
 
 Object.keys( mw.config.get( "cpdProcesses" ) ).forEach( ( process: string ): void => {
-	document.querySelectorAll( `[data-process=${ process }]` ).forEach( ( container: HTMLElement ): void => {
+	document.querySelectorAll( `[data-process="${ process }"]` ).forEach( ( container: HTMLElement ): void => {
 		const revision = container.getAttribute( "data-revision" );
 		new CpdViewer( process, container, revision ? Number( revision ) : null );
 	} );

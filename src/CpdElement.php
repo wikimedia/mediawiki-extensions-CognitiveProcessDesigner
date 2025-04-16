@@ -57,7 +57,7 @@ class CpdElement implements JsonSerializable {
 		return new CpdElement(
 			$element['id'],
 			$element['type'],
-			$element['label'],
+			$element['label'] ?? null,
 			!empty( $element['descriptionPage'] ) ? Title::newFromDBkey( $element['descriptionPage'] ) : null,
 			!empty( $element['oldDescriptionPage'] ) ? Title::newFromDBkey( $element['oldDescriptionPage'] ) : null,
 			$incomingLinks,

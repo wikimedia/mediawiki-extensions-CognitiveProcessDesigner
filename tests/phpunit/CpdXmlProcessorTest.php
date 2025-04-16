@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\Tests;
 
+use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\CpdElementFactory;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use Exception;
@@ -59,7 +60,20 @@ class CpdXmlProcessorTest extends TestCase {
 		$oldXml = file_get_contents( $fixturePath . '/oldDiagram.xml' );
 		$resultElements = json_decode( file_get_contents( $fixturePath . '/elementsData.json' ), true );
 		$elements = $this->xmlProcessor->createElements( 'BackendElements', $xml, $oldXml );
-		$this->assertEquals( $resultElements, array_map( static fn ( $element ) => $element->jsonSerialize(), $elements ) );
+		$this->assertEquals( $resultElements, array_map( static function ( CpdElement $element ) {
+			// Cant use jsonSerialize here because of check for existence which is not independent of the wiki
+			$data = [
+				'id' => $element->getId(),
+				'type' => $element->getType(),
+				'label' => $element->getLabel(),
+			];
+
+			if ( $element->getDescriptionPage() ) {
+				$data['descriptionPage'] = $element->getDescriptionPage()->getPrefixedDBkey();
+			}
+
+			return $data;
+		}, $elements ) );
 	}
 
 }

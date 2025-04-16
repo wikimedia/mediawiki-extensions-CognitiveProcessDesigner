@@ -34,5 +34,8 @@ export default {
 	'{type} is missing start event': '{type} hat kein Startereignis',
 	'Start event must be blank': 'Startereignis muss leer sein',
 	'Gateway is superfluous. It only has one source and target.': 'Gateway ist überflüssig. Es hat nur eine Quelle und ein Ziel.',
-	'Termination is superfluous.': 'Beendigung ist überflüssig.'
+	'Termination is superfluous.': 'Beendigung ist überflüssig.',
+	'Link event is missing link name': 'Link-Ereignis hat keinen Link-Namen',
+	'Link catch event with link name <${ name }> missing in scope': 'Link-Catch-Ereignis mit Link-Namen <${ name }> fehlt im Geltungsbereich',
+	'Link throw event with link name <${ name }> missing in scope': 'Link-Catch-Ereignis mit Link-Namen <${ name }> fehlt im Geltungsbereich'
 };
