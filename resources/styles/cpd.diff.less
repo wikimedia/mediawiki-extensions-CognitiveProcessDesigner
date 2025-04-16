@@ -1,4 +1,9 @@
 #cpd-diff-container {
+	@classes: added, removed, changed, layoutChanged;
+	@colors: #94c11f, #bd1d1d, #2b80ea, #951b81;
+	@icons: \F4FE, \F2EA, \F4CB, \F110;
+	@opacity: 0.7;
+
 	display: flex;
 	flex-direction: row;
 	height: 100%;
@@ -9,29 +14,44 @@
 	}
 
 	.diff-overlay {
-		width: 30px;
-		height: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		font-family: 'bootstrap-icons';
+		font-size: 24px;
 		border-radius: 50%;
+		border-style: solid;
+		border-width: 2px;
 		pointer-events: none;
-		opacity: 0.75;
+		opacity: @opacity;
 		position: absolute;
 		left: -15px;
 		top: -15px;
-
-		&.added {
-			background-color: green;
-		}
-
-		&.removed {
-			background-color: red;
-		}
-
-		&.changed {
-			background-color: blue;
-		}
-
-		&.layoutChanged {
-			background-color: yellow;
-		}
 	}
+
+	.loop(@i: 1) when (@i <= length(@classes)) {
+		@class: extract(@classes, @i);
+		@color: extract(@colors, @i);
+		@icon: extract(@icons, @i);
+
+		.diff-@{class} .djs-visual > :nth-child(1) {
+			fill: rgba(red(@color), green(@color), blue(@color), @opacity) !important;
+		}
+
+		.diff-overlay.@{class} {
+			border-color: @color;
+
+			&::before {
+				font-family: 'bootstrap-icons';
+				content: "@{icon}";
+				color: @color;
+			}
+		}
+
+		.loop(@i + 1);
+	}
+
+	.loop();
 }

@@ -25,6 +25,7 @@ export class CpdBpmnDiffer {
 	private static readonly VIEWBOX_CHANGE_END_EVENT: string = "canvas.viewbox.changed";
 	private static readonly VIEWBOX_CHANGE_START_EVENT: string = "canvas.viewbox.changing";
 	private static readonly DIFF_CONTAINER_ID: string = "cpd-diff-container";
+	private static readonly NO_DIFF_TYPES: string[] = [ 'bpmn:SequenceFlow' ];
 
 	private readonly process: string;
 	private readonly containerHeight: number;
@@ -65,15 +66,18 @@ export class CpdBpmnDiffer {
 	private addChangeOverlays( changes: Changes, viewer: NavigatedViewer ): void {
 		const overlays = viewer.get( "overlays" ) as Overlays;
 		const elementRegistry = viewer.get( "elementRegistry" ) as ElementRegistry;
-		this.applyChanges( changes.added, elementRegistry, overlays, 'added' );
-		this.applyChanges( changes.removed, elementRegistry, overlays, 'removed' );
-		this.applyChanges( changes.changed, elementRegistry, overlays, 'changed' );
-		this.applyChanges( changes.layoutChanged, elementRegistry, overlays, 'layoutChanged' );
+		const canvas = viewer.get( "canvas" ) as Canvas;
+
+		this.applyChanges( changes.added, elementRegistry, canvas, overlays, 'added' );
+		this.applyChanges( changes.removed, elementRegistry, canvas, overlays, 'removed' );
+		this.applyChanges( changes.changed, elementRegistry, canvas, overlays, 'changed' );
+		this.applyChanges( changes.layoutChanged, elementRegistry, canvas, overlays, 'layoutChanged' );
 	}
 
 	private applyChanges(
 		elements: string[],
 		elementRegistry: ElementRegistry,
+		canvas: Canvas,
 		overlays: Overlays,
 		type: string
 	): void {
@@ -83,6 +87,13 @@ export class CpdBpmnDiffer {
 			if ( !shape ) {
 				return;
 			}
+
+			console.log(shape.type)
+			if ( CpdBpmnDiffer.NO_DIFF_TYPES.includes( shape.type ) ) {
+				return;
+			}
+
+			canvas.addMarker( id, `diff-${ type }` );
 
 			const overlayHtml = document.createElement( "div" );
 			overlayHtml.classList.add( "diff-overlay" );

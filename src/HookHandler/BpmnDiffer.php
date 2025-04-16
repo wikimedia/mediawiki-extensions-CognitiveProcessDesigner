@@ -9,6 +9,7 @@ use MediaWiki\Config\Config;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Diff\Hook\DifferenceEngineViewHeaderHook;
 use MediaWiki\Diff\Hook\TextSlotDiffRendererTablePrefixHook;
+use MediaWiki\Registration\ExtensionRegistry;
 use OOUI\ButtonGroupWidget;
 use OOUI\ButtonWidget;
 use TextSlotDiffRenderer;
@@ -29,6 +30,10 @@ class BpmnDiffer implements DifferenceEngineViewHeaderHook, TextSlotDiffRenderer
 	 * @return void
 	 */
 	public function onDifferenceEngineViewHeader( $differenceEngine ): void {
+		if ( !$this->isBlueSpiceEnabled() ) {
+			return;
+		}
+
 		$new = $differenceEngine->getNewRevision();
 
 		try {
@@ -61,6 +66,10 @@ class BpmnDiffer implements DifferenceEngineViewHeaderHook, TextSlotDiffRenderer
 		IContextSource $context,
 		array &$parts
 	): void {
+		if ( !$this->isBlueSpiceEnabled() ) {
+			return;
+		}
+
 		if ( $textSlotDiffRenderer->getContentModel() !== CognitiveProcessDesignerContent::MODEL ) {
 			return;
 		}
@@ -89,5 +98,9 @@ class BpmnDiffer implements DifferenceEngineViewHeaderHook, TextSlotDiffRenderer
 														]
 													] ) .
 													'</div>';
+	}
+
+	private function isBlueSpiceEnabled(): bool {
+		return ExtensionRegistry::getInstance()->isLoaded( 'BlueSpiceFoundation' );
 	}
 }
