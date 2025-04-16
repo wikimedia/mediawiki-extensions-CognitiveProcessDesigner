@@ -24,7 +24,7 @@ class AddNewProcess implements SkinTemplateNavigation__UniversalHook {
 			'text' => $sktemplate->msg( 'bs-cpd-actionmenuentry-new-process' )->text(),
 			'title' => $sktemplate->msg( 'bs-cpd-actionmenuentry-new-process' )->text(),
 			'href' => '',
-			'class' => '',
+			'class' => 'cpd-create-new-process',
 		];
 
 		if ( $title->isSpecial( 'ProcessOverview' ) ) {
