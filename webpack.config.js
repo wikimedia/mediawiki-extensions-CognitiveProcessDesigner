@@ -4,11 +4,13 @@ module.exports = {
 	mode: 'development',
 	entry: {
 		viewer: './resources/js/cpd/CpdViewer.ts',
-		modeler: './resources/js/cpd/CpdModeler.ts'
+		modeler: './resources/js/cpd/CpdModeler.ts',
+		bpmnDiffer: './resources/js/cpd/CpdBpmnDiffer.ts',
 	},
 	output: {
 		path: path.resolve( __dirname, 'resources/js/dist' ),
-		filename: 'cpd.[name].bundle.js'
+		filename: 'cpd.[name].bundle.js',
+		libraryTarget: 'commonjs2'
 	},
 	resolve: {
 		extensions: [ '.ts', '.js', '.json' ]

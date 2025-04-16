@@ -17,7 +17,6 @@ export default class CpdElementsRenderer extends BaseRenderer {
 
 	canRender( element: CpdElement | Element ): boolean {
 		return element instanceof CpdElement;
-
 	}
 
 	drawShape( parentNode: SVGElement, element: CpdElement | ShapeLike ): SVGElement {
