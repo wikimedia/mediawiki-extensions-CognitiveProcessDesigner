@@ -51,8 +51,7 @@ class EditDiagramAction extends EditAction {
 			$this->getContext()->msg( $headlineMsg )->params( $title->getText() )->text()
 		);
 
-		$diagramPageUtil->setJsConfigVars( $outputPage, $process );
-		$outputPage->addModules( [ 'ext.cpd.modeler' ] );
+		$diagramPageUtil->addOutputDependencies( $process, $outputPage, true );
 
 		$templateParser = new TemplateParser(
 			dirname( __DIR__, 2 ) . '/resources/templates'

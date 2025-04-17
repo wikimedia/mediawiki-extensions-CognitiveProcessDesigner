@@ -14,6 +14,7 @@ import { MessageType } from "./oojs-ui/SaveDialog";
 import CpdTranslator from "./helper/CpdTranslator";
 import CustomPaletteProvider from "./CustomPaletteProvider";
 import CpdLinker from "./helper/CpdLinker";
+import CpdXml from "./helper/CpdXml";
 
 class CpdModeler extends CpdTool {
 	private changeLogger: CpdChangeLogger;
@@ -100,9 +101,9 @@ class CpdModeler extends CpdTool {
 			);
 		}
 
-		const xml = saveXmlResult.xml;
-		this.xmlHelper.validate( xml );
-		return xml;
+		CpdXml.validate( saveXmlResult.xml );
+
+		return saveXmlResult.xml;
 	}
 
 	public async getSVG(): Promise<SaveSVGResult> {
