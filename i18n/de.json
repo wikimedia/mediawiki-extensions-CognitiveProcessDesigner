@@ -112,6 +112,7 @@
 	"bs-cpd-process-overview-info-action-text": "Seiteninformationen",
 	"bs-cpd-process-overview-info-action-title": "Seiteninformationen für Prozess $1",
 	"bs-cpd-actionmenuentry-new-process": "Neuer Prozess",
+	"bs-cpd-actionmenuentry-create-new-process": "Neuen Prozess erstellen",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Prozessname",
 	"cpd-api-save-description-page-comment": "Beschreibungsseite gespeichert",
 	"cpd-api-move-description-page-comment": "Beschreibungsseite gespeichert",

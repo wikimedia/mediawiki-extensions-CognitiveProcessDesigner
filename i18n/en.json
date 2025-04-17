@@ -110,6 +110,7 @@
 	"bs-cpd-process-overview-info-action-text": "Page information",
 	"bs-cpd-process-overview-info-action-title": "Page information for process $1",
 	"bs-cpd-actionmenuentry-new-process": "New process",
+	"bs-cpd-actionmenuentry-create-new-process": "Create new process",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Process name",
 	"cpd-api-save-description-page-comment": "Description page saved",
 	"cpd-api-move-description-page-comment": "Description page moved",
