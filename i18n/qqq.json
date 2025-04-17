@@ -113,6 +113,7 @@
 	"bs-cpd-process-overview-info-action-text": "Label for the button to view process-related page information.",
 	"bs-cpd-process-overview-info-action-title": "Title attribute for the button to view process-related page information.",
 	"bs-cpd-actionmenuentry-new-process": "Menu entry label for creating a new process.",
+	"bs-cpd-actionmenuentry-create-new-process": "Menu entry alternative label for creating a new process.",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Label for the input field where users enter the name of a new process.",
 	"cpd-api-save-description-page-comment": "Comment added when saving a description page.",
 	"cpd-api-move-description-page-comment": "Comment added when moving a description page.",
