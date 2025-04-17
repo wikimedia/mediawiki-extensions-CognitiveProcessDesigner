@@ -167,8 +167,7 @@ class BpmnTag implements ParserFirstCallInitHook {
 	): string {
 		$output = $parser->getOutput();
 		$this->addProcessPageProperty( $output, $process );
-		$this->diagramPageUtil->setJsConfigVars( $output, $process );
-		$output->addModules( [ 'ext.cpd.viewer' ] );
+		$this->diagramPageUtil->addOutputDependencies( $process, $output );
 
 		// Embed svg image in the viewer hidden
 		$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();

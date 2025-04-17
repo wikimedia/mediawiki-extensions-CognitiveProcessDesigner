@@ -10,6 +10,7 @@ import CpdElementsRenderer from "./renderer/CpdElementsRenderer";
 import CpdElement from "./model/CpdElement";
 import { LoadDiagramResult } from "./helper/CpdApi";
 import { CpdElementJson } from "./helper/CpdElementFactory";
+import CpdXml from "./helper/CpdXml";
 
 interface InternalEvent {
 	element: ModdleElement;
@@ -116,6 +117,7 @@ export default class CpdViewer extends CpdTool {
 	private async onShowXml(): Promise<void> {
 		const syntaxHighlightedXml = await this.api.fetchSyntaxHighlightedXml( this.xml );
 		this.dom.showXml( syntaxHighlightedXml );
+		CpdXml.insertPreToClipButton( this.xml );
 	}
 
 	private handleNotInitializedDiagram( process: string ): void {

@@ -53,7 +53,7 @@ class SyntaxHighlightXml extends ApiBase {
 		$formattedXml = $dom->saveXML();
 
 		if ( ExtensionRegistry::getInstance()->isLoaded( "SyntaxHighlight" ) ) {
-			$xml = "<syntaxhighlight lang=\"xml\">$formattedXml</syntaxhighlight>";
+			$xml = "<syntaxhighlight lang=\"xml\" line>$formattedXml</syntaxhighlight>";
 		} else {
 			$xml = "<pre>$xml</pre>";
 		}

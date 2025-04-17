@@ -79,8 +79,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 			$cpoParams->getParserOptions()
 		);
 
-		$this->diagramPageUtil->setJsConfigVars( $output, $process );
-		$output->addModules( [ 'ext.cpd.viewer' ] );
+		$this->diagramPageUtil->addOutputDependencies( $process, $output );
 
 		$templateParser = new TemplateParser(
 			dirname( __DIR__, 2 ) . '/resources/templates'
