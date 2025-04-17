@@ -23,6 +23,7 @@ use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
@@ -296,49 +297,38 @@ class CpdDiagramPageUtil {
 	}
 
 	/**
-	 * @param ParserOutput|OutputPage $output
 	 * @param string $process
+	 * @param ParserOutput|OutputPage $output
+	 * @param bool $isModeler
 	 *
 	 * @return void
 	 */
-	public function setJsConfigVars(
-		ParserOutput|OutputPage $output,
+	public function addOutputDependencies(
 		string $process,
+		ParserOutput|OutputPage $output,
+		bool $isModeler = false
 	): void {
-		if ( $output instanceof OutputPage ) {
-			$output->addJsConfigVars( 'cpdProcess', $process );
-			$output->addJsConfigVars( 'cpdProcessNamespace', NS_PROCESS );
-			$output->addJsConfigVars(
-				'cpdReturnToQueryParam',
-				ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
-			);
+		$this->setJsConfigVars( $output, $process );
 
-			if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
-				$types = $this->config->get( 'CPDDedicatedSubpageTypes' );
-				// Ensure compatibility with appendJsConfigVar
-				$compat = [];
-				foreach ( $types as $type ) {
-					$compat[$type] = true;
-				}
+		$modules = [];
+		$styles = [];
 
-				$output->addJsConfigVars( 'cpdDedicatedSubpageTypes', $compat );
-			}
+		if ( $isModeler ) {
+			$modules[] = 'ext.cpd.modeler';
+			$output->addModules( $modules );
 
 			return;
 		}
 
-		$output->appendJsConfigVar( 'cpdProcesses', $process );
-		$output->setJsConfigVar( 'cpdProcessNamespace', NS_PROCESS );
-		$output->setJsConfigVar(
-			'cpdReturnToQueryParam',
-			ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
-		);
+		$modules[] = 'ext.cpd.viewer';
 
-		if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
-			foreach ( $this->config->get( 'CPDDedicatedSubpageTypes' ) as $type ) {
-				$output->appendJsConfigVar( 'cpdDedicatedSubpageTypes', $type );
-			}
+		if ( ExtensionRegistry::getInstance()->isLoaded( "SyntaxHighlight" ) ) {
+			$styles[] = 'ext.pygments';
+			$modules[] = 'ext.pygments.view';
 		}
+
+		$output->addModuleStyles( $styles );
+		$output->addModules( $modules );
 	}
 
 	/**
@@ -445,5 +435,51 @@ class CpdDiagramPageUtil {
 		}
 
 		return new JsonContent( json_encode( $meta ) );
+	}
+
+	/**
+	 * @param ParserOutput|OutputPage $output
+	 * @param string $process
+	 *
+	 * @return void
+	 */
+	private function setJsConfigVars(
+		ParserOutput|OutputPage $output,
+		string $process,
+	): void {
+		if ( $output instanceof OutputPage ) {
+			$output->addJsConfigVars( 'cpdProcess', $process );
+			$output->addJsConfigVars( 'cpdProcessNamespace', NS_PROCESS );
+			$output->addJsConfigVars(
+				'cpdReturnToQueryParam',
+				ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
+			);
+
+			if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
+				$types = $this->config->get( 'CPDDedicatedSubpageTypes' );
+				// Ensure compatibility with appendJsConfigVar
+				$compat = [];
+				foreach ( $types as $type ) {
+					$compat[ $type ] = true;
+				}
+
+				$output->addJsConfigVars( 'cpdDedicatedSubpageTypes', $compat );
+			}
+
+			return;
+		}
+
+		$output->appendJsConfigVar( 'cpdProcesses', $process );
+		$output->setJsConfigVar( 'cpdProcessNamespace', NS_PROCESS );
+		$output->setJsConfigVar(
+			'cpdReturnToQueryParam',
+			ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
+		);
+
+		if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
+			foreach ( $this->config->get( 'CPDDedicatedSubpageTypes' ) as $type ) {
+				$output->appendJsConfigVar( 'cpdDedicatedSubpageTypes', $type );
+			}
+		}
 	}
 }

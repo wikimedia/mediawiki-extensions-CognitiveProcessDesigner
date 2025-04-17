@@ -13,8 +13,6 @@ export abstract class CpdTool {
 
 	protected api: CpdApi;
 
-	protected xmlHelper: CpdXml;
-
 	protected xml: string;
 
 	protected elementFactory: CpdElementFactory;
@@ -41,7 +39,6 @@ export abstract class CpdTool {
 
 		this.dom = new CpdDom( container, this.diagramPage );
 		this.dom.on( "centerViewport", this.centerViewport.bind( this ) );
-		this.xmlHelper = new CpdXml();
 
 		this.api = new CpdApi( process );
 		this.api.on( CpdApi.STATUS_REQUEST_STARTED, this.requestStarted.bind( this ) );

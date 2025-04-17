@@ -105,6 +105,7 @@ export default class CpdDom extends EventEmitter {
 	}
 
 	public showXml( xml: string ): void {
+		this.container.classList.add( "cpd-xml" );
 		this.xmlContainer.innerHTML = xml;
 		this.xmlContainer.show();
 		this.canvas.hide();
@@ -114,6 +115,7 @@ export default class CpdDom extends EventEmitter {
 	}
 
 	private showCanvas(): void {
+		this.container.classList.remove( "cpd-xml" );
 		this.xmlContainer.hide();
 		this.canvas.show();
 		this.showXmlBtn?.setActive( false );
