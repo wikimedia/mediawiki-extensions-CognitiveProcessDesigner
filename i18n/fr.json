@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Eihel",
+			"EmDashUser002",
 			"Florian COLLIN",
 			"JLTRY",
 			"Mahabarata",
@@ -13,6 +14,7 @@
 	},
 	"orphanedprocessdescriptionpages": "Pages de description des processus orphelins",
 	"processoverview": "Processus",
+	"apihelp-cpd-load-diagram-summary": "Charger un diagramme CPD",
 	"cpd-orphaned-description-pages-column-process-title": "Processus",
 	"cpd-orphaned-description-pages-column-dbkey-title": "Titre",
 	"cognitiveprocessdesigner-desc": "Dessinez des processus BPMN avec une interface utilisateur graphique dans Semantic MediaWiki",
@@ -95,6 +97,7 @@
 	"bs-cpd-process-overview-info-action-text": "Informations sur la page",
 	"bs-cpd-process-overview-info-action-title": "Informations sur la page pour le processus $1",
 	"bs-cpd-actionmenuentry-new-process": "Nouveau processus",
+	"bs-cpd-actionmenuentry-create-new-process": "Créer un nouveau processus",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Nom du processus",
 	"cpd-api-save-description-page-comment": "Page de description enregistrée",
 	"cpd-api-move-description-page-comment": "Page de description déplacée",

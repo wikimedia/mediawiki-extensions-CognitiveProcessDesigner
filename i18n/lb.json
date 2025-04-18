@@ -5,6 +5,9 @@
 		]
 	},
 	"processoverview": "Prozesser",
+	"apihelp-cpd-load-diagram-summary": "En CPD-Diagramm",
+	"apihelp-cpd-save-diagram-summary": "En CPD-Diagramm späicheren",
+	"apihelp-cpd-save-diagram-param-process": "De Prozessnumm, dee mam Diagramm associéiert ass",
 	"cpd-orphaned-description-pages-column-process-title": "Prozess",
 	"cpd-orphaned-description-pages-column-dbkey-title": "Titel",
 	"cpd-ui-action-edit": "Diagramm änneren",
@@ -17,6 +20,7 @@
 	"cpd-api-save-diagram-error-message": "Feeler beim Späichere vum Diagramm: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=Déi follgend Beschreiwungssäit gouf gespäichert:|Déi follgend $1 Beschreiwungssäite goufe gespäichert:|0=Et gouf keng Beschreiwungssäit gespäichert.}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "D'Beschreiwungssäit $1 gëtt et net méi",
+	"cpd-save-description-page-empty-set-warning": "Keng Elementer fir ze späicheren",
 	"cpd-api-save-description-pages-error-message": "Feeler beim Späichere vu Beschreiwungssäiten: $1",
 	"cpd-api-move-equal-description-pages-error-message": "Al an nei Säite si gläich",
 	"cpd-api-load-diagram-error-message": "Feeler beim Luede vum Diagramm: $1",
