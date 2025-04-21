@@ -5,6 +5,11 @@
 		]
 	},
 	"processoverview": "Processi",
+	"apihelp-cpd-save-diagram-param-process": "Il nome del processo associato al diagramma",
+	"apihelp-cpd-syntax-highlight-xml-param-xml": "La stringa XML da evidenziare",
+	"apihelp-cpd-orphaned-description-pages-store-param-limit": "Numero massimo di pagine da elaborare",
+	"apihelp-cpd-orphaned-description-pages-store-param-sort": "Criteri di ordinamento per le pagine",
+	"apihelp-cpd-diagram-usage-param-page": "Il nome della pagina che utilizza il diagramma",
 	"cpd-ui-action-edit": "Modifica diagramma",
 	"cpd-button-cancel-title": "Annulla",
 	"cpd-link-diagram-page-title": "Vai alla pagina del diagramma",
@@ -14,8 +19,10 @@
 	"cpd-api-save-diagram-error-message": "Errore durante il salvataggio del diagramma: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=La seguente pagina di descrizione è stata salvata:|Le seguenti $1 pagine di descrizione sono state salvate:|0=Nessuna pagina di descrizione è stata salvata.}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "La pagina di descrizione $1 non esiste più",
+	"cpd-save-description-page-empty-set-warning": "Nessun elemento da salvare",
 	"cpd-api-load-diagram-error-message": "Errore durante il caricamento del diagramma: $1",
 	"cpd-error-message-missing-config": "Configurazione mancante: '$1'",
+	"cpd-error-message-missing-svg-file": "Il file SVG $1 del diagramma non esiste. Modifica e salva il diagramma per crearlo.",
 	"cpd-warning-message-diagram-not-initialized": "Il processo $1 non è ancora stato creato. Vai alla <a href='$2'>pagina del processo</a> e crealo.",
 	"cpd-warning-message-diagram-not-initialized-create-it": "Il diagramma non è ancora stato creato. <a href='$1'>Crealo</a> .",
 	"cpd-editor-title": "Modifica di $1",
@@ -38,6 +45,7 @@
 	"bs-cpd-process-overview-card-title": "Apri processo $1",
 	"bs-cpd-process-overview-info-action-text": "Informazioni pagina",
 	"bs-cpd-actionmenuentry-new-process": "Nuovo processo",
+	"bs-cpd-actionmenuentry-create-new-process": "Crea nuovo processo",
 	"cpd-api-save-description-page-comment": "Pagina di descrizione salvata",
 	"cpd-api-move-description-page-comment": "Pagina di descrizione spostata"
 }

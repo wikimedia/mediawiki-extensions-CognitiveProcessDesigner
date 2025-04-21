@@ -56,6 +56,7 @@
 	"bs-cpd-process-overview-card-title": "Prozess $1 opmaachen",
 	"bs-cpd-process-overview-info-action-text": "Informatiounen iwwer d'Säit",
 	"bs-cpd-actionmenuentry-new-process": "Neie Prozess",
+	"bs-cpd-actionmenuentry-create-new-process": "Neie Prozess uleeën",
 	"bs-cpd-actionmenuentry-new-process-input-label": "Prozessnumm",
 	"cpd-api-save-description-page-comment": "Beschreiwungssäit gespäichert",
 	"cpd-api-move-description-page-comment": "Beschreiwungssäit geréckelt",
