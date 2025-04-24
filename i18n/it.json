@@ -39,5 +39,13 @@
 	"bs-cpd-process-overview-info-action-text": "Informazioni pagina",
 	"bs-cpd-actionmenuentry-new-process": "Nuovo processo",
 	"cpd-api-save-description-page-comment": "Pagina di descrizione salvata",
-	"cpd-api-move-description-page-comment": "Pagina di descrizione spostata"
+	"cpd-api-move-description-page-comment": "Pagina di descrizione spostata",
+	"apihelp-cpd-save-diagram-param-process": "Il nome del processo associato al diagramma",
+	"apihelp-cpd-syntax-highlight-xml-param-xml": "La stringa XML da evidenziare",
+	"apihelp-cpd-orphaned-description-pages-store-param-limit": "Numero massimo di pagine da elaborare",
+	"apihelp-cpd-orphaned-description-pages-store-param-sort": "Criteri di ordinamento per le pagine",
+	"apihelp-cpd-diagram-usage-param-page": "Il nome della pagina che utilizza il diagramma",
+	"cpd-save-description-page-empty-set-warning": "Nessun elemento da salvare",
+	"cpd-error-message-missing-svg-file": "Il file SVG $1 del diagramma non esiste. Modifica e salva il diagramma per crearlo.",
+	"bs-cpd-actionmenuentry-create-new-process": "Crea nuovo processo"
 }

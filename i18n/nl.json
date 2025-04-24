@@ -32,9 +32,9 @@
 	"cpd-error-message-saving-diagram": "Fout bij het opslaan van diagram: $1",
 	"cpd-error-message-invalid-xml": "Ongeldige XML",
 	"cpd-error-message-missing-xml": "XML ontbreekt",
-	"cpd-error-message-missing-diagram-page": "Ontbrekende diagrampagina",
+	"cpd-error-message-missing-diagram-page": "Diagrampagina ontbreekt: $1",
 	"cpd-error-message-publish-svg-file": "Het SVG-bestand kon niet worden gepubliceerd: $1",
-	"cpd-error-message-missing-svg-file": "Diagram-SVG-bestand $1 bestaat niet",
+	"cpd-error-message-missing-svg-file": "Het diagram-SVG-bestand $1 bestaat niet. Bewerk het diagram en sla het op om het aan te maken.",
 	"cpd-error-message-missing-parameter-process": "De vereiste parameter “process” ontbreekt",
 	"cpd-error-message-missing-parameter-height": "De vereiste parameter “height” ontbreekt",
 	"cpd-warning-message-diagram-not-initialized": "Het proces $1 is nog niet aangemaakt. Ga naar de <a href='$2'>procespagina</a> en maak het aan.",
@@ -98,5 +98,6 @@
 	"cpd-description-navigation-incoming-label": "Inkomende verbindingen",
 	"cpd-description-navigation-outgoing-label": "Uitgaande verbindingen",
 	"cpd-button-show-diagram": "Diagram weergeven",
-	"cpd-error-xml-parse-error": "Fout bij het verwerken van XML"
+	"cpd-error-xml-parse-error": "Fout bij het verwerken van XML",
+	"cpd-error-message-invalid-bpmn": "Onjuiste BPMN"
 }

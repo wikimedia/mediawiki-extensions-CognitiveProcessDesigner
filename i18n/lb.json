@@ -55,5 +55,11 @@
 	"cpd-api-save-description-page-comment": "Beschreiwungssäit gespäichert",
 	"cpd-api-move-description-page-comment": "Beschreiwungssäit geréckelt",
 	"cpd-api-save-diagram-update-comment": "Diagramm aktualiséiert",
-	"cpd-button-show-diagram": "Diagramm weisen"
+	"cpd-button-show-diagram": "Diagramm weisen",
+	"apihelp-cpd-load-diagram-summary": "En CPD-Diagramm",
+	"apihelp-cpd-save-diagram-summary": "En CPD-Diagramm späicheren",
+	"apihelp-cpd-save-diagram-param-process": "De Prozessnumm, dee mam Diagramm associéiert ass",
+	"cpd-save-description-page-empty-set-warning": "Keng Elementer fir ze späicheren",
+	"cpd-error-message-invalid-bpmn": "Ongültege BPMN",
+	"bs-cpd-actionmenuentry-create-new-process": "Neie Prozess uleeën"
 }

@@ -31,7 +31,7 @@
 	"cpd-error-message-saving-diagram": "שגיאה בשמירת התרשים: $1",
 	"cpd-error-message-invalid-xml": "XML הלתי־תקין",
 	"cpd-error-message-missing-xml": "XML חסר",
-	"cpd-error-message-missing-diagram-page": "חסר דף תרשים",
+	"cpd-error-message-missing-diagram-page": "חסר דף תרשים: $1",
 	"cpd-error-message-publish-svg-file": "לא ניתן לפרסם קובץ SVG‏: $1",
 	"cpd-error-message-missing-svg-file": "קובץ SVG עם תרשים $1 אינו קיים",
 	"cpd-error-message-missing-parameter-process": "חסר הפרמטר הנדרש \"process\"",
@@ -97,5 +97,6 @@
 	"cpd-description-navigation-incoming-label": "חיבורים נכנסים",
 	"cpd-description-navigation-outgoing-label": "חיבורים יוצאים",
 	"cpd-button-show-diagram": "הצגת תרשים",
-	"cpd-error-xml-parse-error": "שגיאה בפענוח XML"
+	"cpd-error-xml-parse-error": "שגיאה בפענוח XML",
+	"cpd-error-message-invalid-bpmn": "BPMN בלתי־תקין"
 }
