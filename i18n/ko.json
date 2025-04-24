@@ -113,5 +113,11 @@
 	"bs-cpd-actionmenuentry-new-process": "새 프로세스",
 	"bs-cpd-actionmenuentry-new-process-input-label": "프로세스 이름",
 	"cpd-api-save-description-page-comment": "설명 문서가 저장되었습니다",
-	"cpd-api-move-description-page-comment": "설명 문서가 이동되었습니다"
+	"cpd-api-move-description-page-comment": "설명 문서가 이동되었습니다",
+	"cpd-dialog-save-changes-button-label": "저장",
+	"cpd-dialog-save-label-done": "완료",
+	"cpd-description-navigation-incoming-label": "들어오는 연결",
+	"cpd-description-navigation-outgoing-label": "나가는 연결",
+	"cpd-button-show-diagram": "다이어그램 표시",
+	"cpd-error-xml-parse-error": "XML 구문 분석 오류"
 }

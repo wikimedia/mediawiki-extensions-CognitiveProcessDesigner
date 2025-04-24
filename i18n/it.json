@@ -22,7 +22,7 @@
 	"cpd-api-save-diagram-param-svg": "SVG codificato JSON da caricare su wiki",
 	"cpd-api-save-diagram-param-xml": "XML codificato JSON da caricare su wiki",
 	"cpd-api-save-diagram-error-message": "Errore durante il salvataggio del diagramma: $1",
-	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=La seguente pagina di descrizione è stata salvata|Le seguenti pagine di descrizione sono state salvate|0=Nessuna pagina di descrizione è stata salvata}}:",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=La seguente pagina di descrizione è stata salvata:|Le seguenti $1 pagine di descrizione sono state salvate:|0=Nessuna pagina di descrizione è stata salvata.}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "La pagina di descrizione $1 non esiste più",
 	"cpd-api-load-diagram-error-message": "Errore durante il caricamento del diagramma: $1",
 	"cpd-error-message-missing-config": "Configurazione mancante: '$1'",
@@ -53,5 +53,13 @@
 	"cpd-api-save-description-page-comment": "Pagina di descrizione salvata",
 	"cpd-api-move-description-page-comment": "Pagina di descrizione spostata",
 	"cpd-dialog-save-changes-button-title": "Salva modifiche",
-	"cpd-link-svg-title": "Scarica diagramma come SVG"
+	"cpd-link-svg-title": "Scarica diagramma come SVG",
+	"apihelp-cpd-save-diagram-param-process": "Il nome del processo associato al diagramma",
+	"apihelp-cpd-syntax-highlight-xml-param-xml": "La stringa XML da evidenziare",
+	"apihelp-cpd-orphaned-description-pages-store-param-limit": "Numero massimo di pagine da elaborare",
+	"apihelp-cpd-orphaned-description-pages-store-param-sort": "Criteri di ordinamento per le pagine",
+	"apihelp-cpd-diagram-usage-param-page": "Il nome della pagina che utilizza il diagramma",
+	"cpd-save-description-page-empty-set-warning": "Nessun elemento da salvare",
+	"cpd-error-message-missing-svg-file": "Il file SVG $1 del diagramma non esiste. Modifica e salva il diagramma per crearlo.",
+	"bs-cpd-actionmenuentry-create-new-process": "Crea nuovo processo"
 }
