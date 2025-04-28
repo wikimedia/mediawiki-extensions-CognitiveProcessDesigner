@@ -1,8 +1,7 @@
 #cpd-diff-container {
-	@classes: added, removed, changed, layoutChanged;
-	@colors: #94c11f, #bd1d1d, #2b80ea, #951b81;
-	@icons: \F4FE, \F2EA, \F4C9, \F110;
-	@opacity: 0.6;
+	@classes: added, removed, changed-old, changed-new;
+	@colors: #eff6dd, #f5dcdc, #eff6dd, #f5dcdc;
+	@icons: \F4FE, \F2EA, \F4C9, \F4C9;
 	@circleSize: 25px;
 
 	display: flex;
@@ -21,7 +20,6 @@
 		text-align: center;
 		border-radius: 50%;
 		pointer-events: none;
-		opacity: @opacity;
 		position: absolute;
 		left: -(@circleSize - 3px);
 		top: -(@circleSize - 3px);
@@ -30,13 +28,12 @@
 			content: '';
 			display: block;
 			font-family: 'bootstrap-icons';
-			color: #fff;
 			text-align: center;
 			line-height: 24px;
 			font-size: 24px;
 		}
 
-		&.changed::before, &.layoutChanged::before {
+		&.changed-new::before, &.changed-old::before {
 			font-size: 12px;
 		}
 	}
@@ -47,7 +44,7 @@
 		@icon: extract(@icons, @i);
 
 		.diff-@{class} .djs-visual > :nth-child(1) {
-			fill: rgba(red(@color), green(@color), blue(@color), @opacity) !important;
+			fill: @color !important;
 		}
 
 		.diff-overlay.@{class} {
@@ -55,6 +52,7 @@
 
 			&::before {
 				content: "@{icon}";
+				color: darken(@color, 30%);
 			}
 		}
 
