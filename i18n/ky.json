@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Baydastann"
+		]
+	},
+	"apihelp-cpd-save-diagram-param-process": "Диаграмма менен байланышкан жараяндын аталышы",
+	"cpd-save-description-page-empty-set-warning": "Сактай турган элементтер жок",
+	"bs-cpd-actionmenuentry-create-new-process": "Жаңы барактарды түзүү"
+}
