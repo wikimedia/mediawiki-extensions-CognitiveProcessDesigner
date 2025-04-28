@@ -520,7 +520,7 @@
 			"descriptionmsg": "cpd-config-canvas-embedded-height-msg"
 		},
 		"CPDMainLinksCognitiveProcessDesigner": {
-			"value": false,
+			"value": true,
 			"descriptionmsg": "bs-config-mainlinks-cpd-label"
 		}
 	},
