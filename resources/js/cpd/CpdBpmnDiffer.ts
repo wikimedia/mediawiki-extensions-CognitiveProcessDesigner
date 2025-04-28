@@ -15,7 +15,6 @@ enum SyncState {
 }
 
 interface Changes {
-	layoutChanged: string[]
 	changed: string[]
 	removed: string[]
 	added: string[]
@@ -57,21 +56,20 @@ export class CpdBpmnDiffer {
 		this.initCanvasSync( newRevViewer.viewer, oldRevViewer.viewer );
 
 		const changes = await this.computeChanges( newRevViewer.xml, oldRevViewer.xml );
-		this.addChangeOverlays( changes, newRevViewer.viewer );
-		this.addChangeOverlays( changes, oldRevViewer.viewer );
+		this.addChangeOverlays( changes, newRevViewer.viewer, 'new' );
+		this.addChangeOverlays( changes, oldRevViewer.viewer, 'old' );
 
 		return container;
 	}
 
-	private addChangeOverlays( changes: Changes, viewer: NavigatedViewer ): void {
+	private addChangeOverlays( changes: Changes, viewer: NavigatedViewer, cls: string ): void {
 		const overlays = viewer.get( "overlays" ) as Overlays;
 		const elementRegistry = viewer.get( "elementRegistry" ) as ElementRegistry;
 		const canvas = viewer.get( "canvas" ) as Canvas;
 
 		this.applyChanges( changes.added, elementRegistry, canvas, overlays, 'added' );
 		this.applyChanges( changes.removed, elementRegistry, canvas, overlays, 'removed' );
-		this.applyChanges( changes.changed, elementRegistry, canvas, overlays, 'changed' );
-		this.applyChanges( changes.layoutChanged, elementRegistry, canvas, overlays, 'layoutChanged' );
+		this.applyChanges( changes.changed, elementRegistry, canvas, overlays, 'changed-' + cls );
 	}
 
 	private applyChanges(
@@ -141,7 +139,6 @@ export class CpdBpmnDiffer {
 		const changes = diff( newRootElement, oldRootElement );
 
 		return {
-			layoutChanged: Object.keys( changes._layoutChanged ),
 			changed: Object.keys( changes._changed ),
 			removed: Object.keys( changes._removed ),
 			added: Object.keys( changes._added )
