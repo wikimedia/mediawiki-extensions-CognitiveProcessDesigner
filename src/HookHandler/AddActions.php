@@ -35,5 +35,10 @@ class AddActions implements SkinTemplateNavigation__UniversalHook {
 		$links['views']['editxml']['text'] = $sktemplate->msg( 'cpd-ui-action-edit-xml' )->plain();
 		$links['views']['editxml']['title'] = $sktemplate->msg( 'cpd-ui-action-edit-xml' )->plain();
 		$links['views']['editxml']['href'] = $sktemplate->getTitle()->getLinkURL( [ 'action' => 'editxml' ] );
+
+		// ERM41889: Remove ve edit
+		if ( isset( $links['views']['ve-edit'] ) ) {
+			unset( $links['views']['ve-edit'] );
+		}
 	}
 }

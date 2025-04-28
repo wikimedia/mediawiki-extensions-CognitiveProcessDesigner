@@ -36,7 +36,7 @@ class AddNewProcess implements SkinTemplateNavigation__UniversalHook {
 		$links['actions']['cpd-create-process'] = array_merge( [
 			'text' => $sktemplate->msg( 'bs-cpd-actionmenuentry-new-process' )->text(),
 			'title' => $sktemplate->msg( 'bs-cpd-actionmenuentry-new-process' )->text(),
-		], $config );;
+		], $config );
 
 		$sktemplate->getOutput()->addModules( 'ext.cpd.newprocessdialog' );
 	}
