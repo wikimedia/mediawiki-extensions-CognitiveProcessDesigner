@@ -8,16 +8,12 @@ use MediaWiki\SpecialPage\SpecialPage;
 use MWStake\MediaWiki\Component\CommonUserInterface\Component\RestrictedTextLink;
 
 class MainLinkPanel extends RestrictedTextLink {
-	public function __construct() {
-		parent::__construct( [] );
-	}
 
 	/**
-	 *
-	 * @return string
+	 * @param string $id
 	 */
-	public function getId(): string {
-		return 'n-cpd';
+	public function __construct( $id ) {
+		parent::__construct( [ 'id' => $id ] );
 	}
 
 	/**
