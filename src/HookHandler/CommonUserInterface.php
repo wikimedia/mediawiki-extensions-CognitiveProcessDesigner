@@ -24,7 +24,7 @@ class CommonUserInterface implements MWStakeCommonUIRegisterSkinSlotComponents {
 				[
 					'bs-special-cpd' => [
 						'factory' => static function () {
-							return new MainLinkPanel();
+							return new MainLinkPanel( 'n-cpd' );
 						},
 						'position' => 40
 					]
@@ -37,7 +37,7 @@ class CommonUserInterface implements MWStakeCommonUIRegisterSkinSlotComponents {
 			[
 				'bs-special-cpd' => [
 					'factory' => static function () {
-						return new MainLinkPanel();
+						return new MainLinkPanel( 'ga-cpd-overview' );
 					}
 				]
 			]
