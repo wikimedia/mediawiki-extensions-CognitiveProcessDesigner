@@ -20,12 +20,25 @@ class CpdXmlProcessor {
 	/** @var array */
 	private array $laneTypes = [];
 
-	/** @var array */
+	/**
+	 * bpmn:Definitions
+	 * bpmn:Process
+	 * bpmn:Outgoing
+	 * bpmn:Incoming
+	 * bpmn:Collaboration
+	 * bpmn:LaneSet
+	 * bpmn:FlowNodeRef
+	 *
+	 * @var array|string[]
+	 */
 	private array $unusedTypes = [
-		'bpmn:Definitions',
-		'bpmn:Process',
-		'bpmn:Outgoing',
-		'bpmn:Incoming',
+		'definitions',
+		'collaboration',
+		'process',
+		'outgoing',
+		'incoming',
+		'laneSet',
+		'flowNodeRef'
 	];
 
 	public function __construct(
@@ -84,7 +97,13 @@ class CpdXmlProcessor {
 		}
 
 		$xml->registerXPathNamespace( 'bpmn', 'http://www.omg.org/spec/BPMN/20100524/MODEL' );
-		$xmlElements = $xml->xpath( '//bpmn:*' );
+
+		$excludeTypes = implode( ' and ', array_map(
+			static fn ( $type ) => 'local-name() !="' . str_replace( 'bpmn:', '', $type ) . '"',
+			$this->unusedTypes
+		) );
+
+		$xmlElements = $xml->xpath( '//bpmn:*[' . $excludeTypes . ']' );
 		foreach ( $xmlElements as $xmlElement ) {
 			$type = 'bpmn:' . ucfirst( $xmlElement->getName() );
 			$elementData = [ 'type' => $type ];
@@ -104,7 +123,7 @@ class CpdXmlProcessor {
 			$elementsData[] = $elementData;
 		}
 
-		return $this->filterByType( $elementsData, $this->unusedTypes, true );
+		return $elementsData;
 	}
 
 	/**
@@ -125,7 +144,7 @@ class CpdXmlProcessor {
 		}
 
 		// Then set all connections
-		$sequenceFlows = CpdSequenceFlowUtil::createSubpageSequenceFlows( $elementsData, $this->dedicatedSubpageTypes);
+		$sequenceFlows = CpdSequenceFlowUtil::createSubpageSequenceFlows( $elementsData, $this->dedicatedSubpageTypes );
 
 		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
 			$this->setConnections(
@@ -155,16 +174,10 @@ class CpdXmlProcessor {
 	/**
 	 * @param array $elementsData
 	 * @param array $type
-	 * @param bool $exclude
 	 *
 	 * @return array
 	 */
-	private function filterByType( array $elementsData, array $type, bool $exclude = false ): array {
-		if ( $exclude ) {
-			return array_filter( $elementsData, static fn ( $elementData ) => !in_array( $elementData['type'], $type )
-			);
-		}
-
+	private function filterByType( array $elementsData, array $type ): array {
 		return array_values(
 			array_filter( $elementsData, static fn ( $elementData ) => in_array( $elementData['type'], $type ) )
 		);
