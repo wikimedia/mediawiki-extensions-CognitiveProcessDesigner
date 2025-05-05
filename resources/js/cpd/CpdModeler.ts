@@ -13,6 +13,7 @@ import EventBus from "diagram-js/lib/core/EventBus";
 import { MessageType } from "./oojs-ui/SaveDialog";
 import CpdTranslator from "./helper/CpdTranslator";
 import CustomPaletteProvider from "./CustomPaletteProvider";
+import CustomReplaceMenuProvider from "./CustomReplaceMenuProvider";
 import CpdLinker from "./helper/CpdLinker";
 import CpdXml from "./helper/CpdXml";
 
@@ -32,8 +33,9 @@ class CpdModeler extends CpdTool {
 					translate: [ 'value', translator.translate.bind( translator ) ]
 				},
 				{
-					__init__: [ "paletteProvider" ],
-					paletteProvider: [ "type", CustomPaletteProvider ]
+					__init__: [ "paletteProvider", "replaceMenuProvider" ],
+					paletteProvider: [ "type", CustomPaletteProvider ],
+					replaceMenuProvider: [ 'type', CustomReplaceMenuProvider ]
 				},
 			]
 		} );
