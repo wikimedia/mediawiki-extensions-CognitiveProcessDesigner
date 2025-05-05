@@ -87,14 +87,13 @@ class CpdElementConnectionUtil {
 			)?->getId()
 		);
 
-		$element = null;
 		foreach ( $this->xmlProcessor->createElements( $process, $xml ) as $element ) {
 			if ( $element->getDescriptionPage()->equals( $title ) ) {
-				break;
+				return $element;
 			}
 		}
 
-		return $element;
+		return null;
 	}
 
 	/**

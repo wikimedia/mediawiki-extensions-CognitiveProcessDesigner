@@ -20,6 +20,27 @@ class CpdXmlProcessor {
 	/** @var array */
 	private array $laneTypes = [];
 
+	/**
+	 * bpmn:Definitions
+	 * bpmn:Process
+	 * bpmn:Outgoing
+	 * bpmn:Incoming
+	 * bpmn:Collaboration
+	 * bpmn:LaneSet
+	 * bpmn:FlowNodeRef
+	 *
+	 * @var array|string[]
+	 */
+	private array $unusedTypes = [
+		'definitions',
+		'collaboration',
+		'process',
+		'outgoing',
+		'incoming',
+		'laneSet',
+		'flowNodeRef'
+	];
+
 	public function __construct(
 		Config $config,
 		private readonly CpdElementFactory $cpdElementFactory
@@ -49,7 +70,8 @@ class CpdXmlProcessor {
 			return [];
 		}
 
-		$descriptionPageElements = $this->createAllElementsData( $process, $xmlString );
+		$elementsData = $this->createAllElementsData( $xmlString );
+		$descriptionPageElements = $this->updateDescriptionPageElements( $elementsData, $process );
 
 		if ( $oldXmlString ) {
 			$this->setOldDescriptionPages( $process, $oldXmlString, $descriptionPageElements );
@@ -65,7 +87,7 @@ class CpdXmlProcessor {
 	 * @return array
 	 * @throws CpdXmlProcessingException
 	 */
-	private function createAllElementsData( string $process, string $xmlString ): array {
+	private function createAllElementsData( string $xmlString ): array {
 		$elementsData = [];
 
 		try {
@@ -75,7 +97,13 @@ class CpdXmlProcessor {
 		}
 
 		$xml->registerXPathNamespace( 'bpmn', 'http://www.omg.org/spec/BPMN/20100524/MODEL' );
-		$xmlElements = $xml->xpath( '//bpmn:*' );
+
+		$excludeTypes = implode( ' and ', array_map(
+			static fn ( $type ) => 'local-name() !="' . str_replace( 'bpmn:', '', $type ) . '"',
+			$this->unusedTypes
+		) );
+
+		$xmlElements = $xml->xpath( '//bpmn:*[' . $excludeTypes . ']' );
 		foreach ( $xmlElements as $xmlElement ) {
 			$type = 'bpmn:' . ucfirst( $xmlElement->getName() );
 			$elementData = [ 'type' => $type ];
@@ -95,9 +123,19 @@ class CpdXmlProcessor {
 			$elementsData[] = $elementData;
 		}
 
+		return $elementsData;
+	}
+
+	/**
+	 * @param array $elementsData
+	 * @param string $process
+	 *
+	 * @return array
+	 * @throws CpdXmlProcessingException
+	 */
+	private function updateDescriptionPageElements( array $elementsData, string $process ): array {
 		$descriptionPageElements = $this->filterByType( $elementsData, $this->dedicatedSubpageTypes );
 		$parents = $this->filterByType( $elementsData, $this->laneTypes );
-		$connections = $this->filterByType( $elementsData, [ 'bpmn:SequenceFlow' ] );
 
 		// First set all description pages
 		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
@@ -106,8 +144,27 @@ class CpdXmlProcessor {
 		}
 
 		// Then set all connections
+		$sequenceFlows = CpdSequenceFlowUtil::createSubpageSequenceFlows( $elementsData, $this->dedicatedSubpageTypes );
+
 		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
-			$this->setConnections( $descriptionPageElement, $descriptionPageElements, $connections );
+			$this->setConnections(
+				$descriptionPageElement,
+				$descriptionPageElements,
+				$sequenceFlows,
+				'incomingLinks',
+				'targetRef',
+				'sourceRef'
+			);
+
+			$this->setConnections(
+				$descriptionPageElement,
+				$descriptionPageElements,
+				$sequenceFlows,
+				'outgoingLinks',
+				'sourceRef',
+				'targetRef'
+			);
+
 			$this->cleanUpData( $descriptionPageElement );
 		}
 
@@ -121,7 +178,9 @@ class CpdXmlProcessor {
 	 * @return array
 	 */
 	private function filterByType( array $elementsData, array $type ): array {
-		return array_filter( $elementsData, static fn ( $elementData ) => in_array( $elementData['type'], $type ) );
+		return array_values(
+			array_filter( $elementsData, static fn ( $elementData ) => in_array( $elementData['type'], $type ) )
+		);
 	}
 
 	/**
@@ -143,75 +202,44 @@ class CpdXmlProcessor {
 	}
 
 	/**
-	 * @param array &$descriptionPageElement
-	 * @param array $descriptionPageElements
-	 * @param array $connections
-	 *
-	 * @return void
-	 */
-	private function setConnections(
-		array &$descriptionPageElement,
-		array $descriptionPageElements,
-		array $connections
-	): void {
-		$this->setConnection(
-			$descriptionPageElement,
-			$descriptionPageElements,
-			$connections,
-			'incomingLinks',
-			'targetRef',
-			'sourceRef'
-		);
-
-		$this->setConnection(
-			$descriptionPageElement,
-			$descriptionPageElements,
-			$connections,
-			'outgoingLinks',
-			'sourceRef',
-			'targetRef'
-		);
-	}
-
-	/**
 	 * @param array &$element
 	 * @param array $descriptionPageElements
-	 * @param array $connections
+	 * @param array $sequenceFlows
 	 * @param string $connectionField
 	 * @param string $sourceField
 	 * @param string $targetField
 	 *
 	 * @return void
 	 */
-	private function setConnection(
+	private function setConnections(
 		array &$element,
 		array $descriptionPageElements,
-		array $connections,
+		array $sequenceFlows,
 		string $connectionField,
 		string $sourceField,
 		string $targetField
 	): void {
 		$element[ $connectionField ] = [];
 
-		foreach ( $connections as $connection ) {
-			if ( empty( $connection[ $sourceField ] ) || empty( $connection[ $targetField ] ) ) {
+		foreach ( $sequenceFlows as $sequenceFlow ) {
+			if ( empty( $sequenceFlow[ $sourceField ] ) || empty( $sequenceFlow[ $targetField ] ) ) {
 				continue;
 			}
 
-			if ( $element['id'] !== $connection[ $sourceField ] ) {
+			if ( $element['id'] !== $sequenceFlow[ $sourceField ] ) {
 				continue;
 			}
 
-			$connectionElements = array_filter(
+			$connections = array_filter(
 				$descriptionPageElements,
-				static fn ( $elementData ) => $elementData['id'] === $connection[ $targetField ]
+				static fn ( $elementData ) => $elementData['id'] === $sequenceFlow[ $targetField ]
 			);
 
-			if ( empty( $connectionElements ) ) {
+			if ( empty( $connections ) ) {
 				continue;
 			}
 
-			$element[ $connectionField ][] = reset( $connectionElements );
+			$element[ $connectionField ][] = reset( $connections );
 		}
 	}
 
@@ -245,7 +273,8 @@ class CpdXmlProcessor {
 		array &$descriptionPageElements,
 	): void {
 		try {
-			$oldDescriptionPageElements = $this->createAllElementsData( $process, $oldXmlString );
+			$elementsData = $this->createAllElementsData( $oldXmlString );
+			$oldDescriptionPageElements = $this->updateDescriptionPageElements( $elementsData, $process );
 		} catch ( Exception $e ) {
 			// If the old XML string is invalid, we can't set old description pages
 			return;
@@ -352,6 +381,7 @@ class CpdXmlProcessor {
 	 */
 	private function sanitizeTitle( string $titleText ): string {
 		$titleText = str_replace( "\n", "", $titleText );
+
 		return $titleText;
 	}
 }

@@ -21,8 +21,6 @@ class CpdXmlProcessorTest extends TestCase {
 		parent::setUp();
 
 		$subpageTypes = [
-			"bpmn:Gateway",
-			"bpmn:ExclusiveGateway",
 			"bpmn:Task",
 			"bpmn:StartEvent",
 			"bpmn:EndEvent"
@@ -76,4 +74,24 @@ class CpdXmlProcessorTest extends TestCase {
 		}, $elements ) );
 	}
 
+	/**
+	 * @covers ::createRealSequenceFlows
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	public function testSimpleCreateRealSequenceFlows(): void {
+		$xml = file_get_contents( __DIR__ . '/fixtures/gatewayDiagram.xml' );
+		$elements = $this->xmlProcessor->createElements( 'RealSequenceFlows', $xml );
+		$this->assertCount( 0, $elements[0]->getIncomingLinks() );
+		$this->assertCount( 4, $elements[0]->getOutgoingLinks() );
+		$this->assertCount( 1, $elements[1]->getIncomingLinks() );
+		$this->assertCount( 0, $elements[1]->getOutgoingLinks() );
+		$this->assertCount( 1, $elements[2]->getIncomingLinks() );
+		$this->assertCount( 0, $elements[2]->getOutgoingLinks() );
+		$this->assertCount( 1, $elements[3]->getIncomingLinks() );
+		$this->assertCount( 0, $elements[3]->getOutgoingLinks() );
+		$this->assertCount( 1, $elements[4]->getIncomingLinks() );
+		$this->assertCount( 0, $elements[4]->getOutgoingLinks() );
+	}
 }
