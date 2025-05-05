@@ -1,8 +1,9 @@
 {
 	"extends": "bpmnlint:recommended",
 	"rules": {
-		"mediawiki-cpd/missing-gateway-label": "error",
 		"mediawiki-cpd/non-unique-labels": "error",
-		"mediawiki-cpd/non-unique-participant-labels": "error"
+		"mediawiki-cpd/non-unique-participant-labels": "error",
+		"mediawiki-cpd/label-required-except-gateways": "error",
+		"label-required": "off"
 	}
 }

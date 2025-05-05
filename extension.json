@@ -490,8 +490,6 @@
 		},
 		"CPDDedicatedSubpageTypes": {
 			"value": [
-				"bpmn:Gateway",
-				"bpmn:ExclusiveGateway",
 				"bpmn:Task",
 				"bpmn:StartEvent",
 				"bpmn:EndEvent"

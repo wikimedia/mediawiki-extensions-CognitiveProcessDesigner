@@ -27,7 +27,7 @@ function getAugmentedNamespace(n) {
  *
  * @return {Boolean}
  */
-function is$m(node, type) {
+function is$l(node, type) {
 
   if (type.indexOf(':') === -1) {
     type = 'bpmn:' + type;
@@ -50,13 +50,13 @@ function is$m(node, type) {
  */
 function isAny$c(node, types) {
   return types.some(function(type) {
-    return is$m(node, type);
+    return is$l(node, type);
   });
 }
 
 var index_esm = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	is: is$m,
+	is: is$l,
 	isAny: isAny$c
 });
 
@@ -65,7 +65,7 @@ var require$$0 = /*@__PURE__*/getAugmentedNamespace(index_esm);
 var helper = {};
 
 const {
-  is: is$l
+  is: is$k
 } = require$$0;
 
 /**
@@ -92,12 +92,12 @@ function checkDiscouragedNodeType$2(type, ruleName) {
 
     function check(node, reporter) {
 
-      if (is$l(node, type)) {
+      if (is$k(node, type)) {
         reporter.report(node.id, 'Element type <' + type + '> is discouraged');
       }
     }
 
-    return annotateRule$m(ruleName, {
+    return annotateRule$l(ruleName, {
       check
     });
 
@@ -127,7 +127,7 @@ function findParent$1(node, type) {
     return node;
   }
 
-  if (is$l(parent, type)) {
+  if (is$k(parent, type)) {
     return parent;
   }
 
@@ -147,7 +147,7 @@ const documentationBaseUrl = 'https://github.com/bpmn-io/bpmnlint/blob/main/docs
  *
  * @return {RuleDefinition}
  */
-function annotateRule$m(ruleName, options) {
+function annotateRule$l(ruleName, options) {
 
   const {
     meta: {
@@ -171,15 +171,15 @@ function annotateRule$m(ruleName, options) {
   };
 }
 
-helper.annotateRule = annotateRule$m;
+helper.annotateRule = annotateRule$l;
 
 const {
-  is: is$k,
+  is: is$j,
   isAny: isAny$b
 } = require$$0;
 
 const {
-  annotateRule: annotateRule$l
+  annotateRule: annotateRule$k
 } = helper;
 
 
@@ -195,7 +195,7 @@ var adHocSubProcess = function() {
 
   function check(node, reporter) {
 
-    if (!is$k(node, 'bpmn:AdHocSubProcess')) {
+    if (!is$j(node, 'bpmn:AdHocSubProcess')) {
       return;
     }
 
@@ -203,11 +203,11 @@ var adHocSubProcess = function() {
 
     flowElements.forEach(function(flowElement) {
 
-      if (is$k(flowElement, 'bpmn:StartEvent')) {
+      if (is$j(flowElement, 'bpmn:StartEvent')) {
         reporter.report(flowElement.id, 'A <Start Event> is not allowed in <Ad Hoc Sub Process>');
       }
 
-      if (is$k(flowElement, 'bpmn:EndEvent')) {
+      if (is$j(flowElement, 'bpmn:EndEvent')) {
         reporter.report(flowElement.id, 'An <End Event> is not allowed in <Ad Hoc Sub Process>');
       }
 
@@ -220,14 +220,14 @@ var adHocSubProcess = function() {
     });
   }
 
-  return annotateRule$l('ad-hoc-sub-process', {
+  return annotateRule$k('ad-hoc-sub-process', {
     check
   });
 
 };
 
 const {
-  annotateRule: annotateRule$k
+  annotateRule: annotateRule$j
 } = helper;
 
 
@@ -260,7 +260,7 @@ var conditionalFlows = function() {
     });
   }
 
-  return annotateRule$k('conditional-flows', {
+  return annotateRule$j('conditional-flows', {
     check
   });
 
@@ -286,12 +286,12 @@ function isDefaultFlow$1(node, flow) {
 }
 
 const {
-  is: is$j,
+  is: is$i,
   isAny: isAny$a
 } = require$$0;
 
 const {
-  annotateRule: annotateRule$j
+  annotateRule: annotateRule$i
 } = helper;
 
 
@@ -306,7 +306,7 @@ var endEventRequired = function() {
     const flowElements = node.flowElements || [];
 
     return (
-      flowElements.some(node => is$j(node, 'bpmn:EndEvent'))
+      flowElements.some(node => is$i(node, 'bpmn:EndEvent'))
     );
   }
 
@@ -315,28 +315,28 @@ var endEventRequired = function() {
     if (!isAny$a(node, [
       'bpmn:Process',
       'bpmn:SubProcess'
-    ]) || is$j(node, 'bpmn:AdHocSubProcess')) {
+    ]) || is$i(node, 'bpmn:AdHocSubProcess')) {
       return;
     }
 
     if (!hasEndEvent(node)) {
-      const type = is$j(node, 'bpmn:SubProcess') ? 'Sub process' : 'Process';
+      const type = is$i(node, 'bpmn:SubProcess') ? 'Sub process' : 'Process';
 
       reporter.report(node.id, type + ' is missing end event');
     }
   }
 
-  return annotateRule$j('end-event-required', {
+  return annotateRule$i('end-event-required', {
     check
   });
 };
 
 const {
-  is: is$i
+  is: is$h
 } = require$$0;
 
 const {
-  annotateRule: annotateRule$i
+  annotateRule: annotateRule$h
 } = helper;
 
 
@@ -350,7 +350,7 @@ var eventSubProcessTypedStartEvent = function() {
 
   function check(node, reporter) {
 
-    if (!is$i(node, 'bpmn:SubProcess') || !node.triggeredByEvent) {
+    if (!is$h(node, 'bpmn:SubProcess') || !node.triggeredByEvent) {
       return;
     }
 
@@ -358,7 +358,7 @@ var eventSubProcessTypedStartEvent = function() {
 
     flowElements.forEach(function(flowElement) {
 
-      if (!is$i(flowElement, 'bpmn:StartEvent')) {
+      if (!is$h(flowElement, 'bpmn:StartEvent')) {
         return false;
       }
 
@@ -370,7 +370,7 @@ var eventSubProcessTypedStartEvent = function() {
     });
   }
 
-  return annotateRule$i('event-sub-process-typed-start-event', {
+  return annotateRule$h('event-sub-process-typed-start-event', {
     check
   });
 
@@ -381,7 +381,7 @@ const {
 } = require$$0;
 
 const {
-  annotateRule: annotateRule$h
+  annotateRule: annotateRule$g
 } = helper;
 
 
@@ -412,19 +412,19 @@ var fakeJoin = function() {
     }
   }
 
-  return annotateRule$h('fake-join', {
+  return annotateRule$g('fake-join', {
     check
   });
 
 };
 
 const {
-  is: is$h,
+  is: is$g,
   isAny: isAny$8
 } = require$$0;
 
 const {
-  annotateRule: annotateRule$g
+  annotateRule: annotateRule$f
 } = helper;
 
 
@@ -450,7 +450,7 @@ var global = function() {
 
   function check(node, reporter) {
 
-    if (!is$h(node, 'bpmn:Definitions')) {
+    if (!is$g(node, 'bpmn:Definitions')) {
       return false;
     }
 
@@ -474,7 +474,7 @@ var global = function() {
 
   }
 
-  return annotateRule$g('global', {
+  return annotateRule$f('global', {
     check
   });
 
@@ -488,19 +488,19 @@ var global = function() {
     const referencingElements = [];
 
     function traverse(element) {
-      if (is$h(element, 'bpmn:Definitions') && element.get('rootElements').length) {
+      if (is$g(element, 'bpmn:Definitions') && element.get('rootElements').length) {
         element.get('rootElements').forEach(traverse);
       }
 
-      if (is$h(element, 'bpmn:FlowElementsContainer') && element.get('flowElements').length) {
+      if (is$g(element, 'bpmn:FlowElementsContainer') && element.get('flowElements').length) {
         element.get('flowElements').forEach(traverse);
       }
 
-      if (is$h(element, 'bpmn:Event') && element.get('eventDefinitions').length) {
+      if (is$g(element, 'bpmn:Event') && element.get('eventDefinitions').length) {
         element.get('eventDefinitions').forEach(eventDefinition => referencingElements.push(eventDefinition));
       }
 
-      if (is$h(element, 'bpmn:Collaboration') && element.get('messageFlows').length) {
+      if (is$g(element, 'bpmn:Collaboration') && element.get('messageFlows').length) {
         element.get('messageFlows').forEach(traverse);
       }
 
@@ -525,21 +525,21 @@ var global = function() {
   }
 
   function isReferenced(rootElement, referencingElements) {
-    if (is$h(rootElement, 'bpmn:Error')) {
+    if (is$g(rootElement, 'bpmn:Error')) {
       return referencingElements.some(referencingElement => {
-        return is$h(referencingElement, 'bpmn:ErrorEventDefinition')
+        return is$g(referencingElement, 'bpmn:ErrorEventDefinition')
           && rootElement.get('id') === referencingElement.get('errorRef')?.get('id');
       });
     }
 
-    if (is$h(rootElement, 'bpmn:Escalation')) {
+    if (is$g(rootElement, 'bpmn:Escalation')) {
       return referencingElements.some(referencingElement => {
-        return is$h(referencingElement, 'bpmn:EscalationEventDefinition')
+        return is$g(referencingElement, 'bpmn:EscalationEventDefinition')
           && rootElement.get('id') === referencingElement.get('escalationRef')?.get('id');
       });
     }
 
-    if (is$h(rootElement, 'bpmn:Message')) {
+    if (is$g(rootElement, 'bpmn:Message')) {
       return referencingElements.some(referencingElement => {
         return isAny$8(referencingElement, [
           'bpmn:MessageEventDefinition',
@@ -550,9 +550,9 @@ var global = function() {
       });
     }
 
-    if (is$h(rootElement, 'bpmn:Signal')) {
+    if (is$g(rootElement, 'bpmn:Signal')) {
       return referencingElements.some(referencingElement => {
-        return is$h(referencingElement, 'bpmn:SignalEventDefinition')
+        return is$g(referencingElement, 'bpmn:SignalEventDefinition')
           && rootElement.get('id') === referencingElement.get('signalRef')?.get('id');
       });
     }
@@ -560,87 +560,10 @@ var global = function() {
 
   function isUnique(rootElement, rootElements) {
     return (
-      rootElements.filter(otherRootElement => is$h(otherRootElement, rootElement.$type) && rootElement.name === otherRootElement.name).length === 1
+      rootElements.filter(otherRootElement => is$g(otherRootElement, rootElement.$type) && rootElement.name === otherRootElement.name).length === 1
     );
   }
 };
-
-const {
-  is: is$g,
-  isAny: isAny$7
-} = require$$0;
-
-const {
-  annotateRule: annotateRule$f
-} = helper;
-
-
-/**
- * A rule that checks the presence of a label.
- *
- * @type { import('../lib/types.js').RuleFactory }
- */
-var labelRequired = function() {
-
-  function check(node, reporter) {
-
-    if (isAny$7(node, [
-      'bpmn:ParallelGateway',
-      'bpmn:EventBasedGateway'
-    ])) {
-      return;
-    }
-
-    // ignore joining gateways
-    if (is$g(node, 'bpmn:Gateway') && !isForking(node)) {
-      return;
-    }
-
-    // ignore sub-processes
-    if (is$g(node, 'bpmn:SubProcess')) {
-
-      // TODO(nikku): better ignore expanded sub-processes only
-      return;
-    }
-
-    // ignore sequence flow without condition
-    if (is$g(node, 'bpmn:SequenceFlow') && !hasCondition$1(node)) {
-      return;
-    }
-
-    // ignore data objects and artifacts for now
-    if (isAny$7(node, [
-      'bpmn:FlowNode',
-      'bpmn:SequenceFlow',
-      'bpmn:Participant',
-      'bpmn:Lane'
-    ])) {
-
-      const name = (node.name || '').trim();
-
-      if (name.length === 0) {
-        reporter.report(node.id, 'Element is missing label/name', [ 'name' ]);
-      }
-    }
-  }
-
-  return annotateRule$f('label-required', {
-    check
-  });
-};
-
-
-// helpers ////////////////////////
-
-function isForking(node) {
-  const outgoing = node.outgoing || [];
-
-  return outgoing.length > 1;
-}
-
-function hasCondition$1(node) {
-  return node.conditionExpression;
-}
 
 var dist = {};
 
@@ -1824,7 +1747,7 @@ const checkDiscouragedNodeType$1 = helper.checkDiscouragedNodeType;
 var noComplexGateway = checkDiscouragedNodeType$1('bpmn:ComplexGateway', 'no-complex-gateway');
 
 const {
-  isAny: isAny$6,
+  isAny: isAny$7,
   is: is$d
 } = require$$0;
 
@@ -1843,7 +1766,7 @@ var noDisconnected = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$6(node, [
+    if (!isAny$7(node, [
       'bpmn:Task',
       'bpmn:Gateway',
       'bpmn:SubProcess',
@@ -2011,7 +1934,7 @@ var noGatewayJoinFork = function() {
 };
 
 const {
-  isAny: isAny$5
+  isAny: isAny$6
 } = require$$0;
 
 const {
@@ -2032,7 +1955,7 @@ var noImplicitSplit = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$5(node, [
+    if (!isAny$6(node, [
       'bpmn:Activity',
       'bpmn:Event'
     ])) {
@@ -2042,7 +1965,7 @@ var noImplicitSplit = function() {
     const outgoing = node.outgoing || [];
 
     const outgoingWithoutCondition = outgoing.filter((flow) => {
-      return !hasCondition(flow) && !isDefaultFlow(node, flow);
+      return !hasCondition$1(flow) && !isDefaultFlow(node, flow);
     });
 
     if (outgoingWithoutCondition.length > 1) {
@@ -2059,7 +1982,7 @@ var noImplicitSplit = function() {
 
 // helpers /////////////////////////////
 
-function hasCondition(flow) {
+function hasCondition$1(flow) {
   return !!flow.conditionExpression;
 }
 
@@ -2069,7 +1992,7 @@ function isDefaultFlow(node, flow) {
 
 const {
   is: is$a,
-  isAny: isAny$4
+  isAny: isAny$5
 } = require$$0;
 
 const {
@@ -2149,7 +2072,7 @@ var noImplicitEnd = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$4(node, [ 'bpmn:Event', 'bpmn:Activity', 'bpmn:Gateway' ])) {
+    if (!isAny$5(node, [ 'bpmn:Event', 'bpmn:Activity', 'bpmn:Gateway' ])) {
       return;
     }
 
@@ -2165,7 +2088,7 @@ var noImplicitEnd = function() {
 
 const {
   is: is$9,
-  isAny: isAny$3
+  isAny: isAny$4
 } = require$$0;
 
 const {
@@ -2202,7 +2125,7 @@ var noImplicitStart = function() {
       return false;
     }
 
-    if (isAny$3(node, [ 'bpmn:StartEvent', 'bpmn:BoundaryEvent' ])) {
+    if (isAny$4(node, [ 'bpmn:StartEvent', 'bpmn:BoundaryEvent' ])) {
       return false;
     }
 
@@ -2211,7 +2134,7 @@ var noImplicitStart = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$3(node, [ 'bpmn:Event', 'bpmn:Activity', 'bpmn:Gateway' ])) {
+    if (!isAny$4(node, [ 'bpmn:Event', 'bpmn:Activity', 'bpmn:Gateway' ])) {
       return;
     }
 
@@ -2512,7 +2435,7 @@ var singleEventDefinition = function() {
 
 const {
   is: is$5,
-  isAny: isAny$2
+  isAny: isAny$3
 } = require$$0;
 
 const {
@@ -2537,7 +2460,7 @@ var startEventRequired = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$2(node, [
+    if (!isAny$3(node, [
       'bpmn:Process',
       'bpmn:SubProcess'
     ]) || is$5(node, 'bpmn:AdHocSubProcess')) {
@@ -2641,7 +2564,7 @@ var superfluousGateway = function() {
 
 const {
   is: is$2,
-  isAny: isAny$1
+  isAny: isAny$2
 } = require$$0;
 
 const {
@@ -2660,7 +2583,7 @@ var superfluousTermination = function() {
 
   function check(node, reporter) {
 
-    if (!isAny$1(node, [ 'bpmn:Process', 'bpmn:SubProcess' ])) {
+    if (!isAny$2(node, [ 'bpmn:Process', 'bpmn:SubProcess' ])) {
       return;
     }
 
@@ -2712,35 +2635,7 @@ function isInterruptingEventSub(element) {
 }
 
 const {
-	is: is$1
-} = require$$0;
-
-/**
- * Rule that reports gateways without labels.
- *
- * Attention: run npm install and commit changed bpmn-lint.config.js after changing this file.
- *
- * @return {Object}
- */
-var missingGatewayLabel = function () {
-
-	function check( node, reporter ) {
-		if ( !is$1( node, 'bpmn:Gateway' ) ) {
-			return;
-		}
-
-		const name = ( node.name || '' ).trim();
-
-		if ( name.length === 0 ) {
-			reporter.report( node.id, 'Element is missing label/name', [ 'name' ] );
-		}
-	}
-
-	return { check };
-};
-
-const {
-	isAny
+	isAny: isAny$1
 } = require$$0;
 
 /**
@@ -2753,7 +2648,7 @@ const {
 var nonUniqueLabels = function () {
 
 	function check( node, reporter ) {
-		if ( !isAny( node, [ 'bpmn:Process', 'bpmn:SubProcess' ] ) ) {
+		if ( !isAny$1( node, [ 'bpmn:Process', 'bpmn:SubProcess' ] ) ) {
 			return;
 		}
 
@@ -2777,7 +2672,7 @@ var nonUniqueLabels = function () {
 };
 
 const {
-	is
+	is: is$1
 } = require$$0;
 
 /**
@@ -2790,7 +2685,7 @@ const {
 var nonUniqueParticipantLabels = function () {
 
 	function check( node, reporter ) {
-		if ( !is( node, 'bpmn:Collaboration' ) ) {
+		if ( !is$1( node, 'bpmn:Collaboration' ) ) {
 			return;
 		}
 
@@ -2812,6 +2707,63 @@ var nonUniqueParticipantLabels = function () {
 
 	return { check };
 };
+
+const {
+	is,
+	isAny
+} = require$$0;
+
+/**
+ * A rule that checks the presence of a label.
+ *
+ * @type { import('../lib/types.js').RuleFactory }
+ */
+var labelRequiredExceptGateways = function() {
+
+	function check(node, reporter) {
+
+		if (isAny(node, [
+			'bpmn:ParallelGateway',
+			'bpmn:EventBasedGateway',
+			'bpmn:Gateway'
+		])) {
+			return;
+		}
+
+		// ignore sub-processes
+		if (is(node, 'bpmn:SubProcess')) {
+
+			// TODO(nikku): better ignore expanded sub-processes only
+			return;
+		}
+
+		// ignore sequence flow without condition
+		if (is(node, 'bpmn:SequenceFlow') && !hasCondition(node)) {
+			return;
+		}
+
+		// ignore data objects and artifacts for now
+		if (isAny(node, [
+			'bpmn:FlowNode',
+			'bpmn:SequenceFlow',
+			'bpmn:Participant',
+			'bpmn:Lane'
+		])) {
+
+			const name = (node.name || '').trim();
+
+			if (name.length === 0) {
+				reporter.report(node.id, 'Element is missing label/name', [ 'name' ]);
+			}
+		}
+	}
+
+	return { check };
+};
+
+function hasCondition(node) {
+	return node.conditionExpression;
+}
 
 const cache = {};
 
@@ -2849,7 +2801,7 @@ const rules = {
   "event-sub-process-typed-start-event": "error",
   "fake-join": "warn",
   "global": "warn",
-  "label-required": "error",
+  "label-required": 0,
   "link-event": "error",
   "no-bpmndi": "error",
   "no-complex-gateway": "error",
@@ -2867,9 +2819,9 @@ const rules = {
   "sub-process-blank-start-event": "error",
   "superfluous-gateway": "warn",
   "superfluous-termination": "warn",
-  "mediawiki-cpd/missing-gateway-label": "error",
   "mediawiki-cpd/non-unique-labels": "error",
-  "mediawiki-cpd/non-unique-participant-labels": "error"
+  "mediawiki-cpd/non-unique-participant-labels": "error",
+  "mediawiki-cpd/label-required-except-gateways": "error"
 };
 
 const config = {
@@ -2892,8 +2844,6 @@ cache['bpmnlint/event-sub-process-typed-start-event'] = eventSubProcessTypedStar
 cache['bpmnlint/fake-join'] = fakeJoin;
 
 cache['bpmnlint/global'] = global;
-
-cache['bpmnlint/label-required'] = labelRequired;
 
 cache['bpmnlint/link-event'] = linkEvent;
 
@@ -2929,10 +2879,10 @@ cache['bpmnlint/superfluous-gateway'] = superfluousGateway;
 
 cache['bpmnlint/superfluous-termination'] = superfluousTermination;
 
-cache['bpmnlint-plugin-mediawiki-cpd/missing-gateway-label'] = missingGatewayLabel;
-
 cache['bpmnlint-plugin-mediawiki-cpd/non-unique-labels'] = nonUniqueLabels;
 
 cache['bpmnlint-plugin-mediawiki-cpd/non-unique-participant-labels'] = nonUniqueParticipantLabels;
+
+cache['bpmnlint-plugin-mediawiki-cpd/label-required-except-gateways'] = labelRequiredExceptGateways;
 
 export { config, bundle as default, resolver };
