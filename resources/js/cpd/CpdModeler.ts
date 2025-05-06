@@ -117,7 +117,12 @@ class CpdModeler extends CpdTool {
 	}
 
 	private onCancel(): void {
-		window.open( mw.util.getUrl( mw.config.get( "wgPageName" ) ), "_self" );
+		OO.ui.confirm( mw.message( 'cpd-cancel-confirm' ).text() )
+			.done( ( confirmed ) => {
+				if ( confirmed ) {
+					window.open( mw.util.getUrl( mw.config.get( "wgPageName" ) ), "_self" );
+				}
+			} );
 	}
 
 	private async onSave( withPages: boolean ): Promise<void> {

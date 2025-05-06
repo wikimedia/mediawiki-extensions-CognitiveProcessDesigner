@@ -120,5 +120,6 @@
 	"cpd-description-navigation-incoming-label": "Incoming connections",
 	"cpd-description-navigation-outgoing-label": "Outgoing connections",
 	"cpd-button-show-diagram": "Show diagram",
-	"cpd-error-xml-parse-error": "Error parsing XML"
+	"cpd-error-xml-parse-error": "Error parsing XML",
+	"cpd-cancel-confirm": "Are you sure you want to cancel the edit? All unsaved changes will be lost."
 }
