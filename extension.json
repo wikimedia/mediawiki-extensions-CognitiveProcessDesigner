@@ -495,13 +495,6 @@
 				"bpmn:EndEvent"
 			]
 		},
-		"CPDLaneTypes": {
-			"value": [
-				"bpmn:Pool",
-				"bpmn:Participant",
-				"bpmn:Lane"
-			]
-		},
 		"CPDPageTemplates": {
 			"value": {
 				"*": "Template:CPD/GenericBPMN",

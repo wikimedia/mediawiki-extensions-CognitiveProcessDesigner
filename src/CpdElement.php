@@ -17,7 +17,6 @@ class CpdElement implements JsonSerializable {
 	 * @param Title|null $oldDescriptionPage
 	 * @param array $incomingLinks
 	 * @param array $outgoingLinks
-	 * @param CpdElement|null $parent
 	 */
 	private function __construct(
 		private readonly string $id,
@@ -26,29 +25,23 @@ class CpdElement implements JsonSerializable {
 		private readonly ?Title $descriptionPage = null,
 		private readonly ?Title $oldDescriptionPage = null,
 		private readonly array $incomingLinks = [],
-		private readonly array $outgoingLinks = [],
-		private readonly ?CpdElement $parent = null
+		private readonly array $outgoingLinks = []
 	) {
 	}
 
 	/**
 	 * @param array $element
-	 * @param bool $isParent
 	 *
 	 * @return CpdElement
 	 * @throws CpdCreateElementException
 	 */
-	public static function fromElementJson( array $element, bool $isParent = false ): CpdElement {
-		// Validate the JSON data only if it is not a parent element
-		if ( !$isParent ) {
-			self::validateJson(
-				$element['id'],
-				$element['type'],
-				$element['label']
-			);
-		}
+	public static function fromElementJson( array $element ): CpdElement {
+		self::validateJson(
+			$element['id'],
+			$element['type'],
+			$element['label']
+		);
 
-		$parent = !empty( $element['parent'] ) ? self::fromElementJson( $element['parent'], true ) : null;
 		$incomingLinks = !empty( $element['incomingLinks'] ) ? array_map( fn ( $link ) => self::fromElementJson( $link ),
 			$element['incomingLinks'] ) : [];
 		$outgoingLinks = !empty( $element['outgoingLinks'] ) ? array_map( fn ( $link ) => self::fromElementJson( $link ),
@@ -61,8 +54,7 @@ class CpdElement implements JsonSerializable {
 			!empty( $element['descriptionPage'] ) ? Title::newFromDBkey( $element['descriptionPage'] ) : null,
 			!empty( $element['oldDescriptionPage'] ) ? Title::newFromDBkey( $element['oldDescriptionPage'] ) : null,
 			$incomingLinks,
-			$outgoingLinks,
-			$parent
+			$outgoingLinks
 		);
 	}
 
@@ -85,13 +77,6 @@ class CpdElement implements JsonSerializable {
 	 */
 	public function getLabel(): ?string {
 		return $this->label;
-	}
-
-	/**
-	 * @return CpdElement|null
-	 */
-	public function getParent(): ?CpdElement {
-		return $this->parent;
 	}
 
 	/**

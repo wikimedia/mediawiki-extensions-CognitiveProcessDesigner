@@ -30,22 +30,7 @@ export default class CpdElement {
 		label = label.replace( /\n/g, ' ' );
 		return label;
 	}
-
 	set label( label: string ) {
 		this.bpmnElement.businessObject.name = label;
-	}
-
-	get parent(): CpdElement | null {
-		// Ignore bpmn collaboration type
-		if ( this.bpmnElement.parent?.type === 'bpmn:Collaboration' ) {
-			return null;
-		}
-
-		return this.bpmnElement.parent ?
-			new CpdElement( this.bpmnElement.parent as Element ) : null;
-	}
-
-	set parent( parent: CpdElement | null ) {
-		this.bpmnElement.parent = parent?.bpmnElement;
 	}
 }
