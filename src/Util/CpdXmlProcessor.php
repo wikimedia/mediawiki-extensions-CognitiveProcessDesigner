@@ -81,7 +81,6 @@ class CpdXmlProcessor {
 	}
 
 	/**
-	 * @param string $process
 	 * @param string $xmlString
 	 *
 	 * @return array

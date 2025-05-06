@@ -33,8 +33,8 @@ class LoadCpdDiagram extends ApiBase {
 
 	/**
 	 * @inheritDoc
+	 *
 	 * @throws ApiUsageException
-	 * @throws CpdXmlProcessingException
 	 * @throws CpdCreateElementException
 	 * @throws CpdInvalidArgumentException
 	 */
@@ -67,18 +67,20 @@ class LoadCpdDiagram extends ApiBase {
 				$xml,
 				array_map( static fn ( $element ) => json_encode( $element ), $cpdElements ),
 				$svgFile?->getUrl(),
+				$revisionId,
 				$warnings
 			);
 		} catch ( CpdInvalidContentException $e ) {
-			$this->setResultValues( null, [], null, [] );
+			$this->setResultValues( null, [], null, null, [] );
 		}
 	}
 
-	private function setResultValues( ?string $xml, array $elements, ?string $svgFile, array $loadWarnings ): void {
+	private function setResultValues( ?string $xml, array $elements, ?string $svgFile, ?int $revId, array $loadWarnings ): void {
 		$result = $this->getResult();
 		$result->addValue( null, 'xml', $xml );
 		$result->addValue( null, 'elements', $elements );
 		$result->addValue( null, 'svgFile', $svgFile );
+		$result->addValue( null, 'revId', $revId );
 		$result->addValue( null, 'loadWarnings', $loadWarnings );
 	}
 

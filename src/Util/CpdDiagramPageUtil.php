@@ -132,6 +132,11 @@ class CpdDiagramPageUtil {
 	public function getXml( string $process, ?int $revId = null ): string {
 		if ( $revId ) {
 			$revision = $this->lookup->getRevisionById( $revId );
+
+			if ( !$revision ) {
+				return '';
+			}
+
 			$content = $revision->getContent( 'main' );
 
 			if ( !$content ) {
@@ -454,6 +459,10 @@ class CpdDiagramPageUtil {
 				'cpdReturnToQueryParam',
 				ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
 			);
+			$output->addJsConfigVars(
+				'cpdRevisionQueryParam',
+				ModifyDescriptionPage::REVISION_QUERY_PARAM
+			);
 
 			if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {
 				$types = $this->config->get( 'CPDDedicatedSubpageTypes' );
@@ -474,6 +483,10 @@ class CpdDiagramPageUtil {
 		$output->setJsConfigVar(
 			'cpdReturnToQueryParam',
 			ModifyDescriptionPage::RETURN_TO_QUERY_PARAM
+		);
+		$output->setJsConfigVar(
+			'cpdRevisionQueryParam',
+			ModifyDescriptionPage::REVISION_QUERY_PARAM
 		);
 
 		if ( $this->config->has( 'CPDDedicatedSubpageTypes' ) ) {

@@ -65,10 +65,10 @@ export default class CpdViewer extends CpdTool {
 		await this.attachToCanvas();
 
 		this.dom.setSvgLink( pageContent.svgFile );
-		this.updateDescriptionPageElements( pageContent.elements );
+		this.updateDescriptionPageElements( pageContent.elements, pageContent.revId );
 	}
 
-	private updateDescriptionPageElements( initialElements: CpdElementJson[] ): void {
+	private updateDescriptionPageElements( initialElements: CpdElementJson[], revId: number|null ): void {
 		const cpdElements = this.elementFactory.createDescriptionPageEligibleElements();
 
 		const findDescriptionPage = ( id: string ): string | null => {
@@ -93,7 +93,7 @@ export default class CpdViewer extends CpdTool {
 				return;
 			}
 
-			window.open( this.createDescriptionPageLink( descriptionPage, mw.config.get( "wgPageName" ) ), "_blank" );
+			window.open( this.createDescriptionPageLink( descriptionPage, mw.config.get( "wgPageName" ), revId ), "_blank" );
 		} );
 
 		cpdElements.forEach( ( element: CpdElement ): void => {
@@ -106,12 +106,17 @@ export default class CpdViewer extends CpdTool {
 		} );
 	}
 
-	private createDescriptionPageLink( descriptionPage: string, returnToParam: string = "" ): string {
-		if ( returnToParam === "" ) {
-			return mw.util.getUrl( descriptionPage );
+	private createDescriptionPageLink( descriptionPage: string, returnToParam: string = "", revId: number|null ): string {
+		const params = {};
+		if ( returnToParam !== "" ) {
+			params[mw.config.get( "cpdReturnToQueryParam" ) as string] = returnToParam;
 		}
 
-		return mw.util.getUrl( descriptionPage, { [ mw.config.get( "cpdReturnToQueryParam" ) as string ]: returnToParam } );
+		if ( revId ) {
+			params[mw.config.get( "cpdRevisionQueryParam" ) as string] = revId;
+		}
+
+		return mw.util.getUrl( descriptionPage, params );
 	}
 
 	private async onShowXml(): Promise<void> {
