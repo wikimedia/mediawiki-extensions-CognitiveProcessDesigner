@@ -18,7 +18,10 @@ class CpdXmlProcessor {
 	private array $dedicatedSubpageTypes = [];
 
 	/** @var array */
-	private array $laneTypes = [];
+	private array $laneTypes = [
+		'participant',
+		'lane'
+	];
 
 	/**
 	 * bpmn:Definitions
@@ -49,11 +52,6 @@ class CpdXmlProcessor {
 		if ( $config->has( 'CPDDedicatedSubpageTypes' ) ) {
 			$this->dedicatedSubpageTypes = $config->get( 'CPDDedicatedSubpageTypes' );
 		}
-
-		$this->laneTypes = [];
-		if ( $config->has( 'CPDLaneTypes' ) ) {
-			$this->laneTypes = $config->get( 'CPDLaneTypes' );
-		}
 	}
 
 	/**
@@ -70,80 +68,143 @@ class CpdXmlProcessor {
 			return [];
 		}
 
-		$elementsData = $this->createAllElementsData( $xmlString );
-		$descriptionPageElements = $this->updateDescriptionPageElements( $elementsData, $process );
+		$descriptionPageElements = $this->createDescriptionPageElements( $xmlString, $process );
 
 		if ( $oldXmlString ) {
 			$this->setOldDescriptionPages( $process, $oldXmlString, $descriptionPageElements );
 		}
 
-		return $this->cpdElementFactory->makeElements( array_values( $descriptionPageElements ) );
+		return $this->cpdElementFactory->makeElements( $descriptionPageElements );
+	}
+
+	private function extractDescriptionPageElements( SimpleXMLElement $xml ): array {
+		$descriptionPageElements = [];
+		$elementsQuery = implode(
+			" or ",
+			array_map(
+				static fn ( $type ) => 'local-name() = "' . lcfirst( str_replace( 'bpmn:', '', $type ) ) . '"',
+				$this->dedicatedSubpageTypes
+			)
+		);
+
+		$participantNames = [];
+		$xmlParticipants = $xml->xpath( '//bpmn:participant' );
+		foreach ( $xmlParticipants as $xmlParticipant ) {
+			$attributes = $xmlParticipant->attributes();
+			$processId = (string)$attributes->processRef;
+			$participantNames[ $processId ] = (string)$attributes->name;
+		}
+
+		$processes = $xml->xpath( '//bpmn:process' );
+		foreach ( $processes as $process ) {
+			$processId = (string)$process->attributes()->id;
+
+			$lanes = [];
+			$laneSets = $process->xpath( './/bpmn:laneSet' );
+			if ( !empty( $laneSets ) ) {
+				$this->extractLanes( $laneSets[0], $lanes );
+			}
+
+			$elements = $process->xpath( './/bpmn:*[' . $elementsQuery . ']' );
+
+			foreach ( $elements as $element ) {
+				$type = 'bpmn:' . ucfirst( $element->getName() );
+				$attributes = $element->attributes();
+				$id = (string)$attributes->id;
+				$name = (string)$attributes->name;
+				$parents = [];
+
+				if ( isset( $participantNames[ $processId ] ) ) {
+					$parents[] = $participantNames[ $processId ];
+				}
+
+				if ( isset( $lanes[ $id ] ) ) {
+					$parents = array_merge( $parents, $lanes[ $id ] );
+				}
+
+				$descriptionPageElements[] = [
+					'type' => $type,
+					'id' => $id,
+					'label' => $name,
+					'parents' => $parents
+				];
+			}
+		}
+
+		return $descriptionPageElements;
+	}
+
+	private function extractSequenceFlows( SimpleXMLElement $xml ): array {
+		return array_map( function ( SimpleXMLElement $xmlSequenceFlow ) {
+			$attributes = $xmlSequenceFlow->attributes();
+
+			return [
+				'sourceRef' => (string)$attributes->sourceRef,
+				'targetRef' => (string)$attributes->targetRef
+			];
+		}, $xml->xpath( '//bpmn:sequenceFlow' ) );
+	}
+
+	/**
+	 * @param SimpleXMLElement $laneSet
+	 * @param array $map
+	 * @param array $parentStack
+	 *
+	 * @return void
+	 */
+	private function extractLanes( SimpleXMLElement $laneSet, array &$map = [], array $parentStack = [] ): void {
+		$ns = $laneSet->getNamespaces( true );
+
+		foreach ( $laneSet->children( $ns['bpmn'] ) as $lane ) {
+			if ( $lane->getName() !== 'lane' ) {
+				continue;
+			}
+
+			$attributes = $lane->attributes();
+			$laneName = (string)$attributes->name;
+			$newStack = array_merge( $parentStack, [ $laneName ] );
+
+			// Process flowNodeRefs
+			foreach ( $lane->children( $ns['bpmn'] ) as $child ) {
+				if ( $child->getName() === 'flowNodeRef' ) {
+					$ref = (string)$child;
+					$map[ $ref ] = $newStack;
+				}
+
+				// Recurse into childLaneSet if present
+				if ( $child->getName() === 'childLaneSet' ) {
+					$this->extractLanes( $child, $map, $newStack );
+				}
+			}
+		}
 	}
 
 	/**
 	 * @param string $xmlString
-	 *
-	 * @return array
-	 * @throws CpdXmlProcessingException
-	 */
-	private function createAllElementsData( string $xmlString ): array {
-		$elementsData = [];
-
-		try {
-			$xml = new SimpleXMLElement( $xmlString );
-		} catch ( Exception $e ) {
-			throw new CpdXmlProcessingException( Message::newFromKey( "cpd-error-xml-parse-error" )->text() );
-		}
-
-		$xml->registerXPathNamespace( 'bpmn', 'http://www.omg.org/spec/BPMN/20100524/MODEL' );
-
-		$excludeTypes = implode( ' and ', array_map(
-			static fn ( $type ) => 'local-name() !="' . str_replace( 'bpmn:', '', $type ) . '"',
-			$this->unusedTypes
-		) );
-
-		$xmlElements = $xml->xpath( '//bpmn:*[' . $excludeTypes . ']' );
-		foreach ( $xmlElements as $xmlElement ) {
-			$type = 'bpmn:' . ucfirst( $xmlElement->getName() );
-			$elementData = [ 'type' => $type ];
-
-			$parents = $xmlElement->xpath( ".." );
-			if ( !empty( $parents ) ) {
-				$parent = $parents[0];
-				$attributes = $parent->attributes();
-				$elementData['parentRef'] = (string)$attributes->id;
-			}
-
-			$attributes = $xmlElement->attributes();
-			foreach ( $attributes as $key => $value ) {
-				$elementData[ $key ] = (string)$value;
-			}
-
-			$elementsData[] = $elementData;
-		}
-
-		return $elementsData;
-	}
-
-	/**
-	 * @param array $elementsData
 	 * @param string $process
 	 *
 	 * @return array
 	 * @throws CpdXmlProcessingException
 	 */
-	private function updateDescriptionPageElements( array $elementsData, string $process ): array {
-		$descriptionPageElements = $this->filterByType( $elementsData, $this->dedicatedSubpageTypes );
-		$parents = $this->filterByType( $elementsData, $this->laneTypes );
+	private function createDescriptionPageElements( string $xmlString, string $process ): array {
+		try {
+			$xml = new SimpleXMLElement( $xmlString );
+			$xml->registerXPathNamespace( 'bpmn', 'http://www.omg.org/spec/BPMN/20100524/MODEL' );
+		} catch ( Exception $e ) {
+			throw new CpdXmlProcessingException( Message::newFromKey( "cpd-error-xml-parse-error" )->text() );
+		}
 
 		// First set all description pages
+		$descriptionPageElements = $this->extractDescriptionPageElements( $xml );
 		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
-			$this->setParent( $descriptionPageElement, $parents );
 			$this->setDescriptionPage( $descriptionPageElement, $process );
 		}
 
 		// Then set all connections
-		$sequenceFlows = CpdSequenceFlowUtil::createSubpageSequenceFlows( $elementsData, $this->dedicatedSubpageTypes );
+		$sequenceFlows = CpdSequenceFlowUtil::fixSubpageSequenceFlows(
+			$this->extractSequenceFlows( $xml ),
+			$descriptionPageElements
+		);
 
 		foreach ( $descriptionPageElements as &$descriptionPageElement ) {
 			$this->setConnections(
@@ -163,8 +224,6 @@ class CpdXmlProcessor {
 				'sourceRef',
 				'targetRef'
 			);
-
-			$this->cleanUpData( $descriptionPageElement );
 		}
 
 		return $descriptionPageElements;
@@ -180,24 +239,6 @@ class CpdXmlProcessor {
 		return array_values(
 			array_filter( $elementsData, static fn ( $elementData ) => in_array( $elementData['type'], $type ) )
 		);
-	}
-
-	/**
-	 * @param array &$descriptionPageElement
-	 * @param array $parents
-	 *
-	 * @return void
-	 */
-	private function setParent( array &$descriptionPageElement, array $parents ): void {
-		foreach ( $parents as $parent ) {
-			if ( empty( $parent['processRef'] ) ) {
-				continue;
-			}
-
-			if ( $descriptionPageElement['parentRef'] === $parent['processRef'] ) {
-				$descriptionPageElement['parent'] = $parent;
-			}
-		}
 	}
 
 	/**
@@ -272,8 +313,7 @@ class CpdXmlProcessor {
 		array &$descriptionPageElements,
 	): void {
 		try {
-			$elementsData = $this->createAllElementsData( $oldXmlString );
-			$oldDescriptionPageElements = $this->updateDescriptionPageElements( $elementsData, $process );
+			$oldDescriptionPageElements = $this->createDescriptionPageElements( $oldXmlString, $process );
 		} catch ( Exception $e ) {
 			// If the old XML string is invalid, we can't set old description pages
 			return;
@@ -303,19 +343,16 @@ class CpdXmlProcessor {
 	 * @throws CpdXmlProcessingException
 	 */
 	private function makeDescriptionPageTitle( string $process, array $element ): string {
-		if ( empty( $element['name'] ) ) {
+		if ( empty( $element['label'] ) ) {
 			throw new CpdXmlProcessingException(
 				Message::newFromKey( "cpd-error-message-missing-label", $element["id"] )->text()
 			);
 		}
 
-		if ( !empty( $element['parent'] ) &&
-			 !empty( $element['parent']['name'] ) &&
-			 in_array( $element['parent']['type'], $this->laneTypes )
-		) {
-			$titleText = "$process/{$element['parent']['name']}/{$element['name']}";
+		if ( empty( $element['parents'] ) ) {
+			$titleText = "{$process}/{$element['label']}";
 		} else {
-			$titleText = "{$process}/{$element['name']}";
+			$titleText = "{$process}/" . implode( "/", $element['parents'] ) . "/{$element['label']}";
 		}
 
 		$titleText = $this->sanitizeTitle( $titleText );
@@ -329,48 +366,6 @@ class CpdXmlProcessor {
 		}
 
 		return $title->getPrefixedDBkey();
-	}
-
-	/**
-	 * Remove temporary and unused fields from the data
-	 *
-	 * @param array &$element
-	 * @param bool $removeParentField
-	 *
-	 * @return void
-	 */
-	private function cleanUpData( array &$element, bool $removeParentField = false ): void {
-		unset( $element['parentRef'] );
-		unset( $element['processRef'] );
-
-		if ( !empty( $element['name'] ) ) {
-			$element['label'] = $element['name'];
-			unset( $element['name'] );
-		}
-
-		if ( !empty( $element['parent'] ) ) {
-			if ( $removeParentField ) {
-				unset( $element['parent'] );
-			} else {
-				$this->cleanUpData( $element['parent'], true );
-			}
-		}
-
-		if ( !empty( $element['incomingLinks'] ) ) {
-			foreach ( $element['incomingLinks'] as &$link ) {
-				$this->cleanUpData( $link, true );
-				unset( $link['incomingLinks'] );
-				unset( $link['outgoingLinks'] );
-			}
-		}
-
-		if ( !empty( $element['outgoingLinks'] ) ) {
-			foreach ( $element['outgoingLinks'] as &$link ) {
-				$this->cleanUpData( $link, true );
-				unset( $link['incomingLinks'] );
-				unset( $link['outgoingLinks'] );
-			}
-		}
 	}
 
 	/**
