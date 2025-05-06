@@ -3,28 +3,30 @@
 namespace CognitiveProcessDesigner\Util;
 
 class CpdSequenceFlowUtil {
+
 	/**
 	 * Creates real sequence flows based on description page eligible elements.
 	 * e.g. skip gateways
 	 *
-	 * @param array $elementsData
-	 * @param array $dedicatedSubpageTypes
+	 * @param array $edges
+	 * @param array $validNodes
 	 *
 	 * @return array
 	 */
-	public static function createSubpageSequenceFlows( array $elementsData, array $dedicatedSubpageTypes ): array {
-		$nodesAndEdges = self::createNodesAndEdges( $elementsData, $dedicatedSubpageTypes );
-		$edges = $nodesAndEdges['edges'];
-		$invalidSet = $nodesAndEdges['nodes'];
+	public static function fixSubpageSequenceFlows( array $edges, array $validNodes ): array {
+		$invalidSet = self::findInvalidNodes( $edges, $validNodes );
 
 		$graph = [];
 		$resultSet = [];
 
-		foreach ( $edges as [$from, $to] ) {
-			$graph[ $from ][] = $to;
+		foreach ( $edges as $edge ) {
+			$graph[ $edge['sourceRef'] ][] = $edge['targetRef'];
 		}
 
-		foreach ( $edges as [$from, $to] ) {
+		foreach ( $edges as $edge ) {
+			$from = $edge['sourceRef'];
+			$to = $edge['targetRef'];
+
 			if ( isset( $invalidSet[ $to ] ) ) {
 				// Follow invalid chain from 'to' to valid targets
 				$visited = [];
@@ -46,7 +48,6 @@ class CpdSequenceFlowUtil {
 
 		return array_map( function ( $edge ) {
 			return [
-				'type' => 'bpmn:SequenceFlow',
 				'sourceRef' => $edge[0],
 				'targetRef' => $edge[1]
 			];
@@ -54,47 +55,27 @@ class CpdSequenceFlowUtil {
 	}
 
 	/**
-	 * Creates nodes and edges for the process.
-	 *
-	 * @param array $elementsData
-	 * @param array $dedicatedSubpageTypes
+	 * @param array $edges
+	 * @param array $validNodes
 	 *
 	 * @return array
 	 */
-	private static function createNodesAndEdges( array $elementsData, array $dedicatedSubpageTypes ): array {
-		$edges = [];
-		$invalidNodes = [];
+	private static function findInvalidNodes( array $edges, array $validNodes ): array {
+		$invalidSet = [];
 
-		foreach ( $elementsData as $elementData ) {
-			if ( empty( $elementData['type'] ) ) {
-				continue;
+		$validIds = array_map( fn ( $node ) => $node['id'], $validNodes );
+
+		foreach ( $edges as $edge ) {
+			if ( !in_array( $edge['sourceRef'], $validIds, true ) ) {
+				$invalidSet[] = $edge['sourceRef'];
 			}
 
-			$type = $elementData['type'];
-
-			if ( $type === 'bpmn:SequenceFlow' ) {
-				$edges[] = [
-					$elementData['sourceRef'],
-					$elementData['targetRef']
-				];
-				continue;
+			if ( !in_array( $edge['targetRef'], $validIds, true ) ) {
+				$invalidSet[] = $edge['targetRef'];
 			}
-
-			if ( empty( $elementData['id'] ) ) {
-				continue;
-			}
-
-			if ( in_array( $type, $dedicatedSubpageTypes ) ) {
-				continue;
-			}
-
-			$invalidNodes[] = $elementData['id'];
 		}
 
-		return [
-			'edges' => $edges,
-			'nodes' => array_flip( $invalidNodes )
-		];
+		return array_flip( array_unique( $invalidSet ) );
 	}
 
 	/**
