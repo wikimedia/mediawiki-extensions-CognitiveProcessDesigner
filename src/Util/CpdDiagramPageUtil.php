@@ -38,6 +38,8 @@ use WikiPage;
 
 class CpdDiagramPageUtil {
 
+	public const CPD_SVG_FILE_EXTENSION = '.cpd.svg';
+
 	/**
 	 * @param TitleFactory $titleFactory
 	 * @param WikiPageFactory $wikiPageFactory
@@ -215,7 +217,7 @@ class CpdDiagramPageUtil {
 	 * @return Title
 	 */
 	public function getSvgFilePage( string $process ): Title {
-		return $this->titleFactory->newFromText( $process . '.cpd.svg', NS_FILE );
+		return $this->titleFactory->newFromText( $process . self::CPD_SVG_FILE_EXTENSION, NS_FILE );
 	}
 
 	/**
