@@ -139,7 +139,7 @@ export class CpdBpmnDiffer {
 		const changes = diff( newRootElement, oldRootElement );
 
 		return {
-			changed: Object.keys( changes._changed ),
+			changed: Object.keys( changes._changed ).concat( Object.keys( changes._layoutChanged ) ),
 			removed: Object.keys( changes._removed ),
 			added: Object.keys( changes._added )
 		}
