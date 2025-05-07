@@ -1,16 +1,17 @@
 import BaseRenderer from "diagram-js/lib/draw/BaseRenderer";
-import EventBus from "diagram-js/lib/core/EventBus";
 import BpmnRenderer from "bpmn-js/lib/draw/BpmnRenderer";
 import CpdElement from "../model/CpdElement";
 import { Shape } from "bpmn-js/lib/model/Types";
 import { ShapeLike } from "bpmn-js/lib/draw/BpmnRenderUtil";
 
 export default class CpdElementsRenderer extends BaseRenderer {
+	// Need to inject due to webpack failing to resolve the dependencies on production mode
+	static $inject = ['eventBus', 'bpmnRenderer'];
 	private static readonly HIGHLIGHT_COLOR = "#36c";
 
 	private bpmnRenderer: BpmnRenderer;
 
-	constructor( eventBus: EventBus, bpmnRenderer: BpmnRenderer ) {
+	constructor( eventBus, bpmnRenderer ) {
 		super( eventBus, 1500 );
 		this.bpmnRenderer = bpmnRenderer;
 	}
