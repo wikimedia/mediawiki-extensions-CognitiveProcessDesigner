@@ -59,6 +59,8 @@ export default class CpdDom extends EventEmitter {
 
 	private xmlContainer: HtmlElement;
 
+	private loadingAnimation: HtmlElement;
+
 	private viewMode: ViewModes;
 
 	private isEdit: boolean = false;
@@ -131,6 +133,7 @@ export default class CpdDom extends EventEmitter {
 		if ( loading ) {
 			this.saveDialog?.pushPending();
 			this.disableButtons();
+			this.loadingAnimation?.show();
 		} else {
 			this.saveDialog?.popPending();
 			this.showXmlBtn?.setDisabled( false );
@@ -139,6 +142,9 @@ export default class CpdDom extends EventEmitter {
 			this.centerViewportBtn?.setDisabled( false );
 			this.openDialogBtn?.setDisabled( false );
 			this.cancelBtn?.setDisabled( false );
+
+			console.log( "Loading finished" );
+			this.loadingAnimation?.hide();
 		}
 	}
 
@@ -255,6 +261,9 @@ export default class CpdDom extends EventEmitter {
 		this.xmlContainer = document.createElement( "div" ) as unknown as HtmlElement;
 		this.declareMethods( this.xmlContainer );
 
+		this.loadingAnimation = document.getElementById('cpd-loading') as unknown as HtmlElement;
+		this.declareMethods( this.loadingAnimation );
+
 		// Reset container if it was already initialized
 		this.container.textContent = "";
 		const showToolbar = this.container.dataset.toolbar;
@@ -264,6 +273,7 @@ export default class CpdDom extends EventEmitter {
 		}
 
 		this.container.append(
+			this.loadingAnimation,
 			this.messageBox,
 			this.canvas,
 			this.xmlContainer
