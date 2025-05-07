@@ -135,7 +135,7 @@ class CpdXmlProcessor {
 	}
 
 	private function extractSequenceFlows( SimpleXMLElement $xml ): array {
-		return array_map( function ( SimpleXMLElement $xmlSequenceFlow ) {
+		return array_map( static function ( SimpleXMLElement $xmlSequenceFlow ) {
 			$attributes = $xmlSequenceFlow->attributes();
 
 			return [
@@ -147,7 +147,7 @@ class CpdXmlProcessor {
 
 	/**
 	 * @param SimpleXMLElement $laneSet
-	 * @param array $map
+	 * @param array &$map
 	 * @param array $parentStack
 	 *
 	 * @return void

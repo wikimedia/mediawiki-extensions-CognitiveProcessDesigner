@@ -9,6 +9,7 @@ use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
+use CognitiveProcessDesigner\HookHandler\ModifyDescriptionPage;
 use MediaWiki\Title\Title;
 
 class CpdElementConnectionUtil {
@@ -25,25 +26,26 @@ class CpdElementConnectionUtil {
 
 	/**
 	 * @param Title $title
+	 * @param int|null $revId
 	 *
 	 * @return array [
 	 * 'incoming' => CpdNavigationConnection[],
 	 * 'outgoing' => CpdNavigationConnection[]
 	 * ]
 	 *
-	 * @throws CpdInvalidNamespaceException
-	 * @throws CpdInvalidContentException
-	 * @throws CpdXmlProcessingException
 	 * @throws CpdCreateElementException
 	 * @throws CpdInvalidArgumentException
+	 * @throws CpdInvalidContentException
+	 * @throws CpdInvalidNamespaceException
+	 * @throws CpdXmlProcessingException
 	 */
-	public function getConnections( Title $title ): array {
+	public function getConnections( Title $title, ?int $revId = null ): array {
 		$connections = [
 			'incoming' => [],
 			'outgoing' => []
 		];
 
-		$element = $this->findElementForPage( $title );
+		$element = $this->findElementForPage( $title, $revId );
 		if ( !$element ) {
 			return $connections;
 		}
@@ -52,14 +54,16 @@ class CpdElementConnectionUtil {
 			$connections['outgoing'][] = $this->createNavigationConnection(
 				$outgoingLink->getDescriptionPage()->getPrefixedDBkey(),
 				$outgoingLink->getType(),
-				$title
+				$title,
+				$revId
 			);
 		}
 		foreach ( $element->getIncomingLinks() as $incomingLink ) {
 			$connections['incoming'][] = $this->createNavigationConnection(
 				$incomingLink->getDescriptionPage()->getPrefixedDBkey(),
 				$incomingLink->getType(),
-				$title
+				$title,
+				$revId
 			);
 		}
 
@@ -68,19 +72,21 @@ class CpdElementConnectionUtil {
 
 	/**
 	 * Find element corresponding to the title
+	 * Use latest revision if revId is not provided
 	 *
 	 * @param Title $title
+	 * @param int|null $revId
 	 *
 	 * @return CpdElement|null
 	 * @throws CpdCreateElementException
+	 * @throws CpdInvalidArgumentException
 	 * @throws CpdInvalidContentException
 	 * @throws CpdInvalidNamespaceException
 	 * @throws CpdXmlProcessingException
-	 * @throws CpdInvalidArgumentException
 	 */
-	private function findElementForPage( Title $title ): CpdElement|null {
+	private function findElementForPage( Title $title, ?int $revId = null ): CpdElement|null {
 		$process = CpdDiagramPageUtil::getProcess( $title );
-		$xml = $this->diagramPageUtil->getXml( CpdDiagramPageUtil::getProcess( $title ) );
+		$xml = $this->diagramPageUtil->getXml( CpdDiagramPageUtil::getProcess( $title ), $revId );
 
 		foreach ( $this->xmlProcessor->createElements( $process, $xml ) as $element ) {
 			if ( $element->getDescriptionPage()->equals( $title ) ) {
@@ -114,15 +120,23 @@ class CpdElementConnectionUtil {
 	 * @param string $dbKey
 	 * @param string $type
 	 * @param Title $source
+	 * @param int|null $revId
 	 *
 	 * @return CpdNavigationConnection
 	 * @throws CpdInvalidNamespaceException
 	 */
-	private function createNavigationConnection( string $dbKey, string $type, Title $source ): CpdNavigationConnection {
+	private function createNavigationConnection(
+		string $dbKey,
+		string $type,
+		Title $source,
+		?int $revId = null
+	): CpdNavigationConnection {
 		$target = Title::newFromDBkey( $dbKey );
+		$queryParam = $revId ? ModifyDescriptionPage::REVISION_QUERY_PARAM . '=' . $revId : '';
+		$link = $target->getFullURL( $queryParam );
+
 		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $target );
 		$isLaneChange = $lanes !== CpdDiagramPageUtil::getLanesFromTitle( $source );
-		$link = $target->getFullURL();
 
 		return new CpdNavigationConnection(
 			self::createConnectionText( $target, $isLaneChange ), $link, $type, $isLaneChange

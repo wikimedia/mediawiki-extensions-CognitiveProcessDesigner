@@ -20,6 +20,7 @@ export interface LoadDiagramResult {
 	elements: CpdElementJson[];
 	descriptionPages: string[];
 	svgFile: string | null;
+	revId: number | null;
 	loadWarnings: string[];
 }
 

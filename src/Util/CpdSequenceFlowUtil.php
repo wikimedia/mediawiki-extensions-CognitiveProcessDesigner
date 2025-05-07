@@ -46,7 +46,7 @@ class CpdSequenceFlowUtil {
 			}
 		}
 
-		return array_map( function ( $edge ) {
+		return array_map( static function ( $edge ) {
 			return [
 				'sourceRef' => $edge[0],
 				'targetRef' => $edge[1]
@@ -63,7 +63,7 @@ class CpdSequenceFlowUtil {
 	private static function findInvalidNodes( array $edges, array $validNodes ): array {
 		$invalidSet = [];
 
-		$validIds = array_map( fn ( $node ) => $node['id'], $validNodes );
+		$validIds = array_map( static fn ( $node ) => $node['id'], $validNodes );
 
 		foreach ( $edges as $edge ) {
 			if ( !in_array( $edge['sourceRef'], $validIds, true ) ) {
@@ -80,9 +80,9 @@ class CpdSequenceFlowUtil {
 
 	/**
 	 * @param string $node
-	 * @param array $graph
-	 * @param array $invalidSet
-	 * @param array $visited
+	 * @param array &$graph
+	 * @param array &$invalidSet
+	 * @param array &$visited
 	 *
 	 * @return array
 	 */
