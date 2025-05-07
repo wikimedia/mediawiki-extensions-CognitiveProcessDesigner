@@ -123,5 +123,6 @@
 	"cpd-description-navigation-incoming-label": "Label for connection table on description page which contains incoming links",
 	"cpd-description-navigation-outgoing-label": "Label for connection table on description page which contains outgoing links",
 	"cpd-button-show-diagram": "Label for button to show diagram",
-	"cpd-error-xml-parse-error": "Error message displayed when parsing XML data fails."
+	"cpd-error-xml-parse-error": "Error message displayed when parsing XML data fails.",
+	"cpd-cancel-confirm": "Confirmation message displayed when canceling an action."
 }
