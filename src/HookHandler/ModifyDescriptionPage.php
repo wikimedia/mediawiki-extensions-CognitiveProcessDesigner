@@ -17,6 +17,7 @@ use MediaWiki\Output\OutputPage;
 
 class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 	public const RETURN_TO_QUERY_PARAM = 'backTo';
+	public const REVISION_QUERY_PARAM = 'rev';
 
 	/** @var TemplateParser */
 	private TemplateParser $templateParser;
@@ -59,7 +60,9 @@ class ModifyDescriptionPage implements OutputPageBeforeHTMLHook {
 			return;
 		}
 
-		$connections = $this->connectionUtil->getConnections( $title );
+		$revId = $out->getRequest()->getVal( self::REVISION_QUERY_PARAM );
+
+		$connections = $this->connectionUtil->getConnections( $title, $revId ? (int)$revId : null );
 
 		$text = $this->createNavigation(
 				$connections['incoming'],

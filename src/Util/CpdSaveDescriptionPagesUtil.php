@@ -143,8 +143,7 @@ class CpdSaveDescriptionPagesUtil {
 		try {
 			$this->movePageFactory->newMovePage( $oldDescriptionPageTitle, $newDescriptionPageTitle )->move(
 				$user,
-				Message::newFromKey( 'cpd-api-move-description-page-comment' )->escaped(),
-				false
+				Message::newFromKey( 'cpd-api-move-description-page-comment' )->escaped()
 			);
 		} catch ( Exception $e ) {
 			throw new CpdSaveException( $e->getMessage() );

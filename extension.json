@@ -391,6 +391,7 @@
 		"MediaWikiServices": "registerMetaSlot",
 		"ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess",
 		"ContentStabilizationStablePointAdded": "stablePointAdded",
+		"ContentStabilizationGetCurrentInclusions": "excludeDiagramImagesFromStabilization",
 		"DifferenceEngineViewHeader": "bpmnDiffer",
 		"TextSlotDiffRendererTablePrefix": "bpmnDiffer"
 	},
@@ -469,6 +470,9 @@
 				"CpdDiagramPageUtil",
 				"CpdDescriptionPageUtil"
 			]
+		},
+		"excludeDiagramImagesFromStabilization": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\ExcludeDiagramImagesFromStabilization"
 		},
 		"bpmnDiffer": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\BpmnDiffer",

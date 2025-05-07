@@ -4,6 +4,7 @@ namespace CognitiveProcessDesigner\Tests;
 
 use CognitiveProcessDesigner\CpdElement;
 use CognitiveProcessDesigner\Exceptions\CpdCreateElementException;
+use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
@@ -51,6 +52,7 @@ class CpdElementConnectionUtilTest extends TestCase {
 	 * @throws CpdCreateElementException
 	 * @throws CpdInvalidContentException
 	 * @throws CpdXmlProcessingException
+	 * @throws CpdInvalidArgumentException
 	 * @dataProvider provideConnections
 	 */
 	public function testCreateNavigationConnection( string $dbKey, array $connections, array $expected ): void {
