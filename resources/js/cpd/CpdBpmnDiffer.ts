@@ -15,6 +15,7 @@ enum SyncState {
 }
 
 interface Changes {
+	layoutChanged: string[]
 	changed: string[]
 	removed: string[]
 	added: string[]
@@ -70,6 +71,7 @@ export class CpdBpmnDiffer {
 		this.applyChanges( changes.added, elementRegistry, canvas, overlays, 'added' );
 		this.applyChanges( changes.removed, elementRegistry, canvas, overlays, 'removed' );
 		this.applyChanges( changes.changed, elementRegistry, canvas, overlays, 'changed-' + cls );
+		this.applyChanges( changes.layoutChanged, elementRegistry, canvas, overlays, 'layoutChanged-' + cls );
 	}
 
 	private applyChanges(
@@ -139,7 +141,8 @@ export class CpdBpmnDiffer {
 		const changes = diff( newRootElement, oldRootElement );
 
 		return {
-			changed: Object.keys( changes._changed ).concat( Object.keys( changes._layoutChanged ) ),
+			layoutChanged: Object.keys( changes._layoutChanged ),
+			changed: Object.keys( changes._changed ),
 			removed: Object.keys( changes._removed ),
 			added: Object.keys( changes._added )
 		}
