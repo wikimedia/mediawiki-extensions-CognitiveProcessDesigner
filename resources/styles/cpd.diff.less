@@ -1,7 +1,7 @@
 #cpd-diff-container {
-	@classes: added, removed, changed-old, changed-new;
-	@colors: #eff6dd, #f5dcdc, #eff6dd, #f5dcdc;
-	@icons: \F4FE, \F2EA, \F4C9, \F4C9;
+	@classes: added, removed, changed-old, changed-new, layoutChanged-old, layoutChanged-new;
+	@colors: #eff6dd, #f5dcdc, #eff6dd, #f5dcdc, #eff6dd, #f5dcdc,;
+	@icons: \F4FE, \F2EA, \F4C9, \F4C9, \F110, \F110;
 	@circleSize: 25px;
 
 	display: flex;
@@ -33,7 +33,10 @@
 			font-size: 24px;
 		}
 
-		&.changed-new::before, &.changed-old::before {
+		&.changed-new::before,
+		&.changed-old::before,
+		&.layoutChanged-new::before,
+		&.layoutChanged-old::before {
 			font-size: 12px;
 		}
 	}
@@ -52,7 +55,7 @@
 
 			&::before {
 				content: "@{icon}";
-				color: darken(@color, 30%);
+				color: darken(@color, 50%);
 			}
 		}
 
