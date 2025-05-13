@@ -119,5 +119,6 @@
 	"cpd-description-navigation-incoming-label": "חיבורים נכנסים",
 	"cpd-description-navigation-outgoing-label": "חיבורים יוצאים",
 	"cpd-button-show-diagram": "הצגת תרשים",
-	"cpd-error-xml-parse-error": "שגיאה בפענוח XML"
+	"cpd-error-xml-parse-error": "שגיאה בפענוח XML",
+	"cpd-cancel-confirm": "האם ברצונך באמת לבטל את העריכה? כל השינויים שלא נשמרו יאבדו."
 }

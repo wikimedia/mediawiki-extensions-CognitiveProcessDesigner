@@ -20,5 +20,6 @@
 	"cpd-dialog-save-label-done": "Урађено",
 	"bs-cpd-process-overview-create-action-text": "Направи",
 	"bs-cpd-process-overview-info-action-text": "Информације о страници",
-	"cpd-button-show-diagram": "Прикажи дијаграм"
+	"cpd-button-show-diagram": "Прикажи дијаграм",
+	"cpd-cancel-confirm": "Сигурно желите да откажете измену? Све несачуване измене ће бити изгубљене."
 }
