@@ -61,6 +61,9 @@
 	"AutoloadNamespaces": {
 		"CognitiveProcessDesigner\\": "src/"
 	},
+	"AutoloadClasses": {
+		"MigrateDiagrams": "maintenance/migrateDiagrams.php"
+	},
 	"namespaces": [
 		{
 			"id": 1530,
@@ -385,7 +388,10 @@
 			"modifyDescriptionPages",
 			"addResources"
 		],
-		"LoadExtensionSchemaUpdates": "addTables",
+		"LoadExtensionSchemaUpdates": [
+			"addTables",
+			"\\CognitiveProcessDesigner\\HookHandler\\AddPostUpdateMigration::callback"
+		],
 		"PageDeleteComplete": "onPageDeleteComplete",
 		"MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface",
 		"StandardDialogsRegisterPageInfoPanelModules": "standardDialogs",
