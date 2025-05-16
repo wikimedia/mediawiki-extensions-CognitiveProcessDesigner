@@ -10,7 +10,6 @@ use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Content\ContentHandler;
-use MediaWiki\Maintenance\Maintenance;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 use MediaWiki\Page\WikiPageFactory;
@@ -20,7 +19,7 @@ use SMW\StoreFactory;
 
 require_once dirname( __DIR__, 3 ) . '/maintenance/Maintenance.php';
 
-class MigrateDiagrams extends Maintenance {
+class MigrateDiagrams extends LoggedUpdateMaintenance {
 
 	private const LEGACY_BPMN_ID_PROPERTY = 'Id';
 
@@ -53,7 +52,19 @@ class MigrateDiagrams extends Maintenance {
 	/**
 	 * @inheritDoc
 	 */
-	public function execute() {
+	protected function getUpdateKey() {
+		return 'migrate-cognitive-process-designer-diagrams';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function doDBUpdates() {
+		if ( defined( 'MW_QUIBBLE_CI' ) ) {
+			// This code required Extension:SemanticMediaWiki, which is not available in
+			// Wikimedia CI
+			return true;
+		}
 		$services = MediaWikiServices::getInstance();
 		$this->diagramPageUtil = $services->getService( 'CpdDiagramPageUtil' );
 		$this->xmlProcessor = $services->getService( 'CpdXmlProcessor' );
@@ -72,7 +83,7 @@ class MigrateDiagrams extends Maintenance {
 
 		$legacyPages = $this->findAllLegacyBpmnPages();
 		$pagesCount = count( $legacyPages );
-		$this->outputLine( "Start migrating $pagesCount diagrams" );
+		$this->outputLine( "Start migrating $pagesCount cpd diagrams" );
 		foreach ( $legacyPages as $count => $page ) {
 			$count += 1;
 			$countString = "($count/$pagesCount)";
@@ -87,7 +98,8 @@ class MigrateDiagrams extends Maintenance {
 			}
 		}
 
-		$this->output( "Done" );
+		$this->outputLine( "Done migrating cpd diagrams" );
+		$this->outputLine( "" );
 
 		return true;
 	}
