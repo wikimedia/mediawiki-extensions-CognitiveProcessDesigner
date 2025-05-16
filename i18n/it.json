@@ -5,7 +5,7 @@
 		]
 	},
 	"processoverview": "Processi",
-	"cpd-ui-action-edit": "Modifica diagramma",
+	"cpd-ui-action-edit": "Modifica",
 	"cpd-button-cancel-title": "Annulla",
 	"cpd-link-diagram-page-title": "Vai alla pagina del diagramma",
 	"cpd-link-svg-title": "Scarica diagramma come SVG",
@@ -47,5 +47,6 @@
 	"apihelp-cpd-diagram-usage-param-page": "Il nome della pagina che utilizza il diagramma",
 	"cpd-save-description-page-empty-set-warning": "Nessun elemento da salvare",
 	"cpd-error-message-missing-svg-file": "Il file SVG $1 del diagramma non esiste. Modifica e salva il diagramma per crearlo.",
-	"bs-cpd-actionmenuentry-create-new-process": "Crea nuovo processo"
+	"bs-cpd-actionmenuentry-create-new-process": "Crea nuovo processo",
+	"cpd-ui-action-edit-xml": "Modifica sorgente"
 }

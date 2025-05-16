@@ -7,8 +7,8 @@
 	"processoverview": "Prozesser",
 	"cpd-orphaned-description-pages-column-process-title": "Prozess",
 	"cpd-orphaned-description-pages-column-dbkey-title": "Titel",
-	"cpd-ui-action-edit": "Diagramm änneren",
-	"cpd-ui-action-edit-xml": "XML änneren",
+	"cpd-ui-action-edit": "Änneren",
+	"cpd-ui-action-edit-xml": "Quelltext änneren",
 	"cpd-button-cancel-title": "Ofbriechen",
 	"cpd-button-center-viewport": "Diagramm zentréieren",
 	"cpd-link-diagram-page-title": "Op d'Diagrammsäit goen",
@@ -61,5 +61,6 @@
 	"apihelp-cpd-save-diagram-param-process": "De Prozessnumm, dee mam Diagramm associéiert ass",
 	"cpd-save-description-page-empty-set-warning": "Keng Elementer fir ze späicheren",
 	"cpd-error-message-invalid-bpmn": "Ongültege BPMN",
-	"bs-cpd-actionmenuentry-create-new-process": "Neie Prozess uleeën"
+	"bs-cpd-actionmenuentry-create-new-process": "Neie Prozess uleeën",
+	"cpd-cancel-confirm": "Sidd Dir sécher, datt Dir d'Ännerung annuléiere wëllt? All net gespäichert Ännerunge gi verluer."
 }

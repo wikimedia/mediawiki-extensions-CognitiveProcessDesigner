@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"22593",
 			"LittlePaw365"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "使用语义MediaWiki内的图形用户界面绘制BPMN流程图",
-	"cpd-droplet-description": "可编辑的BPMN图"
+	"cpd-droplet-description": "可编辑的BPMN图",
+	"cpd-ui-action-edit": "编辑"
 }

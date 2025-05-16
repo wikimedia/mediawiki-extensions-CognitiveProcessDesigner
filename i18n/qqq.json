@@ -123,5 +123,6 @@
 	"apihelp-cpd-diagram-usage-param-page": "{{doc-apihelp-summary|cpd-diagram-usage|page}}",
 	"cpd-save-description-page-empty-set-warning": "Warning message displayed when there are no elements to save.",
 	"cpd-save-description-page-duplicate-warning": "Warning message displayed when a duplicate description page is detected.",
-	"bs-cpd-actionmenuentry-create-new-process": "Menu entry alternative label for creating a new process."
+	"bs-cpd-actionmenuentry-create-new-process": "Menu entry alternative label for creating a new process.",
+	"cpd-cancel-confirm": "Confirmation message displayed when canceling an action."
 }

@@ -10,8 +10,8 @@
 	"cpd-orphaned-description-pages-column-process-title": "Process",
 	"cpd-orphaned-description-pages-column-dbkey-title": "Title",
 	"cognitiveprocessdesigner-desc": "Draw BPMN processes with a graphical user interface in Semantic MediaWiki",
-	"cpd-ui-action-edit": "Edit diagram",
-	"cpd-ui-action-edit-xml": "Edit XML",
+	"cpd-ui-action-edit": "Edit",
+	"cpd-ui-action-edit-xml": "Edit source",
 	"cpd-button-cancel-title": "Cancel",
 	"cpd-button-show-xml": "Show raw XML",
 	"cpd-button-center-viewport": "Center diagram",
@@ -120,5 +120,6 @@
 	"apihelp-cpd-diagram-usage-param-page": "The name of the page using the diagram",
 	"cpd-save-description-page-empty-set-warning": "No elements to save",
 	"cpd-save-description-page-duplicate-warning": "Duplicate description page $1",
-	"bs-cpd-actionmenuentry-create-new-process": "Create new process"
+	"bs-cpd-actionmenuentry-create-new-process": "Create new process",
+	"cpd-cancel-confirm": "Are you sure you want to cancel the edit? All unsaved changes will be lost."
 }
