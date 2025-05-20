@@ -122,6 +122,7 @@
 	"cpd-description-navigation-incoming-label": "Eingehende Verbindungen",
 	"cpd-description-navigation-outgoing-label": "Ausgehende Verbindungen",
 	"cpd-button-show-diagram": "Diagramm anzeigen",
+	"cpd-dialog-validation-page-exist-info-label": "Ein Prozess mit diesem Namen existiert bereits. Bitte wähle einen anderen Namen.",
 	"cpd-dialog-action-label-create": "Erstellen",
 	"cpd-pretoclip-button-tooltip": "Kopiert den Inhalt in die Zwischenablage",
 	"cpd-pretoclip-button-notification-text": "Inhalt wurde in die Zwischenablage kopiert"
