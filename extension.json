@@ -335,7 +335,7 @@
 				"bs-cpd-actionmenuentry-new-process",
 				"bs-cpd-actionmenuentry-new-process-input-label",
 				"cpd-button-cancel-title",
-				"cpd-dialog-save-label-done"
+				"cpd-dialog-action-label-create"
 			],
 			"dependencies": [
 				"oojs-ui"
