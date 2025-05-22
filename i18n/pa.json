@@ -4,7 +4,8 @@
 			"Cabal"
 		]
 	},
-	"cpd-ui-action-edit-xml": "XML ਸੋਧੋ",
+	"cpd-ui-action-edit": "ਸੋਧ",
+	"cpd-ui-action-edit-xml": "ਸਰੋਤ ਸੋਧੋ",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=ਹੇਠਾਂ ਦਿੱਤੇ ਵੇਰਵੇ ਵਾਲੇ ਵਰਕੇ ਨੂੰ ਸਾਂਭਿਆ ਗਿਆ ਏ:|ਹੇਠਾਂ ਦਿੱਤੇ ਗਏ $1 ਦੇ ਵੇਰਵੇ ਵਰਕਿਆਂ ਨੂੰ ਸੰਭਾਲਿਆ ਗਿਆ ਏ|0=ਕੋਈ ਵੀ ਵੇਰਵੇ ਵਰਕਿਆਂ ਨੂੰ ਸਾਂਭਿਆ ਨਹੀਂ ਗਿਆ ਏ।}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "ਵੇਰਵਾ ਸਫ਼ਾ $1 ਹੁਣ ਮੌਜੂਦ ਨਹੀਂ ਏ",
 	"cpd-save-description-page-empty-set-warning": "ਸੰਭਾਲਣ ਲਈ ਕੋਈ ਤੱਤ ਨਹੀਂ",
