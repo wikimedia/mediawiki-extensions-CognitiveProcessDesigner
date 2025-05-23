@@ -172,8 +172,8 @@
 				"cpd-button-show-xml",
 				"cpd-button-show-diagram",
 				"cpd-button-center-viewport",
-				"pretoclip-button-notification-text",
-				"pretoclip-button-tooltip"
+				"cpd-pretoclip-button-notification-text",
+				"cpd-pretoclip-button-tooltip"
 			]
 		},
 		"ext.cpd.modeler": {
