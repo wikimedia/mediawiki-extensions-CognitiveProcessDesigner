@@ -125,9 +125,8 @@ class MigrateDiagrams extends LoggedUpdateMaintenance {
 		$text = $content->getText();
 		$process = $this->extractProcessNameFromContent( $text );
 
-		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
-		if ( $diagramPage->exists() ) {
-			throw new CpdInvalidArgumentException( "Page $diagramPage already exists" );
+		if ( $this->diagramPageUtil->getDiagramPage( $process )->exists() ) {
+			throw new CpdInvalidArgumentException( "Page for process $process already exists" );
 		}
 
 		$xml = $this->extractXmlFromContent( $text );
