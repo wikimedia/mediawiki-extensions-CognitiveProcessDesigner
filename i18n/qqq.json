@@ -125,7 +125,6 @@
 	"cpd-button-show-diagram": "Label for button to show diagram",
 	"cpd-error-xml-parse-error": "Error message displayed when parsing XML data fails.",
 	"cpd-cancel-confirm": "Confirmation message displayed when canceling an action.",
-	"cpd-dialog-validation-page-exist-info-label": "Label for validation of title input. Shown if page title already exists",
 	"cpd-dialog-action-label-create": "Label for action button in create new process dialog.\n{{Identical:Create}}",
 	"cpd-pretoclip-button-tooltip": "Toolip for a button",
 	"cpd-pretoclip-button-notification-text": "Notification text"

@@ -122,7 +122,6 @@
 	"cpd-button-show-diagram": "Show diagram",
 	"cpd-error-xml-parse-error": "Error parsing XML",
 	"cpd-cancel-confirm": "Are you sure you want to cancel the edit? All unsaved changes will be lost.",
-	"cpd-dialog-validation-page-exist-info-label": "A process with this name already exists. Please choose another name.",
 	"cpd-dialog-action-label-create": "Create",
 	"cpd-pretoclip-button-tooltip": "Copy the contents into the clipboard",
 	"cpd-pretoclip-button-notification-text": "Contents have been copied into the clipboard"
