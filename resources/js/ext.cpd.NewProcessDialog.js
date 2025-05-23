@@ -16,13 +16,13 @@ ext.cpd.NewProcessDialog.prototype.makeSetupProcessData = function () {
 		actions: [
 			{
 				action: 'done',
-				label: mw.message( 'cpd-dialog-action-label-create' ).plain(),
+				label: mw.message( 'cpd-dialog-save-label-done' ).plain(),
 				flags: [ 'primary', 'progressive' ],
 				id: this.elementId + '-btn-done'
 			},
 			{
-				title: mw.message( 'cpd-button-cancel-title' ).plain(),
-				flags: [ 'safe', 'close' ],
+				label: mw.message( 'cpd-button-cancel-title' ).plain(),
+				flags: 'safe',
 				id: this.elementId + '-btn-cancel'
 			}
 		]
