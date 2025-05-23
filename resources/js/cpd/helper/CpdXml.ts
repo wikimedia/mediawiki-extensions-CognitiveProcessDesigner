@@ -38,12 +38,12 @@ export default class CpdXml {
 		const copyButton = new OO.ui.ButtonWidget( {
 			icon: 'copy',
 			classes: [ 'pretoclip-copy-button' ],
-			title: mw.message( 'cpd-pretoclip-button-tooltip' ).text()
+			title: mw.message( 'pretoclip-button-tooltip' ).text()
 		} );
 
 		copyButton.on( 'click', function () {
 			navigator.clipboard.writeText( xml );
-			mw.notify( mw.message( 'cpd-pretoclip-button-notification-text' ).text() );
+			mw.notify( mw.message( 'pretoclip-button-notification-text' ).text() );
 		}, [], copyButton );
 
 		preElement.prepend( copyButton.$element[ 0 ] );

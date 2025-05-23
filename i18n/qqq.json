@@ -124,7 +124,5 @@
 	"cpd-description-navigation-outgoing-label": "Label for connection table on description page which contains outgoing links",
 	"cpd-button-show-diagram": "Label for button to show diagram",
 	"cpd-error-xml-parse-error": "Error message displayed when parsing XML data fails.",
-	"cpd-cancel-confirm": "Confirmation message displayed when canceling an action.",
-	"cpd-pretoclip-button-tooltip": "Toolip for a button",
-	"cpd-pretoclip-button-notification-text": "Notification text"
+	"cpd-cancel-confirm": "Confirmation message displayed when canceling an action."
 }
