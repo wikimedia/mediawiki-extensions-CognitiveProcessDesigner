@@ -3,5 +3,17 @@
 		"authors": []
 	},
 	"cpd-saving-process": "Čuvanje...",
-	"cpd-saved": "Sačuvano"
+	"cpd-saved": "Sačuvano",
+	"cpd-orphaned-description-pages-column-dbkey-title": "Naslov",
+	"cpd-button-cancel-title": "Otkaži",
+	"cpd-api-save-diagram-error-message": "Greška pri čuvanju dijagrama: $1",
+	"cpd-api-load-diagram-error-message": "Greška pri učitavanju dijagrama: $1",
+	"cpd-editor-title": "Uređivanje $1",
+	"cpd-editor-title-create": "Napravi $1",
+	"cpd-droplet-width-field-label": "Širina",
+	"cpd-droplet-height-field-label": "Visina",
+	"cpd-dialog-save-changes-button-title": "Sačuvaj izmene",
+	"bs-cpd-process-overview-create-action-text": "Napravi",
+	"bs-cpd-process-overview-info-action-text": "Informacije o stranici",
+	"cpd-error-message-publish-svg-file": "Objavljivanje SVG datoteke nije uspelo: $1"
 }
