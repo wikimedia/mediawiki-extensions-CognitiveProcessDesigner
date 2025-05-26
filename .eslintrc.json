@@ -9,8 +9,9 @@
 		"@typescript-eslint"
 	],
 	"extends": [
-		"wikimedia/client/es2016",
-		"wikimedia/jquery"
+		"wikimedia/client",
+		"wikimedia/jquery",
+		"wikimedia/mediawiki"
 	],
 	"env": {
 		"browser": true,
