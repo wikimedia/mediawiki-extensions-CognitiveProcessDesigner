@@ -172,8 +172,8 @@
 				"cpd-button-show-xml",
 				"cpd-button-show-diagram",
 				"cpd-button-center-viewport",
-				"pretoclip-button-notification-text",
-				"pretoclip-button-tooltip"
+				"cpd-pretoclip-button-notification-text",
+				"cpd-pretoclip-button-tooltip"
 			]
 		},
 		"ext.cpd.modeler": {
@@ -335,10 +335,13 @@
 				"bs-cpd-actionmenuentry-new-process",
 				"bs-cpd-actionmenuentry-new-process-input-label",
 				"cpd-button-cancel-title",
-				"cpd-dialog-save-label-done"
+				"cpd-dialog-save-label-done",
+				"cpd-dialog-validation-page-exist-info-label",
+				"cpd-dialog-action-label-create"
 			],
 			"dependencies": [
-				"oojs-ui"
+				"oojs-ui",
+				"ext.oOJSPlus.widgets"
 			]
 		},
 		"ext.cpd.widgets": {

@@ -48,7 +48,7 @@ function is$l(node, type) {
  *
  * @return {Boolean}
  */
-function isAny$c(node, types) {
+function isAny$b(node, types) {
   return types.some(function(type) {
     return is$l(node, type);
   });
@@ -57,7 +57,7 @@ function isAny$c(node, types) {
 var index_esm = /*#__PURE__*/Object.freeze({
 	__proto__: null,
 	is: is$l,
-	isAny: isAny$c
+	isAny: isAny$b
 });
 
 var require$$0 = /*@__PURE__*/getAugmentedNamespace(index_esm);
@@ -174,8 +174,7 @@ function annotateRule$l(ruleName, options) {
 helper.annotateRule = annotateRule$l;
 
 const {
-  is: is$j,
-  isAny: isAny$b
+  is: is$j
 } = require$$0;
 
 const {
@@ -211,9 +210,9 @@ var adHocSubProcess = function() {
         reporter.report(flowElement.id, 'An <End Event> is not allowed in <Ad Hoc Sub Process>');
       }
 
-      if (isAny$b(flowElement, [ 'bpmn:IntermediateCatchEvent', 'bpmn:IntermediateThrowEvent' ])) {
+      if (is$j(flowElement, 'bpmn:IntermediateCatchEvent')) {
         if (!flowElement.outgoing || flowElement.outgoing.length === 0) {
-          reporter.report(flowElement.id, 'An intermediate event inside <Ad Hoc Sub Process> must have an outgoing sequence flow');
+          reporter.report(flowElement.id, 'An intermediate catch event inside <Ad Hoc Sub Process> must have an outgoing sequence flow');
         }
       }
 
@@ -1782,6 +1781,11 @@ var noDisconnected = function() {
       return;
     }
 
+    // adhoc subprocesses can have disconnected activities
+    if (is$d(node.$parent, 'bpmn:AdHocSubProcess')) {
+      return;
+    }
+
     const incoming = node.incoming || [];
     const outgoing = node.outgoing || [];
 
@@ -2055,6 +2059,10 @@ var noImplicitEnd = function() {
       return false;
     }
 
+    if (is$a(node.$parent, 'bpmn:AdHocSubProcess')) {
+      return false;
+    }
+
     if (is$a(node, 'bpmn:EndEvent')) {
       return false;
     }
@@ -2114,6 +2122,10 @@ var noImplicitStart = function() {
     const incoming = node.incoming || [];
 
     if (is$9(node, 'bpmn:Activity') && node.isForCompensation) {
+      return false;
+    }
+
+    if (is$9(node.$parent, 'bpmn:AdHocSubProcess')) {
       return false;
     }
 
