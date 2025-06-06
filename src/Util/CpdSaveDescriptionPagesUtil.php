@@ -12,7 +12,7 @@ use MediaWiki\Message\Message;
 use MediaWiki\Page\MovePageFactory;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Revision\SlotRecord;
-use User;
+use MediaWiki\User\User;
 
 class CpdSaveDescriptionPagesUtil {
 

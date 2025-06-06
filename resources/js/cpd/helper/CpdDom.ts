@@ -142,8 +142,6 @@ export default class CpdDom extends EventEmitter {
 			this.centerViewportBtn?.setDisabled( false );
 			this.openDialogBtn?.setDisabled( false );
 			this.cancelBtn?.setDisabled( false );
-
-			console.log( "Loading finished" );
 			this.loadingAnimation?.hide();
 		}
 	}

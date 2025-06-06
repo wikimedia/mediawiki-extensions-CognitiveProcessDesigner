@@ -1,9 +1,11 @@
 const {
-	isAny
+	isAny,
+	is
 } = require( 'bpmnlint-utils' );
 
 /**
  * Rule that reports labels that are not unique.
+ * Except for flows
  *
  * Attention: run npm install and commit changed bpmn-lint.config.js after changing this file.
  *
@@ -16,7 +18,13 @@ module.exports = function () {
 			return;
 		}
 
-		const allElements = node.flowElements || [];
+		const subpageTypes = Object.keys( mw.config.get( "cpdDedicatedSubpageTypes" ) );
+
+		let allElements = node.flowElements || [];
+
+		// Remove non subpage types from set
+		allElements = allElements.filter( ( element ) => isAny( element, subpageTypes ) );
+
 		const labels = allElements.filter( ( element ) => element.name );
 		const uniqueLabels = new Set();
 		const duplicateLabels = [];
