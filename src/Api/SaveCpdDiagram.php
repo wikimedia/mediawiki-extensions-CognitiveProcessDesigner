@@ -17,6 +17,7 @@ use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
 use MWContentSerializationException;
 use MWUnknownContentModelException;
+use PermissionsError;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveCpdDiagram extends ApiBase {
@@ -52,17 +53,26 @@ class SaveCpdDiagram extends ApiBase {
 	 * @throws CpdXmlProcessingException
 	 * @throws MWContentSerializationException
 	 * @throws MWUnknownContentModelException
+	 * @throws PermissionsError
 	 */
 	public function execute() {
 		$result = $this->getResult();
 		$user = $this->getContext()->getUser();
 		$params = $this->extractRequestParams();
-		$process = $params['process'];
-		$svg = $params['svg'];
+		$process = $params[ 'process' ];
+
+		$diagramPage = $this->diagramPageUtil->getDiagramPage( $process );
+		$this->getPermissionManager()->throwPermissionErrors(
+			'edit',
+			$user,
+			$diagramPage->getTitle()
+		);
+
+		$svg = $params[ 'svg' ];
 		if ( !empty( $svg ) ) {
-			$svg = json_decode( $params['svg'], true );
+			$svg = json_decode( $params[ 'svg' ], true );
 		}
-		$xml = json_decode( $params['xml'], true );
+		$xml = json_decode( $params[ 'xml' ], true );
 
 		$cpdElements = $this->xmlProcessor->createElements(
 			$process,
@@ -81,7 +91,7 @@ class SaveCpdDiagram extends ApiBase {
 
 		// Save description pages
 		$warnings = [];
-		if ( $params['saveDescriptionPages'] ) {
+		if ( $params[ 'saveDescriptionPages' ] ) {
 			$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages( $user, $cpdElements );
 		}
 
