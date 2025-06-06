@@ -3,7 +3,6 @@ import ReplaceMenuProvider from "bpmn-js/lib/features/popup-menu/ReplaceMenuProv
 export default class CustomPaletteProvider extends ReplaceMenuProvider {
 	getPopupMenuEntries( target ) {
 		const entries = super.getPopupMenuEntries( target );
-		console.log(entries)
 		delete entries["replace-with-collapsed-ad-hoc-subprocess"];
 		delete entries["replace-with-expanded-subprocess"];
 		delete entries["replace-with-ad-hoc-subprocess"];

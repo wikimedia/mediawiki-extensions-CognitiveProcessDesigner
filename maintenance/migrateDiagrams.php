@@ -38,8 +38,8 @@ class MigrateDiagrams extends LoggedUpdateMaintenance {
 	/** @var CpdDiagramPageUtil */
 	private CpdDiagramPageUtil $diagramPageUtil;
 
-	/** @var User */
-	private User $anonymousUser;
+	/** @var MediaWiki\User\User */
+	private MediaWiki\User\User $anonymousUser;
 
 	/**
 	 * @inheritDoc
