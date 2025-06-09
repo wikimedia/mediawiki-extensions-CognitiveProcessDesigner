@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Alshamiri1"
+			"Alshamiri1",
+			"Mohammed Qays"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "ارسم عمليات BPMN بواجهة مستخدم رسومية في Semantic MediaWiki",
