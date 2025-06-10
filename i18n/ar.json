@@ -1,9 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Alshamiri1"
+			"Alshamiri1",
+			"Mohammed Qays"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "ارسم عمليات BPMN بواجهة مستخدم رسومية في Semantic MediaWiki",
-	"cpd-droplet-description": "مخطط BPMN قابل للتحرير"
+	"cpd-droplet-description": "مخطط BPMN قابل للتحرير",
+	"cpd-dialog-validation-page-exist-info-label": "توجد عملية بهذا الاسم. يُرجى اختيار اسم آخر.",
+	"cpd-dialog-action-label-create": "أنشئ",
+	"cpd-pretoclip-button-tooltip": "انسخ المحتويات إلى الحافظة"
 }

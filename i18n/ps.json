@@ -6,5 +6,9 @@
 	},
 	"cpd-save-description-page-empty-set-warning": "خوندي کولو لپاره توکي نشته",
 	"cpd-save-description-page-duplicate-warning": "دوه گونی سپيناو مخ $1",
-	"bs-cpd-actionmenuentry-create-new-process": "نوی بهير جوړول"
+	"bs-cpd-actionmenuentry-create-new-process": "نوی بهير جوړول",
+	"cpd-dialog-validation-page-exist-info-label": "په دې مخ سره يوه پروسه له مخکې شته. مهرباني وکړئ يو بل نوم خوښ کړئ.",
+	"cpd-dialog-action-label-create": "جوړول",
+	"cpd-pretoclip-button-tooltip": "منځپاگې ټينگدړې ته لمېسل",
+	"cpd-pretoclip-button-notification-text": "منځپانگې ټينگدړې ته لمېسل شوي"
 }

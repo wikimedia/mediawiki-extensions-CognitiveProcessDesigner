@@ -64,5 +64,6 @@
 	"cpd-description-navigation-incoming-label": "들어오는 연결",
 	"cpd-description-navigation-outgoing-label": "나가는 연결",
 	"cpd-button-show-diagram": "다이어그램 표시",
-	"cpd-error-xml-parse-error": "XML 구문 분석 오류"
+	"cpd-error-xml-parse-error": "XML 구문 분석 오류",
+	"cpd-dialog-action-label-create": "만들기"
 }

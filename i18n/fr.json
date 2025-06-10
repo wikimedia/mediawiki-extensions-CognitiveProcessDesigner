@@ -10,7 +10,8 @@
 			"McDutchie",
 			"Pols12",
 			"SleaY",
-			"Wladek92"
+			"Wladek92",
+			"Derugon"
 		]
 	},
 	"orphanedprocessdescriptionpages": "Pages de description des processus orphelins",
@@ -37,8 +38,8 @@
 	"cpd-orphaned-description-pages-column-process-title": "Processus",
 	"cpd-orphaned-description-pages-column-dbkey-title": "Titre",
 	"cognitiveprocessdesigner-desc": "Dessinez des processus BPMN avec une interface utilisateur graphique dans Semantic MediaWiki",
-	"cpd-ui-action-edit": "Modifier le diagramme",
-	"cpd-ui-action-edit-xml": "Modifier le XML",
+	"cpd-ui-action-edit": "Modifier",
+	"cpd-ui-action-edit-xml": "Modifier la source",
 	"cpd-button-cancel-title": "Annuler",
 	"cpd-button-show-xml": "Afficher le XML brut",
 	"cpd-button-center-viewport": "Centrer le diagramme",
@@ -128,5 +129,10 @@
 	"cpd-description-navigation-incoming-label": "Connexions entrantes",
 	"cpd-description-navigation-outgoing-label": "Connexions sortantes",
 	"cpd-button-show-diagram": "Afficher le diagramme",
-	"cpd-error-xml-parse-error": "Erreur lors de l'analyse XML"
+	"cpd-error-xml-parse-error": "Erreur lors de l'analyse XML",
+	"cpd-cancel-confirm": "Êtes-vous sûr{{GENDER:||e}} de vouloir annuler la modification ? Toute modification non enregistrée sera perdue.",
+	"cpd-dialog-validation-page-exist-info-label": "Un processus avec ce nom existe déjà. Veuillez en choisir un autre.",
+	"cpd-dialog-action-label-create": "Créer",
+	"cpd-pretoclip-button-tooltip": "Copier le contenu dans le presse-papiers",
+	"cpd-pretoclip-button-notification-text": "Le contenu a été copié dans le presse-papiers"
 }
