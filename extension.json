@@ -506,6 +506,13 @@
 		"CPDDedicatedSubpageTypes": {
 			"value": [
 				"bpmn:Task",
+				"bpmn:ManualTask",
+				"bpmn:ServiceTask",
+				"bpmn:UserTask",
+				"bpmn:BusinessRuleTask",
+				"bpmn:ReceiveTask",
+				"bpmn:ScriptTask",
+				"bpmn:SendTask",
 				"bpmn:StartEvent",
 				"bpmn:EndEvent"
 			]
