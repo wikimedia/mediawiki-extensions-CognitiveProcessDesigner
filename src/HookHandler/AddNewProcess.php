@@ -3,10 +3,15 @@
 namespace CognitiveProcessDesigner\HookHandler;
 
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
+use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Registration\ExtensionRegistry;
 use SkinTemplate;
 
 class AddNewProcess implements SkinTemplateNavigation__UniversalHook {
+
+	public function __construct( private readonly PermissionManager $permissionManager ) {
+	}
+
 	/**
 	 * // phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
 	 *
@@ -15,6 +20,10 @@ class AddNewProcess implements SkinTemplateNavigation__UniversalHook {
 	 */
 	public function onSkinTemplateNavigation__Universal( $sktemplate, &$links ): void {
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'StandardDialogs' ) ) {
+			return;
+		}
+
+		if ( $this->skipProcessing( $sktemplate ) ) {
 			return;
 		}
 
@@ -39,5 +48,17 @@ class AddNewProcess implements SkinTemplateNavigation__UniversalHook {
 		], $config );
 
 		$sktemplate->getOutput()->addModules( 'ext.cpd.newprocessdialog' );
+	}
+
+	/**
+	 * @param SkinTemplate $sktemplate
+	 * @return bool
+	 */
+	protected function skipProcessing( SkinTemplate $sktemplate ): bool {
+		$title = $sktemplate->getTitle();
+		if ( !$this->permissionManager->userCan( 'create', $sktemplate->getUser(), $title ) ) {
+			return true;
+		}
+		return false;
 	}
 }

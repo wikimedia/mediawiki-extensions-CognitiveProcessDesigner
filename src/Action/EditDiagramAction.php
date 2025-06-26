@@ -7,6 +7,7 @@ use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use EditAction;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\MediaWikiServices;
+use PermissionsError;
 
 class EditDiagramAction extends EditAction {
 
@@ -19,17 +20,27 @@ class EditDiagramAction extends EditAction {
 
 	/**
 	 * @return void
+	 * @throws PermissionsError
 	 */
 	public function show(): void {
 		$services = MediaWikiServices::getInstance();
+
 		/** @var CpdDiagramPageUtil $diagramPageUtil */
 		$diagramPageUtil = $services->getService( 'CpdDiagramPageUtil' );
 		$canvasHeight = $services->getService( 'MainConfig' )->get( 'CPDCanvasProcessHeight' );
+		$permissionManager = $services->getPermissionManager();
 
 		$this->useTransactionalTimeLimit();
 
 		$title = $this->getTitle();
 		$process = $title->getDBkey();
+		$user = $this->getUser();
+
+		$permissionManager->throwPermissionErrors(
+			'edit',
+			$user,
+			$title
+		);
 
 		$outputPage = $this->getOutput();
 		$outputPage->setRobotPolicy( 'noindex,nofollow' );
