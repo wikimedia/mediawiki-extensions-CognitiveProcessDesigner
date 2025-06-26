@@ -429,7 +429,8 @@
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddActions"
 		},
 		"addNewProcess": {
-			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddNewProcess"
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddNewProcess",
+			"services": [ "PermissionManager" ]
 		},
 		"integrateCodeEditor": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\IntegrateCodeEditor"
