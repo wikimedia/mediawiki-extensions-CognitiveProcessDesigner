@@ -521,7 +521,9 @@
 		"CPDPageTemplates": {
 			"value": {
 				"*": "Template:CPD/GenericBPMN",
-				"bpmn:Task": "Template:CPD/Task"
+				"bpmn:Task": "Template:CPD/Task",
+				"bpmn:StartEvent": "Template:CPD/StartEvent",
+				"bpmn:EndEvent": "Template:CPD/EndEvent"
 			}
 		},
 		"CPDCanvasProcessHeight": {

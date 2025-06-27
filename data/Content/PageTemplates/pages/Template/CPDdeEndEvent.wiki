@@ -1,0 +1,1 @@
+{{CPD/BlankDescription|BPMN Endereignis Beschreibung}}
