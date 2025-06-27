@@ -1,56 +1,83 @@
 {
 	"Template:CPD/BlankDescription": {
-		"lang": "en",
-		"label": "Blank description",
-		"description": "Displays description text for bpmn elements",
+		"lang": "de",
+		"label": "Leere Beschreibung",
+		"description": "Zeigt Beschreibungstext f\u00fcr bpmn Elemente an",
 		"target_title": "Template:CPD/BlankDescription",
 		"content_path": "/pages/Template/CPDBlankDescription.wiki",
 		"sha1": "9cf6bb8b124ce77ebf361bcae0e75fe5b8c10b86",
 		"old_sha1": []
 	},
-	"Template:CPD/GenericBPMN": {
+	"Template:CPD/en/GenericBPMN": {
 		"lang": "en",
 		"label": "Generic description",
 		"description": "Displays description text for bpmn elements which does not have a specific template",
 		"target_title": "Template:CPD/GenericBPMN",
-		"content_path": "/pages/Template/CPDGenericBPMN.wiki",
+		"content_path": "/pages/Template/CPDenGenericBPMN.wiki",
 		"sha1": "4e0f8f6ab1e73692227a5dbc92f1f10df271483b",
 		"old_sha1": []
 	},
-	"Template:CPD/Task": {
+	"Template:CPD/de/GenericBPMN": {
+		"lang": "de",
+		"label": "Generische Beschreibung",
+		"description": "Zeigt Beschreibungstext f\u00fcr BPMN-Elemente an, welche keine spezifische Vorlage haben",
+		"target_title": "Template:CPD/GenericBPMN",
+		"content_path": "/pages/Template/CPDdeGenericBPMN.wiki",
+		"sha1": "9dddf2d3706e1e9fffdbf861bdb85e117a8db56a",
+		"old_sha1": []
+	},
+	"Template:CPD/en/Task": {
 		"lang": "en",
 		"label": "Task default description",
 		"description": "Description page default content for bpmn elements with type Task",
 		"target_title": "Template:CPD/Task",
-		"content_path": "/pages/Template/CPDTask.wiki",
+		"content_path": "/pages/Template/CPDenTask.wiki",
 		"sha1": "ceba8a70d7fe3a33d6b2d6979c82eee47115b7fa",
 		"old_sha1": []
 	},
-	"Template:CPD/Gateway": {
-		"lang": "en",
-		"label": "Gateway default description",
-		"description": "Description page default content for bpmn elements with type Gateway",
-		"target_title": "Template:CPD/Gateway",
-		"content_path": "/pages/Template/CPDGateway.wiki",
-		"sha1": "5b93beeeffc3378d165c0ff1184deeb07335c42a",
+	"Template:CPD/de/Task": {
+		"lang": "de",
+		"label": "Standardbeschreibung der Aufgabe",
+		"description": "Beschreibung Seite Standardinhalt f\u00fcr bpmn Elemente mit Typ Aufgabe",
+		"target_title": "Template:CPD/Task",
+		"content_path": "/pages/Template/CPDdeTask.wiki",
+		"sha1": "c1bba252e23283ee1631b7558593b6cf37d73f86",
 		"old_sha1": []
 	},
-	"Template:CPD/StartEvent": {
+	"Template:CPD/en/StartEvent": {
 		"lang": "en",
 		"label": "Start Event default description",
 		"description": "Description page default content for bpmn elements with type StartEvent",
 		"target_title": "Template:CPD/StartEvent",
-		"content_path": "/pages/Template/CPDStartEvent.wiki",
+		"content_path": "/pages/Template/CPDenStartEvent.wiki",
 		"sha1": "02ba1e4a02d2d51c2201d0fd8d4cbd01257baf6a",
 		"old_sha1": []
 	},
-	"Template:CPD/EndEvent": {
+	"Template:CPD/de/StartEvent": {
+		"lang": "de",
+		"label": "Startereignis Standardbeschreibung",
+		"description": "Beschreibung Seite Standardinhalt f\u00fcr bpmn Elemente mit Typ StartEvent",
+		"target_title": "Template:CPD/StartEvent",
+		"content_path": "/pages/Template/CPDdeStartEvent.wiki",
+		"sha1": "aaab6ca0cc26a46f7e67df2fe93e962e464cf045",
+		"old_sha1": []
+	},
+	"Template:CPD/en/EndEvent": {
 		"lang": "en",
-		"label": "Start Event default description",
+		"label": "End Event default description",
 		"description": "Description page default content for bpmn elements with type EndEvent",
 		"target_title": "Template:CPD/EndEvent",
-		"content_path": "/pages/Template/CPDEndEvent.wiki",
+		"content_path": "/pages/Template/CPDenEndEvent.wiki",
 		"sha1": "fb16a4b722ac67855fe3f429e6b62056b6706d14",
+		"old_sha1": []
+	},
+	"Template:CPD/de/EndEvent": {
+		"lang": "de",
+		"label": "Endereignis Standardbeschreibung",
+		"description": "Beschreibung Seite Standardinhalt f\u00fcr bpmn Elemente mit Typ EndEvent",
+		"target_title": "Template:CPD/EndEvent",
+		"content_path": "/pages/Template/CPDdeEndEvent.wiki",
+		"sha1": "7ce0a8b532085b21f74ff47d8ab9b196c9904c64",
 		"old_sha1": []
 	}
 }
