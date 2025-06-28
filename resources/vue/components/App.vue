@@ -82,48 +82,48 @@ function updateAriaLiveSection( count ) {
 
 <style lang="css">
 :root {
-  --bs-process-overview-page-focus-visible-color: #3E5389;
-  --bs-process-overview-page-new: #BD1D1D;
+	--bs-process-overview-page-focus-visible-color: #3e5389;
+	--bs-process-overview-page-new: #bd1d1d;
 }
 
 .bs-process-search {
-  width: 50%;
-  margin-left: 20px;
+	width: 50%;
+	margin-left: 20px;
 }
 
 .cpd-process-empty {
-  padding: 20px;
+	padding: 20px;
 }
 
 .cpd-process-empty-image {
-  height: 180px;
-  width: 180px;
-  display: block;
-  background-position: center;
-  background-size: 100% 100%;
-  background-image: url(./../../img/create_process.svg);
-  background-color: rgba(62, 83, 137, 0.1);
-  background-repeat: no-repeat;
-  margin: 0 auto 40px;
-  border-radius: 100%;
+	height: 180px;
+	width: 180px;
+	display: block;
+	background-position: center;
+	background-size: 100% 100%;
+	background-image: url( ./../../img/create_process.svg );
+	background-color: rgba( 62, 83, 137, 0.1 );
+	background-repeat: no-repeat;
+	margin: 0 auto 40px;
+	border-radius: 100%;
 }
 
 .cpd-process-empty-label {
-  display: block;
-  text-align: center;
-  margin: 0;
-  font-weight: 700;
+	display: block;
+	text-align: center;
+	margin: 0;
+	font-weight: bold;
 }
 
 #bs-process-aria-live {
-  height: 0;
-  overflow: hidden;
+	height: 0;
+	overflow: hidden;
 }
 
 @media ( max-width: 768px ) {
-  .bs-process-search {
-    width: 100%;
-    margin-left: 0;
-  }
+	.bs-process-search {
+		width: 100%;
+		margin-left: 0;
+	}
 }
 </style>

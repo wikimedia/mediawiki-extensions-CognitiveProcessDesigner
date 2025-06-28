@@ -24,18 +24,18 @@ module.exports = {
 
 <style lang="css">
 .bs-card-actions > li > a {
-  display: inline-block;
-  height: 100%;
-  padding: 0 15px;
-  color: #666 !important;
+	display: inline-block;
+	height: 100%;
+	padding: 0 15px;
+	color: #666 !important;
 }
 
 .bs-card-actions > li > a:focus-visible {
-  outline: var(--bs-process-overview-page-focus-visible-color) solid 1px;
+	outline: var( --bs-process-overview-page-focus-visible-color ) solid 1px;
 }
 
 .bs-card-actions > li > a i {
-  display: inline-block;
-  margin-right: 10px;
+	display: inline-block;
+	margin-right: 10px;
 }
 </style>

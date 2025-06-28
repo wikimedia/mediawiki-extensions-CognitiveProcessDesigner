@@ -34,26 +34,26 @@ module.exports = exports = {
 
 <style lang="css">
 .bs-process-overview > h2 {
-  padding: 0 26px;
+	padding: 0 26px;
 }
 
 .bs-process-overview > h2:focus-visible {
-  outline: 1px solid var(--bs-process-overview-page-focus-visible-color);
+	outline: 1px solid var( --bs-process-overview-page-focus-visible-color );
 }
 
 .bs-cards-container {
-  display: flex;
-  justify-content: start;
-  flex-wrap: wrap;
+	display: flex;
+	justify-content: start;
+	flex-wrap: wrap;
 }
 
 @media ( max-width: 768px ) {
-  .bs-process-overview > h2 {
-    padding: 0;
-  }
+	.bs-process-overview > h2 {
+		padding: 0;
+	}
 
-  .bs-cards-container {
-    justify-content: center;
-  }
+	.bs-cards-container {
+		justify-content: center;
+	}
 }
 </style>
