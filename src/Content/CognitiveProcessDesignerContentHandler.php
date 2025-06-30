@@ -55,6 +55,13 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function supportsCategories() {
+		return false;
+	}
+
+	/**
 	 * @param Content $content
 	 * @param ContentParseParams $cpoParams
 	 * @param ParserOutput &$output
