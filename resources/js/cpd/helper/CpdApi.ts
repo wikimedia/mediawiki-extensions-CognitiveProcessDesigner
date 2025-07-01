@@ -47,13 +47,14 @@ export default class CpdApi extends EventEmitter {
 		const data = {
 			action: "cpd-load-diagram",
 			process: this.process
-		} as { action: string, process: string, token: string, revisionId?: number };
+		} as { action: string, process: string, token: string, revision?: number };
 
 		if ( revision ) {
-			data.revisionId = revision;
+			data.revision = revision;
 		}
 
 		return this.api.get( data ).then( ( result: any ): LoadDiagramResult => {
+			console.log(result)
 			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
 
 			result.elements = result.elements.map( ( element ): CpdElementJson => JSON.parse( element ) );
@@ -80,7 +81,7 @@ export default class CpdApi extends EventEmitter {
 			process: this.process,
 			xml: JSON.stringify( xml ),
 			svg: JSON.stringify( svg.svg ),
-			saveDescriptionPages: withDescriptionPages,
+			savedescriptionpages: withDescriptionPages,
 			token: mw.user.tokens.get( "csrfToken" )
 		} ).then( ( result: any ): SaveDiagramResult => {
 			const elements = result.elements.map( ( element ): CpdElementJson => JSON.parse( element ) );
