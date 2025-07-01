@@ -91,7 +91,7 @@ class SaveCpdDiagram extends ApiBase {
 
 		// Save description pages
 		$warnings = [];
-		if ( $params[ 'saveDescriptionPages' ] ) {
+		if ( $params[ 'savedescriptionpages' ] ) {
 			$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages( $user, $cpdElements );
 		}
 
@@ -141,7 +141,7 @@ class SaveCpdDiagram extends ApiBase {
 				ParamValidator::PARAM_REQUIRED => false,
 				ParamValidator::PARAM_DEFAULT => ''
 			],
-			'saveDescriptionPages' => [
+			'savedescriptionpages' => [
 				ParamValidator::PARAM_TYPE => 'boolean',
 				ParamValidator::PARAM_REQUIRED => true,
 				ParamValidator::PARAM_DEFAULT => false

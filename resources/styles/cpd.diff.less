@@ -3,7 +3,6 @@
 	@colors: #eff6dd, #f5dcdc, #eff6dd, #f5dcdc, #eff6dd, #f5dcdc,;
 	@icons: \F4FE, \F2EA, \F4C9, \F4C9, \F110, \F110;
 	@circleSize: 25px;
-
 	display: flex;
 	flex-direction: row;
 	height: 100%;
@@ -21,13 +20,13 @@
 		border-radius: 50%;
 		pointer-events: none;
 		position: absolute;
-		left: -(@circleSize - 3px);
-		top: -(@circleSize - 3px);
+		left: -( @circleSize - 3px );
+		top: -( @circleSize - 3px );
 
 		&::before {
 			content: '';
 			display: block;
-			font-family: 'bootstrap-icons';
+			font-family: 'bootstrap-icons', sans-serif;
 			text-align: center;
 			line-height: 24px;
 			font-size: 24px;
@@ -54,8 +53,8 @@
 			background-color: @color;
 
 			&::before {
-				content: "@{icon}";
-				color: darken(@color, 50%);
+				content: '@{icon}';
+				color: darken( @color, 50% );
 			}
 		}
 

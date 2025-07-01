@@ -54,7 +54,10 @@
 	"eslintIgnore": [
 		"vendor/**",
 		"resources/js/dist/**",
-		"resources/vue/components/**"
+		"resources/js/cpd/bpmnlint-plugin-mediawiki-cpd/rules/**",
+		"resources/vue/components/**",
+		"**/*.json",
+		"bpmn-lint.config.js"
 	],
 	"dependencies": {
 		"bpmn-js": "^18.2.0",
