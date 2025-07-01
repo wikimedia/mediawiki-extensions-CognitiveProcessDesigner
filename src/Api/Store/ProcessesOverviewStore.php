@@ -2,11 +2,13 @@
 
 namespace CognitiveProcessDesigner\Api\Store;
 
+use CognitiveProcessDesigner\Data\Processes\Record;
 use CognitiveProcessDesigner\Data\Processes\Store;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Title\Title;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 use Wikimedia\Rdbms\ILoadBalancer;
 
@@ -44,7 +46,25 @@ class ProcessesOverviewStore extends ApiBase {
 		$params = new ReaderParams( $params );
 		$res = $this->store->getReader()->read( $params );
 		$result = $this->getResult();
-		$result->addValue( null, 'results', json_encode( $res->getRecords() ) );
+		$records = $res->getRecords();
+		$this->validateEditPermission( $records );
+		$result->addValue( null, 'results', json_encode( $records ) );
+	}
+
+	/**
+	 * @param Record[] &$records
+	 *
+	 * @return void
+	 */
+	private function validateEditPermission( array &$records ): void {
+		$permissionManager = $this->getPermissionManager();
+		$user = $this->getUser();
+		foreach ( $records as &$record ) {
+			$dbKey = $record->get( Record::DB_KEY );
+			if ( !$permissionManager->quickUserCan( 'edit', $user, Title::newFromDBkey( $dbKey ) ) ) {
+				$record->set( Record::EDIT_URL, null );
+			}
+		}
 	}
 
 	/**
