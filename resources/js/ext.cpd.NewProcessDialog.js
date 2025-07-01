@@ -54,7 +54,6 @@ ext.cpd.NewProcessDialog.prototype.makeDoneActionProcess = function () {
 	return new OO.ui.Process( ( () => {} ), this );
 };
 
-
 ext.cpd.NewProcessDialog.prototype.getDialogTitlePageName = function () {
 	return this.pageName.replace( '_', ' ' );
 };
@@ -66,7 +65,7 @@ ext.cpd.NewProcessDialog.prototype.getSetupProcess = function ( data ) {
 	return ext.cpd.NewProcessDialog.super.prototype.getSetupProcess.call( this, data );
 };
 
-ext.cpd.NewProcessDialog.prototype.initialize = function() {
+ext.cpd.NewProcessDialog.prototype.initialize = function () {
 	ext.cpd.NewProcessDialog.parent.prototype.initialize.call( this );
 
 	this.content = new OO.ui.PanelLayout( {
@@ -100,7 +99,7 @@ ext.cpd.NewProcessDialog.prototype.show = function () {
 };
 
 ext.cpd.NewProcessDialog.prototype.getBodyHeight = function () {
-	if ( !this.$errors.hasClass( 'oo-ui-element-hidden' ) ) {
+	if ( !this.$errors.hasClass( 'oo-ui-element-hidden' ) ) { // eslint-disable-line no-jquery/no-class-state
 		return this.$element.find( '.oo-ui-processDialog-errors' )[ 0 ].scrollHeight;
 	}
 

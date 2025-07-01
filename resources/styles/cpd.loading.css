@@ -14,13 +14,13 @@
 	border-radius: 12px;
 	overflow: hidden;
 	background-color: #fff;
-	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	box-shadow: 0 4px 8px rgba( 0, 0, 0, 0.1 );
 	padding: 16px;
 	box-sizing: border-box;
 }
 
 .skeleton {
-	background: linear-gradient(90deg, #eee, #ddd, #eee);
+	background: linear-gradient( 90deg, #eee, #ddd, #eee );
 	background-size: 200% 100%;
 	animation: loading 1.5s infinite;
 	border-radius: 8px;
@@ -53,6 +53,7 @@
 	0% {
 		background-position: -200% 0;
 	}
+
 	100% {
 		background-position: 200% 0;
 	}

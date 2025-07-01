@@ -41,7 +41,7 @@ class LoadCpdDiagram extends ApiBase {
 	public function execute() {
 		$params = $this->extractRequestParams();
 		$process = $params['process'];
-		$revisionId = $params['revisionId'];
+		$revisionId = $params['revision'];
 		$warnings = [];
 
 		try {
@@ -93,7 +93,7 @@ class LoadCpdDiagram extends ApiBase {
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true
 			],
-			'revisionId' => [
+			'revision' => [
 				ParamValidator::PARAM_TYPE => 'integer',
 				ParamValidator::PARAM_REQUIRED => false
 			]
