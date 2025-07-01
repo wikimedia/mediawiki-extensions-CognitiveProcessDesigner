@@ -73,6 +73,7 @@ class SaveCpdDiagram extends ApiBase {
 			$svg = json_decode( $params[ 'svg' ], true );
 		}
 		$xml = json_decode( $params[ 'xml' ], true );
+		$xml = $this->sanitizeXml( $xml );
 
 		$cpdElements = $this->xmlProcessor->createElements(
 			$process,
@@ -113,6 +114,38 @@ class SaveCpdDiagram extends ApiBase {
 			$cpdElements,
 			$process,
 			$diagramPage->getRevisionRecord()->getId()
+		);
+	}
+
+	/**
+	 * @param string $xml
+	 *
+	 * @return string
+	 */
+	private function sanitizeXml( string $xml ): string {
+		return preg_replace_callback(
+			'/name="([^"]+)"/',
+			static function ( $matches ) {
+				$original = $matches[1];
+				$result = '';
+
+				for ( $i = 0; $i < mb_strlen( $original ); $i++ ) {
+					$char = mb_substr( $original, $i, 1 );
+					$code = mb_ord( $char, 'UTF-8' );
+					$unicode = sprintf( 'U+%04X', $code );
+
+					// ERM42675
+					// Replace U+002F (/ Slash) with U+2215 (∕ DIVISION SLASH)
+					if ( $unicode === "U+002F" ) {
+						$char = mb_chr( 0x2215, 'UTF-8' );
+					}
+
+					$result .= $char;
+				}
+
+				return 'name="' . $result . '"';
+			},
+			$xml
 		);
 	}
 
