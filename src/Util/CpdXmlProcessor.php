@@ -369,13 +369,35 @@ class CpdXmlProcessor {
 	}
 
 	/**
+	 * ERM42675
+	 *
+	 * 00AD is a soft hyphen
+	 *
 	 * @param string $titleText
 	 *
 	 * @return string
 	 */
 	private function sanitizeTitle( string $titleText ): string {
-		$titleText = str_replace( "\n", "", $titleText );
+		$disallowedCharacters = [
+			'#',
+			'<',
+			'>',
+			'[',
+			']',
+			'|',
+			'{',
+			'}',
+			'?',
+			'+',
+			'%',
+			"\n",
+			"\u{00AD}"
+		];
 
-		return $titleText;
+		foreach ( $disallowedCharacters as $disallowedCharacter ) {
+			$titleText = str_replace( $disallowedCharacter, '', $titleText );
+		}
+
+		return trim( $titleText );
 	}
 }
