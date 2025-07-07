@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80"
+			"Amire80",
+			"YaronSh"
 		]
 	},
 	"orphanedprocessdescriptionpages": "דפי תיאור תהליך יתומים",
@@ -120,5 +121,8 @@
 	"cpd-description-navigation-outgoing-label": "חיבורים יוצאים",
 	"cpd-button-show-diagram": "הצגת תרשים",
 	"cpd-error-xml-parse-error": "שגיאה בפענוח XML",
-	"cpd-cancel-confirm": "האם ברצונך באמת לבטל את העריכה? כל השינויים שלא נשמרו יאבדו."
+	"cpd-cancel-confirm": "האם ברצונך באמת לבטל את העריכה? כל השינויים שלא נשמרו יאבדו.",
+	"cpd-dialog-action-label-create": "יצירה",
+	"cpd-pretoclip-button-tooltip": "העתקת התוכן ללוח",
+	"cpd-pretoclip-button-notification-text": "התוכן הועתק ללוח"
 }
