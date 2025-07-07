@@ -25,9 +25,7 @@
 		"jQuery": "readonly",
 		"mediaWiki": "readonly",
 		"OOJSPlus": "readonly",
-		"OO": "readonly",
 		"ve": "readonly",
-		"mw": "readonly",
 		"jest": "readonly",
 		"cfg": "readonly",
 		"StandardDialogs": "readonly",
@@ -52,6 +50,7 @@
 		"es-x/no-object-values": "off",
 		"es-x/no-array-prototype-includes": "off",
 		"es-x/no-regexp-s-flag": "off",
-		"es-x/no-string-prototype-matchall": "off"
+		"es-x/no-string-prototype-matchall": "off",
+		"no-jquery/no-done-fail": "warn"
 	}
 }
