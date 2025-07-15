@@ -141,10 +141,11 @@ ext.cpd.NewProcessDialog.prototype.validateTitleNotExist = function ( value ) {
 		this.actions.setAbilities( { done: false } );
 		return;
 	}
+	const newTitle = mw.Title.newFromText( value, this.namespace );
 	new mw.Api().get( {
 		action: 'query',
 		prop: 'pageprops',
-		titles: value
+		titles: newTitle.getPrefixedText()
 	} ).done( ( data ) => {
 		// Check if there is data.query.pages.-1
 		if ( data.query && data.query.pages && data.query.pages[ -1 ] ) {
