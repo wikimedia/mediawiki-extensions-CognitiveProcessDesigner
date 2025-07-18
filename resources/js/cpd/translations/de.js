@@ -37,5 +37,6 @@ export default {
 	'Termination is superfluous.': 'Beendigung ist überflüssig.',
 	'Link event is missing link name': 'Link-Ereignis hat keinen Link-Namen',
 	'Link catch event with link name <${ name }> missing in scope': 'Link-Catch-Ereignis mit Link-Namen <${ name }> fehlt im Geltungsbereich',
-	'Link throw event with link name <${ name }> missing in scope': 'Link-Catch-Ereignis mit Link-Namen <${ name }> fehlt im Geltungsbereich'
+	'Link throw event with link name <${ name }> missing in scope': 'Link-Catch-Ereignis mit Link-Namen <${ name }> fehlt im Geltungsbereich',
+	'Gateway forks and joins': 'Gateway teilt sich und vereint sich'
 };
