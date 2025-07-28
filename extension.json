@@ -403,7 +403,8 @@
 		"ContentStabilizationStablePointAdded": "stablePointAdded",
 		"ContentStabilizationGetCurrentInclusions": "excludeDiagramImagesFromStabilization",
 		"DifferenceEngineViewHeader": "bpmnDiffer",
-		"TextSlotDiffRendererTablePrefix": "bpmnDiffer"
+		"TextSlotDiffRendererTablePrefix": "bpmnDiffer",
+		"BSUsageTrackerRegisterCollectors": "registerUsageTracker"
 	},
 	"HookHandlers": {
 		"tag": {
@@ -490,6 +491,9 @@
 			"services": [
 				"MainConfig"
 			]
+		},
+		"registerUsageTracker": {
+			"class": "\\CognitiveProcessDesigner\\UsageTracker\\RegisterUsageTracker"
 		}
 	},
 	"ResourceFileModulePaths": {
