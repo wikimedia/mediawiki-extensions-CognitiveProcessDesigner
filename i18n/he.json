@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80"
+			"Amire80",
+			"YaronSh"
 		]
 	},
 	"cpd-yes": "כן",
@@ -71,8 +72,8 @@
 	"processoverview": "תהליכים",
 	"cpd-orphaned-description-pages-column-process-title": "תהליך",
 	"cpd-orphaned-description-pages-column-dbkey-title": "כותרת",
-	"cpd-ui-action-edit": "עריכת תרשים",
-	"cpd-ui-action-edit-xml": "עריכת XML",
+	"cpd-ui-action-edit": "עריכה",
+	"cpd-ui-action-edit-xml": "עריכת קוד מקור",
 	"cpd-button-cancel-title": "ביטול",
 	"cpd-button-show-xml": "הצגת XML גולמי",
 	"cpd-button-hide-xml": "הסתרת XML גולמי",
@@ -164,7 +165,7 @@
 	"cpd-error-message-publish-svg-file": "לא ניתן לפרסם קובץ SVG‏: $1",
 	"cpd-api-move-equal-description-pages-error-message": "הדף הישן והדף החדש שווים",
 	"cpd-error-message-invalid-bpmn": "BPMN בלתי־תקין",
-	"cpd-error-message-missing-svg-file": "קובץ SVG עם תרשים $1 אינו קיים",
+	"cpd-error-message-missing-svg-file": "קובץ ה־SVG של התרשום $1 אינו קיים. נא לערוך ולשמור את התרשים כדי ליצור אותה.",
 	"cpd-error-message-missing-parameter-process": "חסר הפרמטר הנדרש \"process\"",
 	"cpd-droplet-desc": "הטמעת תרשימי BPMN חדשים או קיימים",
 	"cpd-dialog-save-changes-button-label": "שמירה",
@@ -174,5 +175,31 @@
 	"cpd-description-navigation-incoming-label": "חיבורים נכנסים",
 	"cpd-description-navigation-outgoing-label": "חיבורים יוצאים",
 	"cpd-button-show-diagram": "הצגת תרשים",
-	"cpd-error-xml-parse-error": "שגיאה בפענוח XML"
+	"cpd-error-xml-parse-error": "שגיאה בפענוח XML",
+	"apihelp-cpd-load-diagram-summary": "טעינת תרשים CPD",
+	"apihelp-cpd-load-diagram-param-process": "שם התהליך לטעינת התרשים",
+	"apihelp-cpd-load-diagram-param-revision": "מזהה הגרסה של התרשים שיש לטעון",
+	"apihelp-cpd-save-diagram-summary": "שמירת תרשים CPD",
+	"apihelp-cpd-save-diagram-param-process": "שם התהליך המשויך לתרשים",
+	"apihelp-cpd-syntax-highlight-xml-summary": "החלת צביעת תחביר על תוכן XML",
+	"apihelp-cpd-syntax-highlight-xml-param-xml": "מחרוזת ה־XML שיש לצבוע",
+	"apihelp-cpd-save-diagram-param-xml": "תוכן ה־XML של התרשים לשמירה",
+	"apihelp-cpd-save-diagram-param-svg": "ייצוג SVG של התרשים",
+	"apihelp-cpd-save-diagram-param-savedescriptionpages": "האם לשמור דפי תיאור משויכים",
+	"apihelp-cpd-orphaned-description-pages-store-param-filter": "תנאי סינון שיחולו על דפים יתומים",
+	"apihelp-cpd-orphaned-description-pages-store-param-limit": "מספר מרבי של דפים לעבד",
+	"apihelp-cpd-orphaned-description-pages-store-param-start": "נקודת התחלה עבור רישום דפים (משמש לחלוקה לדפים)",
+	"apihelp-cpd-orphaned-description-pages-store-param-query": "שאילתת חיפוש לסינון דפים",
+	"apihelp-cpd-process-overview-store-summary": "אחסון סקירת תהליך CPD",
+	"apihelp-cpd-orphaned-description-pages-store-summary": "אחסון דפי תיאור יתומים",
+	"apihelp-cpd-orphaned-description-pages-store-param-sort": "תנאי מיון עבור הדפים",
+	"apihelp-cpd-diagram-usage-summary": "קבלת השימוש בתרשים CPD",
+	"apihelp-cpd-diagram-usage-param-page": "שם הדף שמשתמש בתרשים",
+	"cpd-save-description-page-empty-set-warning": "אין רכיבים לשמירה",
+	"cpd-save-description-page-duplicate-warning": "דף תיאור כפול $1",
+	"bs-cpd-actionmenuentry-create-new-process": "יצירת תהליך חדש",
+	"cpd-cancel-confirm": "האם ברצונך באמת לבטל את העריכה? כל השינויים שלא נשמרו יאבדו.",
+	"cpd-dialog-action-label-create": "יצירה",
+	"cpd-pretoclip-button-tooltip": "העתקת התוכן ללוח",
+	"cpd-pretoclip-button-notification-text": "התוכן הועתק ללוח"
 }

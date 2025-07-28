@@ -74,8 +74,8 @@
 	"processoverview": "Processos",
 	"cpd-orphaned-description-pages-column-process-title": "Processo",
 	"cpd-orphaned-description-pages-column-dbkey-title": "Titulo",
-	"cpd-ui-action-edit": "Modificar diagramma",
-	"cpd-ui-action-edit-xml": "Modificar XML",
+	"cpd-ui-action-edit": "Modificar",
+	"cpd-ui-action-edit-xml": "Modificar fonte",
 	"cpd-button-cancel-title": "Cancellar",
 	"cpd-button-show-xml": "Monstrar XML brute",
 	"cpd-button-hide-xml": "Celar XML brute",
@@ -197,5 +197,12 @@
 	"cpd-description-navigation-incoming-label": "Connexiones entrante",
 	"cpd-description-navigation-outgoing-label": "Connexiones sortiente",
 	"cpd-button-show-diagram": "Monstrar diagramma",
-	"cpd-error-xml-parse-error": "Error durante le analyse syntactic de XML"
+	"cpd-error-xml-parse-error": "Error durante le analyse syntactic de XML",
+	"apihelp-cpd-load-diagram-param-revision": "Le ID de version del diagramma a cargar",
+	"apihelp-cpd-save-diagram-param-savedescriptionpages": "Si se debe salveguardar le paginas de description associate",
+	"cpd-cancel-confirm": "Es tu secur de voler cancellar le modification? Tote le modificationes non salveguardate essera perdite.",
+	"cpd-dialog-validation-page-exist-info-label": "Existe ja un processo con iste nomine. Per favor elige un altere nomine.",
+	"cpd-dialog-action-label-create": "Crear",
+	"cpd-pretoclip-button-tooltip": "Copiar le contento al area de transferentia",
+	"cpd-pretoclip-button-notification-text": "Le contento ha essite copiate al area de transferentia"
 }

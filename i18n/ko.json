@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ykhwong"
+			"Ykhwong",
+			"아라"
 		]
 	},
 	"specialpages-group-semantic-process": "시맨틱 프로세스",
@@ -54,8 +55,8 @@
 	"processoverview": "프로세스",
 	"cpd-orphaned-description-pages-column-process-title": "프로세스",
 	"cpd-orphaned-description-pages-column-dbkey-title": "제목",
-	"cpd-ui-action-edit": "다이어그램 편집",
-	"cpd-ui-action-edit-xml": "XML 편집",
+	"cpd-ui-action-edit": "편집",
+	"cpd-ui-action-edit-xml": "원본 편집",
 	"cpd-button-cancel-title": "취소",
 	"cpd-link-diagram-page-title": "다이어그램 문서로 이동",
 	"cpd-link-svg-title": "다이어그램을 SVG로 다운로드",
@@ -99,7 +100,7 @@
 	"cpd-dialog-save-changes-button-title": "변경사항 저장",
 	"cpd-dialog-save-label-review": "바뀐 내용 검토",
 	"cpd-dialog-save-label-save": "바뀐 내용 저장하기",
-	"cpd-dialog-save-label-changes": "변경된 사항을 저장했습니다",
+	"cpd-dialog-save-label-changes": "변경사항을 저장했습니다",
 	"cpd-dialog-save-label-changes-with-error": "오류가 발생했습니다",
 	"cpd-dialog-save-label-resume-editing": "계속 편집하기",
 	"bs-cpd-mainlinks-label": "프로세스",
@@ -119,5 +120,6 @@
 	"cpd-description-navigation-incoming-label": "들어오는 연결",
 	"cpd-description-navigation-outgoing-label": "나가는 연결",
 	"cpd-button-show-diagram": "다이어그램 표시",
-	"cpd-error-xml-parse-error": "XML 구문 분석 오류"
+	"cpd-error-xml-parse-error": "XML 구문 분석 오류",
+	"cpd-dialog-action-label-create": "만들기"
 }

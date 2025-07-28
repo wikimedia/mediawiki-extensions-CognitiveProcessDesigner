@@ -4,7 +4,7 @@
 			"Cabal"
 		]
 	},
-	"cpd-ui-action-edit-xml": "XML ਸੋਧੋ",
+	"cpd-ui-action-edit-xml": "ਸਰੋਤ ਸੋਧੋ",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=ਹੇਠਾਂ ਦਿੱਤੇ ਵੇਰਵੇ ਵਾਲੇ ਵਰਕੇ ਨੂੰ ਸਾਂਭਿਆ ਗਿਆ ਏ:|ਹੇਠਾਂ ਦਿੱਤੇ ਗਏ $1 ਦੇ ਵੇਰਵੇ ਵਰਕਿਆਂ ਨੂੰ ਸੰਭਾਲਿਆ ਗਿਆ ਏ|0=ਕੋਈ ਵੀ ਵੇਰਵੇ ਵਰਕਿਆਂ ਨੂੰ ਸਾਂਭਿਆ ਨਹੀਂ ਗਿਆ ਏ।}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "ਵੇਰਵਾ ਸਫ਼ਾ $1 ਹੁਣ ਮੌਜੂਦ ਨਹੀਂ ਏ",
 	"cpd-api-save-description-pages-error-message": "ਵੇਰਵਾ ਸਫ਼ਿਆਂ ਨੂੰ ਸਾੰਭਣ ਵੇਲੇ ਗਲਤੀ ਆਈ: $1",
@@ -27,5 +27,6 @@
 	"cpd-api-save-description-page-comment": "ਵੇਰਵਾ ਸਫ਼ਾ ਸੰਭਾਲਿਆ ਗਿਆ",
 	"cpd-api-move-description-page-comment": "ਵੇਰਵਾ ਸਫ਼ਾ ਹਟਾਇਆ ਗਿਆ",
 	"cpd-save-description-page-empty-set-warning": "ਸੰਭਾਲਣ ਲਈ ਕੋਈ ਤੱਤ ਨਹੀਂ",
-	"bs-cpd-actionmenuentry-create-new-process": "ਨਵੀਂ ਕਾਰਵਾਈ ਬਣਾਓ"
+	"bs-cpd-actionmenuentry-create-new-process": "ਨਵੀਂ ਕਾਰਵਾਈ ਬਣਾਓ",
+	"cpd-ui-action-edit": "ਸੋਧ"
 }

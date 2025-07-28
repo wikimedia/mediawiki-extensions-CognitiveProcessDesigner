@@ -20,5 +20,8 @@
 	"bs-cpd-process-overview-create-action-text": "بݨاؤ",
 	"bs-cpd-process-overview-info-action-text": "معلومات ورقہ",
 	"cpd-error-message-publish-svg-file": "فائل شائع کائنی تھی سڳی:$1",
-	"cpd-dialog-save-label-done": "تھی ڳیا"
+	"cpd-dialog-save-label-done": "تھی ڳیا",
+	"cpd-ui-action-edit": "لکھو",
+	"cpd-ui-action-edit-xml": "ماخذ وچ لکھو",
+	"cpd-dialog-action-label-create": "بݨاؤ"
 }

@@ -74,8 +74,8 @@
 	"processoverview": "Processes",
 	"cpd-orphaned-description-pages-column-process-title": "Process",
 	"cpd-orphaned-description-pages-column-dbkey-title": "Title",
-	"cpd-ui-action-edit": "Edit diagram",
-	"cpd-ui-action-edit-xml": "Edit XML",
+	"cpd-ui-action-edit": "Edit",
+	"cpd-ui-action-edit-xml": "Edit source",
 	"cpd-button-cancel-title": "Cancel",
 	"cpd-button-show-xml": "Show raw XML",
 	"cpd-button-hide-xml": "Hide raw XML",
@@ -199,5 +199,12 @@
 	"cpd-description-navigation-incoming-label": "Incoming connections",
 	"cpd-description-navigation-outgoing-label": "Outgoing connections",
 	"cpd-button-show-diagram": "Show diagram",
-	"cpd-error-xml-parse-error": "Error parsing XML"
+	"cpd-error-xml-parse-error": "Error parsing XML",
+	"apihelp-cpd-load-diagram-param-revision": "The revision ID of the diagram to load",
+	"apihelp-cpd-save-diagram-param-savedescriptionpages": "Whether to save associated description pages",
+	"cpd-cancel-confirm": "Are you sure you want to cancel the edit? All unsaved changes will be lost.",
+	"cpd-dialog-validation-page-exist-info-label": "A process with this name already exists. Please choose another name.",
+	"cpd-dialog-action-label-create": "Create",
+	"cpd-pretoclip-button-tooltip": "Copy the contents into the clipboard",
+	"cpd-pretoclip-button-notification-text": "Contents have been copied into the clipboard"
 }

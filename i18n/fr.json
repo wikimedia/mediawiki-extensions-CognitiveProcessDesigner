@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Bananax47",
+			"Derugon",
 			"Eihel",
 			"EmDashUser002",
 			"Florian COLLIN",
@@ -82,8 +83,8 @@
 	"processoverview": "Processus",
 	"cpd-orphaned-description-pages-column-process-title": "Processus",
 	"cpd-orphaned-description-pages-column-dbkey-title": "Titre",
-	"cpd-ui-action-edit": "Modifier le diagramme",
-	"cpd-ui-action-edit-xml": "Modifier le XML",
+	"cpd-ui-action-edit": "Modifier",
+	"cpd-ui-action-edit-xml": "Modifier la source",
 	"cpd-button-cancel-title": "Annuler",
 	"cpd-button-show-xml": "Afficher le XML brut",
 	"cpd-button-hide-xml": "Cacher le XML brut",
@@ -207,5 +208,12 @@
 	"cpd-description-navigation-incoming-label": "Connexions entrantes",
 	"cpd-description-navigation-outgoing-label": "Connexions sortantes",
 	"cpd-button-show-diagram": "Afficher le diagramme",
-	"cpd-error-xml-parse-error": "Erreur lors de l'analyse XML"
+	"cpd-error-xml-parse-error": "Erreur lors de l'analyse XML",
+	"apihelp-cpd-load-diagram-param-revision": "L'ID de révision du diagramme à charger",
+	"apihelp-cpd-save-diagram-param-savedescriptionpages": "S'il faut enregistrer les pages de description associées",
+	"cpd-cancel-confirm": "Êtes-vous sûr{{GENDER:||e}} de vouloir annuler la modification ? Toute modification non enregistrée sera perdue.",
+	"cpd-dialog-validation-page-exist-info-label": "Un processus avec ce nom existe déjà. Veuillez en choisir un autre.",
+	"cpd-dialog-action-label-create": "Créer",
+	"cpd-pretoclip-button-tooltip": "Copier le contenu dans le presse-papiers",
+	"cpd-pretoclip-button-notification-text": "Le contenu a été copié dans le presse-papiers"
 }

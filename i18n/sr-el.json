@@ -3,5 +3,23 @@
 		"authors": []
 	},
 	"cpd-saving-process": "Čuvanje...",
-	"cpd-saved": "Sačuvano"
+	"cpd-saved": "Sačuvano",
+	"cpd-orphaned-description-pages-column-dbkey-title": "Naslov",
+	"cpd-button-cancel-title": "Otkaži",
+	"cpd-api-save-diagram-error-message": "Greška pri čuvanju dijagrama: $1",
+	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=Sledeća stranica sa opisom je sačuvana|Sledećih $1 stranica sa opisom je sačuvano|0=Nema sačuvanih stranica sa opisom}}:",
+	"cpd-api-load-diagram-error-message": "Greška pri učitavanju dijagrama: $1",
+	"cpd-error-message-publish-svg-file": "Objavljivanje SVG datoteke nije uspelo: $1",
+	"cpd-editor-title": "Uređivanje $1",
+	"cpd-editor-title-create": "Napravi $1",
+	"cpd-shape-rename-message": "$1 preimenovan u „$2”",
+	"cpd-droplet-width-field-label": "Širina",
+	"cpd-droplet-height-field-label": "Visina",
+	"cpd-dialog-save-changes-button-title": "Sačuvaj izmene",
+	"cpd-dialog-save-changes-button-label": "Sačuvaj",
+	"cpd-dialog-save-label-done": "Urađeno",
+	"bs-cpd-process-overview-create-action-text": "Napravi",
+	"bs-cpd-process-overview-info-action-text": "Informacije o stranici",
+	"cpd-button-show-diagram": "Prikaži dijagram",
+	"cpd-cancel-confirm": "Sigurno želite da otkažete izmenu? Sve nesačuvane izmene će biti izgubljene."
 }

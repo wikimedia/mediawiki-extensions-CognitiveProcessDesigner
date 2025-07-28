@@ -6,7 +6,8 @@
 			"HalloWelt! GmbH",
 			"MLRodrigue",
 			"Mschlindwein",
-			"Mukeber"
+			"Mukeber",
+			"PretzelRocky"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "BPMN Prozesse mit einer grafischen Benutzeroberfläche in Semantic MediaWiki zeichnen",
@@ -78,8 +79,8 @@
 	"processoverview": "Prozesse",
 	"cpd-orphaned-description-pages-column-process-title": "Prozess",
 	"cpd-orphaned-description-pages-column-dbkey-title": "Titel",
-	"cpd-ui-action-edit": "Diagramm bearbeiten",
-	"cpd-ui-action-edit-xml": "XML bearbeiten",
+	"cpd-ui-action-edit": "Bearbeiten",
+	"cpd-ui-action-edit-xml": "Quelltext bearbeiten",
 	"cpd-button-cancel-title": "Abbrechen",
 	"cpd-button-show-xml": "XML-Rohdaten anzeigen",
 	"cpd-button-hide-xml": "XML-Rohdaten ausblenden",
@@ -200,5 +201,11 @@
 	"cpd-api-save-diagram-update-comment": "Diagramm aktualisiert",
 	"cpd-description-navigation-incoming-label": "Eingehende Verbindungen",
 	"cpd-description-navigation-outgoing-label": "Ausgehende Verbindungen",
-	"cpd-button-show-diagram": "Diagramm anzeigen"
+	"cpd-button-show-diagram": "Diagramm anzeigen",
+	"apihelp-cpd-load-diagram-param-revision": "Die Revisions-ID des zu ladenden Diagramms",
+	"apihelp-cpd-save-diagram-param-savedescriptionpages": "Ob zugehörige Beschreibungsseiten gespeichert werden sollen",
+	"cpd-dialog-validation-page-exist-info-label": "Ein Prozess mit diesem Namen existiert bereits. Bitte wähle einen anderen Namen.",
+	"cpd-dialog-action-label-create": "Erstellen",
+	"cpd-pretoclip-button-tooltip": "Kopiert den Inhalt in die Zwischenablage",
+	"cpd-pretoclip-button-notification-text": "Inhalt wurde in die Zwischenablage kopiert"
 }

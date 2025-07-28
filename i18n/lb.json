@@ -22,8 +22,8 @@
 	"processoverview": "Prozesser",
 	"cpd-orphaned-description-pages-column-process-title": "Prozess",
 	"cpd-orphaned-description-pages-column-dbkey-title": "Titel",
-	"cpd-ui-action-edit": "Diagramm änneren",
-	"cpd-ui-action-edit-xml": "XML änneren",
+	"cpd-ui-action-edit": "Änneren",
+	"cpd-ui-action-edit-xml": "Quelltext änneren",
 	"cpd-button-cancel-title": "Ofbriechen",
 	"cpd-button-center-viewport": "Diagramm zentréieren",
 	"cpd-link-svg-title": "D'Diagrammen als SVG eroflueden",
@@ -83,5 +83,8 @@
 	"cpd-dialog-save-changes-button-label": "Späicheren",
 	"bs-cpd-actionmenuentry-create-new-process": "Neie Prozess uleeën",
 	"cpd-api-save-diagram-update-comment": "Diagramm aktualiséiert",
-	"cpd-button-show-diagram": "Diagramm weisen"
+	"cpd-button-show-diagram": "Diagramm weisen",
+	"cpd-cancel-confirm": "Sidd Dir sécher, datt Dir d'Ännerung annuléiere wëllt? All net gespäichert Ännerunge gi verluer.",
+	"cpd-dialog-validation-page-exist-info-label": "Et gëtt schonn e Prozess mat deem Numm. Sicht Iech wgl. een aneren Numm eraus.",
+	"cpd-dialog-action-label-create": "Uleeën"
 }

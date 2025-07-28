@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Alshamiri1"
+			"Alshamiri1",
+			"Mohammed Qays"
 		]
 	},
 	"cpd-yes": "نعم",
@@ -67,5 +68,8 @@
 	"apihelp-cpd-delete-orphaned-elements-summary": "يحذف عناصر مخطط BPMN التي تمت إزالتها",
 	"cpd-droplet-bpmn-name": "مخطط BPMN",
 	"cpd-droplet-bpmn-description": "مخطط BPMN قابل للتحرير",
-	"cpd-droplet-description": "مخطط BPMN قابل للتحرير"
+	"cpd-droplet-description": "مخطط BPMN قابل للتحرير",
+	"cpd-dialog-validation-page-exist-info-label": "توجد عملية بهذا الاسم. يُرجى اختيار اسم آخر.",
+	"cpd-dialog-action-label-create": "أنشئ",
+	"cpd-pretoclip-button-tooltip": "انسخ المحتويات إلى الحافظة"
 }
