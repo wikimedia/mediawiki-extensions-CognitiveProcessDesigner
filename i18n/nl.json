@@ -199,5 +199,10 @@
 	"apihelp-cpd-diagram-usage-param-page": "De naam van de pagina die het diagram gebruikt",
 	"cpd-save-description-page-empty-set-warning": "Geen elementen om op te slaan",
 	"cpd-save-description-page-duplicate-warning": "Dubbele beschrijvingspagina $1",
-	"bs-cpd-actionmenuentry-create-new-process": "Nieuw proces aanmaken"
+	"bs-cpd-actionmenuentry-create-new-process": "Nieuw proces aanmaken",
+	"cpd-cancel-confirm": "Weet u zeker dat u de bewerking wilt annuleren? Alle niet-opgeslagen wijzigingen gaan verloren.",
+	"cpd-dialog-validation-page-exist-info-label": "Er is al een proces met deze naam. Kies een andere naam.",
+	"cpd-dialog-action-label-create": "Aanmaken",
+	"cpd-pretoclip-button-tooltip": "Kopieer de inhoud naar het klembord",
+	"cpd-pretoclip-button-notification-text": "De inhoud is naar het klembord gekopieerd"
 }
