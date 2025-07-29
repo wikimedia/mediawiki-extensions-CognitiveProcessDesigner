@@ -120,5 +120,10 @@
 	"cpd-description-navigation-incoming-label": "Inkomende verbindingen",
 	"cpd-description-navigation-outgoing-label": "Uitgaande verbindingen",
 	"cpd-button-show-diagram": "Diagram weergeven",
-	"cpd-error-xml-parse-error": "Fout bij het verwerken van XML"
+	"cpd-error-xml-parse-error": "Fout bij het verwerken van XML",
+	"cpd-cancel-confirm": "Weet u zeker dat u de bewerking wilt annuleren? Alle niet-opgeslagen wijzigingen gaan verloren.",
+	"cpd-dialog-validation-page-exist-info-label": "Er is al een proces met deze naam. Kies een andere naam.",
+	"cpd-dialog-action-label-create": "Aanmaken",
+	"cpd-pretoclip-button-tooltip": "Kopieer de inhoud naar het klembord",
+	"cpd-pretoclip-button-notification-text": "De inhoud is naar het klembord gekopieerd"
 }
