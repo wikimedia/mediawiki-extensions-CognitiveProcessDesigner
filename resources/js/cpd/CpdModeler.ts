@@ -24,20 +24,20 @@ class CpdModeler extends CpdTool {
 		const translator = new CpdTranslator( mw.config.get( "wgUserLanguage" ) );
 		const bpmnModeler = new BpmnModeler( {
 			linting: {
-				bpmnlint: bpmnlintConfig
+				bpmnlint: bpmnlintConfig,
 			},
 			additionalModules: [
 				BpmnColorPickerModule,
 				lintModule,
 				{
-					translate: [ 'value', translator.translate.bind( translator ) ]
+					translate: [ 'value', translator.translate.bind( translator ) ],
 				},
 				{
 					__init__: [ "paletteProvider", "replaceMenuProvider" ],
 					paletteProvider: [ "type", CustomPaletteProvider ],
-					replaceMenuProvider: [ 'type', CustomReplaceMenuProvider ]
+					replaceMenuProvider: [ 'type', CustomReplaceMenuProvider ],
 				},
-			]
+			],
 		} );
 
 		super( process, container, bpmnModeler );
@@ -82,7 +82,7 @@ class CpdModeler extends CpdTool {
 
 		this.dom.setSvgLink( pageContent.svgFile );
 		this.dom.setOpenDialogOptions( {
-			savePagesCheckboxState: pageContent.descriptionPages.length > 0
+			savePagesCheckboxState: pageContent.descriptionPages.length > 0,
 		} );
 	}
 
@@ -99,7 +99,7 @@ class CpdModeler extends CpdTool {
 		if ( saveXmlResult.error || !saveXmlResult.xml ) {
 			throw new Error( mw.message(
 				"cpd-error-message-saving-diagram",
-				saveXmlResult.error ).text()
+				saveXmlResult.error ).text(),
 			);
 		}
 
@@ -132,7 +132,7 @@ class CpdModeler extends CpdTool {
 		const result = await this.api.saveDiagram(
 			this.xml,
 			svgResult,
-			withPages
+			withPages,
 		);
 
 		// Reload the page in view mode

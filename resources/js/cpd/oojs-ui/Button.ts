@@ -1,8 +1,8 @@
 export default abstract class Button extends OO.ui.Tool {
 	static readonly static = {
 		...OO.ui.Tool.static, ...{
-			displayBothIconAndLabel: true
-		}
+			displayBothIconAndLabel: true,
+		},
 	};
 
 	onUpdateState() {

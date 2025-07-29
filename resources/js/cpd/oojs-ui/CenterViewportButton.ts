@@ -7,8 +7,8 @@ export default class CenterViewportButton extends Button {
 			label: mw.msg( "cpd-button-center-viewport" ),
 			title: mw.msg( "cpd-button-center-viewport" ),
 			icon: "alignCenter",
-			displayBothIconAndLabel: false
-		}
+			displayBothIconAndLabel: false,
+		},
 	};
 
 	setActive() {

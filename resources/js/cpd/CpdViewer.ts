@@ -1,7 +1,7 @@
 import { ModdleElement } from "bpmn-js/lib/model/Types";
-// eslint-disable-next-line no-unused-vars
+
 import config from "types-mediawiki/mw/config";
-// eslint-disable-next-line no-unused-vars
+
 import hook from "types-mediawiki/mw/hook";
 import EventBus from "diagram-js/lib/core/EventBus";
 import { CpdTool } from "./CpdTool";
@@ -27,9 +27,9 @@ export default class CpdViewer extends CpdTool {
 			additionalModules: [
 				{
 					__init__: [ "customRenderer" ],
-					customRenderer: [ "type", CpdElementsRenderer ]
-				}
-			]
+					customRenderer: [ "type", CpdElementsRenderer ],
+				},
+			],
 		} );
 		super( process, container, bpmnViewer );
 
@@ -67,7 +67,7 @@ export default class CpdViewer extends CpdTool {
 
 		const findDescriptionPage = ( id: string ): string | null => {
 			const initialElement = initialElements.find(
-				( element: CpdElementJson ): boolean => element.id === id
+				( element: CpdElementJson ): boolean => element.id === id,
 			);
 
 			if ( !initialElement ) {
@@ -103,11 +103,11 @@ export default class CpdViewer extends CpdTool {
 	private createDescriptionPageLink( descriptionPage: string, returnToParam: string = "", revId: number|null ): string {
 		const params = {};
 		if ( returnToParam !== "" ) {
-			params[mw.config.get( "cpdReturnToQueryParam" ) as string] = returnToParam;
+			params[ mw.config.get( "cpdReturnToQueryParam" ) as string ] = returnToParam;
 		}
 
 		if ( revId ) {
-			params[mw.config.get( "cpdRevisionQueryParam" ) as string] = revId;
+			params[ mw.config.get( "cpdRevisionQueryParam" ) as string ] = revId;
 		}
 
 		return mw.util.getUrl( descriptionPage, params );
@@ -128,7 +128,7 @@ export default class CpdViewer extends CpdTool {
 			this.dom.showWarning( mw.message(
 				"cpd-warning-message-diagram-not-initialized",
 				process.replace( /_/g, " " ),
-				this.diagramPage.getUrl( { action: 'edit' } ) ).text()
+				this.diagramPage.getUrl( { action: 'edit' } ) ).text(),
 			);
 
 			return;
@@ -136,7 +136,7 @@ export default class CpdViewer extends CpdTool {
 
 		this.dom.showWarning( mw.message(
 			"cpd-warning-message-diagram-not-initialized-create-it",
-			this.diagramPage.getUrl( { action: 'edit' } ) ).text()
+			this.diagramPage.getUrl( { action: 'edit' } ) ).text(),
 		);
 	}
 }

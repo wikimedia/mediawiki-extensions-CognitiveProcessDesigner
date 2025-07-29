@@ -33,7 +33,7 @@ export default class CpdValidator extends EventEmitter {
 		}
 
 		return issues.every( ( elementIssues: LinterIssue[] ) => elementIssues.every(
-			( issue: LinterIssue ) => issue.category !== "error" )
+			( issue: LinterIssue ) => issue.category !== "error" ),
 		);
 	}
 }

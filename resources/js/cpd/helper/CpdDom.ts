@@ -208,7 +208,7 @@ export default class CpdDom extends EventEmitter {
 		const messageWidget = new OO.ui.MessageWidget( {
 			type: type,
 			inline: true,
-			label: new HtmlSnippet( message )
+			label: new HtmlSnippet( message ),
 		} );
 
 		this.messageBox.append( messageWidget.$element.get( 0 ) );
@@ -238,7 +238,7 @@ export default class CpdDom extends EventEmitter {
 		const messageWidget = new OO.ui.MessageWidget( {
 			type: 'error',
 			inline: true,
-			label: new HtmlSnippet( message )
+			label: new HtmlSnippet( message ),
 		} );
 
 		this.messageBox.append( messageWidget.$element.get( 0 ) );
@@ -260,7 +260,7 @@ export default class CpdDom extends EventEmitter {
 		this.xmlContainer = document.createElement( "div" ) as unknown as HtmlElement;
 		this.declareMethods( this.xmlContainer );
 
-		this.loadingAnimation = document.getElementById('cpd-loading') as unknown as HtmlElement;
+		this.loadingAnimation = document.getElementById( 'cpd-loading' ) as unknown as HtmlElement;
 		this.declareMethods( this.loadingAnimation );
 
 		// Reset container if it was already initialized
@@ -275,7 +275,7 @@ export default class CpdDom extends EventEmitter {
 			this.loadingAnimation,
 			this.messageBox,
 			this.canvas,
-			this.xmlContainer
+			this.xmlContainer,
 		);
 
 		this.viewMode = ViewModes.Modeler;
@@ -288,13 +288,13 @@ export default class CpdDom extends EventEmitter {
 		const toolbar = new OO.ui.Toolbar( toolFactory, toolGroupFactory );
 
 		const primaryBarButtons = [
-			OpenDialogButton.static.name
+			OpenDialogButton.static.name,
 		];
 		const secondaryBarButtons = [
 			CancelButton.static.name,
 			DiagramPageLinkButton.static.name,
 			SvgFileLinkButton.static.name,
-			CenterViewportButton.static.name
+			CenterViewportButton.static.name,
 		];
 
 		toolFactory.register( ShowXmlButton );
@@ -315,7 +315,7 @@ export default class CpdDom extends EventEmitter {
 			name: "primary",
 			type: "bar",
 			include: primaryBarButtons,
-			align: "after"
+			align: "after",
 		} as ToolGroupSetupMap;
 
 		const secondaryBarConfig = {
@@ -323,7 +323,7 @@ export default class CpdDom extends EventEmitter {
 			type: "list",
 			icon: "ellipsis",
 			align: "after",
-			include: secondaryBarButtons
+			include: secondaryBarButtons,
 		} as ToolGroupSetupMap;
 
 		if ( this.isEdit ) {
@@ -342,7 +342,7 @@ export default class CpdDom extends EventEmitter {
 
 		[
 			...toolbar.getToolGroupByName( "primary" ).getItems(),
-			...toolbar.getToolGroupByName( "secondary" ).getItems()
+			...toolbar.getToolGroupByName( "secondary" ).getItems(),
 		].forEach( ( item: Button ): void => {
 			if ( item.constructor === OpenDialogButton ) {
 				this.openDialogBtn = item;

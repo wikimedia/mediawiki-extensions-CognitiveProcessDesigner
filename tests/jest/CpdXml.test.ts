@@ -4,13 +4,13 @@ describe( "CpdXml", () => {
 	test.each( [
 		[ "<root><element id=\"Flow_0sg2lgc_di\">Text 1</element><element id=\"Activity_1djhtuw_di\">Text 2</element></root>", true ],
 		[ "<root><element id=\"Flow_0sg2lgc_di\">Text 1</element><element id=\"Activity_1djhtuw_di\">Text 2", false ],
-		[ "", false ]
+		[ "", false ],
 	] )( "Validate xml", ( xml: string, expectThrow: boolean ) => {
 		if ( expectThrow ) {
-			expect( () => CpdXml.validate(xml) ).toBeTruthy();
+			expect( () => CpdXml.validate( xml ) ).toBeTruthy();
 		} else {
 			// Message is empty, because it is not possible to get the message from mw.message
-			expect( () => CpdXml.validate(xml) ).toThrow( new Error( mw.message( "cpd-error-message-invalid-xml" ).text() ) );
+			expect( () => CpdXml.validate( xml ) ).toThrow( new Error( mw.message( "cpd-error-message-invalid-xml" ).text() ) );
 		}
 	} );
 } );

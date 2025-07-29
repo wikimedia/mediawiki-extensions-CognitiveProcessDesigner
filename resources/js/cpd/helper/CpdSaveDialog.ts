@@ -43,7 +43,7 @@ export default class CpdSaveDialog extends EventEmitter {
 		this.dialog.close();
 	}
 
-	public open( options? : OpenDialogOptions ): void {
+	public open( options?: OpenDialogOptions ): void {
 		this.dialog.open();
 		this.dialog.setSavePagesCheckboxState( options?.savePagesCheckboxState ?? false );
 	}

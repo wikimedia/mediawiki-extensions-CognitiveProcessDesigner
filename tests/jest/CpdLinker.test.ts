@@ -7,7 +7,7 @@ import CpdLinker from "../../resources/js/cpd/helper/CpdLinker";
 
 describe( "createLinkFromDbKey", () => {
 	test.each( [
-		[ "Process:Foo/Parent_1/task_1",  '<a target="_blank" href="/jest/index.php?title=Process:Foo/Parent_1/task_1">Parent 1/task 1</a>' ],
+		[ "Process:Foo/Parent_1/task_1", '<a target="_blank" href="/jest/index.php?title=Process:Foo/Parent_1/task_1">Parent 1/task 1</a>' ],
 		[ "Process:Foo/Parent_1/Parent_2/Parent_3/task_1", '<a target="_blank" href="/jest/index.php?title=Process:Foo/Parent_1/Parent_2/Parent_3/task_1">Parent 1/Parent 2/Parent 3/task 1</a>' ],
 		[ "Process:Foo/task_1", '<a target="_blank" href="/jest/index.php?title=Process:Foo/task_1">task 1</a>' ],
 		[ "Parent_1/task_1", null ],

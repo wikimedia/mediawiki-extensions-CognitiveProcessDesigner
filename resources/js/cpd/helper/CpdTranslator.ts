@@ -25,8 +25,6 @@ export default class CpdTranslator {
 	}
 
 	private replaceTemplateStrings( text: string, args: Record<string, any> ): string {
-		return text.replace( /\{(\w+)\}/g, ( match, key ) => {
-			return args[ key ] || match;
-		} );
+		return text.replace( /\{(\w+)\}/g, ( match, key ) => args[ key ] || match );
 	}
 }

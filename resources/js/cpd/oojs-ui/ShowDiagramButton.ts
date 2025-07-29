@@ -6,7 +6,7 @@ export default class ShowDiagramButton extends Button {
 			name: "showDiagram",
 			label: mw.msg( 'cpd-button-show-diagram' ),
 			title: mw.msg( 'cpd-button-show-diagram' ),
-			icon: "imageLayoutFrame"
-		}
+			icon: "imageLayoutFrame",
+		},
 	};
 }

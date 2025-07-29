@@ -51,6 +51,19 @@
 		"es-x/no-array-prototype-includes": "off",
 		"es-x/no-regexp-s-flag": "off",
 		"es-x/no-string-prototype-matchall": "off",
-		"no-jquery/no-done-fail": "warn"
+		"no-jquery/no-done-fail": "warn",
+		"no-underscore-dangle": "warn",
+		"mediawiki/class-doc": "warn",
+		"@typescript-eslint/ban-ts-comment": "warn",
+		"@typescript-eslint/no-unused-vars": "warn",
+		"default-param-last": "warn",
+		"@typescript-eslint/explicit-member-accessibility": "warn",
+		"@typescript-eslint/explicit-function-return-type": "warn",
+		"@typescript-eslint/explicit-module-boundary-types": "warn",
+		"@typescript-eslint/no-explicit-any": "warn",
+		"es-x/no-nullish-coalescing-operators": "warn",
+		"compat/compat": "warn",
+		"@typescript-eslint/no-empty-function": "warn",
+		"mediawiki/msg-doc": "warn"
 	}
 }

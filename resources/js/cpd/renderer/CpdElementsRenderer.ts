@@ -6,7 +6,8 @@ import { ShapeLike } from "bpmn-js/lib/draw/BpmnRenderUtil";
 
 export default class CpdElementsRenderer extends BaseRenderer {
 	// Need to inject due to webpack failing to resolve the dependencies on production mode
-	static $inject = ['eventBus', 'bpmnRenderer'];
+	static $inject = [ 'eventBus', 'bpmnRenderer' ];
+
 	private static readonly HIGHLIGHT_COLOR = "#36c";
 
 	private bpmnRenderer: BpmnRenderer;

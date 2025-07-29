@@ -64,7 +64,7 @@ export abstract class CpdTool {
 	protected centerViewport(): void {
 		this.canvas.zoom( "fit-viewport", {
 			x: 0,
-			y: 0
+			y: 0,
 		} );
 	}
 

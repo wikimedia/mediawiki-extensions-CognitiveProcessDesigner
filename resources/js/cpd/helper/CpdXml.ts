@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import notify from "types-mediawiki/mw/notification";
 
 export default class CpdXml {
@@ -38,10 +37,10 @@ export default class CpdXml {
 		const copyButton = new OO.ui.ButtonWidget( {
 			icon: 'copy',
 			classes: [ 'pretoclip-copy-button' ],
-			title: mw.message( 'cpd-pretoclip-button-tooltip' ).text()
+			title: mw.message( 'cpd-pretoclip-button-tooltip' ).text(),
 		} );
 
-		copyButton.on( 'click', function () {
+		copyButton.on( 'click', () => {
 			navigator.clipboard.writeText( xml );
 			mw.notify( mw.message( 'cpd-pretoclip-button-notification-text' ).text() );
 		}, [], copyButton );

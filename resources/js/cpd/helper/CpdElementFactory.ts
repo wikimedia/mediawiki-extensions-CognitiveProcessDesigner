@@ -1,5 +1,5 @@
 import ElementRegistry, {
-	ElementRegistryFilterCallback
+	ElementRegistryFilterCallback,
 } from "diagram-js/lib/core/ElementRegistry";
 import { ElementLike } from "diagram-js/lib/core/Types";
 import { Element, Shape } from "bpmn-js/lib/model/Types";
@@ -9,22 +9,22 @@ export interface CpdElementJson {
 	id: string;
 	type: string;
 	label: string;
-	descriptionPage?: string
+	descriptionPage?: string;
 }
 
 export class CpdElementFactory {
-	private readonly subpageTypes: Array<string>;
+	private readonly subpageTypes: string[];
 
 	private elementRegistry: ElementRegistry;
 
 	public constructor( elementRegistry: ElementRegistry ) {
 		this.elementRegistry = elementRegistry;
-		this.subpageTypes = Object.keys( mw.config.get( "cpdDedicatedSubpageTypes" ) ) as Array<string>;
+		this.subpageTypes = Object.keys( mw.config.get( "cpdDedicatedSubpageTypes" ) ) as string[];
 
 		if ( !this.subpageTypes ) {
 			throw new Error( mw.message(
 				"cpd-error-message-missing-config",
-				"cpdDedicatedSubpageTypes" ).text()
+				"cpdDedicatedSubpageTypes" ).text(),
 			);
 		}
 	}

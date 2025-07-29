@@ -36,21 +36,21 @@ export default class CpdChangeLogger extends EventEmitter {
 	public constructor(
 		eventBus: EventBus,
 		factory: CpdElementFactory,
-		svgRenderer: CpdInlineSvgRenderer
+		svgRenderer: CpdInlineSvgRenderer,
 	) {
 		super();
 
 		eventBus.on( CpdChangeLogger.ELEMENT_CREATE, this.onElementsChanged.bind(
 			this,
-			CpdChangeLogger.ELEMENT_CREATE
+			CpdChangeLogger.ELEMENT_CREATE,
 		) );
 		eventBus.on( CpdChangeLogger.ELEMENT_DELETE, this.onElementsChanged.bind(
 			this,
-			CpdChangeLogger.ELEMENT_DELETE
+			CpdChangeLogger.ELEMENT_DELETE,
 		) );
 		eventBus.on( CpdChangeLogger.ELEMENT_RENAME, this.onElementChanged.bind(
 			this,
-			CpdChangeLogger.ELEMENT_RENAME
+			CpdChangeLogger.ELEMENT_RENAME,
 		) );
 		eventBus.on( CpdChangeLogger.DIAGRAM_CHANGED, this.onDiagramChanged.bind( this ) );
 
@@ -72,7 +72,7 @@ export default class CpdChangeLogger extends EventEmitter {
 	}
 
 	private onElementChanged( type: string, event: Event ): void {
-		const shape = event[ "context" ][ "element" ];
+		const shape = event.context.element;
 
 		if ( !shape ) {
 			return;
@@ -86,7 +86,7 @@ export default class CpdChangeLogger extends EventEmitter {
 	}
 
 	private onElementsChanged( type: string, event: Event ): void {
-		const shapes = event[ "context" ][ "elements" ];
+		const shapes = event.context.elements;
 
 		if ( !shapes ) {
 			return;
@@ -114,7 +114,7 @@ export default class CpdChangeLogger extends EventEmitter {
 		this.appendMessage(
 			this.creations,
 			element,
-			mw.message( "cpd-shape-creation-message", this.svgRenderer.getSVGFromElement( element ) ).plain()
+			mw.message( "cpd-shape-creation-message", this.svgRenderer.getSVGFromElement( element ) ).plain(),
 		);
 	}
 
@@ -138,13 +138,13 @@ export default class CpdChangeLogger extends EventEmitter {
 			return;
 		}
 
-		const newLabel = event[ "context" ][ "newLabel" ];
+		const newLabel = event.context.newLabel;
 
 		if ( !newLabel ) {
 			this.appendMessage(
 				this.renames,
 				element,
-				mw.message( "cpd-shape-remove-label-message", this.svgRenderer.getSVGFromElement( element ) ).plain()
+				mw.message( "cpd-shape-remove-label-message", this.svgRenderer.getSVGFromElement( element ) ).plain(),
 			);
 
 			return;
@@ -157,7 +157,7 @@ export default class CpdChangeLogger extends EventEmitter {
 		messages: ChangeLogMessages,
 		element: CpdElement,
 		message: string,
-		onlyWithPages: boolean = false
+		onlyWithPages: boolean = false,
 	): void {
 		if ( !messages[ element.id ] ) {
 			messages[ element.id ] = [];
@@ -165,7 +165,7 @@ export default class CpdChangeLogger extends EventEmitter {
 
 		messages[ element.id ].push( {
 			message: message,
-			onlyWithPages: onlyWithPages
+			onlyWithPages: onlyWithPages,
 		} );
 	}
 
@@ -187,7 +187,7 @@ export default class CpdChangeLogger extends EventEmitter {
 				}
 
 				mergedMessages[ elementId ] = mergedMessages[ elementId ].concat(
-					obj[ elementId ]
+					obj[ elementId ],
 				);
 			} );
 		} );

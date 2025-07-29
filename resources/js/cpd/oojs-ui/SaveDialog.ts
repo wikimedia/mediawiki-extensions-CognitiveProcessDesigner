@@ -43,33 +43,33 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 					action: "saveDone",
 					label: mw.msg( "cpd-dialog-save-label-done" ),
 					flags: [ "primary", "progressive" ],
-					modes: [ Mode.CHANGES ]
+					modes: [ Mode.CHANGES ],
 				},
 				{
 					action: "save",
 					label: mw.msg( "savechanges" ),
 					flags: [ "primary", "progressive" ],
-					modes: [ Mode.SAVE, Mode.REVIEW ]
+					modes: [ Mode.SAVE, Mode.REVIEW ],
 				},
 				{
 					action: "close",
 					label: mw.msg( "cpd-dialog-save-label-resume-editing" ),
 					flags: [ "safe", "close" ],
-					modes: [ Mode.SAVE, Mode.CHANGES ]
+					modes: [ Mode.SAVE, Mode.CHANGES ],
 				},
 				{
 					action: "back",
 					label: mw.msg( "cpd-dialog-save-label-resume-editing" ),
 					flags: [ "safe", "back" ],
-					modes: [ Mode.REVIEW ]
+					modes: [ Mode.REVIEW ],
 				},
 				{
 					action: "review",
 					label: mw.msg( "cpd-dialog-save-label-review" ),
-					modes: [ Mode.SAVE ]
-				}
-			]
-		}
+					modes: [ Mode.SAVE ],
+				},
+			],
+		},
 	};
 
 	public initialize(): this {
@@ -138,7 +138,7 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		if ( type === MessageType.WARNING ) {
 			const warningWidget = new OO.ui.MessageWidget( {
 				type: "warning",
-				label: new HtmlSnippet( message.innerText )
+				label: new HtmlSnippet( message.innerText ),
 			} );
 			this.postSaveWarnings.append( warningWidget.$element.get( 0 ) );
 		}
@@ -207,12 +207,12 @@ export default class SaveDialog extends OO.ui.ProcessDialog {
 		const panel = new OO.ui.PanelLayout( { padded: true, expanded: false } );
 
 		this.savePagesCheckbox = new OO.ui.CheckboxInputWidget( {
-			value: "save-with-description-pages"
+			value: "save-with-description-pages",
 		} );
 		this.savePagesCheckbox.connect( this, { change: this.onSavePagesCheckboxChange } );
 		const fieldLayout = new OO.ui.FieldLayout( this.savePagesCheckbox, {
 			align: "inline",
-			label: mw.msg( "cpd-dialog-save-label-description-pages-checkbox" )
+			label: mw.msg( "cpd-dialog-save-label-description-pages-checkbox" ),
 		} );
 
 		panel.$element.append( fieldLayout.$element );

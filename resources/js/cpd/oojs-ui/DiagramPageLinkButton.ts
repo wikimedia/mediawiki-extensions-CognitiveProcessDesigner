@@ -6,8 +6,8 @@ export default class DiagramPageLinkButton extends LinkButton {
 			name: "diagramPageLink",
 			label: mw.msg( "cpd-link-diagram-page-title" ),
 			title: mw.msg( "cpd-link-diagram-page-title" ),
-			icon: "sandbox"
-		}
+			icon: "sandbox",
+		},
 	};
 
 	setActive() {

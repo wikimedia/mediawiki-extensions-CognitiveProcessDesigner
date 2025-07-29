@@ -15,22 +15,28 @@ enum SyncState {
 }
 
 interface Changes {
-	layoutChanged: string[]
-	changed: string[]
-	removed: string[]
-	added: string[]
+	layoutChanged: string[];
+	changed: string[];
+	removed: string[];
+	added: string[];
 }
 
 export class CpdBpmnDiffer {
 	private static readonly VIEWBOX_CHANGE_END_EVENT: string = "canvas.viewbox.changed";
+
 	private static readonly VIEWBOX_CHANGE_START_EVENT: string = "canvas.viewbox.changing";
+
 	private static readonly DIFF_CONTAINER_ID: string = "cpd-diff-container";
+
 	private static readonly NO_DIFF_TYPES: string[] = [ 'bpmn:SequenceFlow' ];
 
 	private readonly process: string;
+
 	private readonly containerHeight: number;
+
 	private api: CpdApi;
-	private syncState: SyncState
+
+	private syncState: SyncState;
 
 	public constructor( process: string, containerHeight: number ) {
 		this.process = process;
@@ -79,7 +85,7 @@ export class CpdBpmnDiffer {
 		elementRegistry: ElementRegistry,
 		canvas: Canvas,
 		overlays: Overlays,
-		type: string
+		type: string,
 	): void {
 		elements.forEach( ( id: string ) => {
 			const shape = elementRegistry.get( id );
@@ -101,9 +107,9 @@ export class CpdBpmnDiffer {
 			overlays.add( id, {
 				position: {
 					top: 0,
-					left: 0
+					left: 0,
 				},
-				html: overlayHtml
+				html: overlayHtml,
 			} );
 		} );
 	}
@@ -120,7 +126,7 @@ export class CpdBpmnDiffer {
 
 		return {
 			viewer,
-			xml
+			xml,
 		};
 	}
 
@@ -144,8 +150,8 @@ export class CpdBpmnDiffer {
 			layoutChanged: Object.keys( changes._layoutChanged ),
 			changed: Object.keys( changes._changed ),
 			removed: Object.keys( changes._removed ),
-			added: Object.keys( changes._added )
-		}
+			added: Object.keys( changes._added ),
+		};
 	}
 
 	private enableCanvasSync( eventBus: EventBus, canvasA: Canvas, canvasB: Canvas, syncDirection: SyncState ): void {
@@ -155,7 +161,7 @@ export class CpdBpmnDiffer {
 			}
 
 			this.syncState = syncDirection;
-			canvasB.viewbox( canvasA.viewbox() )
+			canvasB.viewbox( canvasA.viewbox() );
 		} );
 
 		eventBus.on( CpdBpmnDiffer.VIEWBOX_CHANGE_END_EVENT, () => {

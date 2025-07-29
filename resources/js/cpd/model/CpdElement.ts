@@ -30,6 +30,7 @@ export default class CpdElement {
 		label = label.replace( /\n/g, ' ' );
 		return label;
 	}
+
 	set label( label: string ) {
 		this.bpmnElement.businessObject.name = label;
 	}

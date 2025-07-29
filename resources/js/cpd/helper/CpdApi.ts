@@ -1,8 +1,7 @@
-// eslint-disable-next-line no-unused-vars
 import user from "types-mediawiki/mw/user";
-// eslint-disable-next-line no-unused-vars
+
 import message from "types-mediawiki/mw/message";
-// eslint-disable-next-line no-unused-vars
+
 import Api from "types-mediawiki/mw/Api";
 import EventEmitter from "events";
 import { SaveSVGResult } from "bpmn-js/lib/BaseViewer";
@@ -46,8 +45,8 @@ export default class CpdApi extends EventEmitter {
 
 		const data = {
 			action: "cpd-load-diagram",
-			process: this.process
-		} as { action: string, process: string, token: string, revision?: number };
+			process: this.process,
+		} as { action: string; process: string; token: string; revision?: number };
 
 		if ( revision ) {
 			data.revision = revision;
@@ -63,7 +62,7 @@ export default class CpdApi extends EventEmitter {
 		} ).fail( ( errorCode: string, error: any ) => {
 			this.emit(
 				CpdApi.STATUS_REQUEST_FAILED,
-				mw.message( "cpd-api-load-diagram-error-message", this.getErrorMessage( errorCode, error ) ).text()
+				mw.message( "cpd-api-load-diagram-error-message", this.getErrorMessage( errorCode, error ) ).text(),
 			);
 		} );
 	}
@@ -71,7 +70,7 @@ export default class CpdApi extends EventEmitter {
 	public async saveDiagram(
 		xml: string,
 		svg: SaveSVGResult,
-		withDescriptionPages: boolean
+		withDescriptionPages: boolean,
 	): Promise<SaveDiagramResult> {
 		this.emit( CpdApi.STATUS_REQUEST_STARTED );
 
@@ -81,7 +80,7 @@ export default class CpdApi extends EventEmitter {
 			xml: JSON.stringify( xml ),
 			svg: JSON.stringify( svg.svg ),
 			savedescriptionpages: withDescriptionPages,
-			token: mw.user.tokens.get( "csrfToken" )
+			token: mw.user.tokens.get( "csrfToken" ),
 		} ).then( ( result: any ): SaveDiagramResult => {
 			const elements = result.elements.map( ( element ): CpdElementJson => JSON.parse( element ) );
 			result.descriptionPages = this.gatherDescriptionPages( elements );
@@ -89,7 +88,7 @@ export default class CpdApi extends EventEmitter {
 			if ( withDescriptionPages ) {
 				this.emit(
 					CpdApi.STATUS_REQUEST_FINISHED,
-					mw.message( "cpd-api-save-description-pages-success-message", result.descriptionPages.length ).text()
+					mw.message( "cpd-api-save-description-pages-success-message", result.descriptionPages.length ).text(),
 				);
 			} else {
 				this.emit( CpdApi.STATUS_REQUEST_FINISHED );
@@ -100,12 +99,12 @@ export default class CpdApi extends EventEmitter {
 			if ( withDescriptionPages ) {
 				this.emit(
 					CpdApi.STATUS_REQUEST_FAILED,
-					mw.message( "cpd-api-save-description-pages-error-message", this.getErrorMessage( errorCode, error ) ).text()
+					mw.message( "cpd-api-save-description-pages-error-message", this.getErrorMessage( errorCode, error ) ).text(),
 				);
 			} else {
 				this.emit(
 					CpdApi.STATUS_REQUEST_FAILED,
-					mw.message( "cpd-api-save-diagram-error-message", this.getErrorMessage( errorCode, error ) ).text()
+					mw.message( "cpd-api-save-diagram-error-message", this.getErrorMessage( errorCode, error ) ).text(),
 				);
 			}
 		} );
@@ -116,7 +115,7 @@ export default class CpdApi extends EventEmitter {
 
 		return this.api.post( {
 			action: "cpd-syntax-highlight-xml",
-			xml: JSON.stringify( xml )
+			xml: JSON.stringify( xml ),
 		} ).then( ( result: { highlightedXml: string } ) => {
 			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
 			return result.highlightedXml;
@@ -134,11 +133,7 @@ export default class CpdApi extends EventEmitter {
 
 	private gatherDescriptionPages( elements: CpdElementJson[] ): string[] {
 		return elements
-			.filter( ( element: CpdElementJson ): boolean => {
-				return !!element.descriptionPage;
-			} )
-			.map( ( element: CpdElementJson ): string => {
-				return element.descriptionPage;
-			} );
+			.filter( ( element: CpdElementJson ): boolean => !!element.descriptionPage )
+			.map( ( element: CpdElementJson ): string => element.descriptionPage );
 	}
 }
