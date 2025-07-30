@@ -69,5 +69,6 @@
 	"apihelp-cpd-delete-orphaned-elements-summary": "Izbriše elemente diagrama BPMN, ki so bili odstranjeni",
 	"cpd-droplet-bpmn-name": "BPMN-diagram",
 	"cpd-droplet-bpmn-description": "BPMN-diagram, ki ga je mogoče urejati",
-	"cpd-droplet-description": "BPMN-diagram, ki ga je mogoče urejati"
+	"cpd-droplet-description": "BPMN-diagram, ki ga je mogoče urejati",
+	"apihelp-cpd-syntax-highlight-xml-summary": "Uporabi označevanje skladnje za vsebino XML"
 }
