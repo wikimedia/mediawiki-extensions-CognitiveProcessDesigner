@@ -96,7 +96,7 @@ class CpdElementConnectionUtilTest extends TestCase {
 				],
 				[
 					[
-						'text' => 'lane2:</br>b',
+						'text' => 'lane2:<br/>b',
 						'isLaneChange' => true
 					],
 					[
@@ -141,7 +141,7 @@ class CpdElementConnectionUtilTest extends TestCase {
 						'isLaneChange' => false
 					],
 					[
-						'text' => 'lane2:</br>c',
+						'text' => 'lane2:<br/>c',
 						'isLaneChange' => true
 					],
 					[

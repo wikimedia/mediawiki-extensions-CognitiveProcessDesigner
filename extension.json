@@ -47,7 +47,17 @@
 		"PDFCreator": {
 			"StylesheetsProvider": {
 				"CpdStyles": {
-					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\StylesheetsProvider\\CssStyles"
+					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\StylesheetsProvider\\CssStyles",
+					"services": [ "CpdDescriptionPageUtil" ]
+				}
+			},
+			"PreProcessors": {
+				"AppendNavigationToDescriptionPagePdfExport": {
+					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\AfterGetDOMDocumentHook\\AppendNavigationToDescriptionPagePdfExport",
+					"services": [
+						"CpdDescriptionPageUtil",
+						"CpdElementConnectionUtil"
+					]
 				}
 			}
 		}
@@ -306,8 +316,8 @@
 		},
 		"ext.cpd.description.page": {
 			"styles": [
-				"styles/cpd.navigation.connections.less",
-				"styles/cpd.description.page.less"
+				"styles/cpd.navigation.connections.css",
+				"styles/cpd.description.page.css"
 			]
 		},
 		"ext.cpd.dialoginfo.pages": {
@@ -404,7 +414,8 @@
 		"ContentStabilizationGetCurrentInclusions": "excludeDiagramImagesFromStabilization",
 		"DifferenceEngineViewHeader": "bpmnDiffer",
 		"TextSlotDiffRendererTablePrefix": "bpmnDiffer",
-		"BSUsageTrackerRegisterCollectors": "registerUsageTracker"
+		"BSUsageTrackerRegisterCollectors": "registerUsageTracker",
+		"PDFCreatorAfterGetDOMDocument": "appendNavigationToDescriptionPagePdfExport"
 	},
 	"HookHandlers": {
 		"tag": {
@@ -494,6 +505,13 @@
 		},
 		"registerUsageTracker": {
 			"class": "\\CognitiveProcessDesigner\\UsageTracker\\RegisterUsageTracker"
+		},
+		"appendNavigationToDescriptionPagePdfExport": {
+			"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\AfterGetDOMDocumentHook\\AppendNavigationToDescriptionPagePdfExport",
+			"services": [
+				"CpdDescriptionPageUtil",
+				"CpdElementConnectionUtil"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
