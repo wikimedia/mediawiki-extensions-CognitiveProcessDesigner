@@ -5,5 +5,6 @@
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Risanje procesov BPMN z grafičnim uporabniškim vmesnikom v Semantičnem MediaWikiju",
-	"cpd-droplet-description": "BPMN-diagram, ki ga je mogoče urejati"
+	"cpd-droplet-description": "BPMN-diagram, ki ga je mogoče urejati",
+	"apihelp-cpd-syntax-highlight-xml-summary": "Uporabi označevanje skladnje za vsebino XML"
 }
