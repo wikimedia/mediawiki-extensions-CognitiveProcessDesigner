@@ -1,3 +1,33 @@
 .cpd-container img {
 	width: 99% !important;
 }
+
+.cpd-navigation-connections div {
+	display: block !important;
+}
+
+.cpd-navigation-connections div a.cpd-nav-item {
+	display: block !important;
+	margin-bottom: 5px;
+}
+
+/* stylelint-disable function-url-quotes, @stylistic/function-parentheses-space-inside */
+.cpd-navigation-connections a.cpd-nav-item.incoming.startevent::after {
+	/* @embed */
+	background-image: url('../images/start-incoming.png') !important;
+}
+
+.cpd-navigation-connections a.cpd-nav-item.outgoing.endevent::before {
+	/* @embed */
+	background-image: url('../images/end-outgoing.png') !important;
+}
+
+.cpd-navigation-connections a.cpd-nav-item.outgoing::before {
+	/* @embed */
+	background-image: url('../images/task-outgoing.png') !important;
+}
+
+.cpd-navigation-connections a.cpd-nav-item.incoming::after {
+	/* @embed */
+	background-image: url('../images/task-incoming.png') !important;
+}

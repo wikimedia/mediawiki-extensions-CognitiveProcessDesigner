@@ -2,10 +2,18 @@
 
 namespace CognitiveProcessDesigner\Integration\PDFCreator\StylesheetsProvider;
 
+use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use MediaWiki\Extension\PDFCreator\IStylesheetsProvider;
 use MediaWiki\Extension\PDFCreator\Utility\ExportContext;
+use MediaWiki\Title\Title;
 
 class CssStyles implements IStylesheetsProvider {
+
+	/**
+	 * @param CpdDescriptionPageUtil $descriptionPageUtil
+	 */
+	public function __construct( private readonly CpdDescriptionPageUtil $descriptionPageUtil ) {
+	}
 
 	/**
 	 * @inheritDoc
@@ -13,8 +21,20 @@ class CssStyles implements IStylesheetsProvider {
 	public function execute( string $module, ExportContext $context ): array {
 		$base = dirname( __DIR__, 4 ) . '/resources/styles';
 
+		if (
+			!$this->descriptionPageUtil->isDescriptionPage(
+				Title::newFromPageIdentity( $context->getPageIdentity() )
+			)
+		) {
+			return [
+				'cpd-export.css' => "$base/cpd.export.css"
+			];
+		}
+
 		return [
-			'cpd-export.css' => "$base/cpd.export.css"
+			'cpd-export.css' => "$base/cpd.export.css",
+			'cpd-navigation.css' => "$base/cpd.navigation.connections.css",
+			'cpd-description-page.css' => "$base/cpd.description.page.css"
 		];
 	}
 }

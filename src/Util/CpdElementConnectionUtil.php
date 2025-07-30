@@ -9,7 +9,8 @@ use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
-use CognitiveProcessDesigner\HookHandler\ModifyDescriptionPage;
+use MediaWiki\Html\TemplateParser;
+use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
 
 class CpdElementConnectionUtil {
@@ -71,6 +72,41 @@ class CpdElementConnectionUtil {
 	}
 
 	/**
+	 * @param Title $title
+	 * @param int|null $revId
+	 *
+	 * @return string
+	 * @throws CpdCreateElementException
+	 * @throws CpdInvalidArgumentException
+	 * @throws CpdInvalidContentException
+	 * @throws CpdInvalidNamespaceException
+	 * @throws CpdXmlProcessingException
+	 */
+	public function createNavigationHtml(
+		Title $title,
+		?int $revId = null
+	): string {
+		$connections = $this->getConnections( $title, $revId );
+
+		$incoming = $this->buildConnection( $connections['incoming'], 'incoming' );
+		$outgoing = $this->buildConnection( $connections['outgoing'], 'outgoing' );
+
+		$templateParser = new TemplateParser(
+			dirname( __DIR__, 2 ) . '/resources/templates'
+		);
+
+		return $templateParser->processTemplate(
+			'DescriptionPageNavigation',
+			[
+				'incoming' => $incoming,
+				'outgoing' => $outgoing,
+				'incomingheading' => Message::newFromKey( 'cpd-description-navigation-incoming-label' )->text(),
+				'outgoingheading' => Message::newFromKey( 'cpd-description-navigation-outgoing-label' )->text()
+			]
+		);
+	}
+
+	/**
 	 * Find element corresponding to the title
 	 * Use latest revision if revId is not provided
 	 *
@@ -98,25 +134,6 @@ class CpdElementConnectionUtil {
 	}
 
 	/**
-	 * Include last lane in the connection text when it is a lane change
-	 *
-	 * @param Title $title
-	 * @param bool $isLaneChange
-	 *
-	 * @return string
-	 * @throws CpdInvalidNamespaceException
-	 */
-	private static function createConnectionText( Title $title, bool $isLaneChange = true ): string {
-		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $title );
-		$lastLane = array_pop( $lanes );
-		if ( !$lastLane || !$isLaneChange ) {
-			return $title->getSubpageText();
-		}
-
-		return sprintf( '%s:</br>%s', $lastLane, $title->getSubpageText() );
-	}
-
-	/**
 	 * @param string $dbKey
 	 * @param string $type
 	 * @param Title $source
@@ -132,14 +149,34 @@ class CpdElementConnectionUtil {
 		?int $revId = null
 	): CpdNavigationConnection {
 		$target = Title::newFromDBkey( $dbKey );
-		$queryParam = $revId ? ModifyDescriptionPage::REVISION_QUERY_PARAM . '=' . $revId : '';
-		$link = $target->getFullURL( $queryParam );
-
 		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $target );
 		$isLaneChange = $lanes !== CpdDiagramPageUtil::getLanesFromTitle( $source );
 
-		return new CpdNavigationConnection(
-			self::createConnectionText( $target, $isLaneChange ), $link, $type, $isLaneChange
-		);
+		return CpdNavigationConnection::createFromTitle( $target, $type, $isLaneChange, $revId );
+	}
+
+	/**
+	 * @param CpdNavigationConnection[] $connections
+	 * @param string $direction
+	 *
+	 * @return array
+	 */
+	private function buildConnection( array $connections, string $direction ): array {
+		$result = [];
+		foreach ( $connections as $connection ) {
+			$con = $connection->toArray();
+			$item = [
+				'link' => $con['link'],
+				'text' => $con['text'],
+				'class' => $direction . ' ' . $con['type'],
+				'title' => $con['title']
+			];
+			if ( $con['isLaneChange'] ) {
+				$item['class'] .= ' cpd-lane-change';
+			}
+			$result[] = $item;
+		}
+
+		return $result;
 	}
 }

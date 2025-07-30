@@ -101,7 +101,7 @@ function updateAriaLiveSection( count ) {
   display: block;
   background-position: center;
   background-size: 100% 100%;
-  background-image: url(./../../img/create_process.svg);
+  background-image: url(../../img/create-process.svg);
   background-color: rgba(62, 83, 137, 0.1);
   background-repeat: no-repeat;
   margin: 0 auto 40px;
