@@ -54,7 +54,6 @@ export default class CpdApi extends EventEmitter {
 		}
 
 		return this.api.get( data ).then( ( result: any ): LoadDiagramResult => {
-			console.log(result)
 			this.emit( CpdApi.STATUS_REQUEST_FINISHED );
 
 			result.elements = result.elements.map( ( element ): CpdElementJson => JSON.parse( element ) );

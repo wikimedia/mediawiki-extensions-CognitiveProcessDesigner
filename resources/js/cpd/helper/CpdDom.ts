@@ -90,6 +90,7 @@ export default class CpdDom extends EventEmitter {
 	}
 
 	public onOpenDialog(): void {
+		this.focusOnCanvas();
 		this.emit( "openDialog" );
 		this.saveDialog?.open( this.openDialogOptions );
 	}
@@ -396,5 +397,14 @@ export default class CpdDom extends EventEmitter {
 		element.show = () => element.classList.remove( "hidden" );
 		element.addClass = ( className: string ) => element.classList.add( className );
 		element.removeClass = ( className: string ) => element.classList.remove( className );
+	}
+
+	private focusOnCanvas(): void {
+		if ( this.canvas ) {
+			const svg = this.canvas.querySelector(':scope svg');
+			if (svg instanceof SVGElement) {
+				svg.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+			}
+		}
 	}
 }
