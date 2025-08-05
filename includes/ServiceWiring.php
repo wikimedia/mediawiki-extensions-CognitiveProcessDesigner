@@ -24,7 +24,6 @@ return [
 	},
 	'CpdDescriptionPageUtil' => static function ( MediaWikiServices $services ) {
 		return new CpdDescriptionPageUtil(
-			$services->getPageStore(),
 			$services->getDBLoadBalancer(),
 			$services->getWikiPageFactory(),
 			$services->getMainConfig(),
