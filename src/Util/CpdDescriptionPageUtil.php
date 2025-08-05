@@ -8,7 +8,6 @@ use CognitiveProcessDesigner\Exceptions\CpdSaveException;
 use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
-use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
 use Wikimedia\Rdbms\ILoadBalancer;
@@ -16,14 +15,12 @@ use Wikimedia\Rdbms\ILoadBalancer;
 class CpdDescriptionPageUtil {
 
 	/**
-	 * @param PageStore $pageStore
 	 * @param ILoadBalancer $loadBalancer
 	 * @param WikiPageFactory $wikiPageFactory
 	 * @param Config $config
 	 * @param IRevisionLookup $lookup
 	 */
 	public function __construct(
-		private readonly PageStore $pageStore,
 		private readonly ILoadBalancer $loadBalancer,
 		private readonly WikiPageFactory $wikiPageFactory,
 		private readonly Config $config,
@@ -74,14 +71,23 @@ class CpdDescriptionPageUtil {
 		$process = ucfirst( $process );
 		$pages = [];
 
-		$queryBuilder = $this->pageStore->newSelectQueryBuilder();
-		$queryBuilder->conds( [
-			"page_namespace" => NS_PROCESS,
-			"LOWER(page_title) LIKE '$process/%'"
-		] );
+		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
+		$queryBuilder = $dbr->newSelectQueryBuilder();
 
-		foreach ( $queryBuilder->fetchPageRecords() as $row ) {
-			$pages[] = Title::newFromText( $row->getDBkey(), $row->getNamespace() );
+		$escaped = $dbr->addQuotes( "$process/%" );
+
+		$res = $queryBuilder->select(
+			[
+				'page_title',
+				'page_namespace'
+			]
+		)->from( 'page' )->where( [
+			"page_namespace" => NS_PROCESS,
+			"LOWER(page_title) LIKE $escaped"
+		] )->fetchResultSet();
+
+		foreach ( $res as $row ) {
+			$pages[] = Title::newFromText( $row->page_title, $row->page_namespace );
 		}
 
 		return $pages;
