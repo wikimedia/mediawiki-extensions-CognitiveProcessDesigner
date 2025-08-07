@@ -195,5 +195,6 @@
 	"cpd-dialog-validation-page-exist-info-label": "Label for validation of title input. Shown if page title already exists",
 	"cpd-dialog-action-label-create": "Label for action button in create new process dialog.\n{{Identical:Create}}",
 	"cpd-pretoclip-button-tooltip": "Toolip for a button",
-	"cpd-pretoclip-button-notification-text": "Notification text"
+	"cpd-pretoclip-button-notification-text": "Notification text",
+	"cpd-description-navigation-tooltip-title": "Tooltip text for links in the description navigation table.\n\nParameters:\n* $1: Name of page"
 }
