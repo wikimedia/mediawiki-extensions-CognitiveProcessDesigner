@@ -401,9 +401,9 @@ export default class CpdDom extends EventEmitter {
 
 	private focusOnCanvas(): void {
 		if ( this.canvas ) {
-			const svg = this.canvas.querySelector(':scope svg');
-			if (svg instanceof SVGElement) {
-				svg.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+			const svg = this.canvas.querySelector( ':scope svg' );
+			if ( svg instanceof SVGElement ) {
+				svg.dispatchEvent( new MouseEvent( 'click', { bubbles: true, cancelable: true } ) );
 			}
 		}
 	}
