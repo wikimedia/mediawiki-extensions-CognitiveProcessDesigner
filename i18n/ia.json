@@ -204,5 +204,6 @@
 	"cpd-dialog-validation-page-exist-info-label": "Existe ja un processo con iste nomine. Per favor elige un altere nomine.",
 	"cpd-dialog-action-label-create": "Crear",
 	"cpd-pretoclip-button-tooltip": "Copiar le contento al area de transferentia",
-	"cpd-pretoclip-button-notification-text": "Le contento ha essite copiate al area de transferentia"
+	"cpd-pretoclip-button-notification-text": "Le contento ha essite copiate al area de transferentia",
+	"cpd-description-navigation-tooltip-title": "Visitar $1"
 }

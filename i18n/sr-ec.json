@@ -23,5 +23,6 @@
 	"cpd-dialog-save-changes-button-label": "Сачувај",
 	"cpd-dialog-save-label-done": "Урађено",
 	"cpd-button-show-diagram": "Прикажи дијаграм",
-	"cpd-cancel-confirm": "Сигурно желите да откажете измену? Све несачуване измене ће бити изгубљене."
+	"cpd-cancel-confirm": "Сигурно желите да откажете измену? Све несачуване измене ће бити изгубљене.",
+	"cpd-description-navigation-tooltip-title": "Иди на $1"
 }
