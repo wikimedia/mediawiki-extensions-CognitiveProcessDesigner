@@ -10,5 +10,6 @@
 	"cpd-dialog-validation-page-exist-info-label": "په دې مخ سره يوه پروسه له مخکې شته. مهرباني وکړئ يو بل نوم خوښ کړئ.",
 	"cpd-dialog-action-label-create": "جوړول",
 	"cpd-pretoclip-button-tooltip": "منځپاگې ټينگدړې ته لمېسل",
-	"cpd-pretoclip-button-notification-text": "منځپانگې ټينگدړې ته لمېسل شوي"
+	"cpd-pretoclip-button-notification-text": "منځپانگې ټينگدړې ته لمېسل شوي",
+	"cpd-description-navigation-tooltip-title": "$1 ته ورتلل"
 }
