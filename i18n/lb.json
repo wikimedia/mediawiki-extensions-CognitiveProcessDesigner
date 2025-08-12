@@ -64,5 +64,6 @@
 	"cpd-button-show-diagram": "Diagramm weisen",
 	"cpd-cancel-confirm": "Sidd Dir sécher, datt Dir d'Ännerung annuléiere wëllt? All net gespäichert Ännerunge gi verluer.",
 	"cpd-dialog-validation-page-exist-info-label": "Et gëtt schonn e Prozess mat deem Numm. Sicht Iech wgl. een aneren Numm eraus.",
-	"cpd-dialog-action-label-create": "Uleeën"
+	"cpd-dialog-action-label-create": "Uleeën",
+	"cpd-description-navigation-tooltip-title": "Op $1 goen"
 }
