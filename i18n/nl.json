@@ -125,5 +125,6 @@
 	"cpd-dialog-validation-page-exist-info-label": "Er is al een proces met deze naam. Kies een andere naam.",
 	"cpd-dialog-action-label-create": "Aanmaken",
 	"cpd-pretoclip-button-tooltip": "Kopieer de inhoud naar het klembord",
-	"cpd-pretoclip-button-notification-text": "De inhoud is naar het klembord gekopieerd"
+	"cpd-pretoclip-button-notification-text": "De inhoud is naar het klembord gekopieerd",
+	"cpd-description-navigation-tooltip-title": "Ga naar $1"
 }
