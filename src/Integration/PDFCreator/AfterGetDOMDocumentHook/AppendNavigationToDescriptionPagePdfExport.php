@@ -42,7 +42,11 @@ class AppendNavigationToDescriptionPagePdfExport implements IPreProcessor {
 	 * @throws DOMException
 	 */
 	public function onPDFCreatorAfterGetDOMDocument( DOMDocument $dom, PageContext $context ): void {
-		if ( !$this->descriptionPageUtil->isDescriptionPage( $context->getTitle() ) ) {
+		$title = $context->getTitle();
+		if (
+			!$this->descriptionPageUtil->isDescriptionPage( $title ) &&
+			$title->getNamespace() !== NS_PROCESS
+		) {
 			return;
 		}
 

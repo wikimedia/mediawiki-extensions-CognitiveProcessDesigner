@@ -21,10 +21,9 @@ class CssStyles implements IStylesheetsProvider {
 	public function execute( string $module, ExportContext $context ): array {
 		$base = dirname( __DIR__, 4 ) . '/resources/styles';
 
+		$title = Title::newFromPageIdentity( $context->getPageIdentity() );
 		if (
-			!$this->descriptionPageUtil->isDescriptionPage(
-				Title::newFromPageIdentity( $context->getPageIdentity() )
-			)
+			!$this->descriptionPageUtil->isDescriptionPage( $title ) && $title->getNamespace() !== NS_PROCESS
 		) {
 			return [
 				'cpd-export.css' => "$base/cpd.export.css"
