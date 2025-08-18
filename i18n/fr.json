@@ -215,5 +215,6 @@
 	"cpd-dialog-validation-page-exist-info-label": "Un processus avec ce nom existe déjà. Veuillez en choisir un autre.",
 	"cpd-dialog-action-label-create": "Créer",
 	"cpd-pretoclip-button-tooltip": "Copier le contenu dans le presse-papiers",
-	"cpd-pretoclip-button-notification-text": "Le contenu a été copié dans le presse-papiers"
+	"cpd-pretoclip-button-notification-text": "Le contenu a été copié dans le presse-papiers",
+	"cpd-description-navigation-tooltip-title": "Accéder à « $1 »"
 }

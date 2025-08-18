@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hamilton Abreu"
+			"Hamilton Abreu",
+			"Mansil alfalb"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Desenhar processos BPMN com uma interface de utilizador gráfica no MediaWiki Semântico",
@@ -69,5 +70,6 @@
 	"apihelp-cpd-delete-orphaned-elements-summary": "Elimina elementos do diagrama BPMN, que foram removidos",
 	"cpd-droplet-bpmn-name": "Diagrama BPMN",
 	"cpd-droplet-bpmn-description": "Diagrama BPMN editável",
-	"cpd-droplet-description": "Diagrama BPMN editável"
+	"cpd-droplet-description": "Diagrama BPMN editável",
+	"cpd-description-navigation-tooltip-title": "Vá para $1"
 }
