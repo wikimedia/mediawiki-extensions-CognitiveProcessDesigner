@@ -128,6 +128,7 @@
 	"cpd-api-save-diagram-update-comment": "Diagramme mis à jour",
 	"cpd-description-navigation-incoming-label": "Connexions entrantes",
 	"cpd-description-navigation-outgoing-label": "Connexions sortantes",
+	"cpd-description-navigation-tooltip-title": "Accéder à « $1 »",
 	"cpd-button-show-diagram": "Afficher le diagramme",
 	"cpd-error-xml-parse-error": "Erreur lors de l'analyse XML",
 	"cpd-cancel-confirm": "Êtes-vous sûr{{GENDER:||e}} de vouloir annuler la modification ? Toute modification non enregistrée sera perdue.",
