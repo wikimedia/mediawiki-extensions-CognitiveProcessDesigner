@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hamilton Abreu"
+			"Hamilton Abreu",
+			"Mansil alfalb"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Desenhar processos BPMN com uma interface de utilizador gráfica no MediaWiki Semântico",
