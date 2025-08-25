@@ -36,9 +36,7 @@ class CpdElementConnectionUtil {
 	 *
 	 * @throws CpdCreateElementException
 	 * @throws CpdInvalidArgumentException
-	 * @throws CpdInvalidContentException
 	 * @throws CpdInvalidNamespaceException
-	 * @throws CpdXmlProcessingException
 	 */
 	public function getConnections( Title $title, ?int $revId = null ): array {
 		$connections = [
@@ -116,15 +114,20 @@ class CpdElementConnectionUtil {
 	 * @return CpdElement|null
 	 * @throws CpdCreateElementException
 	 * @throws CpdInvalidArgumentException
-	 * @throws CpdInvalidContentException
 	 * @throws CpdInvalidNamespaceException
-	 * @throws CpdXmlProcessingException
 	 */
 	private function findElementForPage( Title $title, ?int $revId = null ): CpdElement|null {
 		$process = CpdDiagramPageUtil::getProcess( $title );
-		$xml = $this->diagramPageUtil->getXml( CpdDiagramPageUtil::getProcess( $title ), $revId );
 
-		foreach ( $this->xmlProcessor->createElements( $process, $xml ) as $element ) {
+		try {
+			$xml = $this->diagramPageUtil->getXml( CpdDiagramPageUtil::getProcess( $title ), $revId );
+			$elements = $this->xmlProcessor->createElements( $process, $xml );
+		} catch ( CpdXmlProcessingException | CpdInvalidContentException $e ) {
+			// If the XML is invalid, we cannot find any elements
+			return null;
+		}
+
+		foreach ( $elements as $element ) {
 			if ( $element->getDescriptionPage()->equals( $title ) ) {
 				return $element;
 			}
