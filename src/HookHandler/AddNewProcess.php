@@ -2,14 +2,14 @@
 
 namespace CognitiveProcessDesigner\HookHandler;
 
+use CognitiveProcessDesigner\Util\CpdProcessUtil;
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
-use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Registration\ExtensionRegistry;
 use SkinTemplate;
 
 class AddNewProcess implements SkinTemplateNavigation__UniversalHook {
 
-	public function __construct( private readonly PermissionManager $permissionManager ) {
+	public function __construct( private readonly CpdProcessUtil $processUtil ) {
 	}
 
 	/**
@@ -55,10 +55,10 @@ class AddNewProcess implements SkinTemplateNavigation__UniversalHook {
 	 * @return bool
 	 */
 	protected function skipProcessing( SkinTemplate $sktemplate ): bool {
-		$title = $sktemplate->getTitle();
-		if ( !$this->permissionManager->userCan( 'create', $sktemplate->getUser(), $title ) ) {
+		if ( !$this->processUtil->hasPermission( $sktemplate->getUser(), 'edit' ) ) {
 			return true;
 		}
+
 		return false;
 	}
 }

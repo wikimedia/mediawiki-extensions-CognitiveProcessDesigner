@@ -100,7 +100,10 @@
 			"class": "\\CognitiveProcessDesigner\\Special\\SpecialOrphanedDescriptionPages"
 		},
 		"ProcessOverview": {
-			"class": "\\CognitiveProcessDesigner\\Special\\SpecialProcessOverview"
+			"class": "\\CognitiveProcessDesigner\\Special\\SpecialProcessOverview",
+			"services": [
+				"CpdProcessUtil"
+			]
 		}
 	},
 	"APIModules": {
@@ -131,7 +134,8 @@
 			"class": "\\CognitiveProcessDesigner\\Api\\Store\\ProcessesOverviewStore",
 			"services": [
 				"DBLoadBalancer",
-				"CpdDiagramPageUtil"
+				"CpdDiagramPageUtil",
+				"CpdProcessUtil"
 			]
 		},
 		"cpd-orphaned-description-pages-store": {
@@ -347,7 +351,8 @@
 				"cpd-button-cancel-title",
 				"cpd-dialog-save-label-done",
 				"cpd-dialog-validation-page-exist-info-label",
-				"cpd-dialog-action-label-create"
+				"cpd-dialog-action-label-create",
+				"permissionserrors"
 			],
 			"dependencies": [
 				"oojs-ui",
@@ -442,7 +447,7 @@
 		},
 		"addNewProcess": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddNewProcess",
-			"services": [ "PermissionManager" ]
+			"services": [ "CpdProcessUtil" ]
 		},
 		"integrateCodeEditor": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\IntegrateCodeEditor"
@@ -466,7 +471,8 @@
 		"commonUserInterface": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\CommonUserInterface",
 			"services": [
-				"MainConfig"
+				"MainConfig",
+				"CpdProcessUtil"
 			]
 		},
 		"standardDialogs": {

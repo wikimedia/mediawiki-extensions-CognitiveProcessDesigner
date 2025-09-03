@@ -2,15 +2,18 @@
 
 namespace CognitiveProcessDesigner\Special;
 
+use CognitiveProcessDesigner\Util\CpdProcessUtil;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\SpecialPage\SpecialPage;
+use PermissionsError;
 
 class SpecialProcessOverview extends SpecialPage {
+
 	/** @var TemplateParser */
 	private TemplateParser $templateParser;
 
-	public function __construct() {
+	public function __construct( private readonly CpdProcessUtil $processUtil ) {
 		parent::__construct( 'ProcessOverview' );
 
 		$this->templateParser = new TemplateParser(
@@ -22,8 +25,11 @@ class SpecialProcessOverview extends SpecialPage {
 	 * @param string $subPage
 	 *
 	 * @return void
+	 * @throws PermissionsError
 	 */
 	public function execute( $subPage ) {
+		$this->processUtil->throwPermissionErrors( $this->getUser() );
+
 		parent::execute( $subPage );
 
 		$out = $this->getOutput();
