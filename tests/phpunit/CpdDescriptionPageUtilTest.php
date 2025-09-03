@@ -5,7 +5,6 @@ namespace CognitiveProcessDesigner\Tests;
 use CognitiveProcessDesigner\RevisionLookup\IRevisionLookup;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use MediaWiki\Config\Config;
-use MediaWiki\Page\PageStore;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
@@ -37,7 +36,6 @@ class CpdDescriptionPageUtilTest extends TestCase {
 			return $titleMock;
 		} );
 		$this->util = new CpdDescriptionPageUtil(
-			$this->createMock( PageStore::class ),
 			$this->createMock( ILoadBalancer::class ),
 			$this->createMock( WikiPageFactory::class ),
 			$this->createMock( Config::class ),
