@@ -6,6 +6,7 @@ use CognitiveProcessDesigner\RevisionLookup\CpdRevisionLookup;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
+use CognitiveProcessDesigner\Util\CpdProcessUtil;
 use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use MediaWiki\MediaWikiServices;
@@ -61,5 +62,8 @@ return [
 	},
 	'CpdRevisionLookup' => static function ( MediaWikiServices $services ) {
 		return new CpdRevisionLookup( $services );
+	},
+	'CpdProcessUtil' => static function ( MediaWikiServices $services ) {
+		return new CpdProcessUtil( $services->getPermissionManager() );
 	}
 ];

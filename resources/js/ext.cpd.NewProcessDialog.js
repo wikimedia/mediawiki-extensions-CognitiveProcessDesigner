@@ -148,6 +148,13 @@ ext.cpd.NewProcessDialog.prototype.validateTitleNotExist = function ( value ) {
 		titles: newTitle.getPrefixedText()
 	} ).done( ( data ) => {
 		// Check if there is data.query.pages.-1
+		if ( !data.query) {
+			this.actions.setAbilities( { done: false } );
+			this.setError( mw.message( 'permissionserrors' ).text() );
+
+			return;
+		}
+
 		if ( data.query && data.query.pages && data.query.pages[ -1 ] ) {
 			// eslint-disable-next-line no-prototype-builtins
 			if ( data.query.pages[ -1 ].hasOwnProperty( 'invalid' ) ) {
