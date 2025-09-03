@@ -5,6 +5,7 @@ namespace CognitiveProcessDesigner\Api\Store;
 use CognitiveProcessDesigner\Data\Processes\Record;
 use CognitiveProcessDesigner\Data\Processes\Store;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use CognitiveProcessDesigner\Util\CpdProcessUtil;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
@@ -32,6 +33,7 @@ class ProcessesOverviewStore extends ApiBase {
 		string $action,
 		ILoadBalancer $loadBalancer,
 		CpdDiagramPageUtil $util,
+		private readonly CpdProcessUtil $processUtil,
 	) {
 		parent::__construct( $main, $action );
 		$this->store = new Store( $loadBalancer, $util );
@@ -42,6 +44,7 @@ class ProcessesOverviewStore extends ApiBase {
 	 * @throws ApiUsageException
 	 */
 	public function execute() {
+		$this->processUtil->throwPermissionErrors( $this->getUser() );
 		$params = $this->extractRequestParams();
 		$params = new ReaderParams( $params );
 		$res = $this->store->getReader()->read( $params );

@@ -184,9 +184,10 @@ class CpdDescriptionPageUtil {
 		);
 	}
 
+	/**
+	 * @return bool
+	 */
 	private function isStabilizationEnabled(): bool {
-		$dummyPage = Title::newFromText( 'Dummy', NS_PROCESS );
-
-		return $this->lookup->isStabilizationEnabled( $dummyPage );
+		return $this->lookup->isStabilizationEnabled( CpdProcessUtil::getProcessDummyPage() );
 	}
 }
