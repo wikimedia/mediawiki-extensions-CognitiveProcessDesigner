@@ -1,7 +1,6 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kareyac",
 			"StanProg"
 		]
 	},
@@ -10,5 +9,6 @@
 	"cpd-show-details": "Показване на детайли",
 	"cpd-keyboard-shortcuts-undo": "Отмяна",
 	"cpd-btn-label-save": "Съхраняване",
-	"cpd-saved": "Съхранено"
+	"cpd-saved": "Съхранено",
+	"cpd-button-cancel-title": "Отказ"
 }
