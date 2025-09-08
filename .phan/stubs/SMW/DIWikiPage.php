@@ -6,7 +6,6 @@ use MediaWiki\Title\Title;
 
 class DIWikiPage {
 	/**
-	 *
 	 * @return string
 	 */
 	public function getDBkey() {

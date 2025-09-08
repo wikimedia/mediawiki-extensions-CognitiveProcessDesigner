@@ -5,7 +5,6 @@ namespace SMW;
 class SemanticData {
 
 	/**
-	 *
 	 * @param DIProperty $property
 	 * @return SMWDataItem[]
 	 */

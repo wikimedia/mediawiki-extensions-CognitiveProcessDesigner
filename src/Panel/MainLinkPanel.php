@@ -17,7 +17,6 @@ class MainLinkPanel extends RestrictedTextLink {
 	}
 
 	/**
-	 *
 	 * @return array
 	 */
 	public function getPermissions(): array {
@@ -56,7 +55,6 @@ class MainLinkPanel extends RestrictedTextLink {
 	}
 
 	/**
-	 *
 	 * @inheritDoc
 	 */
 	public function getRequiredRLStyles(): array {
