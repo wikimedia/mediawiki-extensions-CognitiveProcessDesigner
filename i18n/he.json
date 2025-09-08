@@ -119,9 +119,11 @@
 	"cpd-api-save-diagram-update-comment": "התרשים עודכן",
 	"cpd-description-navigation-incoming-label": "חיבורים נכנסים",
 	"cpd-description-navigation-outgoing-label": "חיבורים יוצאים",
+	"cpd-description-navigation-tooltip-title": "מעבר אל $1",
 	"cpd-button-show-diagram": "הצגת תרשים",
 	"cpd-error-xml-parse-error": "שגיאה בפענוח XML",
 	"cpd-cancel-confirm": "האם ברצונך באמת לבטל את העריכה? כל השינויים שלא נשמרו יאבדו.",
+	"cpd-dialog-validation-page-exist-info-label": "דף עם התהליך הזה כבר קיים. נא לבחור שם אחר.",
 	"cpd-dialog-action-label-create": "יצירה",
 	"cpd-pretoclip-button-tooltip": "העתקת התוכן ללוח",
 	"cpd-pretoclip-button-notification-text": "התוכן הועתק ללוח"
