@@ -7,7 +7,7 @@ use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
-use CognitiveProcessDesigner\Process\SvgFile;
+use CognitiveProcessDesigner\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdSaveDescriptionPagesUtil;
@@ -81,22 +81,29 @@ class SaveCpdDiagram extends ApiBase {
 			$this->diagramPageUtil->getXml( $process )
 		);
 
+		$warnings = [];
+
+		// Save SVG file
 		$svgFilePage = $this->diagramPageUtil->getSvgFilePage( $process );
 		try {
 			$file = $this->svgFile->save( $svgFilePage, $svg, $user );
 		} catch ( CpdSvgException $e ) {
+			$warnings[] = $e->getMessage();
 			$file = null;
+			$svgFilePage = null;
 		}
 
 		$diagramPage = $this->diagramPageUtil->createOrUpdateDiagramPage( $process, $user, $xml, $file );
 
 		// Save description pages
-		$warnings = [];
 		if ( $params[ 'savedescriptionpages' ] ) {
-			$warnings = $this->saveDescriptionPagesUtil->saveDescriptionPages( $user, $cpdElements );
+			$warnings = array_merge(
+				$warnings,
+				$this->saveDescriptionPagesUtil->saveDescriptionPages( $user, $cpdElements )
+			);
 		}
 
-		$result->addValue( null, 'svgFile', $svgFilePage->getPrefixedDBkey() );
+		$result->addValue( null, 'svgFile', $svgFilePage?->getPrefixedDBkey() );
 		$result->addValue( null, 'diagramPage', $diagramPage->getTitle()->getPrefixedDBkey() );
 		$result->addValue(
 			null,

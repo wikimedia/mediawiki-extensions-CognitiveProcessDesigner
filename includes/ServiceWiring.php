@@ -1,8 +1,8 @@
 <?php
 
 use CognitiveProcessDesigner\CpdElementFactory;
-use CognitiveProcessDesigner\Process\SvgFile;
 use CognitiveProcessDesigner\RevisionLookup\CpdRevisionLookup;
+use CognitiveProcessDesigner\SvgFile;
 use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use CognitiveProcessDesigner\Util\CpdElementConnectionUtil;
