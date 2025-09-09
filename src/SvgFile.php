@@ -1,8 +1,10 @@
 <?php
 
-namespace CognitiveProcessDesigner\Process;
+namespace CognitiveProcessDesigner;
 
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
+use DOMDocument;
+use DOMXPath;
 use File;
 use MediaHandler;
 use MediaWiki\Message\Message;
@@ -36,6 +38,7 @@ class SvgFile {
 	 * @throws CpdSvgException
 	 */
 	public function save( Title $svgFile, string $svg, User $user ): File {
+		$this->validateXml( $svg );
 		$filename = $svgFile->getDBkey();
 		$tempFilePath = TempFSFile::getUsableTempDirectory() . '/' . $filename;
 		if ( !file_put_contents( $tempFilePath, $svg ) ) {
@@ -96,5 +99,80 @@ class SvgFile {
 		}
 
 		return $repoFile;
+	}
+
+	/**
+	 * Checks the SVG XML for validity and safety.
+	 *
+	 * @param string $svg
+	 *
+	 * @return void
+	 * @throws CpdSvgException
+	 */
+	private function validateXml( string $svg ): void {
+		if ( empty( $svg ) ) {
+			return;
+		}
+
+		if ( !str_contains( $svg, 'http://www.w3.org/2000/svg' ) ) {
+			throw new CpdSvgException( "Invalid SVG: missing SVG namespace" );
+		}
+
+		$dom = new DOMDocument();
+		libxml_use_internal_errors( true );
+		$loaded = $dom->loadXML( $svg, LIBXML_NONET );
+		libxml_clear_errors();
+
+		if ( !$loaded ) {
+			throw new CpdSvgException( "Invalid SVG: could not be parsed as XML" );
+		}
+
+		$xpath = new DOMXPath( $dom );
+		$xpath->registerNamespace( 'svg', 'http://www.w3.org/2000/svg' );
+
+		// Forbidden elements
+		$forbiddenElements = [
+			'script',
+			'iframe',
+			'embed',
+			'object',
+			'foreignObject',
+			'frameset',
+			'frame',
+			'meta'
+		];
+		foreach ( $forbiddenElements as $tag ) {
+			if ( $xpath->query( '//svg:' . $tag )->length > 0 ) {
+				throw new CpdSvgException( "Unsafe SVG: contains forbidden element <$tag>" );
+			}
+		}
+
+		// Forbidden attributes
+		foreach ( $xpath->query( '//*' ) as $node ) {
+			foreach ( iterator_to_array( $node->attributes ) as $attr ) {
+				$attrName = strtolower( $attr->nodeName );
+				$attrValue = strtolower( $attr->nodeValue );
+
+				// Block all event handlers starting with 'on'
+				if ( str_starts_with( $attrName, 'on' ) || in_array( $attrName, [ 'style' ] ) ) {
+					throw new CpdSvgException( "Unsafe SVG: contains forbidden attribute '$attrName'" );
+				}
+
+				// Block dangerous URLs
+				if (
+					in_array(
+						$attrName,
+						[
+							'href',
+							'xlink:href'
+						]
+					)
+				) {
+					if ( preg_match( '#^\s*(javascript|data)\s*:#i', $attrValue ) ) {
+						throw new CpdSvgException( "Unsafe SVG: contains unsafe URL in '$attrName'" );
+					}
+				}
+			}
+		}
 	}
 }

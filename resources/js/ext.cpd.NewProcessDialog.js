@@ -148,7 +148,7 @@ ext.cpd.NewProcessDialog.prototype.validateTitleNotExist = function ( value ) {
 		titles: newTitle.getPrefixedText()
 	} ).done( ( data ) => {
 		// Check if there is data.query.pages.-1
-		if ( !data.query) {
+		if ( !data.query ) {
 			this.actions.setAbilities( { done: false } );
 			this.setError( mw.message( 'permissionserrors' ).text() );
 
