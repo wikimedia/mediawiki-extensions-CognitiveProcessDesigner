@@ -8,6 +8,7 @@ use DOMXPath;
 use File;
 use MediaHandler;
 use MediaWiki\Message\Message;
+use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Specials\SpecialUpload;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
@@ -149,6 +150,10 @@ class SvgFile {
 
 		// Forbidden attributes
 		foreach ( $xpath->query( '//*' ) as $node ) {
+			if ( $node->tagName === 'style' && $this->isHostileCSS( $node->nodeValue ) ) {
+				throw new CpdSvgException( 'Unsafe SVG: contains hostile CSS in a style element' );
+			}
+
 			foreach ( iterator_to_array( $node->attributes ) as $attr ) {
 				$attrName = strtolower( $attr->nodeName );
 				$attrValue = strtolower( $attr->nodeValue );
@@ -174,5 +179,49 @@ class SvgFile {
 				}
 			}
 		}
+	}
+
+	private function isHostileCSS( string $value ): bool {
+		$value = Sanitizer::normalizeCss( $value );
+
+		// Taken from UploadBase::checkCssFragment, which unfortunately is private.
+
+		# Forbid external stylesheets, for both reliability and to protect viewer's privacy
+		if ( stripos( $value, '@import' ) !== false ) {
+			return true;
+		}
+
+		# We allow @font-face to embed fonts with data: urls, so we snip the string
+		# 'url' out so that this case won't match when we check for urls below
+		$pattern = '!(@font-face\s*{[^}]*src:)url(\("data:;base64,)!im';
+		$value = preg_replace( $pattern, '$1$2', $value );
+
+		# Check for remote and executable CSS. Unlike in Sanitizer::checkCss, the CSS
+		# properties filter and accelerator don't seem to be useful for xss in SVG files.
+		# Expression and -o-link don't seem to work either, but filtering them here in case.
+		# Additionally, we catch remote urls like url("http:..., url('http:..., url(http:...,
+		# but not local ones such as url("#..., url('#..., url(#....
+		if ( preg_match( '!expression
+				| -o-link\s*:
+				| -o-link-source\s*:
+				| -o-replace\s*:!imx', $value ) ) {
+			return true;
+		}
+
+		if ( preg_match_all(
+				"!(\s*(url|image|image-set)\s*\(\s*[\"']?\s*[^#]+.*?\))!sim",
+				$value,
+				$matches
+			) !== 0
+		) {
+			# TODO: redo this in one regex. Until then, url("#whatever") matches the first
+			foreach ( $matches[1] as $match ) {
+				if ( !preg_match( "!\s*(url|image|image-set)\s*\(\s*(#|'#|\"#)!im", $match ) ) {
+					return true;
+				}
+			}
+		}
+
+		return (bool)preg_match( '/[\000-\010\013\016-\037\177]/', $value );
 	}
 }
