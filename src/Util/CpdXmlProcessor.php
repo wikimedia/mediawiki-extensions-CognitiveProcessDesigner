@@ -17,38 +17,10 @@ class CpdXmlProcessor {
 	/** @var array */
 	private array $dedicatedSubpageTypes = [];
 
-	/** @var array */
-	private array $laneTypes = [
-		'participant',
-		'lane'
-	];
-
-	/**
-	 * bpmn:Definitions
-	 * bpmn:Process
-	 * bpmn:Outgoing
-	 * bpmn:Incoming
-	 * bpmn:Collaboration
-	 * bpmn:LaneSet
-	 * bpmn:FlowNodeRef
-	 *
-	 * @var array|string[]
-	 */
-	private array $unusedTypes = [
-		'definitions',
-		'collaboration',
-		'process',
-		'outgoing',
-		'incoming',
-		'laneSet',
-		'flowNodeRef'
-	];
-
 	public function __construct(
 		Config $config,
 		private readonly CpdElementFactory $cpdElementFactory
 	) {
-		$this->dedicatedSubpageTypes = [];
 		if ( $config->has( 'CPDDedicatedSubpageTypes' ) ) {
 			$this->dedicatedSubpageTypes = $config->get( 'CPDDedicatedSubpageTypes' );
 		}
@@ -75,108 +47,6 @@ class CpdXmlProcessor {
 		}
 
 		return $this->cpdElementFactory->makeElements( $descriptionPageElements );
-	}
-
-	private function extractDescriptionPageElements( SimpleXMLElement $xml ): array {
-		$descriptionPageElements = [];
-		$elementsQuery = implode(
-			" or ",
-			array_map(
-				static fn ( $type ) => 'local-name() = "' . lcfirst( str_replace( 'bpmn:', '', $type ) ) . '"',
-				$this->dedicatedSubpageTypes
-			)
-		);
-
-		$participantNames = [];
-		$xmlParticipants = $xml->xpath( '//bpmn:participant' );
-		foreach ( $xmlParticipants as $xmlParticipant ) {
-			$attributes = $xmlParticipant->attributes();
-			$processId = (string)$attributes->processRef;
-			$participantNames[ $processId ] = (string)$attributes->name;
-		}
-
-		$processes = $xml->xpath( '//bpmn:process' );
-		foreach ( $processes as $process ) {
-			$processId = (string)$process->attributes()->id;
-
-			$lanes = [];
-			$laneSets = $process->xpath( './/bpmn:laneSet' );
-			if ( !empty( $laneSets ) ) {
-				$this->extractLanes( $laneSets[0], $lanes );
-			}
-
-			$elements = $process->xpath( './/bpmn:*[' . $elementsQuery . ']' );
-
-			foreach ( $elements as $element ) {
-				$type = 'bpmn:' . ucfirst( $element->getName() );
-				$attributes = $element->attributes();
-				$id = (string)$attributes->id;
-				$name = (string)$attributes->name;
-				$parents = [];
-
-				if ( isset( $participantNames[ $processId ] ) ) {
-					$parents[] = $participantNames[ $processId ];
-				}
-
-				if ( isset( $lanes[ $id ] ) ) {
-					$parents = array_merge( $parents, $lanes[ $id ] );
-				}
-
-				$descriptionPageElements[] = [
-					'type' => $type,
-					'id' => $id,
-					'label' => $name,
-					'parents' => $parents
-				];
-			}
-		}
-
-		return $descriptionPageElements;
-	}
-
-	private function extractSequenceFlows( SimpleXMLElement $xml ): array {
-		return array_map( static function ( SimpleXMLElement $xmlSequenceFlow ) {
-			$attributes = $xmlSequenceFlow->attributes();
-
-			return [
-				'sourceRef' => (string)$attributes->sourceRef,
-				'targetRef' => (string)$attributes->targetRef
-			];
-		}, $xml->xpath( '//bpmn:sequenceFlow' ) );
-	}
-
-	/**
-	 * @param SimpleXMLElement $laneSet
-	 * @param array &$map
-	 * @param array $parentStack
-	 *
-	 * @return void
-	 */
-	private function extractLanes( SimpleXMLElement $laneSet, array &$map = [], array $parentStack = [] ): void {
-		$ns = $laneSet->getNamespaces( true );
-
-		foreach ( $laneSet->children( $ns['bpmn'] ) as $lane ) {
-			if ( $lane->getName() !== 'lane' ) {
-				continue;
-			}
-
-			$attributes = $lane->attributes();
-			$laneName = (string)$attributes->name;
-			$newStack = array_merge( $parentStack, [ $laneName ] );
-
-			// Process flowNodeRefs
-			foreach ( $lane->children( $ns['bpmn'] ) as $child ) {
-				if ( $child->getName() === 'flowNodeRef' ) {
-					$ref = (string)$child;
-					$map[ $ref ] = $newStack;
-				}
-
-				// Recurse into childLaneSet if present
-				if ( $child->getName() === 'childLaneSet' ) {
-					$this->extractLanes( $child, $map, $newStack );
-				}
-			}
-		}
 	}
 
 	/**
@@ -227,6 +97,120 @@ class CpdXmlProcessor {
 		}
 
 		return $descriptionPageElements;
+	}
+
+	/**
+	 * @param SimpleXMLElement $xml
+	 *
+	 * @return array
+	 */
+	private function extractDescriptionPageElements( SimpleXMLElement $xml ): array {
+		$descriptionPageElements = [];
+		$elementsQuery = implode(
+			" or ",
+			array_map(
+				static fn ( $type ) => 'local-name() = "' . lcfirst( str_replace( 'bpmn:', '', $type ) ) . '"',
+				$this->dedicatedSubpageTypes
+			)
+		);
+
+		$participantNames = [];
+
+		$xmlParticipants = $xml->xpath( '//bpmn:participant' );
+		foreach ( $xmlParticipants as $xmlParticipant ) {
+			$attributes = $xmlParticipant->attributes();
+			$processId = (string)$attributes->processRef;
+			$participantNames[ $processId ] = (string)$attributes->name;
+		}
+
+		$processes = $xml->xpath( '//bpmn:process' );
+		foreach ( $processes as $process ) {
+			$process->registerXPathNamespace( 'bpmn', 'http://www.omg.org/spec/BPMN/20100524/MODEL' );
+			$processId = (string)$process->attributes()->id;
+
+			$lanes = [];
+			$laneSets = $process->xpath( './/bpmn:laneSet' );
+			if ( !empty( $laneSets ) ) {
+				$this->extractLanes( $laneSets[0], $lanes );
+			}
+
+			$elements = $process->xpath( './/bpmn:*[' . $elementsQuery . ']' );
+
+			foreach ( $elements as $element ) {
+				$type = 'bpmn:' . ucfirst( $element->getName() );
+				$attributes = $element->attributes();
+				$id = (string)$attributes->id;
+				$name = (string)$attributes->name;
+				$parents = [];
+
+				if ( isset( $participantNames[ $processId ] ) ) {
+					$parents[] = $participantNames[ $processId ];
+				}
+
+				if ( isset( $lanes[ $id ] ) ) {
+					$parents = array_merge( $parents, $lanes[ $id ] );
+				}
+
+				$descriptionPageElements[] = [
+					'type' => $type,
+					'id' => $id,
+					'label' => $name,
+					'parents' => $parents
+				];
+			}
+		}
+
+		return $descriptionPageElements;
+	}
+
+	/**
+	 * @param SimpleXMLElement $xml
+	 *
+	 * @return mixed
+	 */
+	private function extractSequenceFlows( SimpleXMLElement $xml ): array {
+		return array_map( static function ( SimpleXMLElement $xmlSequenceFlow ) {
+			$attributes = $xmlSequenceFlow->attributes();
+
+			return [
+				'sourceRef' => (string)$attributes->sourceRef,
+				'targetRef' => (string)$attributes->targetRef
+			];
+		}, $xml->xpath( '//bpmn:sequenceFlow' ) );
+	}
+
+	/**
+	 * @param SimpleXMLElement $laneSet
+	 * @param array &$map
+	 * @param array $parentStack
+	 *
+	 * @return void
+	 */
+	private function extractLanes( SimpleXMLElement $laneSet, array &$map = [], array $parentStack = [] ): void {
+		$ns = $laneSet->getNamespaces( true );
+
+		foreach ( $laneSet->children( $ns['bpmn'] ) as $lane ) {
+			if ( $lane->getName() !== 'lane' ) {
+				continue;
+			}
+
+			$attributes = $lane->attributes();
+			$laneName = (string)$attributes->name;
+			$newStack = array_merge( $parentStack, [ $laneName ] );
+
+			// Process flowNodeRefs
+			foreach ( $lane->children( $ns['bpmn'] ) as $child ) {
+				if ( $child->getName() === 'flowNodeRef' ) {
+					$ref = (string)$child;
+					$map[ $ref ] = $newStack;
+				}
+
+				// Recurse into childLaneSet if present
+				if ( $child->getName() === 'childLaneSet' ) {
+					$this->extractLanes( $child, $map, $newStack );
+				}
+			}
+		}
 	}
 
 	/**
