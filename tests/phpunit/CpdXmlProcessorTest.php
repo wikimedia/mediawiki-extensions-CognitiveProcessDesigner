@@ -69,6 +69,33 @@ class CpdXmlProcessorTest extends TestCase {
 	}
 
 	/**
+	 * @covers ::findDescriptionPageEligibleElements
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	public function testDiagramWithoutBpmnPrefixes(): void {
+		$fixturePath = __DIR__ . '/fixtures';
+		$xml = file_get_contents( $fixturePath . '/diagram_without_bpmn_prefixes.xml' );
+		$resultElements = json_decode( file_get_contents( $fixturePath . '/elementsData.json' ), true );
+		$elements = $this->xmlProcessor->createElements( 'BackendElements', $xml );
+		$this->assertEquals( $resultElements, array_map( static function ( CpdElement $element ) {
+			// Cant use jsonSerialize here because of check for existence which is not independent of the wiki
+			$data = [
+				'id' => $element->getId(),
+				'type' => $element->getType(),
+				'label' => $element->getLabel(),
+			];
+
+			if ( $element->getDescriptionPage() ) {
+				$data['descriptionPage'] = $element->getDescriptionPage()->getPrefixedDBkey();
+			}
+
+			return $data;
+		}, $elements ) );
+	}
+
+	/**
 	 * @covers ::createRealSequenceFlows
 	 *
 	 * @return void
