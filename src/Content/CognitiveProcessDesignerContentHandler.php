@@ -58,7 +58,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	 * @return string
 	 */
 	public function supportsCategories() {
-		return false;
+		return true;
 	}
 
 	/**
