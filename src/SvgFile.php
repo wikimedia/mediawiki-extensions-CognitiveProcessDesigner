@@ -159,8 +159,19 @@ class SvgFile {
 				$attrValue = strtolower( $attr->nodeValue );
 
 				// Block all event handlers starting with 'on'
-				if ( str_starts_with( $attrName, 'on' ) || in_array( $attrName, [ 'style' ] ) ) {
+				if ( str_starts_with( $attrName, 'on' ) ) {
 					throw new CpdSvgException( "Unsafe SVG: contains forbidden attribute '$attrName'" );
+				}
+
+				// Block dangerous style
+				if ( $attrName === 'style' ) {
+					// Reject if it contains javascript:, expression() or hostile CSS
+					if (
+						$this->isHostileCSS( $attrValue ) ||
+						preg_match( '#javascript:|expression\(|data:#i', $attrValue )
+					) {
+						throw new CpdSvgException( "Unsafe SVG: contains unsafe CSS in 'style'" );
+					}
 				}
 
 				// Block dangerous URLs
