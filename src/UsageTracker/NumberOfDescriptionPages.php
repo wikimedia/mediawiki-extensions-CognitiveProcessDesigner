@@ -17,7 +17,6 @@ class NumberOfDescriptionPages extends UsageTrackerBase {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getIdentifier(): string {
@@ -25,7 +24,6 @@ class NumberOfDescriptionPages extends UsageTrackerBase {
 	}
 
 	/**
-	 *
 	 * @return CollectorResult
 	 */
 	public function getUsageData(): CollectorResult {

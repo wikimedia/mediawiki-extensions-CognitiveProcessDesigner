@@ -43,7 +43,6 @@ class MedianOfBpmnElements extends UsageTrackerBase {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getIdentifier(): string {
