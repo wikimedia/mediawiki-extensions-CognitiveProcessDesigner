@@ -22,7 +22,6 @@ class SpecialProcessOverview extends SpecialPage {
 	}
 
 	/**
-	 *
 	 * @param string $subPage
 	 *
 	 * @return void

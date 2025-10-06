@@ -18,7 +18,6 @@ class NumberOfProcesses extends UsageTrackerBase {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getIdentifier(): string {
@@ -26,7 +25,6 @@ class NumberOfProcesses extends UsageTrackerBase {
 	}
 
 	/**
-	 *
 	 * @return CollectorResult
 	 */
 	public function getUsageData(): CollectorResult {

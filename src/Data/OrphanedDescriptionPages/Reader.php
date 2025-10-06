@@ -21,7 +21,6 @@ class Reader extends \MWStake\MediaWiki\Component\DataStore\Reader {
 	}
 
 	/**
-	 *
 	 * @param ReaderParams $params
 	 *
 	 * @return ResultSet
