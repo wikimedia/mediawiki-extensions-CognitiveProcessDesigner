@@ -12,7 +12,7 @@ use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\TextContentHandler;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\MediaWikiServices;
-use ParserOutput;
+use MediaWiki\Parser\ParserOutput;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 

@@ -58,6 +58,17 @@
 						"CpdDescriptionPageUtil",
 						"CpdElementConnectionUtil"
 					]
+				},
+				"AddLinkedPagesToPdfExport": {
+					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\AfterGetDOMDocumentHook\\AddLinkedPagesToPdfExport",
+					"services": [
+						"CpdDiagramPageUtil",
+						"CpdDescriptionPageUtil",
+						"TitleFactory",
+						"PDFCreator.ExportPageFactory",
+						"PDFCreator.PageSpecFactory",
+						"PDFCreator.TemplateProviderFactory"
+					]
 				}
 			}
 		}
