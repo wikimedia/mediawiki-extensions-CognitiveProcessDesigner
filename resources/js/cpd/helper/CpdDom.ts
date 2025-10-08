@@ -3,7 +3,7 @@ import EventEmitter from "events";
 import util from "types-mediawiki/mw/util";
 // noinspection ES6UnusedImports
 import Title from "types-mediawiki/mw/Title";
-import CpdSaveDialog, { OpenDialogOptions } from "./CpdSaveDialog";
+import CpdSaveDialog, {OpenDialogOptions} from "./CpdSaveDialog";
 import Button from "../oojs-ui/Button";
 import ShowXmlButton from "../oojs-ui/ShowXmlButton";
 import LinkButton from "../oojs-ui/LinkButton";
@@ -11,10 +11,13 @@ import OpenDialogButton from "../oojs-ui/OpenDialogButton";
 import CancelButton from "../oojs-ui/CancelButton";
 import DiagramPageLinkButton from "../oojs-ui/DiagramPageLinkButton";
 import SvgFileLinkButton from "../oojs-ui/SvgFileLinkButton";
-import { ChangeLogMessages } from "./CpdChangeLogger";
+import {ChangeLogMessages} from "./CpdChangeLogger";
 import CenterViewportButton from "../oojs-ui/CenterViewportButton";
-import { MessageType } from "../oojs-ui/SaveDialog";
+import {MessageType} from "../oojs-ui/SaveDialog";
 import ShowDiagramButton from "../oojs-ui/ShowDiagramButton";
+import ExportButton from "../oojs-ui/ExportButton";
+import ImportButton from "../oojs-ui/ImportButton";
+import GroupTool from "../oojs-ui/GroupTool";
 import ToolGroupSetupMap = OO.ui.Toolbar.ToolGroupSetupMap;
 import HtmlSnippet = OO.ui.HtmlSnippet;
 
@@ -50,6 +53,14 @@ export default class CpdDom extends EventEmitter {
 	private showDiagramBtn: ShowDiagramButton;
 
 	private centerViewportBtn: CenterViewportButton;
+
+	private exportBtn: ExportButton;
+
+	private importBtn: ImportButton;
+
+	private groupToolBtn: GroupTool;
+
+	private fileInput: HTMLInputElement | undefined;
 
 	private svgFileLink: LinkButton;
 
@@ -130,21 +141,27 @@ export default class CpdDom extends EventEmitter {
 		this.emit( "centerViewport" );
 	}
 
+	private exportDiagram(): void {
+		this.emit( "exportDiagram" );
+	}
+
+	private importDiagram(): void {
+		this.fileInput?.click();
+	}
+
 	public setLoading( loading: boolean ): void {
 		if ( loading ) {
 			this.saveDialog?.pushPending();
 			this.disableButtons();
 			this.loadingAnimation?.show();
-		} else {
-			this.saveDialog?.popPending();
-			this.showXmlBtn?.setDisabled( false );
-			this.showDiagramBtn?.setDisabled( false );
-			this.showDiagramBtn?.setActive( true );
-			this.centerViewportBtn?.setDisabled( false );
-			this.openDialogBtn?.setDisabled( false );
-			this.cancelBtn?.setDisabled( false );
-			this.loadingAnimation?.hide();
+
+			return;
 		}
+
+		this.saveDialog?.popPending();
+		this.enableButtons();
+		this.showDiagramBtn?.setActive( true );
+		this.loadingAnimation?.hide();
 	}
 
 	public getCanvas(): HTMLElement {
@@ -159,12 +176,26 @@ export default class CpdDom extends EventEmitter {
 		this.openDialogOptions = options;
 	}
 
+	public enableButtons(): void {
+		this.openDialogBtn?.setDisabled( false );
+		this.cancelBtn?.setDisabled( false );
+		this.showXmlBtn?.setDisabled( false );
+		this.showDiagramBtn?.setDisabled( false );
+		this.centerViewportBtn?.setDisabled( false );
+		this.exportBtn?.setDisabled( false );
+		this.importBtn?.setDisabled( false );
+		this.groupToolBtn?.setDisabled( false );
+	}
+
 	public disableButtons(): void {
 		this.openDialogBtn?.setDisabled( true );
 		this.cancelBtn?.setDisabled( true );
 		this.showXmlBtn?.setDisabled( true );
 		this.showDiagramBtn?.setDisabled( true );
 		this.centerViewportBtn?.setDisabled( true );
+		this.exportBtn?.setDisabled( true );
+		this.importBtn?.setDisabled( true );
+		this.groupToolBtn?.setDisabled( true );
 	}
 
 	public disableSaveButton( isValid: boolean ): void {
@@ -278,53 +309,79 @@ export default class CpdDom extends EventEmitter {
 			this.xmlContainer
 		);
 
+		if ( this.isEdit ) {
+			// Create hidden file input for import
+			this.fileInput = this.createFileInput();
+			this.container.append( this.fileInput );
+		}
+
 		this.viewMode = ViewModes.Modeler;
+	}
+
+	private createFileInput(): HTMLInputElement {
+		const fileInput = document.createElement( "input" );
+		fileInput.type = "file";
+		fileInput.accept = ".bpmn";
+		fileInput.style.display = "none";
+
+		fileInput.addEventListener('change', (event) => {
+			const input = event.target as HTMLInputElement;
+			const file: File | undefined = input.files?.[0];
+
+			if (!file) return;
+
+			this.emit( "importFile", file );
+		});
+
+		return fileInput;
 	}
 
 	private createToolbar(): HtmlElement {
 		const toolFactory = new OO.ui.ToolFactory();
 		const toolGroupFactory = new OO.ui.ToolGroupFactory();
-
 		const toolbar = new OO.ui.Toolbar( toolFactory, toolGroupFactory );
-
-		const primaryBarButtons = [
-			OpenDialogButton.static.name
-		];
-		const secondaryBarButtons = [
-			CancelButton.static.name,
-			DiagramPageLinkButton.static.name,
-			SvgFileLinkButton.static.name,
-			CenterViewportButton.static.name
-		];
-
-		toolFactory.register( ShowXmlButton );
-		toolFactory.register( CenterViewportButton );
-		toolFactory.register( ShowDiagramButton );
-
-		const withDiagramPageLink = mw.config.get( "wgPageName" ) !== this.diagramPage.getPrefixedDb();
-		if ( !this.isEdit ) {
-			toolFactory.register( SvgFileLinkButton );
-			if ( withDiagramPageLink ) {
-				toolFactory.register( DiagramPageLinkButton );
-			}
-			secondaryBarButtons.push( ShowXmlButton.static.name );
-			secondaryBarButtons.push( ShowDiagramButton.static.name );
-		}
 
 		const primaryBarConfig = {
 			name: "primary",
 			type: "bar",
-			include: primaryBarButtons,
+			include: [
+				OpenDialogButton.static.name
+			],
 			align: "after"
-		} as ToolGroupSetupMap;
+		};
 
 		const secondaryBarConfig = {
 			name: "secondary",
-			type: "list",
 			icon: "ellipsis",
-			align: "after",
-			include: secondaryBarButtons
-		} as ToolGroupSetupMap;
+			type: "",
+			align: "",
+			include: [
+				CancelButton.static.name,
+				DiagramPageLinkButton.static.name,
+				SvgFileLinkButton.static.name,
+				CenterViewportButton.static.name,
+				ShowXmlButton.static.name,
+				ShowDiagramButton.static.name,
+			]
+		};
+
+		toolFactory.register( CenterViewportButton );
+		toolFactory.register( ExportButton );
+
+		if ( !this.isEdit ) {
+			toolFactory.register( SvgFileLinkButton );
+			toolFactory.register( ShowXmlButton );
+			toolFactory.register( ShowDiagramButton );
+
+			const withDiagramPageLink = mw.config.get( "wgPageName" ) !== this.diagramPage.getPrefixedDb();
+			if ( withDiagramPageLink ) {
+				toolFactory.register( DiagramPageLinkButton );
+			}
+
+			secondaryBarConfig.type = "list";
+			secondaryBarConfig.align = "after";
+			secondaryBarConfig.include.unshift( ExportButton.static.name );
+		}
 
 		if ( this.isEdit ) {
 			this.saveDialog = new CpdSaveDialog();
@@ -333,17 +390,20 @@ export default class CpdDom extends EventEmitter {
 
 			toolFactory.register( OpenDialogButton );
 			toolFactory.register( CancelButton );
+			toolFactory.register( ImportButton );
+			toolFactory.register( GroupTool );
 
 			secondaryBarConfig.type = "bar";
 			secondaryBarConfig.align = "before";
+			secondaryBarConfig.include.push( GroupTool.static.name );
 		}
 
-		toolbar.setup( [ primaryBarConfig, secondaryBarConfig ] );
+		toolbar.setup( [primaryBarConfig as ToolGroupSetupMap, secondaryBarConfig as ToolGroupSetupMap] );
 
 		[
 			...toolbar.getToolGroupByName( "primary" ).getItems(),
 			...toolbar.getToolGroupByName( "secondary" ).getItems()
-		].forEach( ( item: Button ): void => {
+		].forEach( ( item: OO.ui.Tool  ): void => {
 			if ( item.constructor === OpenDialogButton ) {
 				this.openDialogBtn = item;
 				this.openDialogBtn.onSelect = this.onOpenDialog.bind( this );
@@ -378,6 +438,27 @@ export default class CpdDom extends EventEmitter {
 			if ( item.constructor === SvgFileLinkButton ) {
 				this.svgFileLink = item;
 				this.svgFileLink.setDisabled( true );
+			}
+
+			if ( item.constructor === ExportButton ) {
+				this.exportBtn = item;
+				this.exportBtn.onSelect = this.exportDiagram.bind( this );
+			}
+
+			if ( item.constructor === GroupTool ) {
+				this.groupToolBtn = item;
+				// @ts-ignore
+				item.innerToolGroup.getItems().forEach( ( item: OO.ui.Tool ): void => {
+					if ( item.constructor === ExportButton ) {
+						this.exportBtn = item;
+						this.exportBtn.onSelect = this.exportDiagram.bind( this );
+					}
+
+					if ( item.constructor === ImportButton ) {
+						this.importBtn = item;
+						this.importBtn.onSelect = this.importDiagram.bind( this );
+					}
+				} );
 			}
 		} );
 

@@ -47,6 +47,7 @@ class CpdModeler extends CpdTool {
 		this.dom.on( "saveDone", this.onSaveDone.bind( this ) );
 		this.dom.on( "cancel", this.onCancel.bind( this ) );
 		this.dom.on( "openDialog", this.onOpenDialog.bind( this ) );
+		this.dom.on( "importFile", this.onImportFile.bind( this ) );
 
 		const elementRegistry = this.bpmnTool.get( "elementRegistry" ) as ElementRegistry;
 		const svgRenderer = new CpdInlineSvgRenderer( elementRegistry );
@@ -184,6 +185,20 @@ class CpdModeler extends CpdTool {
 
 	private onOpenDialog(): void {
 		this.dom.setDialogChangelog( this.changeLogger.getMessages() );
+	}
+
+	private onImportFile( file: File ): void {
+		const reader = new FileReader();
+		reader.onload = async ( e) => {
+			const xml = e.target.result as string;
+			try {
+				await this.bpmnTool.importXML( xml );
+				this.centerViewport();
+			} catch (err) {
+				console.error('Failed to import BPMN:', err);
+			}
+		};
+		reader.readAsText(file);
 	}
 }
 
