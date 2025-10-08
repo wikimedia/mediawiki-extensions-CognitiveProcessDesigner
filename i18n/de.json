@@ -39,6 +39,8 @@
 	"cpd-button-cancel-title": "Abbrechen",
 	"cpd-button-show-xml": "XML-Rohdaten anzeigen",
 	"cpd-button-center-viewport": "Diagramm zentrieren",
+	"cpd-button-export": "BPMN 2.0-Datei herunterladen",
+	"cpd-button-import": "BPMN-Diagramm aus lokalem Dateisystem öffnen",
 	"cpd-link-diagram-page-title": "Zur Diagrammseite",
 	"cpd-link-svg-title": "Diagramm als SVG herunterladen",
 	"cpd-api-save-diagram-param-svg": "JSON-kodiertes SVG zum Hochladen ins Wiki",

@@ -198,7 +198,8 @@
 				"cpd-button-show-diagram",
 				"cpd-button-center-viewport",
 				"cpd-pretoclip-button-notification-text",
-				"cpd-pretoclip-button-tooltip"
+				"cpd-pretoclip-button-tooltip",
+				"cpd-button-export"
 			]
 		},
 		"ext.cpd.modeler": {
@@ -245,6 +246,8 @@
 				"cpd-dialog-save-label-resume-editing",
 				"cpd-dialog-save-label-done",
 				"cpd-button-center-viewport",
+				"cpd-button-export",
+				"cpd-button-import",
 				"cpd-cancel-confirm"
 			]
 		},
