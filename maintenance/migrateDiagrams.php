@@ -294,12 +294,13 @@ class MigrateDiagrams extends LoggedUpdateMaintenance {
 		foreach ( $smwStore->getAllPropertySubjects( $property ) as $diWikipage ) {
 			$title = $diWikipage->getTitle();
 
-			if ( $title->isRedirect() ) {
-				continue;
-			}
-
-			// If the page is a subpage, its an element page, not a diagram page
-			if ( $title->isSubpage() ) {
+			if (
+				!$title ||
+				!$title->canExist() ||
+				$title->isRedirect() ||
+				// If the page is a subpage, its an element page, not a diagram page
+				$title->isSubpage()
+			) {
 				continue;
 			}
 
