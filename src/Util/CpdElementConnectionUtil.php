@@ -76,9 +76,7 @@ class CpdElementConnectionUtil {
 	 * @return string
 	 * @throws CpdCreateElementException
 	 * @throws CpdInvalidArgumentException
-	 * @throws CpdInvalidContentException
 	 * @throws CpdInvalidNamespaceException
-	 * @throws CpdXmlProcessingException
 	 */
 	public function createNavigationHtml(
 		Title $title,
