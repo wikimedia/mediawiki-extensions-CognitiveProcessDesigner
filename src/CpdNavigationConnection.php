@@ -84,7 +84,7 @@ class CpdNavigationConnection {
 	private static function createUrl( Title $title, ?int $revId = null ): string {
 		$queryParam = $revId ? ModifyDescriptionPage::REVISION_QUERY_PARAM . '=' . $revId : '';
 
-		return $title->getFullURL( $queryParam );
+		return $title->getLocalURL( $queryParam );
 	}
 
 	/**
