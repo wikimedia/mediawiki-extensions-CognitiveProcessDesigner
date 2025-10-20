@@ -124,5 +124,7 @@
 	"cpd-cancel-confirm": "האם ברצונך באמת לבטל את העריכה? כל השינויים שלא נשמרו יאבדו.",
 	"cpd-dialog-action-label-create": "יצירה",
 	"cpd-pretoclip-button-tooltip": "העתקת התוכן ללוח",
-	"cpd-pretoclip-button-notification-text": "התוכן הועתק ללוח"
+	"cpd-pretoclip-button-notification-text": "התוכן הועתק ללוח",
+	"cpd-description-navigation-tooltip-title": "מעבר אל $1",
+	"cpd-dialog-validation-page-exist-info-label": "דף עם התהליך הזה כבר קיים. נא לבחור שם אחר."
 }
