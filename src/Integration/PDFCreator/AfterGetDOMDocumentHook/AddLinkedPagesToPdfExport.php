@@ -10,11 +10,12 @@ use MediaWiki\Extension\PDFCreator\Factory\PageSpecFactory;
 use MediaWiki\Extension\PDFCreator\Factory\TemplateProviderFactory;
 use MediaWiki\Extension\PDFCreator\IPreProcessor;
 use MediaWiki\Extension\PDFCreator\ISpecificationAware;
+use MediaWiki\Extension\PDFCreator\IWorkspaceAware;
 use MediaWiki\Extension\PDFCreator\Utility\ExportContext;
 use MediaWiki\Extension\PDFCreator\Utility\ExportSpecification;
 use MediaWiki\Title\TitleFactory;
 
-class AddLinkedPagesToPdfExport implements IPreProcessor, ISpecificationAware {
+class AddLinkedPagesToPdfExport implements IPreProcessor, ISpecificationAware, IWorkspaceAware {
 
 	/** @var ExportSpecification|null */
 	private ExportSpecification|null $specification = null;
@@ -55,7 +56,12 @@ class AddLinkedPagesToPdfExport implements IPreProcessor, ISpecificationAware {
 			return;
 		}
 
-		$mode = $this->specification->getMode();
+		$specParams = $this->specification->getParams();
+		if ( !isset( $specParams['mode'] ) ) {
+			return;
+		}
+
+		$mode = $specParams['mode'];
 		if ( $mode !== 'pageWithLinkedPages' ) {
 			return;
 		}

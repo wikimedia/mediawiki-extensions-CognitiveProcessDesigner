@@ -69,6 +69,8 @@ class CpdDescriptionPageUtil {
 	 */
 	public function findDescriptionPages( string $process ): array {
 		$process = ucfirst( $process );
+		$process = str_replace( ' ', '_', $process );
+
 		$pages = [];
 
 		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
@@ -170,6 +172,8 @@ class CpdDescriptionPageUtil {
 	 * @return void
 	 */
 	public function cleanUpOrphanedDescriptionPages( string $process, ?int $revision = null ): void {
+		$process = str_replace( ' ', '_', $process );
+
 		$dbw = $this->loadBalancer->getConnectionRef( DB_PRIMARY );
 
 		$conds = [ 'process' => $process ];
