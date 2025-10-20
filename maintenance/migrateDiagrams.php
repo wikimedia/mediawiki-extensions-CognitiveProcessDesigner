@@ -327,6 +327,8 @@ class MigrateDiagrams extends LoggedUpdateMaintenance {
 		$xml = $matches[0];
 		$xml = str_replace( "/n", "", $xml );
 
+		$this->validateXML( $xml );
+
 		$xml = $this->fixMissingElementLabels( $xml );
 
 		return trim( $xml );
@@ -465,6 +467,21 @@ class MigrateDiagrams extends LoggedUpdateMaintenance {
 
 	private function outputLine( string $message ): void {
 		$this->output( $message . "\n" );
+	}
+
+	/**
+	 * Check if XML is well-formed
+	 *
+	 * @param string $xml
+	 *
+	 * @return void
+	 * @throws CpdXmlProcessingException
+	 */
+	private function validateXML( string $xml ): void {
+		$domXml = new DOMDocument( '1.0' );
+		if ( !$domXml->loadXML( $xml ) ) {
+			throw new CpdXmlProcessingException( 'XML is invalid' );
+		}
 	}
 }
 
