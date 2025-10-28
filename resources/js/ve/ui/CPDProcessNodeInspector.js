@@ -72,18 +72,18 @@ ext.cpd.ve.ui.CPDProcessNodeInspector.prototype.createFields = function () {
 
 ext.cpd.ve.ui.CPDProcessNodeInspector.prototype.setLayouts = function () {
 	this.processTitleLayout = new OO.ui.FieldLayout( this.processTitleInput, {
-		align: 'left',
+		align: 'top',
 		label: ve.msg( 'cpd-droplet-process-field-label' ),
 		help: ve.msg( 'cpd-droplet-process-field-label-help' )
 	} );
 
 	this.widthLayout = new OO.ui.FieldLayout( this.width, {
-		align: 'left',
+		align: 'top',
 		label: ve.msg( 'cpd-droplet-width-field-label' ),
 		help: ve.msg( 'cpd-droplet-width-field-label-help' )
 	} );
 	this.heightLayout = new OO.ui.FieldLayout( this.height, {
-		align: 'left',
+		align: 'top',
 		label: ve.msg( 'cpd-droplet-height-field-label' ),
 		help: ve.msg( 'cpd-droplet-height-field-label-help' )
 	} );
