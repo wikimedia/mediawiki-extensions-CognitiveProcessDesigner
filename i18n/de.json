@@ -208,5 +208,7 @@
 	"cpd-dialog-action-label-create": "Erstellen",
 	"cpd-pretoclip-button-tooltip": "Kopiert den Inhalt in die Zwischenablage",
 	"cpd-pretoclip-button-notification-text": "Inhalt wurde in die Zwischenablage kopiert",
-	"cpd-description-navigation-tooltip-title": "Gehe zu $1"
+	"cpd-description-navigation-tooltip-title": "Gehe zu $1",
+	"cpd-button-export": "BPMN 2.0-Datei herunterladen",
+	"cpd-button-import": "BPMN-Diagramm aus lokalem Dateisystem öffnen"
 }

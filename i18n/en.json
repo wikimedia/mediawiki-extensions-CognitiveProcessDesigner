@@ -207,5 +207,7 @@
 	"cpd-dialog-action-label-create": "Create",
 	"cpd-pretoclip-button-tooltip": "Copy the contents into the clipboard",
 	"cpd-pretoclip-button-notification-text": "Contents have been copied into the clipboard",
-	"cpd-description-navigation-tooltip-title": "Go to $1"
+	"cpd-description-navigation-tooltip-title": "Go to $1",
+	"cpd-button-export": "Download as BPMN 2.0 file",
+	"cpd-button-import": "Open BPMN diagram from local file system"
 }
