@@ -126,5 +126,7 @@
 	"cpd-dialog-validation-page-exist-info-label": "A process with this name already exists. Please choose another name.",
 	"cpd-dialog-action-label-create": "Create",
 	"cpd-pretoclip-button-tooltip": "Copy the contents into the clipboard",
-	"cpd-pretoclip-button-notification-text": "Contents have been copied into the clipboard"
+	"cpd-pretoclip-button-notification-text": "Contents have been copied into the clipboard",
+	"cpd-button-export": "Download as BPMN 2.0 file",
+	"cpd-button-import": "Open BPMN diagram from local file system"
 }
