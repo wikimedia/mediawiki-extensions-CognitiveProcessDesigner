@@ -14,6 +14,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use SMW\DIProperty;
 use SMW\StoreFactory;
 
