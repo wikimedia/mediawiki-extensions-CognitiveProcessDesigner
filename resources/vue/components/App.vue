@@ -44,7 +44,7 @@ module.exports = exports = {
   },
   data: function () {
     this.items.forEach( ( card ) => {
-      card.title = mw.Title.newFromText( card.process ).getMainText();
+      card.title = mw.Title.newFromText( card.process ).getPrefixedText();
       card.isVisible = true
     } );
 

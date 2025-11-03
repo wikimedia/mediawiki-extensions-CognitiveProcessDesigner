@@ -35,7 +35,7 @@ export abstract class CpdTool {
 		}
 
 		this.bpmnTool = bpmnTool;
-		this.diagramPage = mw.Title.newFromText( process, processNamespace );
+		this.diagramPage = mw.Title.makeTitle( processNamespace, process );
 
 		this.dom = new CpdDom( container, this.diagramPage );
 		this.dom.on( "centerViewport", this.centerViewport.bind( this ) );

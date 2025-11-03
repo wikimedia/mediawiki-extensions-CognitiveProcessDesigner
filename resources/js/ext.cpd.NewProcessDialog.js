@@ -50,7 +50,7 @@ ext.cpd.NewProcessDialog.prototype.getFormItems = function () {
 };
 
 ext.cpd.NewProcessDialog.prototype.makeDoneActionProcess = function () {
-	this.newTitle = mw.Title.newFromText( this.mainInput.getValue(), this.namespace );
+	this.newTitle = mw.Title.makeTitle( this.namespace, this.mainInput.getValue() );
 	return new OO.ui.Process( ( () => {} ), this );
 };
 
@@ -141,7 +141,7 @@ ext.cpd.NewProcessDialog.prototype.validateTitleNotExist = function ( value ) {
 		this.actions.setAbilities( { done: false } );
 		return;
 	}
-	const newTitle = mw.Title.newFromText( value, this.namespace );
+	const newTitle = mw.Title.makeTitle( this.namespace, value );
 	new mw.Api().get( {
 		action: 'query',
 		prop: 'pageprops',
