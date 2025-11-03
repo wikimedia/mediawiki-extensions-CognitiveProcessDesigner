@@ -341,7 +341,7 @@ class CpdXmlProcessor {
 
 		$titleText = $this->sanitizeTitle( $titleText );
 
-		$title = Title::newFromText( $titleText, NS_PROCESS );
+		$title = Title::makeTitle( NS_PROCESS, $titleText );
 
 		if ( !$title ) {
 			throw new CpdXmlProcessingException(

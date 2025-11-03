@@ -87,7 +87,7 @@ class CpdDescriptionPageUtil {
 		] )->fetchResultSet();
 
 		foreach ( $res as $row ) {
-			$pages[] = Title::newFromText( $row->page_title, $row->page_namespace );
+			$pages[] = Title::makeTitle( $row->page_namespace, $row->page_title );
 		}
 
 		return $pages;

@@ -36,7 +36,7 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 		$dbKey = $dataSet->get( Record::TITLE );
 		$process = $dataSet->get( Record::PROCESS );
 
-		$processPage = Title::newFromText( $process, NS_PROCESS );
+		$processPage = Title::makeTitle( NS_PROCESS, $process );
 
 		$title = Title::newFromDBkey( $dbKey );
 		$dataSet->set( Record::TITLE, $title->getSubpageText() );
