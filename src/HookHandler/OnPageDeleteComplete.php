@@ -34,7 +34,7 @@ class OnPageDeleteComplete implements PageDeleteCompleteHook {
 	) {
 		try {
 			$process = CpdDiagramPageUtil::getProcess(
-				Title::newFromText( $page->getDBkey(), $page->getNamespace() )
+				Title::makeTitle( $page->getNamespace(), $page->getDBkey() )
 			);
 			$this->descriptionPageUtil->cleanUpOrphanedDescriptionPages( $process );
 		} catch ( CpdInvalidNamespaceException $e ) {

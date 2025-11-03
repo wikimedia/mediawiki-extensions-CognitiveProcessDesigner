@@ -91,7 +91,7 @@ class CpdDiagramPageUtil {
 		}
 
 		try {
-			return $this->wikiPageFactory->newFromTitle( Title::newFromText( $process, NS_PROCESS ) );
+			return $this->wikiPageFactory->newFromTitle( Title::makeTitle( NS_PROCESS, $process ) );
 		} catch ( TypeError $e ) {
 			throw new CpdInvalidArgumentException( 'Diagram page not found' );
 		}
@@ -217,7 +217,8 @@ class CpdDiagramPageUtil {
 	 * @return Title
 	 */
 	public function getSvgFilePage( string $process ): Title {
-		return $this->titleFactory->newFromText( $process . self::CPD_SVG_FILE_EXTENSION, NS_FILE );
+		$process = str_replace( ':', '_', $process );
+		return $this->titleFactory->makeTitle( NS_FILE, $process . self::CPD_SVG_FILE_EXTENSION );
 	}
 
 	/**
