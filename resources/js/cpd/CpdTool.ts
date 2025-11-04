@@ -39,7 +39,6 @@ export abstract class CpdTool {
 
 		this.dom = new CpdDom( container, this.diagramPage );
 		this.dom.on( "centerViewport", this.centerViewport.bind( this ) );
-		this.dom.on( "exportDiagram", this.onExportDiagram.bind( this ) );
 
 		this.api = new CpdApi( process );
 		this.api.on( CpdApi.STATUS_REQUEST_STARTED, this.requestStarted.bind( this ) );
@@ -88,18 +87,5 @@ export abstract class CpdTool {
 	private requestFailed( message: string ): void {
 		this.dom.setLoading( false );
 		this.throwError( message );
-	}
-
-	private onExportDiagram(): void {
-		this.bpmnTool.saveXML({ format: true }).then(({ xml }) => {
-			const blob = new Blob([xml], { type: 'application/bpmn20-xml' });
-			const filename = this.diagramPage.getPrefixedText() + '.bpmn';
-			const url = URL.createObjectURL( blob );
-			const a = document.createElement( 'a' );
-			a.href = url;
-			a.download = filename;
-			a.click();
-			URL.revokeObjectURL( url );
-		});
 	}
 }

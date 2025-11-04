@@ -17,7 +17,6 @@ import {MessageType} from "../oojs-ui/SaveDialog";
 import ShowDiagramButton from "../oojs-ui/ShowDiagramButton";
 import ExportButton from "../oojs-ui/ExportButton";
 import ImportButton from "../oojs-ui/ImportButton";
-import GroupTool from "../oojs-ui/GroupTool";
 import ToolGroupSetupMap = OO.ui.Toolbar.ToolGroupSetupMap;
 import HtmlSnippet = OO.ui.HtmlSnippet;
 
@@ -57,8 +56,6 @@ export default class CpdDom extends EventEmitter {
 	private exportBtn: ExportButton;
 
 	private importBtn: ImportButton;
-
-	private groupToolBtn: GroupTool;
 
 	private fileInput: HTMLInputElement | undefined;
 
@@ -146,7 +143,7 @@ export default class CpdDom extends EventEmitter {
 	}
 
 	private importDiagram(): void {
-		this.fileInput?.click();
+		this.emit( "importDiagram" );
 	}
 
 	public setLoading( loading: boolean ): void {
@@ -184,7 +181,6 @@ export default class CpdDom extends EventEmitter {
 		this.centerViewportBtn?.setDisabled( false );
 		this.exportBtn?.setDisabled( false );
 		this.importBtn?.setDisabled( false );
-		this.groupToolBtn?.setDisabled( false );
 	}
 
 	public disableButtons(): void {
@@ -195,7 +191,6 @@ export default class CpdDom extends EventEmitter {
 		this.centerViewportBtn?.setDisabled( true );
 		this.exportBtn?.setDisabled( true );
 		this.importBtn?.setDisabled( true );
-		this.groupToolBtn?.setDisabled( true );
 	}
 
 	public disableSaveButton( isValid: boolean ): void {
@@ -318,6 +313,10 @@ export default class CpdDom extends EventEmitter {
 		this.viewMode = ViewModes.Modeler;
 	}
 
+	public triggerFileInputClick(): void {
+		this.fileInput?.click();
+	}
+
 	private createFileInput(): HTMLInputElement {
 		const fileInput = document.createElement( "input" );
 		fileInput.type = "file";
@@ -330,7 +329,7 @@ export default class CpdDom extends EventEmitter {
 
 			if (!file) return;
 
-			this.emit( "importFile", file );
+			this.emit( "importFileChosen", file );
 		});
 
 		return fileInput;
@@ -366,9 +365,9 @@ export default class CpdDom extends EventEmitter {
 		};
 
 		toolFactory.register( CenterViewportButton );
-		toolFactory.register( ExportButton );
 
 		if ( !this.isEdit ) {
+			toolFactory.register( ExportButton );
 			toolFactory.register( SvgFileLinkButton );
 			toolFactory.register( ShowXmlButton );
 			toolFactory.register( ShowDiagramButton );
@@ -391,11 +390,10 @@ export default class CpdDom extends EventEmitter {
 			toolFactory.register( OpenDialogButton );
 			toolFactory.register( CancelButton );
 			toolFactory.register( ImportButton );
-			toolFactory.register( GroupTool );
 
 			secondaryBarConfig.type = "bar";
 			secondaryBarConfig.align = "before";
-			secondaryBarConfig.include.push( GroupTool.static.name );
+			secondaryBarConfig.include.push( ImportButton.static.name );
 		}
 
 		toolbar.setup( [primaryBarConfig as ToolGroupSetupMap, secondaryBarConfig as ToolGroupSetupMap] );
@@ -445,20 +443,9 @@ export default class CpdDom extends EventEmitter {
 				this.exportBtn.onSelect = this.exportDiagram.bind( this );
 			}
 
-			if ( item.constructor === GroupTool ) {
-				this.groupToolBtn = item;
-				// @ts-ignore
-				item.innerToolGroup.getItems().forEach( ( item: OO.ui.Tool ): void => {
-					if ( item.constructor === ExportButton ) {
-						this.exportBtn = item;
-						this.exportBtn.onSelect = this.exportDiagram.bind( this );
-					}
-
-					if ( item.constructor === ImportButton ) {
-						this.importBtn = item;
-						this.importBtn.onSelect = this.importDiagram.bind( this );
-					}
-				} );
+			if ( item.constructor === ImportButton ) {
+				this.importBtn = item;
+				this.importBtn.onSelect = this.importDiagram.bind( this );
 			}
 		} );
 
