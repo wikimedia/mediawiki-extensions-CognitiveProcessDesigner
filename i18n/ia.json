@@ -33,6 +33,8 @@
 	"cpd-button-cancel-title": "Cancellar",
 	"cpd-button-show-xml": "Monstrar XML brute",
 	"cpd-button-center-viewport": "Centrar diagramma",
+	"cpd-button-export": "Discargar como file BPMN 2.0",
+	"cpd-button-import": "Aperir diagramma BPMN ab systema de files local",
 	"cpd-link-diagram-page-title": "Visitar le pagina del diagramma",
 	"cpd-link-svg-title": "Discargar le diagramma in SVG",
 	"cpd-api-save-diagram-param-svg": "SVG codificate in JSON a incargar al wiki",
