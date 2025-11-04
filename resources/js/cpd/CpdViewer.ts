@@ -35,6 +35,7 @@ export default class CpdViewer extends CpdTool {
 
 		this.dom.initDomElements( false );
 		this.dom.on( "showXml", this.onShowXml.bind( this ) );
+		this.dom.on( "exportDiagram", this.onExportDiagram.bind( this ) );
 
 		this.eventBus = this.bpmnTool.get( "eventBus" );
 
@@ -138,6 +139,19 @@ export default class CpdViewer extends CpdTool {
 			"cpd-warning-message-diagram-not-initialized-create-it",
 			this.diagramPage.getUrl( { action: 'edit' } ) ).text(),
 		);
+	}
+
+	private onExportDiagram(): void {
+		this.bpmnTool.saveXML({ format: true }).then(({ xml }) => {
+			const blob = new Blob([xml], { type: 'application/bpmn20-xml' });
+			const filename = this.diagramPage.getPrefixedText() + '.bpmn';
+			const url = URL.createObjectURL( blob );
+			const a = document.createElement( 'a' );
+			a.href = url;
+			a.download = filename;
+			a.click();
+			URL.revokeObjectURL( url );
+		});
 	}
 }
 

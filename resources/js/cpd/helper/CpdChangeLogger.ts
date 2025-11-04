@@ -72,7 +72,7 @@ export default class CpdChangeLogger extends EventEmitter {
 	}
 
 	private onElementChanged( type: string, event: Event ): void {
-		const shape = event.context.element;
+		const shape = event[ "context" ][ "element" ];
 
 		if ( !shape ) {
 			return;
@@ -86,7 +86,7 @@ export default class CpdChangeLogger extends EventEmitter {
 	}
 
 	private onElementsChanged( type: string, event: Event ): void {
-		const shapes = event.context.elements;
+		const shapes = event[ "context" ][ "elements" ];
 
 		if ( !shapes ) {
 			return;
@@ -138,7 +138,7 @@ export default class CpdChangeLogger extends EventEmitter {
 			return;
 		}
 
-		const newLabel = event.context.newLabel;
+		const newLabel = event[ "context" ][ "newLabel" ];
 
 		if ( !newLabel ) {
 			this.appendMessage(

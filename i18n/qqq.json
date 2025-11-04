@@ -39,6 +39,7 @@
 	"cpd-button-center-viewport": "Button label to center the diagram in the viewport.",
 	"cpd-button-export": "Button label to export the BPMN diagram as a .bpmn file.",
 	"cpd-button-import": "Button label to import BPMN diagram from a .bpmn file.",
+	"cpd-import-confirm-overwrite": "Confirmation message displayed when importing a BPMN diagram will overwrite the current content.",
 	"cpd-link-diagram-page-title": "Tooltip text for a link to the diagram page.",
 	"cpd-link-svg-title": "Tooltip text for downloading the BPMN diagram as an SVG file.",
 	"cpd-api-save-diagram-param-svg": "API parameter description for saving the diagram as a JSON-encoded SVG.",

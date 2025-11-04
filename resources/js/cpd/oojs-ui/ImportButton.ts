@@ -6,7 +6,7 @@ export default class ImportButton extends Button {
 			name: "import",
 			label: mw.msg( "cpd-button-import" ),
 			title: mw.msg( "cpd-button-import" ),
-			icon: "upload",
+			icon: "folderPlaceholder",
 			displayBothIconAndLabel: false,
 		},
 	};

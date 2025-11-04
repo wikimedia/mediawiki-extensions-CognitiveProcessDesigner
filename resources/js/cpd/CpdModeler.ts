@@ -52,7 +52,8 @@ class CpdModeler extends CpdTool {
 		this.dom.on( "saveDone", this.onSaveDone.bind( this ) );
 		this.dom.on( "cancel", this.onCancel.bind( this ) );
 		this.dom.on( "openDialog", this.onOpenDialog.bind( this ) );
-		this.dom.on( "importFile", this.onImportFile.bind( this ) );
+		this.dom.on( "importDiagram", this.onImportDiagram.bind( this ) );
+		this.dom.on( "importFileChosen", this.onImportFileChosen.bind( this ) );
 
 		const elementRegistry = this.bpmnTool.get( "elementRegistry" ) as ElementRegistry;
 		const svgRenderer = new CpdInlineSvgRenderer( elementRegistry );
@@ -192,7 +193,21 @@ class CpdModeler extends CpdTool {
 		this.dom.setDialogChangelog( this.changeLogger.getMessages() );
 	}
 
-	private onImportFile( file: File ): void {
+	private onImportDiagram(): void {
+		if ( this.xml ) {
+			OO.ui.confirm( mw.message( 'cpd-import-confirm-overwrite' ).text() ).done( ( confirmed ) => {
+				if ( confirmed ) {
+					this.dom.triggerFileInputClick()
+				}
+			} );
+
+			return;
+		}
+
+		this.dom.triggerFileInputClick();
+	}
+
+	private onImportFileChosen( file: File ): void {
 		const reader = new FileReader();
 		reader.onload = async ( e ) => {
 			const xml = e.target.result as string;

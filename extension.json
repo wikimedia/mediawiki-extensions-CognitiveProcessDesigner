@@ -249,7 +249,8 @@
 				"cpd-button-center-viewport",
 				"cpd-button-export",
 				"cpd-button-import",
-				"cpd-cancel-confirm"
+				"cpd-cancel-confirm",
+				"cpd-import-confirm-overwrite"
 			]
 		},
 		"ext.cpd.visualEditorTagDefinition": {
