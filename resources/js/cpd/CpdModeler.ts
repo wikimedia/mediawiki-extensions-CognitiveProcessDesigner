@@ -20,25 +20,30 @@ import CpdXml from "./helper/CpdXml";
 class CpdModeler extends CpdTool {
 	private changeLogger: CpdChangeLogger;
 
-	public constructor( process: string, container: HTMLElement ) {
+	public constructor( process: string, container: HTMLElement, enableLinting: boolean = true ) {
 		const translator = new CpdTranslator( mw.config.get( "wgUserLanguage" ) );
-		const bpmnModeler = new BpmnModeler( {
-			linting: {
-				bpmnlint: bpmnlintConfig
+
+		const baseAdditionalModules = [
+			BpmnColorPickerModule,
+			{ translate: ['value', translator.translate.bind(translator)] },
+			{
+				__init__: ["paletteProvider", "replaceMenuProvider"],
+				paletteProvider: ["type", CustomPaletteProvider],
+				replaceMenuProvider: ["type", CustomReplaceMenuProvider],
 			},
+		];
+
+		const modelerOptions = {
 			additionalModules: [
-				BpmnColorPickerModule,
-				lintModule,
-				{
-					translate: [ 'value', translator.translate.bind( translator ) ]
-				},
-				{
-					__init__: [ "paletteProvider", "replaceMenuProvider" ],
-					paletteProvider: [ "type", CustomPaletteProvider ],
-					replaceMenuProvider: [ 'type', CustomReplaceMenuProvider ]
-				},
-			]
-		} );
+				...baseAdditionalModules,
+				...(enableLinting ? [lintModule] : [])
+			],
+			...(enableLinting
+				? { linting: { bpmnlint: bpmnlintConfig } }
+				: {}),
+		};
+
+		const bpmnModeler = new BpmnModeler( modelerOptions );
 
 		super( process, container, bpmnModeler );
 
@@ -187,4 +192,8 @@ class CpdModeler extends CpdTool {
 	}
 }
 
-new CpdModeler( mw.config.get( "cpdProcess" ) as string, document.querySelector( "[data-process]" ) );
+new CpdModeler(
+	mw.config.get( "cpdProcess" ) as string,
+	document.querySelector( "[data-process]" ),
+	mw.config.get( "cpdEnableLinting" ) as boolean,
+);

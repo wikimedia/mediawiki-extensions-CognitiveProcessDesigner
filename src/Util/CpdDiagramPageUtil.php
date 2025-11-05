@@ -478,6 +478,10 @@ class CpdDiagramPageUtil {
 				$output->addJsConfigVars( 'cpdDedicatedSubpageTypes', $compat );
 			}
 
+			if ( $this->config->has( 'CPDEnableLinting' ) ) {
+				$output->addJsConfigVars( 'cpdEnableLinting', $this->config->get( 'CPDEnableLinting' ) );
+			}
+
 			return;
 		}
 
@@ -496,6 +500,10 @@ class CpdDiagramPageUtil {
 			foreach ( $this->config->get( 'CPDDedicatedSubpageTypes' ) as $type ) {
 				$output->appendJsConfigVar( 'cpdDedicatedSubpageTypes', $type );
 			}
+		}
+
+		if ( $this->config->has( 'CPDEnableLinting' ) ) {
+			$output->setJsConfigVar( 'cpdEnableLinting', $this->config->get( 'CPDEnableLinting' ) );
 		}
 	}
 }

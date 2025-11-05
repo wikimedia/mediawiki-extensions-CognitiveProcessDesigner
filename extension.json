@@ -576,6 +576,10 @@
 		"CPDMainLinksCognitiveProcessDesigner": {
 			"value": true,
 			"descriptionmsg": "bs-config-mainlinks-cpd-label"
+		},
+		"CPDEnableLinting": {
+			"value": true,
+			"description": "Enables BPMN linting in the Cognitive Process Designer editor."
 		}
 	},
 	"Actions": {
