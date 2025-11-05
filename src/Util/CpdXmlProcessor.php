@@ -141,6 +141,12 @@ class CpdXmlProcessor {
 				$attributes = $element->attributes();
 				$id = (string)$attributes->id;
 				$name = (string)$attributes->name;
+
+				// ERM44753 Fallback to id if name is empty
+				if ( empty( $name ) ) {
+					$name = $id;
+				}
+
 				$parents = [];
 
 				if ( isset( $participantNames[ $processId ] ) ) {
