@@ -207,6 +207,10 @@ class CpdSaveDescriptionPagesUtil {
 				continue;
 			}
 
+			if ( !$compareWith->getDescriptionPage() ) {
+				continue;
+			}
+
 			if ( $element->getDescriptionPage()->equals( $compareWith->getDescriptionPage() ) ) {
 				throw new CpdSaveException(
 					Message::newFromKey(
