@@ -52,19 +52,18 @@
 				}
 			},
 			"PreProcessors": {
-				"AppendNavigationToDescriptionPagePdfExport": {
-					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\AfterGetDOMDocumentHook\\AppendNavigationToDescriptionPagePdfExport",
+				"AddNavigationIconsToPdfExport": {
+					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\PreProcessor\\AddNavigationIconsToPdfExport",
 					"services": [
 						"CpdDescriptionPageUtil",
-						"CpdElementConnectionUtil",
 						"TitleFactory"
 					]
 				},
 				"AddLinkedPagesToPdfExport": {
-					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\AfterGetDOMDocumentHook\\AddLinkedPagesToPdfExport",
+					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\PreProcessor\\AddLinkedPagesToPdfExport",
 					"services": [
 						"CpdDiagramPageUtil",
-						"CpdDescriptionPageUtil",
+						"CpdXmlProcessor",
 						"TitleFactory",
 						"PDFCreator.ExportPageFactory",
 						"PDFCreator.PageSpecFactory",
@@ -532,8 +531,7 @@
 			"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\AfterGetDOMDocumentHook\\AppendNavigationToDescriptionPagePdfExport",
 			"services": [
 				"CpdDescriptionPageUtil",
-				"CpdElementConnectionUtil",
-				"TitleFactory"
+				"CpdElementConnectionUtil"
 			]
 		}
 	},
