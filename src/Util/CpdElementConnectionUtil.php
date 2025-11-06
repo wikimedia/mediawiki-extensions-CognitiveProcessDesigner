@@ -9,6 +9,7 @@ use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
 use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
+use Exception;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
@@ -74,15 +75,16 @@ class CpdElementConnectionUtil {
 	 * @param int|null $revId
 	 *
 	 * @return string
-	 * @throws CpdCreateElementException
-	 * @throws CpdInvalidArgumentException
-	 * @throws CpdInvalidNamespaceException
 	 */
 	public function createNavigationHtml(
 		Title $title,
 		?int $revId = null
 	): string {
-		$connections = $this->getConnections( $title, $revId );
+		try {
+			$connections = $this->getConnections( $title, $revId );
+		} catch ( Exception $e ) {
+			return Message::newFromKey( 'cpd-error-message-missing-connection' )->escaped();
+		}
 
 		$incoming = $this->buildConnection( $connections['incoming'], 'incoming' );
 		$outgoing = $this->buildConnection( $connections['outgoing'], 'outgoing' );
