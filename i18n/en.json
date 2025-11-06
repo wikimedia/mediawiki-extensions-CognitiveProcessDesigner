@@ -57,6 +57,7 @@
 	"cpd-error-message-missing-diagram-page": "Missing diagram page: $1",
 	"cpd-error-message-publish-svg-file": "Could not publish SVG file: $1",
 	"cpd-error-message-missing-svg-file": "Diagram SVG file $1 does not exist. Please edit and save the diagram to create it.",
+	"cpd-error-message-missing-connection": "An error occurred on creating connections between elements",
 	"cpd-error-message-missing-parameter-process": "Missing required parameter \"process\"",
 	"cpd-warning-message-diagram-not-initialized": "Process $1 has not been created yet. Please go to <a href='$2'>process page</a> and create it.",
 	"cpd-warning-message-diagram-not-initialized-create-it": "Diagram has not been created yet. Please <a href='$1'>create</a> it.",

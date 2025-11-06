@@ -1,10 +1,10 @@
 <?php
 
-namespace CognitiveProcessDesigner\Integration\PDFCreator\AfterGetDOMDocumentHook;
+namespace CognitiveProcessDesigner\Integration\PDFCreator\PreProcessor;
 
-use CognitiveProcessDesigner\Exceptions\CpdInvalidNamespaceException;
-use CognitiveProcessDesigner\Util\CpdDescriptionPageUtil;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use CognitiveProcessDesigner\Util\CpdXmlProcessor;
+use Exception;
 use MediaWiki\Extension\PDFCreator\Factory\ExportPageFactory;
 use MediaWiki\Extension\PDFCreator\Factory\PageSpecFactory;
 use MediaWiki\Extension\PDFCreator\Factory\TemplateProviderFactory;
@@ -25,7 +25,7 @@ class AddLinkedPagesToPdfExport implements IPreProcessor, ISpecificationAware, I
 
 	/**
 	 * @param CpdDiagramPageUtil $diagramPageUtil
-	 * @param CpdDescriptionPageUtil $descriptionPageUtil
+	 * @param CpdXmlProcessor $xmlProcessor
 	 * @param TitleFactory $titleFactory
 	 * @param ExportPageFactory $exportPageFactory
 	 * @param PageSpecFactory $pageSpecFactory
@@ -33,7 +33,7 @@ class AddLinkedPagesToPdfExport implements IPreProcessor, ISpecificationAware, I
 	 */
 	public function __construct(
 		private readonly CpdDiagramPageUtil $diagramPageUtil,
-		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
+		private readonly CpdXmlProcessor $xmlProcessor,
 		private readonly TitleFactory $titleFactory,
 		private readonly ExportPageFactory $exportPageFactory,
 		private readonly PageSpecFactory $pageSpecFactory,
@@ -69,22 +69,41 @@ class AddLinkedPagesToPdfExport implements IPreProcessor, ISpecificationAware, I
 		$templateName = $this->specification->getParams()['template'] ?? 'StandardPDF';
 		$templateProvider = $this->templateProviderFactory->getTemplateProviderFor( $templateName );
 		$template = $templateProvider->getTemplate( $context, $templateName );
+		$hasDescriptionPage = false;
 
 		foreach ( $pages as $page ) {
+			$pageParams = $page->getParams();
+
 			// Skip if page is not a process page or a description page
 			try {
 				$title = $this->titleFactory->newFromDBkey( $page->getPrefixedDBKey() );
 				$process = $this->diagramPageUtil->getProcess( $title );
-			} catch ( CpdInvalidNamespaceException $e ) {
+				$xml = $this->diagramPageUtil->getXml( $process, $pageParams['revId'] ?? null );
+				$elements = $this->xmlProcessor->createElements( $process, $xml );
+			} catch ( Exception $e ) {
 				continue;
 			}
 
-			$descriptionPages = $this->descriptionPageUtil->findDescriptionPages( $process );
+			$this->findAndRemoveSvgFilePage( $process, $pages );
 
-			foreach ( $descriptionPages as $descriptionPage ) {
+			foreach ( $elements as $element ) {
+				$descriptionPage = $element->getDescriptionPage();
+				if ( !$descriptionPage ) {
+					continue;
+				}
+
 				// Skip if already added
 				if ( $descriptionPage->getPrefixedDBkey() === $page->getPrefixedDBkey() ) {
 					continue;
+				}
+
+				// Skip redirects
+				if ( $descriptionPage->isRedirect() ) {
+					continue;
+				}
+
+				if ( !$hasDescriptionPage ) {
+					$hasDescriptionPage = true;
 				}
 
 				$pageSpec = $this->pageSpecFactory->newFromSpec(
@@ -108,6 +127,11 @@ class AddLinkedPagesToPdfExport implements IPreProcessor, ISpecificationAware, I
 				);
 			}
 		}
+
+		// Finally, add navigation icons
+		if ( $hasDescriptionPage ) {
+			AddNavigationIconsToPdfExport::addIcons( $images );
+		}
 	}
 
 	/**
@@ -126,5 +150,24 @@ class AddLinkedPagesToPdfExport implements IPreProcessor, ISpecificationAware, I
 	 */
 	public function setWorkspace( string $workspace ): void {
 		$this->workspace = $workspace;
+	}
+
+	/**
+	 * Find and remove the SVG file page from the list of pages to be exported.
+	 *
+	 * @param string $process
+	 * @param array &$pages
+	 *
+	 * @return void
+	 */
+	private function findAndRemoveSvgFilePage( string $process, array &$pages ): void {
+		$svgFile = $this->diagramPageUtil->getSvgFilePage( $process );
+		foreach ( $pages as $key => $page ) {
+			if ( $page->getPrefixedDBKey() === $svgFile->getPrefixedDBKey() ) {
+				unset( $pages[$key] );
+				$pages = array_values( $pages );
+				break;
+			}
+		}
 	}
 }
