@@ -12,7 +12,10 @@ module.exports = function ( grunt ) {
 				cache: true,
 				fix: grunt.option( 'fix' )
 			},
-			all: '.'
+			all: [
+				'**/*.{js,json}',
+				'!{vendor,node_modules}/**'
+			]
 		},
 		stylelint: {
 			options: {

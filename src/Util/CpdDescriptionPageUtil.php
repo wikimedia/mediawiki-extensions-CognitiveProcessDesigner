@@ -174,7 +174,7 @@ class CpdDescriptionPageUtil {
 	public function cleanUpOrphanedDescriptionPages( string $process, ?int $revision = null ): void {
 		$process = str_replace( ' ', '_', $process );
 
-		$dbw = $this->loadBalancer->getConnectionRef( DB_PRIMARY );
+		$dbw = $this->loadBalancer->getConnection( DB_PRIMARY );
 
 		$conds = [ 'process' => $process ];
 		if ( $revision ) {
