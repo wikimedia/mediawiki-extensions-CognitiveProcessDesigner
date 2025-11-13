@@ -87,6 +87,10 @@ class CpdElementConnectionUtil {
 		$incoming = $this->buildConnection( $connections['incoming'], 'incoming' );
 		$outgoing = $this->buildConnection( $connections['outgoing'], 'outgoing' );
 
+		if ( empty( $incoming ) && empty( $outgoing ) ) {
+			return '';
+		}
+
 		$templateParser = new TemplateParser(
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
