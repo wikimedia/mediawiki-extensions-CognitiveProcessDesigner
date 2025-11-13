@@ -56,7 +56,8 @@
 					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\AfterGetDOMDocumentHook\\AppendNavigationToDescriptionPagePdfExport",
 					"services": [
 						"CpdDescriptionPageUtil",
-						"CpdElementConnectionUtil"
+						"CpdElementConnectionUtil",
+						"TitleFactory"
 					]
 				},
 				"AddLinkedPagesToPdfExport": {
@@ -527,7 +528,8 @@
 			"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\AfterGetDOMDocumentHook\\AppendNavigationToDescriptionPagePdfExport",
 			"services": [
 				"CpdDescriptionPageUtil",
-				"CpdElementConnectionUtil"
+				"CpdElementConnectionUtil",
+				"TitleFactory"
 			]
 		}
 	},

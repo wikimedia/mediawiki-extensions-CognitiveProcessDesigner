@@ -14,16 +14,19 @@ use DOMException;
 use MediaWiki\Extension\PDFCreator\IPreProcessor;
 use MediaWiki\Extension\PDFCreator\Utility\ExportContext;
 use MediaWiki\Extension\PDFCreator\Utility\PageContext;
+use MediaWiki\Title\TitleFactory;
 
 class AppendNavigationToDescriptionPagePdfExport implements IPreProcessor {
 
 	/**
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
 	 * @param CpdElementConnectionUtil $connectionUtil
+	 * @param TitleFactory $titleFactory
 	 */
 	public function __construct(
 		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
-		private readonly CpdElementConnectionUtil $connectionUtil
+		private readonly CpdElementConnectionUtil $connectionUtil,
+		private readonly TitleFactory $titleFactory
 	) {
 	}
 
@@ -85,6 +88,25 @@ class AppendNavigationToDescriptionPagePdfExport implements IPreProcessor {
 		string $module = '',
 		$params = []
 	): void {
+		$isDescriptionPageIncluded = false;
+		foreach ( $pages as $page ) {
+			if ( $isDescriptionPageIncluded ) {
+				break;
+			}
+
+			$title = $this->titleFactory->newFromDBkey( $page->getPrefixedDBKey() );
+
+			if ( !$title ) {
+				continue;
+			}
+
+			$isDescriptionPageIncluded = $this->descriptionPageUtil->isDescriptionPage( $title );
+		}
+
+		if ( !$isDescriptionPageIncluded ) {
+			return;
+		}
+
 		$imagesPath = dirname( __DIR__, 4 ) . '/resources/img';
 		$imageNames = [
 			'start-incoming.png',
