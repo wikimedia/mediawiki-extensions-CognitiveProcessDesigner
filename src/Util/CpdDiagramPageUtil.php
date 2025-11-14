@@ -271,6 +271,23 @@ class CpdDiagramPageUtil {
 	}
 
 	/**
+	 * @param File $svgFile
+	 *
+	 * @return string
+	 */
+	public function createSvgFileLinkHtml( File $svgFile ): string {
+		return sprintf(
+			'<span class="mw-default-size" typeof="mw:File"><a href="%s" class="mw-file-description" data-bs-title="%s" data-bs-filetimestamp="%s"><img src="%s" decoding="async" class="mw-file-element" width="%s" height="%s" /></a></span>',
+			$svgFile->getLocalRefPath(),
+			$svgFile->getTitle()->getPrefixedDBkey(),
+			$svgFile->getTimestamp(),
+			$svgFile->getUrl(),
+			$svgFile->getWidth(),
+			$svgFile->getHeight()
+		);
+	}
+
+	/**
 	 * @param Title $title
 	 *
 	 * @return void

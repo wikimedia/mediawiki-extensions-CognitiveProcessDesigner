@@ -4,7 +4,6 @@ namespace CognitiveProcessDesigner\Content;
 
 use CognitiveProcessDesigner\Action\EditDiagramAction;
 use CognitiveProcessDesigner\Action\EditDiagramXmlAction;
-use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
@@ -17,6 +16,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
 class CognitiveProcessDesignerContentHandler extends TextContentHandler {
+
 	/** @var CpdDiagramPageUtil */
 	private CpdDiagramPageUtil $diagramPageUtil;
 
@@ -65,8 +65,6 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 	 * @param Content $content
 	 * @param ContentParseParams $cpoParams
 	 * @param ParserOutput &$output
-	 *
-	 * @throws CpdInvalidArgumentException
 	 */
 	protected function fillParserOutput(
 		Content $content,
@@ -92,13 +90,6 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
 
-		// Embed svg image in the viewer hidden
-		$imageDbKey = null;
-		if ( $revisionId ) {
-			$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revisionId );
-			$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
-		}
-
 		$output->setRawText(
 			$templateParser->processTemplate(
 				'CpdContainer',
@@ -107,8 +98,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 					'revision' => $revisionId,
 					'showToolbar' => true,
 					'width' => '100%',
-					'height' => $canvasHeight . 'px',
-					'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
+					'height' => $canvasHeight . 'px'
 				]
 			)
 		);
