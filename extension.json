@@ -427,11 +427,10 @@
 		"MediaWikiServices": "registerMetaSlot",
 		"ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess",
 		"ContentStabilizationStablePointAdded": "stablePointAdded",
-		"ContentStabilizationGetCurrentInclusions": "excludeDiagramImagesFromStabilization",
 		"DifferenceEngineViewHeader": "bpmnDiffer",
 		"TextSlotDiffRendererTablePrefix": "bpmnDiffer",
 		"BSUsageTrackerRegisterCollectors": "registerUsageTracker",
-		"PDFCreatorAfterGetDOMDocument": "appendNavigationToDescriptionPagePdfExport"
+		"PDFCreatorAfterGetDOMDocument": ["appendNavigationToDescriptionPagePdfExport", "appendDiagramImagesToPdfExport" ]
 	},
 	"HookHandlers": {
 		"tag": {
@@ -511,9 +510,6 @@
 				"CpdDescriptionPageUtil"
 			]
 		},
-		"excludeDiagramImagesFromStabilization": {
-			"class": "\\CognitiveProcessDesigner\\HookHandler\\ExcludeDiagramImagesFromStabilization"
-		},
 		"bpmnDiffer": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\BpmnDiffer",
 			"services": [
@@ -528,6 +524,12 @@
 			"services": [
 				"CpdDescriptionPageUtil",
 				"CpdElementConnectionUtil"
+			]
+		},
+		"appendDiagramImagesToPdfExport": {
+			"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\AfterGetDOMDocumentHook\\AppendDiagramImagesToPdfExport",
+			"services": [
+				"CpdDiagramPageUtil"
 			]
 		}
 	},

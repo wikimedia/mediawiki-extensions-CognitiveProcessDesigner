@@ -88,22 +88,20 @@ class BpmnTag implements ParserFirstCallInitHook {
 			]
 		);
 
-		$revId = null;
-		if ( $diagramRevision ) {
-			if ( !$diagramRevision->isCurrent() ) {
-				$revId = $diagramRevision->getId();
-			}
-		}
-
-		$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revId );
-
 		// Show svg image if the page is in edit mode
 		if ( $this->isEdit() ) {
+			$revId = null;
+			if ( $diagramRevision ) {
+				if ( !$diagramRevision->isCurrent() ) {
+					$revId = $diagramRevision->getId();
+				}
+			}
+
+			$imageFile = $this->diagramPageUtil->getSvgFile( $process, $revId );
 			return $this->buildEditOutput( $imageFile, $templateParser, $parser->getOutput(), $process, $args );
 		}
 
 		return $this->buildViewOutput(
-			$imageFile,
 			$templateParser,
 			$parser,
 			$process,
@@ -146,7 +144,6 @@ class BpmnTag implements ParserFirstCallInitHook {
 	}
 
 	/**
-	 * @param File|null $imageFile
 	 * @param TemplateParser $templateParser
 	 * @param Parser $parser
 	 * @param string $process
@@ -157,7 +154,6 @@ class BpmnTag implements ParserFirstCallInitHook {
 	 * @return string
 	 */
 	private function buildViewOutput(
-		?File $imageFile,
 		TemplateParser $templateParser,
 		Parser $parser,
 		string $process,
@@ -169,15 +165,11 @@ class BpmnTag implements ParserFirstCallInitHook {
 		$this->addProcessPageProperty( $output, $process );
 		$this->diagramPageUtil->addOutputDependencies( $process, $output );
 
-		// Embed svg image in the viewer hidden
-		$imageDbKey = $imageFile?->getTitle()->getPrefixedDBkey();
-
 		$data = [
 			'process' => $process,
 			'showToolbar' => !empty( $args['toolbar'] ) ? !( $args['toolbar'] === "false" ) : null,
 			'width' => !empty( $args['width'] ) ? $args['width'] . 'px' : '100%',
 			'height' => !empty( $args['height'] ) ? $args['height'] . 'px' : '100%',
-			'diagramImage' => $imageDbKey ? $parser->recursiveTagParse( "[[$imageDbKey]]" ) : null
 		];
 
 		if ( $diagramRevision instanceof RevisionRecord ) {
