@@ -25,7 +25,7 @@ class CpdModeler extends CpdTool {
 
 		const baseAdditionalModules = [
 			BpmnColorPickerModule,
-			{ translate: [ 'value', translator.translate.bind(translator) ] },
+			{ translate: [ 'value', translator.translate.bind( translator ) ] },
 			{
 				__init__: [ "paletteProvider", "replaceMenuProvider" ],
 				paletteProvider: [ "type", CustomPaletteProvider ],
@@ -38,9 +38,9 @@ class CpdModeler extends CpdTool {
 				...baseAdditionalModules,
 				...( enableLinting ? [ lintModule ] : [] ),
 			],
-			...( enableLinting
-				? { linting: { bpmnlint: bpmnlintConfig } }
-				: {} ),
+			...( enableLinting ?
+				{ linting: { bpmnlint: bpmnlintConfig } } :
+				{} ),
 		};
 
 		const bpmnModeler = new BpmnModeler( modelerOptions );
@@ -194,16 +194,16 @@ class CpdModeler extends CpdTool {
 
 	private onImportFile( file: File ): void {
 		const reader = new FileReader();
-		reader.onload = async ( e) => {
+		reader.onload = async ( e ) => {
 			const xml = e.target.result as string;
 			try {
 				await this.bpmnTool.importXML( xml );
 				this.centerViewport();
-			} catch (err) {
-				console.error('Failed to import BPMN:', err);
+			} catch ( err ) {
+				console.error( 'Failed to import BPMN:', err );
 			}
 		};
-		reader.readAsText(file);
+		reader.readAsText( file );
 	}
 }
 

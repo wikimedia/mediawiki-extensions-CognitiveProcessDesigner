@@ -7,8 +7,8 @@ export default class ExportButton extends Button {
 			label: mw.msg( "cpd-button-export" ),
 			title: mw.msg( "cpd-button-export" ),
 			icon: "download",
-			displayBothIconAndLabel: false
-		}
+			displayBothIconAndLabel: false,
+		},
 	};
 
 	setActive() {

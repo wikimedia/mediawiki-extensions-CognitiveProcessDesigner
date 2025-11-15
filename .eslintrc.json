@@ -64,6 +64,11 @@
 		"es-x/no-nullish-coalescing-operators": "warn",
 		"compat/compat": "warn",
 		"@typescript-eslint/no-empty-function": "warn",
-		"mediawiki/msg-doc": "warn"
+		"mediawiki/msg-doc": "warn",
+		"es-x/no-class-instance-fields": "warn",
+		"es-x/no-class-static-fields": "warn",
+		"no-console": "warn",
+		"no-shadow": "warn",
+		"mediawiki/no-unlabeled-buttonwidget": "warn"
 	}
 }

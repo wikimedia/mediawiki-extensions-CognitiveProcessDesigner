@@ -9,9 +9,9 @@ export default class GroupTool extends OO.ui.ToolGroupTool {
 				icon: 'folderPlaceholder',
 				include: [
 					ExportButton.static.name,
-					ImportButton.static.name
-				]
-			}
-		}
+					ImportButton.static.name,
+				],
+			},
+		},
 	};
 }

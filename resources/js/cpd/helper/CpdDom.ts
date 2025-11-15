@@ -324,14 +324,16 @@ export default class CpdDom extends EventEmitter {
 		fileInput.accept = ".bpmn";
 		fileInput.style.display = "none";
 
-		fileInput.addEventListener('change', (event) => {
+		fileInput.addEventListener( 'change', ( event ) => {
 			const input = event.target as HTMLInputElement;
-			const file: File | undefined = input.files?.[0];
+			const file: File | undefined = input.files?.[ 0 ];
 
-			if (!file) return;
+			if ( !file ) {
+				return;
+			}
 
 			this.emit( "importFile", file );
-		});
+		} );
 
 		return fileInput;
 	}
@@ -345,9 +347,9 @@ export default class CpdDom extends EventEmitter {
 			name: "primary",
 			type: "bar",
 			include: [
-				OpenDialogButton.static.name
+				OpenDialogButton.static.name,
 			],
-			align: "after"
+			align: "after",
 		};
 
 		const secondaryBarConfig = {
@@ -362,7 +364,7 @@ export default class CpdDom extends EventEmitter {
 				CenterViewportButton.static.name,
 				ShowXmlButton.static.name,
 				ShowDiagramButton.static.name,
-			]
+			],
 		};
 
 		toolFactory.register( CenterViewportButton );
@@ -398,12 +400,12 @@ export default class CpdDom extends EventEmitter {
 			secondaryBarConfig.include.push( GroupTool.static.name );
 		}
 
-		toolbar.setup( [primaryBarConfig as ToolGroupSetupMap, secondaryBarConfig as ToolGroupSetupMap] );
+		toolbar.setup( [ primaryBarConfig as ToolGroupSetupMap, secondaryBarConfig as ToolGroupSetupMap ] );
 
 		[
 			...toolbar.getToolGroupByName( "primary" ).getItems(),
-			...toolbar.getToolGroupByName( "secondary" ).getItems()
-		].forEach( ( item: OO.ui.Tool  ): void => {
+			...toolbar.getToolGroupByName( "secondary" ).getItems(),
+		].forEach( ( item: OO.ui.Tool ): void => {
 			if ( item.constructor === OpenDialogButton ) {
 				this.openDialogBtn = item;
 				this.openDialogBtn.onSelect = this.onOpenDialog.bind( this );

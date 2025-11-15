@@ -91,8 +91,8 @@ export abstract class CpdTool {
 	}
 
 	private onExportDiagram(): void {
-		this.bpmnTool.saveXML({ format: true }).then(({ xml }) => {
-			const blob = new Blob([xml], { type: 'application/bpmn20-xml' });
+		this.bpmnTool.saveXML( { format: true } ).then( ( { xml } ) => {
+			const blob = new Blob( [ xml ], { type: 'application/bpmn20-xml' } );
 			const filename = this.diagramPage.getPrefixedText() + '.bpmn';
 			const url = URL.createObjectURL( blob );
 			const a = document.createElement( 'a' );
@@ -100,6 +100,6 @@ export abstract class CpdTool {
 			a.download = filename;
 			a.click();
 			URL.revokeObjectURL( url );
-		});
+		} );
 	}
 }
