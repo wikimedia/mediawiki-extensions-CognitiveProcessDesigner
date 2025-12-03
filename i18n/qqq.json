@@ -198,5 +198,6 @@
 	"cpd-pretoclip-button-notification-text": "Notification text",
 	"cpd-description-navigation-tooltip-title": "Tooltip text for links in the description navigation table.\n\nParameters:\n* $1: Name of page",
 	"cpd-button-export": "Button label to export the BPMN diagram as a .bpmn file.",
-	"cpd-button-import": "Button label to import BPMN diagram from a .bpmn file."
+	"cpd-button-import": "Button label to import BPMN diagram from a .bpmn file.",
+	"cpd-import-confirm-overwrite": "Confirmation message displayed when importing a BPMN diagram will overwrite the current content."
 }

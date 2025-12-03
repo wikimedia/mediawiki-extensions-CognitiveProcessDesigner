@@ -209,6 +209,7 @@
 	"cpd-pretoclip-button-tooltip": "Kopiert den Inhalt in die Zwischenablage",
 	"cpd-pretoclip-button-notification-text": "Inhalt wurde in die Zwischenablage kopiert",
 	"cpd-description-navigation-tooltip-title": "Gehe zu $1",
-	"cpd-button-export": "BPMN 2.0-Datei herunterladen",
-	"cpd-button-import": "BPMN-Diagramm aus lokalem Dateisystem öffnen"
+	"cpd-button-export": "Diagramm als XML herunterladen",
+	"cpd-button-import": "Diagramm als XML importieren",
+	"cpd-import-confirm-overwrite": "Der aktuelle Diagramminhalt wird überschrieben. Fortfahren?"
 }
