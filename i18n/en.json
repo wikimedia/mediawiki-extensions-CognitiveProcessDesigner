@@ -127,6 +127,7 @@
 	"cpd-dialog-action-label-create": "Create",
 	"cpd-pretoclip-button-tooltip": "Copy the contents into the clipboard",
 	"cpd-pretoclip-button-notification-text": "Contents have been copied into the clipboard",
-	"cpd-button-export": "Download as BPMN 2.0 file",
-	"cpd-button-import": "Open BPMN diagram from local file system"
+	"cpd-button-export": "Download diagram as XML",
+	"cpd-button-import": "Import diagram as XML",
+	"cpd-import-confirm-overwrite": "The current diagram content will be overwritten. Continue?"
 }
