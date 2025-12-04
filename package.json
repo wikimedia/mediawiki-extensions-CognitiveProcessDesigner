@@ -31,7 +31,7 @@
 		"babel-jest": "^29.7.0",
 		"babel-loader": "^9.2.1",
 		"bpmnlint-pack-config": "^0.8.0",
-		"eslint-config-wikimedia": "0.32.2",
+		"eslint-config-wikimedia": "0.32.3",
 		"grunt": "1.6.1",
 		"grunt-banana-checker": "0.13.0",
 		"grunt-eslint": "24.3.0",
