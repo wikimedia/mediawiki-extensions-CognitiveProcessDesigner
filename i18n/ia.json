@@ -126,6 +126,6 @@
 	"cpd-pretoclip-button-tooltip": "Copiar le contento al area de transferentia",
 	"cpd-pretoclip-button-notification-text": "Le contento ha essite copiate al area de transferentia",
 	"cpd-description-navigation-tooltip-title": "Visitar $1",
-	"cpd-button-export": "Discargar como file BPMN 2.0",
-	"cpd-button-import": "Aperir diagramma BPMN ab systema de files local"
+	"cpd-button-export": "Discargar diagramma in XML",
+	"cpd-button-import": "Importar diagramma in XML"
 }
