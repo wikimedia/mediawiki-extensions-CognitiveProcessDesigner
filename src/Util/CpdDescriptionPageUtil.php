@@ -132,12 +132,20 @@ class CpdDescriptionPageUtil {
 		}
 
 		$orphanedPages = [];
+		$pagesFromElements = [];
+
 		$existingPages = array_map( static fn ( Title $title ) => $title->getPrefixedDBkey(),
 			$this->findDescriptionPages( $process ) );
-		$pagesFromElements = array_map(
-			static fn ( CpdElement $element ) => $element->getDescriptionPage()->getPrefixedDBkey(),
-			$elements
-		);
+
+		foreach ( $elements as $element ) {
+			$descriptionPage = $element->getDescriptionPage();
+
+			if ( !$descriptionPage || !$descriptionPage->exists() ) {
+				continue;
+			}
+
+			$pagesFromElements[] = $descriptionPage->getPrefixedDBkey();
+		}
 
 		foreach ( $existingPages as $descriptionPage ) {
 			if ( !in_array( $descriptionPage, $pagesFromElements, true ) ) {

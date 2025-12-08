@@ -47,7 +47,10 @@ return [
 		);
 	},
 	'CpdElementFactory' => static function ( MediaWikiServices $services ) {
-		return new CpdElementFactory();
+		return new CpdElementFactory(
+			$services->getTitleFactory(),
+			$services->getTitleParser()
+		);
 	},
 	'SvgFile' => static function ( MediaWikiServices $services ) {
 		return new SvgFile(
@@ -57,6 +60,7 @@ return [
 	'CpdXmlProcessor' => static function ( MediaWikiServices $services ) {
 		return new CpdXmlProcessor(
 			$services->getMainConfig(),
+			$services->getNamespaceInfo(),
 			$services->getService( 'CpdElementFactory' )
 		);
 	},

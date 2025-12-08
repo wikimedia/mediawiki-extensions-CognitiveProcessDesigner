@@ -9,7 +9,7 @@ use CognitiveProcessDesigner\Exceptions\CpdXmlProcessingException;
 use Exception;
 use MediaWiki\Config\Config;
 use MediaWiki\Message\Message;
-use MediaWiki\Title\Title;
+use MediaWiki\Title\NamespaceInfo;
 use SimpleXMLElement;
 
 class CpdXmlProcessor {
@@ -17,12 +17,22 @@ class CpdXmlProcessor {
 	/** @var array */
 	private array $dedicatedSubpageTypes = [];
 
+	/** @var string */
+	private string $processNamespace;
+
 	public function __construct(
 		Config $config,
-		private readonly CpdElementFactory $cpdElementFactory
+		NamespaceInfo $namespaceInfo,
+		private readonly CpdElementFactory $cpdElementFactory,
 	) {
 		if ( $config->has( 'CPDDedicatedSubpageTypes' ) ) {
 			$this->dedicatedSubpageTypes = $config->get( 'CPDDedicatedSubpageTypes' );
+		}
+
+		$this->processNamespace = $namespaceInfo->getCanonicalName( NS_PROCESS );
+
+		if ( $this->processNamespace === false ) {
+			$this->processNamespace = 'Process';
 		}
 	}
 
@@ -346,7 +356,7 @@ class CpdXmlProcessor {
 		array &$descriptionPageElement,
 		string $process,
 	): void {
-		$descriptionPageElement['descriptionPage'] = $this->makeDescriptionPageTitle(
+		$descriptionPageElement['descriptionPage'] = $this->makeDescriptionPageDbKey(
 			$process,
 			$descriptionPageElement
 		);
@@ -394,7 +404,7 @@ class CpdXmlProcessor {
 	 * @return string
 	 * @throws CpdXmlProcessingException
 	 */
-	private function makeDescriptionPageTitle( string $process, array $element ): string {
+	private function makeDescriptionPageDbKey( string $process, array $element ): string {
 		if ( empty( $element['label'] ) ) {
 			throw new CpdXmlProcessingException(
 				Message::newFromKey( "cpd-error-message-missing-label", $element["id"] )->text()
@@ -407,17 +417,7 @@ class CpdXmlProcessor {
 			$titleText = "{$process}/" . implode( "/", $element['parents'] ) . "/{$element['label']}";
 		}
 
-		$titleText = $this->sanitizeTitle( $titleText );
-
-		$title = Title::makeTitle( NS_PROCESS, $titleText );
-
-		if ( !$title ) {
-			throw new CpdXmlProcessingException(
-				Message::newFromKey( "cpd-error-could-not-create-title", $element["id"] )->text()
-			);
-		}
-
-		return $title->getPrefixedDBkey();
+		return $this->processNamespace . ':' . $this->sanitizeTitle( $titleText );
 	}
 
 	/**
