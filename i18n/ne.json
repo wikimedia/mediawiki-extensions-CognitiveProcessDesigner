@@ -1,0 +1,43 @@
+{
+	"@metadata": {
+		"authors": [
+			"बडा काजी"
+		]
+	},
+	"cpd-orphaned-description-pages-column-process-title": "प्रक्रिया",
+	"cpd-orphaned-description-pages-column-dbkey-title": "शीर्षक",
+	"cpd-button-cancel-title": "रद्द गर्नुहोस्",
+	"cpd-editor-title": "$1 सम्पादन गर्दै",
+	"cpd-editor-title-create": "$1 सिर्जना गर्नुहोस्",
+	"cpd-shape-deletion-message": "$1 मेटाइयो",
+	"cpd-shape-creation-message": "$1 सिर्जना गरियो",
+	"cpd-shape-remove-label-message": "$1 लेबल हटाइएको छ",
+	"cpd-droplet-name": "प्रक्रिया",
+	"cpd-droplet-process-field-label": "प्रक्रिया",
+	"cpd-droplet-width-field-label": "चौडाइ",
+	"cpd-droplet-height-field-label-help": "रेखाचित्रका लागि निश्चित उचाइ सेट गर्नुहोस्",
+	"cpd-droplet-height-field-label": "उचाइ",
+	"cpd-droplet-show-toolbar-field-label-help": "उपकरणपट्टी सक्षम वा असक्षम पार्नुहोस्",
+	"cpd-droplet-show-toolbar-field-label": "उपकरणपट्टी देखाउनुहोस्",
+	"cpd-log-no-changes": "कुनै परिवर्तन छैन",
+	"cpd-dialog-save-changes-headline": "परिवर्तनहरू सङ्ग्रह गर्नुहोस्",
+	"cpd-dialog-save-changes-button-title": "परिवर्तनहरू सङ्ग्रह गर्नुहोस्",
+	"cpd-dialog-save-label-review": "आफ्नो परिवर्तनहरू समीक्षा गर्नुहोस्",
+	"cpd-dialog-save-label-save": "तपाईंको परिवर्तनहरू सङ्ग्रह गर्नुहोस्",
+	"cpd-dialog-save-label-changes": "परिवर्तन सङ्ग्रह भएको छ।",
+	"cpd-dialog-save-label-changes-with-error": "त्रुटि भयो",
+	"cpd-dialog-save-label-resume-editing": "सम्पादन पुनः सुरु गर्नुहोस्",
+	"bs-cpd-mainlinks-label": "प्रक्रियाहरू",
+	"bs-cpd-process-overview-edit-action-text": "सम्पादन",
+	"bs-cpd-process-overview-edit-action-title": "प्रक्रिया $1 सम्पादन गर्नुहोस्",
+	"bs-cpd-process-overview-create-action-text": "सृजना गर्नुहोस्",
+	"bs-cpd-process-overview-create-action-title": "प्रक्रिया $1 सिर्जना गर्नुहोस्",
+	"bs-cpd-process-overview-card-title": "प्रक्रिया $1 खोल्नुहोस्",
+	"bs-cpd-info-dialog": "प्रक्रिया प्रयोग",
+	"bs-cpd-process-overview-info-action-text": "पृष्ठ जानकारी",
+	"bs-cpd-process-overview-info-action-title": "प्रक्रियाका लागि पृष्ठ जानकारी $1",
+	"bs-cpd-actionmenuentry-new-process": "नयाँ प्रक्रिया",
+	"bs-cpd-actionmenuentry-new-process-input-label": "प्रक्रियाको नाम",
+	"cpd-api-save-description-page-comment": "विवरण पृष्ठ सुरक्षित गरियो",
+	"cpd-api-move-description-page-comment": "विवरण पृष्ठ सारियो"
+}
