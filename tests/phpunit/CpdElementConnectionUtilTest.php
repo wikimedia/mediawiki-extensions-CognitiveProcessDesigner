@@ -42,12 +42,6 @@ class CpdElementConnectionUtilTest extends TestCase {
 	/**
 	 * @covers ::createNavigationConnection
 	 *
-	 * @param string $dbKey
-	 * @param array $connections
-	 * @param array $expected
-	 *
-	 * @return void
-	 *
 	 * @throws CpdInvalidNamespaceException
 	 * @throws CpdCreateElementException
 	 * @throws CpdInvalidContentException
@@ -73,26 +67,27 @@ class CpdElementConnectionUtilTest extends TestCase {
 			[
 				'Process:Foo/a',
 				[
-					CpdElement::fromElementJson( [
-						'id' => 'a',
-						'type' => 'start',
-						'label' => 'a',
-						'descriptionPage' => 'Process:Foo/a',
-						'incomingLinks' => [
-							[
-								'id' => 'a',
-								'type' => 'start',
-								'label' => 'a',
-								'descriptionPage' => 'Process:Foo/lane1/lane2/b',
-							],
-							[
-								'id' => 'a',
-								'type' => 'start',
-								'label' => 'a',
-								'descriptionPage' => 'Process:Foo/c',
-							]
+					new CpdElement(
+						'a',
+						'start',
+						'a',
+						Title::newFromDBkey( 'Process:Foo/a' ),
+						null,
+						[
+							new CpdElement(
+								'a',
+								'start',
+								'a',
+								Title::newFromDBkey( 'Process:Foo/lane1/lane2/b' )
+							),
+							new CpdElement(
+								'a',
+								'start',
+								'a',
+								Title::newFromDBkey( 'Process:Foo/c' )
+							),
 						],
-					] ),
+					),
 				],
 				[
 					[
@@ -108,32 +103,33 @@ class CpdElementConnectionUtilTest extends TestCase {
 			[
 				'Process:Foo/lane1/lane2/lane3/a',
 				[
-					CpdElement::fromElementJson( [
-						'id' => 'a',
-						'type' => 'start',
-						'label' => 'a',
-						'descriptionPage' => 'Process:Foo/lane1/lane2/lane3/a',
-						'incomingLinks' => [
-							[
-								'id' => 'a',
-								'type' => 'start',
-								'label' => 'a',
-								'descriptionPage' => 'Process:Foo/lane1/lane2/lane3/b',
-							],
-							[
-								'id' => 'a',
-								'type' => 'start',
-								'label' => 'a',
-								'descriptionPage' => 'Process:Foo/lane1/lane2/c',
-							],
-							[
-								'id' => 'a',
-								'type' => 'start',
-								'label' => 'a',
-								'descriptionPage' => 'Process:Foo/d',
-							]
+					new CpdElement(
+						'a',
+						'start',
+						'a',
+						Title::newFromDBkey( 'Process:Foo/lane1/lane2/lane3/a' ),
+						null,
+						[
+							new CpdElement(
+								'a',
+								'start',
+								'a',
+								Title::newFromDBkey( 'Process:Foo/lane1/lane2/lane3/b' )
+							),
+							new CpdElement(
+								'a',
+								'start',
+								'a',
+								Title::newFromDBkey( 'Process:Foo/lane1/lane2/c' )
+							),
+							new CpdElement(
+								'a',
+								'start',
+								'a',
+								Title::newFromDBkey( 'Process:Foo/d' )
+							),
 						],
-					] )
+					),
 				],
 				[
 					[
