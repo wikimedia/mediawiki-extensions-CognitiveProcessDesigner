@@ -12,6 +12,7 @@ use MediaWiki\Message\Message;
 use MediaWiki\Page\MovePageFactory;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 
 class CpdSaveDescriptionPagesUtil {
@@ -92,7 +93,7 @@ class CpdSaveDescriptionPagesUtil {
 				)->text();
 			} else {
 				try {
-					$this->moveDescriptionPage( $element, $user );
+					$this->moveDescriptionPage( $descriptionPage, $oldDescriptionPage, $user );
 				} catch ( CpdSaveException $e ) {
 					$warnings[] = $e->getMessage();
 				}
@@ -107,7 +108,7 @@ class CpdSaveDescriptionPagesUtil {
 		}
 
 		try {
-			$this->createDescriptionPage( $element, $user );
+			$this->createDescriptionPage( $descriptionPage, $element->getType(), $user );
 		} catch ( CpdSaveException $e ) {
 			$warnings[] = $e->getMessage();
 		}
@@ -116,25 +117,19 @@ class CpdSaveDescriptionPagesUtil {
 	}
 
 	/**
-	 * @param CpdElement $element
+	 * @param Title $newDescriptionPageTitle
+	 * @param Title $oldDescriptionPageTitle
 	 * @param User $user
 	 *
 	 * @return void
 	 * @throws CpdSaveException
 	 */
 	private function moveDescriptionPage(
-		CpdElement $element,
+		Title $newDescriptionPageTitle,
+		Title $oldDescriptionPageTitle,
 		User $user
 	): void {
-		$oldDescriptionPageTitle = $element->getOldDescriptionPage();
-		$newDescriptionPageTitle = $element->getDescriptionPage();
-		if ( !$oldDescriptionPageTitle || !$newDescriptionPageTitle ) {
-			throw new CpdSaveException(
-				Message::newFromKey( 'cpd-description-page-has-no-property-warning', $element->getId() )
-			);
-		}
-
-		if ( $element->getOldDescriptionPage()->equals( $element->getDescriptionPage() ) ) {
+		if ( $oldDescriptionPageTitle->equals( $newDescriptionPageTitle ) ) {
 			throw new CpdSaveException(
 				Message::newFromKey( 'cpd-api-move-equal-description-pages-error-message' )
 			);
@@ -151,25 +146,19 @@ class CpdSaveDescriptionPagesUtil {
 	}
 
 	/**
-	 * @param CpdElement $element
+	 * @param Title $descriptionPageTitle
+	 * @param string $type
 	 * @param User $user
 	 *
 	 * @return void
 	 * @throws CpdSaveException
 	 */
-	private function createDescriptionPage( CpdElement $element, User $user ): void {
-		$descriptionPageTitle = $element->getDescriptionPage();
-		if ( !$descriptionPageTitle ) {
-			throw new CpdSaveException(
-				Message::newFromKey( 'cpd-description-page-has-no-property-warning', $element->getId() )
-			);
-		}
-
+	private function createDescriptionPage( Title $descriptionPageTitle, string $type, User $user ): void {
 		$descriptionPage = $this->wikiPageFactory->newFromTitle( $descriptionPageTitle );
 		$updater = $descriptionPage->newPageUpdater( $user );
 		$updater->setContent(
 			SlotRecord::MAIN,
-			$this->descriptionPageUtil->generateContentByType( $element->getType() )
+			$this->descriptionPageUtil->generateContentByType( $type )
 		);
 		$comment = Message::newFromKey( 'cpd-api-save-description-page-comment' );
 		$commentStore = CommentStoreComment::newUnsavedComment( $comment );
@@ -190,14 +179,22 @@ class CpdSaveDescriptionPagesUtil {
 	 * @throws CpdSaveException
 	 */
 	private function validateElement( CpdElement $element, array $elements ): void {
-		if ( !$element->getDescriptionPage() ) {
+		$descriptionPage = $element->getDescriptionPage();
+
+		if ( !$descriptionPage ) {
+			$reason = $element->getInvalidDescriptionPageWarning();
+			if ( !$reason ) {
+				$reason = 'unknown';
+			}
+
 			throw new CpdSaveException(
-				Message::newFromKey( "cpd-description-page-has-no-property-warning", $element->getId() )->escaped()
+				Message::newFromKey( "cpd-description-page-has-no-property-warning", $element->getLabel(), $reason )
+					->escaped()
 			);
 		}
 
 		try {
-			$this->diagramPageUtil->validateNamespace( $element->getDescriptionPage() );
+			$this->diagramPageUtil->validateNamespace( $descriptionPage );
 		} catch ( CpdInvalidNamespaceException $e ) {
 			throw new CpdSaveException( $e->getMessage() );
 		}
@@ -211,7 +208,7 @@ class CpdSaveDescriptionPagesUtil {
 				continue;
 			}
 
-			if ( $element->getDescriptionPage()->equals( $compareWith->getDescriptionPage() ) ) {
+			if ( $descriptionPage->equals( $compareWith->getDescriptionPage() ) ) {
 				throw new CpdSaveException(
 					Message::newFromKey(
 						"cpd-save-description-page-duplicate-warning",

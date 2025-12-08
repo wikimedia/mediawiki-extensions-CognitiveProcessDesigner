@@ -51,16 +51,28 @@ class CpdElementConnectionUtil {
 		}
 
 		foreach ( $element->getOutgoingLinks() as $outgoingLink ) {
+			$targetPage = $outgoingLink->getDescriptionPage();
+
+			if ( !$targetPage ) {
+				continue;
+			}
+
 			$connections['outgoing'][] = $this->createNavigationConnection(
-				$outgoingLink->getDescriptionPage()->getPrefixedDBkey(),
+				$targetPage,
 				$outgoingLink->getType(),
 				$title,
 				$revId
 			);
 		}
 		foreach ( $element->getIncomingLinks() as $incomingLink ) {
+			$targetPage = $incomingLink->getDescriptionPage();
+
+			if ( !$targetPage ) {
+				continue;
+			}
+
 			$connections['incoming'][] = $this->createNavigationConnection(
-				$incomingLink->getDescriptionPage()->getPrefixedDBkey(),
+				$targetPage,
 				$incomingLink->getType(),
 				$title,
 				$revId
@@ -132,6 +144,10 @@ class CpdElementConnectionUtil {
 		}
 
 		foreach ( $elements as $element ) {
+			if ( !$element->getDescriptionPage() ) {
+				continue;
+			}
+
 			if ( $element->getDescriptionPage()->equals( $title ) ) {
 				return $element;
 			}
@@ -141,7 +157,7 @@ class CpdElementConnectionUtil {
 	}
 
 	/**
-	 * @param string $dbKey
+	 * @param Title $target
 	 * @param string $type
 	 * @param Title $source
 	 * @param int|null $revId
@@ -150,12 +166,11 @@ class CpdElementConnectionUtil {
 	 * @throws CpdInvalidNamespaceException
 	 */
 	private function createNavigationConnection(
-		string $dbKey,
+		Title $target,
 		string $type,
 		Title $source,
 		?int $revId = null
 	): CpdNavigationConnection {
-		$target = Title::newFromDBkey( $dbKey );
 		$lanes = CpdDiagramPageUtil::getLanesFromTitle( $target );
 		$isLaneChange = $lanes !== CpdDiagramPageUtil::getLanesFromTitle( $source );
 
