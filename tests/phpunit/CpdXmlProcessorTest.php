@@ -7,7 +7,11 @@ use CognitiveProcessDesigner\CpdElementFactory;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use Exception;
 use MediaWiki\Config\Config;
+use MediaWiki\Title\MediaWikiTitleCodec;
+use MediaWiki\Title\NamespaceInfo;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
+use TitleFactory;
 
 /**
  * @coversDefaultClass \CognitiveProcessDesigner\Util\CpdXmlProcessor
@@ -35,8 +39,19 @@ class CpdXmlProcessorTest extends TestCase {
 			return [];
 		} );
 
+		$nsInfoMock = $this->createMock( NamespaceInfo::class );
+		$nsInfoMock->method( 'getCanonicalName' )->willReturn( "Process" );
+
+		$titleFactoryMock = $this->createMock( TitleFactory::class );
+		$titleFactoryMock->method( 'newFromDBkey' )->willReturnCallback( static fn ( $dbkey ) => Title::newFromText( $dbkey ) );
+
+		$titleParserMock = $this->createMock( MediaWikiTitleCodec::class );
+		$titleParserMock->method( 'splitTitleString' )->willReturn( null );
+
 		$this->xmlProcessor = new CpdXmlProcessor(
-			$configMock, new CpdElementFactory()
+			$configMock, $nsInfoMock, new CpdElementFactory(
+				$titleFactoryMock, $titleParserMock
+			)
 		);
 	}
 
