@@ -206,6 +206,6 @@
 	"cpd-pretoclip-button-tooltip": "Kopieer de inhoud naar het klembord",
 	"cpd-pretoclip-button-notification-text": "De inhoud is naar het klembord gekopieerd",
 	"cpd-description-navigation-tooltip-title": "Ga naar $1",
-	"cpd-button-export": "Downloaden als BPMN 2.0-bestand",
-	"cpd-button-import": "Het BPMN-diagram uit het lokale bestandssysteem openen"
+	"cpd-button-export": "Diagram downloaden als XML-bestand",
+	"cpd-button-import": "Diagram importeren als XML"
 }

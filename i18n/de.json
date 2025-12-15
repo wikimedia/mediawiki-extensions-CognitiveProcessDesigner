@@ -211,5 +211,7 @@
 	"cpd-description-navigation-tooltip-title": "Gehe zu $1",
 	"cpd-button-export": "Diagramm als XML herunterladen",
 	"cpd-button-import": "Diagramm als XML importieren",
-	"cpd-import-confirm-overwrite": "Der aktuelle Diagramminhalt wird überschrieben. Fortfahren?"
+	"cpd-import-confirm-overwrite": "Der aktuelle Diagramminhalt wird überschrieben. Fortfahren?",
+	"cpd-error-message-missing-connection": "Ein Fehler beim Erstellen der Verbindung zwischen Elementen ist aufgetreten.",
+	"cpd-error-message-missing-parameter-process": "Fehlender erforderlicher Parameter „process“"
 }
