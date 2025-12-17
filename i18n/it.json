@@ -62,5 +62,6 @@
 	"cpd-save-description-page-empty-set-warning": "Nessun elemento da salvare",
 	"cpd-error-message-missing-svg-file": "Il file SVG $1 del diagramma non esiste. Modifica e salva il diagramma per crearlo.",
 	"bs-cpd-actionmenuentry-create-new-process": "Crea nuovo processo",
-	"cpd-ui-action-edit-xml": "Modifica sorgente"
+	"cpd-ui-action-edit-xml": "Modifica sorgente",
+	"cpd-error-message-missing-connection": "Si è verificato un errore durante la creazione delle connessioni tra gli elementi"
 }
