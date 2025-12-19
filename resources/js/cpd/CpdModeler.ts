@@ -19,6 +19,7 @@ import CpdXml from "./helper/CpdXml";
 
 class CpdModeler extends CpdTool {
 	private changeLogger: CpdChangeLogger;
+	private beforeUnloadHandler: ( e: BeforeUnloadEvent ) => void;
 
 	public constructor( process: string, container: HTMLElement, enableLinting: boolean = true ) {
 		const translator = new CpdTranslator( mw.config.get( "wgUserLanguage" ) );
@@ -60,11 +61,12 @@ class CpdModeler extends CpdTool {
 		const eventBus = this.bpmnTool.get( "eventBus" ) as EventBus;
 
 		this.changeLogger = new CpdChangeLogger( eventBus, this.elementFactory, svgRenderer );
+		this.beforeUnloadHandler = ( e: BeforeUnloadEvent ) => {
+			e.preventDefault();
+			e.returnValue = "";
+		};
 		this.changeLogger.on( "diagramChanged", () => {
-			window.addEventListener( "beforeunload", function ( e ) {
-				e.preventDefault();
-				e.returnValue = "";
-			} );
+			window.addEventListener( "beforeunload", this.beforeUnloadHandler );
 		} );
 
 		const validator = new CpdValidator( eventBus );
@@ -140,6 +142,8 @@ class CpdModeler extends CpdTool {
 	}
 
 	private async onSave( withPages: boolean ): Promise<void> {
+		window.removeEventListener( "beforeunload", this.beforeUnloadHandler );
+
 		this.xml = await this.getUpdatedXml();
 		const svgResult = await this.getSVG();
 
