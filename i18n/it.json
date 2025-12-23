@@ -24,6 +24,7 @@
 	"cpd-api-load-diagram-error-message": "Errore durante il caricamento del diagramma: $1",
 	"cpd-error-message-missing-config": "Configurazione mancante: '$1'",
 	"cpd-error-message-missing-svg-file": "Il file SVG $1 del diagramma non esiste. Modifica e salva il diagramma per crearlo.",
+	"cpd-error-message-missing-connection": "Si è verificato un errore durante la creazione delle connessioni tra gli elementi",
 	"cpd-warning-message-diagram-not-initialized": "Il processo $1 non è ancora stato creato. Vai alla <a href='$2'>pagina del processo</a> e crealo.",
 	"cpd-warning-message-diagram-not-initialized-create-it": "Il diagramma non è ancora stato creato. <a href='$1'>Crealo</a> .",
 	"cpd-editor-title": "Modifica di $1",
