@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sabelöga"
+			"Sabelöga",
+			"Stefan2255"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Rita BPMN-processer med ett grafiskt användargränssnitt i Semantic MediaWiki",
@@ -43,5 +44,6 @@
 	"action-cognitiveprocessdesigner-editbpmn": "redigera BPMN-diagrammet",
 	"right-cognitiveprocessdesigner-viewspecialpage": "Tillgång till specialsidan [[Special:Cognitive Process Designer Edit]]",
 	"right-cognitiveprocessdesigner-editbpmn": "Redigera BPMN-diagram",
-	"cpd-button-center-viewport": "Centrera diagram"
+	"cpd-button-center-viewport": "Centrera diagram",
+	"cpd-error-message-missing-connection": "Ett fel uppstod när kopplingar mellan element skapades"
 }

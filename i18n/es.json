@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Avengium",
 			"Dgstranz"
 		]
 	},
@@ -45,5 +46,6 @@
 	"cpd-diagram-save-dialog-title": "Guardando diagrama...",
 	"cpd-error-dialog-title": "¡Ocurrió un error!",
 	"cpd-saving-error-svg-upload": "Fallo al subir el SVG",
-	"cpd-dialog-save-changes-button-title": "Guardar cambios"
+	"cpd-dialog-save-changes-button-title": "Guardar cambios",
+	"cpd-error-message-missing-connection": "Se produjo un error al crear conexiones entre elementos."
 }
