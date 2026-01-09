@@ -6,10 +6,10 @@
 		"descriptionPage": "Process:BackendElements/Parent_1/Start_1"
 	},
 	{
-		"id": "Event_0vuw67s",
-		"type": "bpmn:EndEvent",
-		"label": "End 1",
-		"descriptionPage": "Process:BackendElements/Parent_1/End_1"
+		"id": "Event_0monjkn",
+		"type": "bpmn:StartEvent",
+		"label": "Start 2",
+		"descriptionPage": "Process:BackendElements/Parent_2/Start_2"
 	},
 	{
 		"id": "Activity_0hzxdmp",
@@ -18,21 +18,21 @@
 		"descriptionPage": "Process:BackendElements/Parent_1/Task_44"
 	},
 	{
-		"id": "Activity_1uibj2u",
-		"type": "bpmn:Task",
-		"label": "Bask 55",
-		"descriptionPage": "Process:BackendElements/Parent_1/Bask_55"
-	},
-	{
 		"id": "Event_01x7t14",
 		"type": "bpmn:EndEvent",
 		"label": "End 2",
 		"descriptionPage": "Process:BackendElements/Parent_2/End_2"
 	},
 	{
-		"id": "Event_0monjkn",
-		"type": "bpmn:StartEvent",
-		"label": "Start 2",
-		"descriptionPage": "Process:BackendElements/Parent_2/Start_2"
+		"id": "Activity_1uibj2u",
+		"type": "bpmn:Task",
+		"label": "Bask 55",
+		"descriptionPage": "Process:BackendElements/Parent_1/Bask_55"
+	},
+	{
+		"id": "Event_0vuw67s",
+		"type": "bpmn:EndEvent",
+		"label": "End 1",
+		"descriptionPage": "Process:BackendElements/Parent_1/End_1"
 	}
 ]

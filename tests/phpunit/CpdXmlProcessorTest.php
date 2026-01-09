@@ -126,11 +126,11 @@ class CpdXmlProcessorTest extends TestCase {
 		$xml = file_get_contents( __DIR__ . '/fixtures/laneDiagram.xml' );
 		$elements = $this->xmlProcessor->createElements( 'ParentRelations', $xml );
 		$this->assertEquals( "Process:ParentRelations/participant1/lane3/sublane1/start", $elements[0]->getDescriptionPage()->getPrefixedDBkey() );
-		$this->assertEquals( "Process:ParentRelations/participant1/lane1/end", $elements[1]->getDescriptionPage()->getPrefixedDBkey() );
-		$this->assertEquals( "Process:ParentRelations/participant1/lane2/task1", $elements[2]->getDescriptionPage()->getPrefixedDBkey() );
-		$this->assertEquals( "Process:ParentRelations/participant1/lane3/sublane1/end_b", $elements[3]->getDescriptionPage()->getPrefixedDBkey() );
+		$this->assertEquals( "Process:ParentRelations/participant2/start2", $elements[1]->getDescriptionPage()->getPrefixedDBkey() );
+		$this->assertEquals( "Process:ParentRelations/participant1/lane1/end", $elements[2]->getDescriptionPage()->getPrefixedDBkey() );
+		$this->assertEquals( "Process:ParentRelations/participant1/lane2/task1", $elements[3]->getDescriptionPage()->getPrefixedDBkey() );
 		$this->assertEquals( "Process:ParentRelations/participant1/lane3/sublane2/end_c", $elements[4]->getDescriptionPage()->getPrefixedDBkey() );
 		$this->assertEquals( "Process:ParentRelations/participant2/end2", $elements[5]->getDescriptionPage()->getPrefixedDBkey() );
-		$this->assertEquals( "Process:ParentRelations/participant2/start2", $elements[6]->getDescriptionPage()->getPrefixedDBkey() );
+		$this->assertEquals( "Process:ParentRelations/participant1/lane3/sublane1/end_b", $elements[6]->getDescriptionPage()->getPrefixedDBkey() );
 	}
 }
