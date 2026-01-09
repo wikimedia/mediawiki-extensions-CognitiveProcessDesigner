@@ -96,6 +96,9 @@ class CpdXmlProcessor {
 			);
 		}
 
+		// Sort elements in the order they appear in sequence flows
+		$descriptionPageElements = $this->sortBySequenceFlows( $descriptionPageElements, $sequenceFlows );
+
 		return $descriptionPageElements;
 	}
 
@@ -220,15 +223,74 @@ class CpdXmlProcessor {
 	}
 
 	/**
-	 * @param array $elementsData
-	 * @param array $type
+	 * Sort elements in the order they appear in sequence flows (topological sort).
+	 *
+	 * @param array $descriptionPageElements
+	 * @param array $sequenceFlows
 	 *
 	 * @return array
 	 */
-	private function filterByType( array $elementsData, array $type ): array {
-		return array_values(
-			array_filter( $elementsData, static fn ( $elementData ) => in_array( $elementData['type'], $type ) )
-		);
+	private function sortBySequenceFlows( array $descriptionPageElements, array $sequenceFlows ): array {
+		if ( empty( $sequenceFlows ) || empty( $descriptionPageElements ) ) {
+			return $descriptionPageElements;
+		}
+
+		// Build a map of element id to element
+		$elementsById = [];
+		foreach ( $descriptionPageElements as $element ) {
+			$elementsById[ $element['id'] ] = $element;
+		}
+
+		// Build adjacency list for topological sort
+		$outgoing = [];
+		$incomingCount = [];
+		foreach ( $descriptionPageElements as $element ) {
+			$outgoing[ $element['id'] ] = [];
+			$incomingCount[ $element['id'] ] = 0;
+		}
+
+		foreach ( $sequenceFlows as $flow ) {
+			$sourceId = $flow['sourceRef'];
+			$targetId = $flow['targetRef'];
+
+			if ( isset( $elementsById[ $sourceId ] ) && isset( $elementsById[ $targetId ] ) ) {
+				$outgoing[ $sourceId ][] = $targetId;
+				$incomingCount[ $targetId ]++;
+			}
+		}
+
+		// Kahn's algorithm for topological sort
+		$queue = [];
+		foreach ( $incomingCount as $id => $count ) {
+			if ( $count === 0 ) {
+				$queue[] = $id;
+			}
+		}
+
+		$sorted = [];
+		while ( !empty( $queue ) ) {
+			$current = array_shift( $queue );
+			if ( isset( $elementsById[ $current ] ) ) {
+				$sorted[] = $elementsById[ $current ];
+			}
+
+			foreach ( $outgoing[ $current ] as $neighbor ) {
+				$incomingCount[ $neighbor ]--;
+				if ( $incomingCount[ $neighbor ] === 0 ) {
+					$queue[] = $neighbor;
+				}
+			}
+		}
+
+		// Append any remaining elements that were not in any sequence flow
+		$sortedIds = array_column( $sorted, 'id' );
+		foreach ( $descriptionPageElements as $element ) {
+			if ( !in_array( $element['id'], $sortedIds ) ) {
+				$sorted[] = $element;
+			}
+		}
+
+		return $sorted;
 	}
 
 	/**
