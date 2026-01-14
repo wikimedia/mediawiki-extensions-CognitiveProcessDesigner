@@ -27,6 +27,7 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
 
 		$cpdContentModel = CognitiveProcessDesignerContent::MODEL;
+		$processNamespace = NS_PROCESS;
 
 		$rows = $dbr->select(
 			[ 'p' => 'page' ],
@@ -34,7 +35,10 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 				'p.page_title',
 				'p.page_namespace'
 			],
-			[ "p.page_content_model = '$cpdContentModel'" ],
+			[
+				"p.page_content_model" => $cpdContentModel,
+				"p.page_namespace" => $processNamespace
+			],
 			__METHOD__,
 			[ 'ORDER BY' => 'p.page_title' ]
 		);
