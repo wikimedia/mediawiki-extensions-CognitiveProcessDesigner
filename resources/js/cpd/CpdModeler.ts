@@ -131,6 +131,8 @@ class CpdModeler extends CpdTool {
 	}
 
 	private onCancel(): void {
+		window.removeEventListener( "beforeunload", this.beforeUnloadHandler );
+
 		OO.ui.confirm( mw.message( 'cpd-cancel-confirm' ).text() )
 			.done( ( confirmed ) => {
 				if ( confirmed ) {
