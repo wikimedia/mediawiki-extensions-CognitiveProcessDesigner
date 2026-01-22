@@ -207,5 +207,7 @@
 	"cpd-pretoclip-button-notification-text": "Le contento ha essite copiate al area de transferentia",
 	"cpd-description-navigation-tooltip-title": "Visitar $1",
 	"cpd-button-export": "Discargar diagramma in XML",
-	"cpd-button-import": "Importar diagramma in XML"
+	"cpd-button-import": "Importar diagramma in XML",
+	"cpd-import-confirm-overwrite": "Le contento actual del diagramma essera reimplaciate. Continuar?",
+	"cpd-error-message-missing-connection": "Un error ha occurrite durante le creation de connexiones inter elementos"
 }
