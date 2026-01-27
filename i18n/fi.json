@@ -1,9 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"MITO",
-			"Pyscowicz",
-			"Samoasambia"
+			"Yupik"
 		]
 	},
 	"cpd-ve-bpmn-name-title": "Nimi",
@@ -18,5 +16,6 @@
 	"cpd-saved": "Tallennettu",
 	"cpd-diagram-save-dialog-title": "Tallennetaan kaaviota...",
 	"cpd-error-dialog-title": "Tapahtui virhe!",
-	"cpd-keyboard-shortcuts": "Pikanäppäimet"
+	"cpd-keyboard-shortcuts": "Pikanäppäimet",
+	"cpd-droplet-width-field-label": "Leveys"
 }
