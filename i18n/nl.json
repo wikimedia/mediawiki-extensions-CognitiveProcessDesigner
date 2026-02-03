@@ -207,5 +207,7 @@
 	"cpd-pretoclip-button-notification-text": "De inhoud is naar het klembord gekopieerd",
 	"cpd-description-navigation-tooltip-title": "Ga naar $1",
 	"cpd-button-export": "Diagram downloaden als XML-bestand",
-	"cpd-button-import": "Diagram importeren als XML"
+	"cpd-button-import": "Diagram importeren als XML",
+	"cpd-import-confirm-overwrite": "De huidige diagraminhoud wordt overschreven. Doorgaan?",
+	"cpd-error-message-missing-connection": "Er is een fout opgetreden bij het maken van verbindingen tussen elementen"
 }
