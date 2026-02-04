@@ -65,8 +65,8 @@ ext.cpd.ve.ui.CPDProcessNodeInspector.prototype.createFields = function () {
 	this.height = new OO.ui.NumberInputWidget( {
 		required: true
 	} );
-	this.toolbar = new OO.ui.ToggleSwitchWidget( {
-		value: true
+	this.toolbar = new OO.ui.CheckboxInputWidget( {
+		selected: true
 	} );
 };
 
@@ -88,7 +88,7 @@ ext.cpd.ve.ui.CPDProcessNodeInspector.prototype.setLayouts = function () {
 		help: ve.msg( 'cpd-droplet-height-field-label-help' )
 	} );
 	this.toolbarLayout = new OO.ui.FieldLayout( this.toolbar, {
-		align: 'left',
+		align: 'inline',
 		label: ve.msg( 'cpd-droplet-show-toolbar-field-label' ),
 		help: ve.msg( 'cpd-droplet-show-toolbar-field-label-help' )
 	} );
@@ -104,7 +104,7 @@ ext.cpd.ve.ui.CPDProcessNodeInspector.prototype.getSetupProcess = function ( dat
 			this.height.setValue( attributes.height || mw.config.get( 'cpdCanvasDefaultHeight' ) );
 
 			if ( attributes.toolbar ) {
-				this.toolbar.setValue( attributes.toolbar );
+				this.toolbar.setSelected( attributes.toolbar );
 			}
 
 			this.actions.setAbilities( { done: true } );
@@ -134,7 +134,7 @@ ext.cpd.ve.ui.CPDProcessNodeInspector.prototype.updateMwData = function ( mwData
 	} else {
 		delete ( mwData.attrs.height );
 	}
-	if ( this.toolbar.getValue() ) {
+	if ( this.toolbar.isSelected() ) {
 		mwData.attrs.toolbar = 'true';
 	} else {
 		delete ( mwData.attrs.toolbar );
