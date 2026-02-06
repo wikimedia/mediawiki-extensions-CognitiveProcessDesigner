@@ -14,7 +14,6 @@ use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MWFileProps;
 use RepoGroup;
-use Wikimedia\AtEase\AtEase;
 use Wikimedia\FileBackend\FSFile\TempFSFile;
 use Wikimedia\Mime\MimeAnalyzer;
 
@@ -66,7 +65,8 @@ class SvgFile {
 			if ( is_array( $props['metadata'] ) ) {
 				$metadata = $props['metadata'];
 			} else {
-				$metadata = AtEase::quietCall( 'unserialize', $props['metadata'] );
+				// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				$metadata = @unserialize( $props['metadata'] );
 			}
 
 			$publishOptions['headers'] = $handler->getContentHeaders( $metadata );
