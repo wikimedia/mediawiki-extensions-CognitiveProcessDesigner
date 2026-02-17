@@ -48,5 +48,6 @@
 	"bs-cpd-actionmenuentry-new-process": "Nuovo processo",
 	"bs-cpd-actionmenuentry-create-new-process": "Crea nuovo processo",
 	"cpd-api-save-description-page-comment": "Pagina di descrizione salvata",
-	"cpd-api-move-description-page-comment": "Pagina di descrizione spostata"
+	"cpd-api-move-description-page-comment": "Pagina di descrizione spostata",
+	"cpd-error-message-missing-connection": "Si è verificato un errore durante la creazione delle connessioni tra gli elementi"
 }

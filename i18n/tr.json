@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Joseph"
+			"Joseph",
+			"Sakblue",
+			"SaldırganSincap"
 		]
 	},
-	"cognitiveprocessdesigner-desc": "BPMN süreçlerini Semantic MediaWiki’de görsel kullanıcı arayüzü ile çiz"
+	"cognitiveprocessdesigner-desc": "BPMN süreçlerini Semantic MediaWiki’de görsel kullanıcı arayüzü ile çiz",
+	"cpd-button-export": "Diyagramı XML olarak indir"
 }

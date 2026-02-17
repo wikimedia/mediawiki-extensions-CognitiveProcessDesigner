@@ -34,8 +34,8 @@
 	"cpd-button-cancel-title": "Annuleren",
 	"cpd-button-show-xml": "Onbewerkte XML weergeven",
 	"cpd-button-center-viewport": "Diagram centreren",
-	"cpd-button-export": "Downloaden als BPMN 2.0-bestand",
-	"cpd-button-import": "Het BPMN-diagram uit het lokale bestandssysteem openen",
+	"cpd-button-export": "Diagram downloaden als XML-bestand",
+	"cpd-button-import": "Diagram importeren als XML",
 	"cpd-link-diagram-page-title": "Naar de diagrampagina",
 	"cpd-link-svg-title": "Diagram als SVG downloaden",
 	"cpd-api-save-diagram-param-svg": "JSON-gecodeerde SVG om te uploaden naar wiki",
@@ -128,5 +128,7 @@
 	"cpd-dialog-validation-page-exist-info-label": "Er is al een proces met deze naam. Kies een andere naam.",
 	"cpd-dialog-action-label-create": "Aanmaken",
 	"cpd-pretoclip-button-tooltip": "Kopieer de inhoud naar het klembord",
-	"cpd-pretoclip-button-notification-text": "De inhoud is naar het klembord gekopieerd"
+	"cpd-pretoclip-button-notification-text": "De inhoud is naar het klembord gekopieerd",
+	"cpd-import-confirm-overwrite": "De huidige diagraminhoud wordt overschreven. Doorgaan?",
+	"cpd-error-message-missing-connection": "Er is een fout opgetreden bij het maken van verbindingen tussen elementen"
 }

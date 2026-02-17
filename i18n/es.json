@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Avengium",
 			"Dgstranz"
 		]
 	},
-	"cpd-dialog-save-changes-button-title": "Guardar cambios"
+	"cpd-dialog-save-changes-button-title": "Guardar cambios",
+	"cpd-error-message-missing-connection": "Se produjo un error al crear conexiones entre elementos."
 }
