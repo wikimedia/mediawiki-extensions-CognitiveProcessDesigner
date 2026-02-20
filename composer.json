@@ -14,7 +14,7 @@
 	},
 	"require": {
 		"composer/installers": "~1.0|~2",
-		"mwstake/mediawiki-component-processmanager": "~3"
+		"mwstake/mediawiki-component-processmanager": "~4"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "46.0.0",
