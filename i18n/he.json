@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
+			"Neriah",
 			"YaronSh"
 		]
 	},
@@ -34,6 +35,7 @@
 	"cpd-button-cancel-title": "ביטול",
 	"cpd-button-show-xml": "הצגת XML גולמי",
 	"cpd-button-center-viewport": "מרכוז התרשים",
+	"cpd-button-export": "הורדת דיאגרמה כ-XML",
 	"cpd-link-diagram-page-title": "מעבר לדף התרשים",
 	"cpd-link-svg-title": "הורדת התרשים כ־SVG",
 	"cpd-api-save-diagram-param-svg": "SVG מקודד כ־JSON להעלאה לוויקי",
