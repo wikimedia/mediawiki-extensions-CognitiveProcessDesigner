@@ -4,5 +4,6 @@
 			"Yupik"
 		]
 	},
-	"cpd-droplet-width-field-label": "Leveys"
+	"cpd-droplet-width-field-label": "Leveys",
+	"cpd-dialog-save-changes-button-label": "Tallenna"
 }

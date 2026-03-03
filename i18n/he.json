@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"YaronSh"
+			"YaronSh",
+			"Neriah"
 		]
 	},
 	"orphanedprocessdescriptionpages": "דפי תיאור תהליך יתומים",
@@ -34,6 +35,7 @@
 	"cpd-button-cancel-title": "ביטול",
 	"cpd-button-show-xml": "הצגת XML גולמי",
 	"cpd-button-center-viewport": "מרכוז התרשים",
+	"cpd-button-export": "הורדת תרשים בתור XML",
 	"cpd-link-diagram-page-title": "מעבר לדף התרשים",
 	"cpd-link-svg-title": "הורדת התרשים כ־SVG",
 	"cpd-api-save-diagram-param-svg": "SVG מקודד כ־JSON להעלאה לוויקי",
