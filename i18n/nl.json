@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"McDutchie",
-			"Siebrand"
+			"Siebrand",
+			"Elphie"
 		]
 	},
 	"orphanedprocessdescriptionpages": "Verweesde procesbeschrijvingspagina's",
@@ -68,7 +69,7 @@
 	"cpd-editor-title-create": "$1 aanmaken",
 	"cpd-shape-deletion-message": "$1 verwijderd",
 	"cpd-shape-creation-message": "$1 aangemaakt",
-	"cpd-shape-rename-message": "$1 hernoemd tot “$2”",
+	"cpd-shape-rename-message": "$1 hernoemd naar “$2”",
 	"cpd-shape-remove-label-message": "$1 label verwijderd",
 	"cpd-droplet-name": "Proces",
 	"cpd-droplet-description": "Bewerkbaar BPMN-diagram",
