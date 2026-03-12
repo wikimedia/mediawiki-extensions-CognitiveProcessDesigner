@@ -11,7 +11,7 @@ class AddPostUpdateMigration extends LoadExtensionSchemaUpdates {
 	 */
 	protected function doProcess() {
 		if ( !defined( 'SMW_VERSION' ) ) {
-			return false;
+			return true;
 		}
 		$this->updater->addPostDatabaseUpdateMaintenance( \MigrateDiagrams::class );
 
