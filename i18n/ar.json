@@ -7,6 +7,7 @@
 	},
 	"cognitiveprocessdesigner-desc": "ارسم عمليات BPMN بواجهة مستخدم رسومية في Semantic MediaWiki",
 	"cpd-droplet-description": "مخطط BPMN قابل للتحرير",
+	"cpd-validation-missing-data": "يحوي العنصر على بيانات مفقودة",
 	"cpd-dialog-validation-page-exist-info-label": "توجد عملية بهذا الاسم. يُرجى اختيار اسم آخر.",
 	"cpd-dialog-action-label-create": "أنشئ",
 	"cpd-pretoclip-button-tooltip": "انسخ المحتويات إلى الحافظة"

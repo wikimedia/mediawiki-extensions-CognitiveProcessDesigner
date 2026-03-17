@@ -44,7 +44,7 @@
 	"cpd-api-save-diagram-error-message": "שגיאה בעת שמירת התרשים: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=דף התיאור הבא נשמר:|$1 דפי התיאור הבאים נשמרו:|0=לא נשמר שום דף תיאור.}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "דף התיאור $1 אינו קיים יותר",
-	"cpd-description-page-has-no-property-warning": "לרכיב $1 אין מאפיין של דף תיאור",
+	"cpd-description-page-has-no-property-warning": "הרכיב \"$1\" מכיל דף תיאור בלתי־תקין: $2",
 	"cpd-save-description-page-empty-set-warning": "אין רכיבים לשמירה",
 	"cpd-save-description-page-duplicate-warning": "דף תיאור כפול $1",
 	"cpd-api-save-description-pages-error-message": "שגיאה בעת שמירת דפי תיאור: $1",
