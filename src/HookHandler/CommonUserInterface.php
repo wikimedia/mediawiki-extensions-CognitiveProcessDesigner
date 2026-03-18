@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\HookHandler;
 
+use CognitiveProcessDesigner\Panel\ActionEntrypoint;
 use CognitiveProcessDesigner\Panel\MainLinkPanel;
 use CognitiveProcessDesigner\Util\CpdProcessUtil;
 use MediaWiki\Config\Config;
@@ -26,17 +27,18 @@ class CommonUserInterface implements MWStakeCommonUIRegisterSkinSlotComponents {
 		}
 
 		if ( $this->config->get( 'CPDMainLinksCognitiveProcessDesigner' ) ) {
-			$registry->register(
-				'MainLinksPanel',
-				[
-					'bs-special-cpd' => [
-						'factory' => static function () {
-							return new MainLinkPanel( 'n-cpd' );
-						},
-						'position' => 40
-					]
+			$skin = $context->getSkin();
+			$registry->register( 'MainLinksPanel', [
+				'bs-special-cpd' => [
+					'factory' => function () use ( $skin ) {
+						if ( is_a( $skin, 'SkinBlueSpiceEclipseSkin', true ) ) {
+							return new ActionEntrypoint( $this->processUtil );
+						}
+						return new MainLinkPanel( 'n-cpd' );
+					},
+					'position' => 40
 				]
-			);
+			] );
 		}
 
 		$registry->register(

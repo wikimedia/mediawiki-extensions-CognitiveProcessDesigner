@@ -133,5 +133,7 @@
 	"cpd-dialog-validation-page-exist-info-label": "Ein Prozess mit diesem Namen existiert bereits. Bitte wähle einen anderen Namen.",
 	"cpd-dialog-action-label-create": "Erstellen",
 	"cpd-pretoclip-button-tooltip": "Kopiert den Inhalt in die Zwischenablage",
-	"cpd-pretoclip-button-notification-text": "Inhalt wurde in die Zwischenablage kopiert"
+	"cpd-pretoclip-button-notification-text": "Inhalt wurde in die Zwischenablage kopiert",
+	"cpd-entrypoint-action-process-aria-label": "Prozess erstellen",
+	"cpd-entrypoint-action-process-title": "Prozess erstellen"
 }
