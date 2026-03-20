@@ -21,7 +21,7 @@
 	"cpd-api-save-diagram-error-message": "Errore durante il salvataggio del diagramma: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=La seguente pagina di descrizione è stata salvata:|Le seguenti $1 pagine di descrizione sono state salvate:|0=Nessuna pagina di descrizione è stata salvata.}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "La pagina di descrizione $1 non esiste più",
-	"cpd-description-page-has-no-property-warning": "L'elemento \" $1 \" ha una pagina di descrizione non valida: $2",
+	"cpd-description-page-has-no-property-warning": "L'elemento \"$1\" ha una pagina di descrizione non valida: $2",
 	"cpd-save-description-page-empty-set-warning": "Nessun elemento da salvare",
 	"cpd-api-load-diagram-error-message": "Errore durante il caricamento del diagramma: $1",
 	"cpd-error-message-missing-config": "Configurazione mancante: '$1'",
