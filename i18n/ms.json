@@ -1,9 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Hakimi97",
-			"Tofeiku"
-		]
+		"authors": []
 	},
 	"specialpages-group-semantic-process": "Proses Semantik",
 	"cpd-yes": "Ya",
@@ -18,5 +15,6 @@
 	"cpd-diagram-save-dialog-span": "Menyimpan $1 {{PLURAL:$1|unsur}}...",
 	"cpd-error-dialog-title": "Ralat berlaku!",
 	"cpd-droplet-bpmn-name": "Gambar rajah BPMN",
-	"cpd-droplet-bpmn-description": "Gambar rajah BPNM yang boleh diedit"
+	"cpd-droplet-bpmn-description": "Gambar rajah BPNM yang boleh diedit",
+	"cpd-droplet-description": "Gambar rajah BPNM yang boleh diedit"
 }

@@ -1,10 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eduardo Addad de Oliveira",
-			"Eduardoaddad",
-			"Re demz",
-			"YuriNikolai"
+			"Eduardoaddad"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "Desenhe processos BPMN com uma interface gráfica de usuário no Semantic MediaWiki",
@@ -64,5 +61,6 @@
 	"cpd-saving-error-svg-upload": "Falha ao carregar SVG",
 	"cpd-saving-error-diagram-save": "Falha de publicação do diagrama na wiki",
 	"apihelp-cpd-save-diagram-elements-summary": "Salve elementos do diagrama BPMN como páginas da wiki ou atualiza-os se já existirem",
-	"apihelp-cpd-delete-orphaned-elements-summary": "Elimina elementos do diagrama BPMN, que foram removidos"
+	"apihelp-cpd-delete-orphaned-elements-summary": "Elimina elementos do diagrama BPMN, que foram removidos",
+	"cpd-droplet-description": "Diagramas BPMN editáveis"
 }

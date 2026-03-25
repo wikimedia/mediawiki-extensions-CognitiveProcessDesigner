@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aca",
 			"Winston Sung"
 		]
 	},
-	"cognitiveprocessdesigner-desc": "Nacrtavanje BPMN procesa s grafičkim korisničkim sučeljem u Semantic MediaWiki",
+	"cognitiveprocessdesigner-desc": "Nacrtavanje BPMN procesa s grafičkim korisničkim interfejsom u Semantic MediaWiki",
 	"cpd-create-bpmn-placeholder": "Napravi BPMN",
 	"cpd-create-new-bpmn": "Napravi novi BPMN",
 	"cpd-bpmn-id-placeholder": "BPMN naznaka",

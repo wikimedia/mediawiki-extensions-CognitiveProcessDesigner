@@ -1,8 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"MITO",
-			"Pyscowicz"
+			"Yupik"
 		]
 	},
 	"cpd-ve-bpmn-name-title": "Nimi",
@@ -16,5 +15,7 @@
 	"cpd-open-page-label": "Avaa sivu",
 	"cpd-saved": "Tallennettu",
 	"cpd-diagram-save-dialog-title": "Tallennetaan kaaviota...",
-	"cpd-error-dialog-title": "Tapahtui virhe!"
+	"cpd-error-dialog-title": "Tapahtui virhe!",
+	"cpd-droplet-width-field-label": "Leveys",
+	"cpd-dialog-save-changes-button-label": "Tallenna"
 }

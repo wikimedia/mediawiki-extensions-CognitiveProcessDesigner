@@ -1,7 +1,6 @@
 {
 	"@metadata": {
 		"authors": [
-			"Seipinne",
 			"Yupik"
 		]
 	},
@@ -9,5 +8,9 @@
 	"cpd-ve-bpmn-name-title": "Nommâ",
 	"cpd-keyboard-shortcuts-select-all": "Valjii puoh",
 	"cpd-btn-label-save": "Vuorkkii",
-	"cpd-show-details": "Čääiti tiäđuid"
+	"cpd-show-details": "Čääiti tiäđuid",
+	"cpd-droplet-width-field-label": "Kobdodâh",
+	"cpd-dialog-save-changes-headline": "Vuorkkii nubástusâid",
+	"cpd-dialog-save-changes-button-label": "Vuorkkii",
+	"bs-cpd-process-overview-create-action-text": "Räähti"
 }

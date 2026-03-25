@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"DiegoAmbrocio",
-			"Fitoschido"
+			"Avengium",
+			"Dgstranz"
 		]
 	},
 	"cpd-bpmn-diagram-header": "Diagrama BPMN",
@@ -45,5 +45,7 @@
 	"cpd-diagram-save-dialog-title": "Guardando diagrama...",
 	"cpd-error-dialog-title": "¡Ocurrió un error!",
 	"cpd-saving-error-svg-upload": "Fallo al subir el SVG",
-	"action-cognitiveprocessdesigner-viewspecialpage": "ver página especial «{{int:cognitiveprocessdesigneredit}}»"
+	"action-cognitiveprocessdesigner-viewspecialpage": "ver página especial «{{int:cognitiveprocessdesigneredit}}»",
+	"cpd-error-message-missing-connection": "Se produjo un error al crear conexiones entre elementos.",
+	"cpd-dialog-save-changes-button-title": "Guardar cambios"
 }

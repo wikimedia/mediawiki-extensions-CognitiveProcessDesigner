@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Winston Sung"
+			"JeffreyKim"
 		]
 	},
-	"cpd-diagram-save-dialog-title": "保存圖表......"
+	"cpd-diagram-save-dialog-title": "保存圖表......",
+	"cpd-description-navigation-tooltip-title": "去$1"
 }

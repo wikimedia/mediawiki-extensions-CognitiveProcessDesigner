@@ -2,9 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Alshamiri1",
-			"FiberAhmed",
-			"أَحمد",
-			"محمد أحمد عبد الفتاح"
+			"Mohammed Qays"
 		]
 	},
 	"cpd-yes": "نعم",
@@ -71,5 +69,10 @@
 	"apihelp-cpd-save-diagram-elements-summary": "يحفظ عناصر مخطط BPMN كصفحات wiki أو تحديثها إذا كانت موجودة بالفعل",
 	"apihelp-cpd-delete-orphaned-elements-summary": "يحذف عناصر مخطط BPMN التي تمت إزالتها",
 	"cpd-droplet-bpmn-name": "مخطط BPMN",
-	"cpd-droplet-bpmn-description": "مخطط BPMN قابل للتحرير"
+	"cpd-droplet-bpmn-description": "مخطط BPMN قابل للتحرير",
+	"cpd-droplet-description": "مخطط BPMN قابل للتحرير",
+	"cpd-validation-missing-data": "يحوي العنصر على بيانات مفقودة",
+	"cpd-dialog-validation-page-exist-info-label": "توجد عملية بهذا الاسم. يُرجى اختيار اسم آخر.",
+	"cpd-dialog-action-label-create": "أنشئ",
+	"cpd-pretoclip-button-tooltip": "انسخ المحتويات إلى الحافظة"
 }

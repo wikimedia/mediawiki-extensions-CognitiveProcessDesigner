@@ -1,8 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jeeputer",
-			"Mohammad ebz"
+			"Jeeputer"
 		]
 	},
 	"cpd-btn-label-save": "ذخیره",
@@ -19,5 +18,7 @@
 	"cpd-keyboard-shortcuts-select-all": "انتخاب همه",
 	"cpd-keyboard-shortcuts-vscroll": "پیمایش (عمودی)",
 	"cpd-keyboard-shortcuts-hscroll": "پیمایش (افقی)",
-	"cpd-keyboard-shortcuts-direct-editing": "ویرایش مستقیم"
+	"cpd-keyboard-shortcuts-direct-editing": "ویرایش مستقیم",
+	"cpd-dialog-save-changes-button-title": "ذخیره‌سازی تغییرات",
+	"cpd-dialog-action-label-create": "ایجاد"
 }

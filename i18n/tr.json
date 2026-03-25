@@ -1,11 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Agaafd",
-			"Can",
 			"Joseph",
-			"Rapsar",
-			"ToprakM"
+			"Sakblue",
+			"SaldırganSincap"
 		]
 	},
 	"cognitiveprocessdesigner-desc": "BPMN süreçlerini Semantic MediaWiki’de görsel kullanıcı arayüzü ile çiz",
@@ -62,5 +60,6 @@
 	"cpd-saving-error-svg-upload": "SVG yüklenirken bir hata meydana geldi",
 	"cpd-saving-error-delete-orphaned-pages": "Öksüz sayfalar silinirken bir hata meydana geldi",
 	"cpd-saving-error-elements-save": "Diyagram ögeleri vikiye gönderilirken bir hata meydana geldi",
-	"cpd-saving-error-diagram-save": "Diyagram vikiye gönderilirken bir hata meydana geldi"
+	"cpd-saving-error-diagram-save": "Diyagram vikiye gönderilirken bir hata meydana geldi",
+	"cpd-button-export": "Diyagramı XML olarak indir"
 }
