@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bisang",
 			"Ykhwong",
 			"아라"
 		]
@@ -121,5 +122,7 @@
 	"cpd-description-navigation-outgoing-label": "나가는 연결",
 	"cpd-button-show-diagram": "다이어그램 표시",
 	"cpd-error-xml-parse-error": "XML 구문 분석 오류",
-	"cpd-dialog-action-label-create": "만들기"
+	"cpd-dialog-action-label-create": "만들기",
+	"cpd-entrypoint-action-process-aria-label": "프로세스 만들기",
+	"cpd-entrypoint-action-process-title": "프로세스 만들기"
 }

@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
+			"Neriah",
 			"YaronSh"
 		]
 	},
@@ -86,7 +87,7 @@
 	"cpd-api-save-diagram-error-message": "שגיאה בעת שמירת התרשים: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=דף התיאור הבא נשמר:|$1 דפי התיאור הבאים נשמרו:|0=לא נשמר שום דף תיאור.}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "דף התיאור $1 אינו קיים יותר",
-	"cpd-description-page-has-no-property-warning": "לרכיב $1 אין מאפיין של דף תיאור",
+	"cpd-description-page-has-no-property-warning": "הרכיב \"$1\" מכיל דף תיאור בלתי־תקין: $2",
 	"cpd-api-save-description-pages-error-message": "שגיאה בעת שמירת דפי תיאור: $1",
 	"cpd-api-load-diagram-missing-message": "לא נטען תרשים",
 	"cpd-api-load-diagram-error-message": "שגיאה בעת טעינת התרשים: $1",
@@ -203,5 +204,6 @@
 	"cpd-pretoclip-button-tooltip": "העתקת התוכן ללוח",
 	"cpd-pretoclip-button-notification-text": "התוכן הועתק ללוח",
 	"cpd-description-navigation-tooltip-title": "מעבר אל $1",
-	"cpd-dialog-validation-page-exist-info-label": "דף עם התהליך הזה כבר קיים. נא לבחור שם אחר."
+	"cpd-dialog-validation-page-exist-info-label": "דף עם התהליך הזה כבר קיים. נא לבחור שם אחר.",
+	"cpd-button-export": "הורדת תרשים בתור XML"
 }

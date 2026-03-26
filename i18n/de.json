@@ -93,7 +93,7 @@
 	"cpd-api-save-diagram-error-message": "Fehler beim Speichern des Diagramms: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|Die folgende $1|Die folgenden $1|0=Keine}} {{PLURAL:$1|Beschreibungsseite wurde|Beschreibungsseiten wurden}} gespeichert:",
 	"cpd-description-page-does-not-exist-anymore-warning": "Beschreibungsseite $1 existiert nicht mehr",
-	"cpd-description-page-has-no-property-warning": "Element $1 hat keine Beschreibungsseiteneigenschaft",
+	"cpd-description-page-has-no-property-warning": "Element \"$1\" hat invalide Beschreibungsseite: $2",
 	"cpd-api-save-description-pages-error-message": "Fehler beim Speichern der Beschreibungsseiten: $1",
 	"cpd-api-load-diagram-missing-message": "Kein Diagramm geladen",
 	"cpd-api-load-diagram-error-message": "Fehler beim Laden des Diagramms: $1",
@@ -213,5 +213,8 @@
 	"cpd-button-import": "Diagramm als XML importieren",
 	"cpd-import-confirm-overwrite": "Der aktuelle Diagramminhalt wird überschrieben. Fortfahren?",
 	"cpd-error-message-missing-connection": "Ein Fehler beim Erstellen der Verbindung zwischen Elementen ist aufgetreten.",
-	"cpd-error-message-missing-parameter-process": "Fehlender erforderlicher Parameter „process“"
+	"cpd-error-message-missing-parameter-process": "Fehlender erforderlicher Parameter „process“",
+	"cpd-validation-missing-data": "Element hat fehlende Daten",
+	"cpd-entrypoint-action-process-aria-label": "Prozess erstellen",
+	"cpd-entrypoint-action-process-title": "Prozess erstellen"
 }

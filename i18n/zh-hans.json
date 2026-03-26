@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"22593",
+			"GuoPC",
 			"Kcx36",
 			"LittlePaw365",
 			"Peterxy12"
@@ -112,7 +113,7 @@
 	"cpd-api-save-diagram-error-message": "保存图表时出错：$1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=已保存以下描述页面：|已保存以下$1个描述页面：|0=未保存任何描述页面。}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "描述页面$1已不存在",
-	"cpd-description-page-has-no-property-warning": "元素$1没有描述页面属性",
+	"cpd-description-page-has-no-property-warning": "元素“$1”的描述页面无效：$2",
 	"cpd-save-description-page-empty-set-warning": "没有要保存的元素",
 	"cpd-save-description-page-duplicate-warning": "重复描述页$1",
 	"cpd-api-save-description-pages-error-message": "保存描述页面时出错：$1",

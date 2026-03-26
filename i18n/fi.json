@@ -17,5 +17,6 @@
 	"cpd-diagram-save-dialog-title": "Tallennetaan kaaviota...",
 	"cpd-error-dialog-title": "Tapahtui virhe!",
 	"cpd-keyboard-shortcuts": "Pikanäppäimet",
-	"cpd-droplet-width-field-label": "Leveys"
+	"cpd-droplet-width-field-label": "Leveys",
+	"cpd-dialog-save-changes-button-label": "Tallenna"
 }
