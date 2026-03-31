@@ -2,6 +2,7 @@
 
 namespace CognitiveProcessDesigner\HookHandler;
 
+use CognitiveProcessDesigner\Component\CreateProcessActionButton;
 use CognitiveProcessDesigner\Panel\ActionEntrypoint;
 use CognitiveProcessDesigner\Panel\MainLinkPanel;
 use CognitiveProcessDesigner\Util\CpdProcessUtil;
@@ -51,5 +52,21 @@ class CommonUserInterface implements MWStakeCommonUIRegisterSkinSlotComponents {
 				]
 			]
 		);
+
+		$title = $context->getTitle();
+		$skin = $context->getSkin();
+		if ( $title && $title->isSpecial( 'ProcessOverview' ) &&
+			is_a( $skin, 'SkinBlueSpiceEclipseSkin', true ) ) {
+			$registry->register(
+				'TitleActions',
+				[
+					'upload-file-action' => [
+						'factory' => static function () {
+							return new CreateProcessActionButton();
+						}
+					]
+				]
+			);
+		}
 	}
 }
