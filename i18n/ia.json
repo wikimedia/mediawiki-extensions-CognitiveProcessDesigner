@@ -80,6 +80,7 @@
 	"cpd-droplet-height-field-label": "Altitude",
 	"cpd-droplet-show-toolbar-field-label-help": "Activar o disactivar le instrumentario",
 	"cpd-droplet-show-toolbar-field-label": "Monstrar instrumentario",
+	"cpd-validation-missing-data": "Manca datos al elemento",
 	"cpd-validation-missing-label": "Le elemento $1 $2 non ha etiquetta",
 	"cpd-log-no-changes": "Necun cambiamento",
 	"cpd-process-usage-description": "Le sequente paginas incorpora le processo $1",
@@ -129,5 +130,7 @@
 	"cpd-dialog-validation-page-exist-info-label": "Existe ja un processo con iste nomine. Per favor elige un altere nomine.",
 	"cpd-dialog-action-label-create": "Crear",
 	"cpd-pretoclip-button-tooltip": "Copiar le contento al area de transferentia",
-	"cpd-pretoclip-button-notification-text": "Le contento ha essite copiate al area de transferentia"
+	"cpd-pretoclip-button-notification-text": "Le contento ha essite copiate al area de transferentia",
+	"cpd-entrypoint-action-process-aria-label": "Crear processo",
+	"cpd-entrypoint-action-process-title": "Crear processo"
 }
