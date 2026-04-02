@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Elphie",
 			"McDutchie",
 			"Siebrand"
 		]
@@ -42,7 +43,7 @@
 	"cpd-api-save-diagram-error-message": "Fout bij het opslaan van het diagram: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=De volgende beschrijvingspagina is opgeslagen:|De volgende $1 beschrijvingspagina’s zijn opgeslagen:|0=Er zijn geen beschrijvingspagina’s opgeslagen.}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "Beschrijvingspagina $1 bestaat niet meer",
-	"cpd-description-page-has-no-property-warning": "Element $1 heeft geen beschrijvingspagina-eigenschap",
+	"cpd-description-page-has-no-property-warning": "Element \"$1\" heeft een ongeldige beschrijvingspagina: $2",
 	"cpd-save-description-page-empty-set-warning": "Geen elementen om op te slaan",
 	"cpd-save-description-page-duplicate-warning": "Dubbele beschrijvingspagina $1",
 	"cpd-api-save-description-pages-error-message": "Fout bij het opslaan van beschrijvingspagina's: $1",
@@ -64,7 +65,7 @@
 	"cpd-editor-title-create": "$1 aanmaken",
 	"cpd-shape-deletion-message": "$1 verwijderd",
 	"cpd-shape-creation-message": "$1 aangemaakt",
-	"cpd-shape-rename-message": "$1 hernoemd tot “$2”",
+	"cpd-shape-rename-message": "$1 hernoemd naar “$2”",
 	"cpd-shape-remove-label-message": "$1 label verwijderd",
 	"cpd-droplet-name": "Proces",
 	"cpd-droplet-description": "Bewerkbaar BPMN-diagram",
@@ -127,6 +128,9 @@
 	"cpd-pretoclip-button-tooltip": "Kopieer de inhoud naar het klembord",
 	"cpd-pretoclip-button-notification-text": "De inhoud is naar het klembord gekopieerd",
 	"cpd-description-navigation-tooltip-title": "Ga naar $1",
-	"cpd-button-export": "Downloaden als BPMN 2.0-bestand",
-	"cpd-button-import": "Het BPMN-diagram uit het lokale bestandssysteem openen"
+	"cpd-button-export": "Diagram downloaden als XML-bestand",
+	"cpd-button-import": "Diagram importeren als XML",
+	"cpd-import-confirm-overwrite": "De huidige diagraminhoud wordt overschreven. Doorgaan?",
+	"cpd-error-message-missing-connection": "Er is een fout opgetreden bij het maken van verbindingen tussen elementen",
+	"cpd-validation-missing-data": "Element heeft ontbrekende gegevens"
 }

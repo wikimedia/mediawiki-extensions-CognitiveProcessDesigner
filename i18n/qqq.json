@@ -134,5 +134,7 @@
 	"cpd-pretoclip-button-notification-text": "Notification text",
 	"cpd-button-export": "Button label to export the BPMN diagram as a .bpmn file.",
 	"cpd-button-import": "Button label to import BPMN diagram from a .bpmn file.",
-	"cpd-import-confirm-overwrite": "Confirmation message displayed when importing a BPMN diagram will overwrite the current content."
+	"cpd-import-confirm-overwrite": "Confirmation message displayed when importing a BPMN diagram will overwrite the current content.",
+	"cpd-entrypoint-action-process-aria-label": "Aria label for entrypoint action to create a new process",
+	"cpd-entrypoint-action-process-title": "Title label for entrypoint action to create a new process"
 }

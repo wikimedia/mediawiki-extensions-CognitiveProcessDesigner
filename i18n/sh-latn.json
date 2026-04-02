@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aca",
 			"Winston Sung"
 		]
 	},
-	"cognitiveprocessdesigner-desc": "Nacrtavanje BPMN procesa s grafičkim korisničkim sučeljem u Semantic MediaWiki"
+	"cognitiveprocessdesigner-desc": "Nacrtavanje BPMN procesa s grafičkim korisničkim interfejsom u Semantic MediaWiki"
 }

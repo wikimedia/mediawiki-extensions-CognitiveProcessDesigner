@@ -22,5 +22,7 @@
 	"bs-cpd-actionmenuentry-create-new-process": "ਨਵੀਂ ਕਾਰਵਾਈ ਬਣਾਓ",
 	"cpd-api-save-description-page-comment": "ਵੇਰਵਾ ਸਫ਼ਾ ਸੰਭਾਲਿਆ ਗਿਆ",
 	"cpd-api-move-description-page-comment": "ਵੇਰਵਾ ਸਫ਼ਾ ਹਟਾਇਆ ਗਿਆ",
-	"cpd-ui-action-edit": "ਸੋਧ"
+	"cpd-ui-action-edit": "ਸੋਧ",
+	"cpd-entrypoint-action-process-aria-label": "ਨਵੀਂ ਕਾਰਵਾਈ ਬਣਾਓ",
+	"cpd-entrypoint-action-process-title": "ਨਵੀਂ ਕਾਰਵਾਈ ਬਣਾਓ"
 }

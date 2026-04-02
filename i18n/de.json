@@ -133,5 +133,7 @@
 	"cpd-pretoclip-button-notification-text": "Inhalt wurde in die Zwischenablage kopiert",
 	"cpd-button-export": "Diagramm als XML herunterladen",
 	"cpd-button-import": "Diagramm als XML importieren",
-	"cpd-import-confirm-overwrite": "Der aktuelle Diagramminhalt wird überschrieben. Fortfahren?"
+	"cpd-import-confirm-overwrite": "Der aktuelle Diagramminhalt wird überschrieben. Fortfahren?",
+	"cpd-entrypoint-action-process-aria-label": "Prozess erstellen",
+	"cpd-entrypoint-action-process-title": "Prozess erstellen"
 }
