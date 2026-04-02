@@ -131,5 +131,7 @@
 	"cpd-dialog-validation-page-exist-info-label": "A process with this name already exists. Please choose another name.",
 	"cpd-dialog-action-label-create": "Create",
 	"cpd-pretoclip-button-tooltip": "Copy the contents into the clipboard",
-	"cpd-pretoclip-button-notification-text": "Contents have been copied into the clipboard"
+	"cpd-pretoclip-button-notification-text": "Contents have been copied into the clipboard",
+	"cpd-entrypoint-action-process-aria-label": "Create process",
+	"cpd-entrypoint-action-process-title": "Create process"
 }

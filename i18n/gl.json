@@ -44,7 +44,7 @@
 	"cpd-api-save-diagram-error-message": "Erro ao gardar o diagrama: $1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=Gardouse a seguinte páxina de descrición:|Gardáronse as seguintes $1 páxinas de descrición:|0=Non se gardou ningunha páxina de descrición.}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "A páxina de descrición «$1» xa non existe",
-	"cpd-description-page-has-no-property-warning": "O elemento «$1» non ten ningunha propiedade de páxina de descrición",
+	"cpd-description-page-has-no-property-warning": "O elemento «$1» non ten unha páxina de descrición válida: $2",
 	"cpd-save-description-page-empty-set-warning": "Non hai elementos que gardar",
 	"cpd-save-description-page-duplicate-warning": "Páxina de descrición duplicada «$1»",
 	"cpd-api-save-description-pages-error-message": "Erro ao gardar as páxinas de descrición: $1",
@@ -129,5 +129,8 @@
 	"cpd-dialog-validation-page-exist-info-label": "Xa existe un proceso con este nome. Escolle outro nome.",
 	"cpd-dialog-action-label-create": "Crear",
 	"cpd-pretoclip-button-tooltip": "Copiar o contido no portapapeis",
-	"cpd-pretoclip-button-notification-text": "O contido copiouse no portapapeis"
+	"cpd-pretoclip-button-notification-text": "O contido copiouse no portapapeis",
+	"cpd-validation-missing-data": "Fáltanlle datos ao elemento",
+	"cpd-entrypoint-action-process-aria-label": "Crear o proceso",
+	"cpd-entrypoint-action-process-title": "Crear o proceso"
 }
