@@ -132,5 +132,7 @@
 	"cpd-button-import": "Diagram importeren als XML",
 	"cpd-import-confirm-overwrite": "De huidige diagraminhoud wordt overschreven. Doorgaan?",
 	"cpd-error-message-missing-connection": "Er is een fout opgetreden bij het maken van verbindingen tussen elementen",
-	"cpd-validation-missing-data": "Element heeft ontbrekende gegevens"
+	"cpd-validation-missing-data": "Element heeft ontbrekende gegevens",
+	"cpd-entrypoint-action-process-aria-label": "Proces maken",
+	"cpd-entrypoint-action-process-title": "Proces maken"
 }
