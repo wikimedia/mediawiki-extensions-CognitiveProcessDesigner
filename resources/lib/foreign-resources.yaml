@@ -1,0 +1,55 @@
+bpmn-js:
+  license: LicenseRef-bpmn.io
+  homepage: https://bpmn.io
+  authors: camunda Services GmbH
+  version: 18.6.2
+  purl: pkg:npm/bpmn-js@18.6.2
+  type: doc-only
+
+bpmn-js-bpmnlint:
+  license: MIT
+  homepage: https://github.com/bpmn-io/bpmn-js-bpmnlint
+  authors: camunda Services GmbH
+  version: 0.22.3
+  purl: pkg:npm/bpmn-js-bpmnlint@0.22.3
+  type: doc-only
+
+bpmn-js-color-picker:
+  license: MIT
+  homepage: https://github.com/bpmn-io/bpmn-js-color-picker
+  authors: camunda Services GmbH
+  version: 0.7.1
+  purl: pkg:npm/bpmn-js-color-picker@0.7.1
+  type: doc-only
+
+bpmn-js-differ:
+  license: MIT
+  homepage: https://github.com/bpmn-io/bpmn-js-differ
+  authors: camunda Services GmbH
+  version: 3.0.2
+  purl: pkg:npm/bpmn-js-differ@3.0.2
+  type: doc-only
+
+bpmn-js-i18n:
+  license: MIT
+  homepage: https://github.com/bpmn-io/bpmn-js-i18n
+  authors: camunda Services GmbH
+  version: 2.3.0
+  purl: pkg:npm/bpmn-js-i18n@2.3.0
+  type: doc-only
+
+bpmn-moddle:
+  license: MIT
+  homepage: https://github.com/bpmn-io/bpmn-moddle
+  authors: camunda Services GmbH
+  version: 9.0.1
+  purl: pkg:npm/bpmn-moddle@9.0.1
+  type: doc-only
+
+bpmnlint:
+  license: MIT
+  homepage: https://github.com/bpmn-io/bpmnlint
+  authors: camunda Services GmbH
+  version: 11.4.4
+  purl: pkg:npm/bpmnlint@11.4.4
+  type: doc-only

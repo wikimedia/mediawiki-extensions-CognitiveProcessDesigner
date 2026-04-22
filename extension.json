@@ -587,5 +587,6 @@
 	"Actions": {
 		"editcpdsource": "\\CognitiveProcessDesigner\\Action\\EditDiagramXmlAction"
 	},
+	"ForeignResourcesDir": "resources/lib",
 	"manifest_version": 2
 }
