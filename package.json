@@ -51,14 +51,6 @@
 		"webpack-cli": "^6.0.1",
 		"webpack-dev-server": "^5.2.0"
 	},
-	"eslintIgnore": [
-		"vendor/**",
-		"resources/js/dist/**",
-		"resources/js/cpd/bpmnlint-plugin-mediawiki-cpd/rules/**",
-		"resources/vue/components/**",
-		"**/*.json",
-		"bpmn-lint.config.js"
-	],
 	"dependencies": {
 		"bpmn-js": "^18.2.0",
 		"bpmn-js-bpmnlint": "^0.22.3",
@@ -67,5 +59,14 @@
 		"bpmn-js-i18n": "^2.2.0",
 		"bpmn-moddle": "^9.0.1",
 		"bpmnlint": "^11.0.0"
-	}
+	},
+	"eslintIgnore": [
+		"**/*.json",
+		"bpmn-lint.config.js",
+		"resources/js/cpd/bpmnlint-plugin-mediawiki-cpd/rules/**",
+		"resources/js/dist/**",
+		"resources/lib",
+		"resources/vue/components/**",
+		"vendor/**"
+	]
 }
