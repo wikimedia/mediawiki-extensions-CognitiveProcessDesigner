@@ -7,9 +7,9 @@ use CognitiveProcessDesigner\CpdElementFactory;
 use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use Exception;
 use MediaWiki\Config\Config;
-use MediaWiki\Title\MediaWikiTitleCodec;
 use MediaWiki\Title\NamespaceInfo;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleParser;
 use PHPUnit\Framework\TestCase;
 use TitleFactory;
 
@@ -45,8 +45,7 @@ class CpdXmlProcessorTest extends TestCase {
 		$titleFactoryMock = $this->createMock( TitleFactory::class );
 		$titleFactoryMock->method( 'newFromDBkey' )->willReturnCallback( static fn ( $dbkey ) => Title::newFromText( $dbkey ) );
 
-		$titleParserMock = $this->createMock( MediaWikiTitleCodec::class );
-		$titleParserMock->method( 'splitTitleString' )->willReturn( null );
+		$titleParserMock = $this->createMock( TitleParser::class );
 
 		$this->xmlProcessor = new CpdXmlProcessor(
 			$configMock, $nsInfoMock, new CpdElementFactory(
