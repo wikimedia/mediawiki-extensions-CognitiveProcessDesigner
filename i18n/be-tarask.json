@@ -7,5 +7,6 @@
 	"cpd-button-cancel-title": "Скасаваць",
 	"cpd-ui-action-edit": "Рэдагаваць",
 	"cpd-droplet-show-toolbar-field-label": "Паказаць панэль інструмэнтаў",
-	"bs-cpd-process-overview-edit-action-text": "Рэдагаваць"
+	"bs-cpd-process-overview-edit-action-text": "Рэдагаваць",
+	"cpd-error-message-missing-xml": "Брак XML"
 }
