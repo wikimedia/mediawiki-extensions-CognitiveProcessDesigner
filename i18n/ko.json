@@ -3,7 +3,8 @@
 		"authors": [
 			"Bisang",
 			"Ykhwong",
-			"아라"
+			"아라",
+			"Tensama0415"
 		]
 	},
 	"processoverview": "프로세스",
@@ -17,7 +18,7 @@
 	"cpd-api-save-diagram-param-process-id": "BPMN 다이어그램의 ID",
 	"cpd-api-save-diagram-error-message": "다이어그램을 저장하는 동안 오류가 발생했습니다: $1",
 	"cpd-description-page-does-not-exist-anymore-warning": "$1 설명 문서가 더 이상 존재하지 않습니다",
-	"cpd-description-page-has-no-property-warning": "$1 요소에 설명 문서 속성이 없습니다",
+	"cpd-description-page-has-no-property-warning": "\"$1\" 요소에 설명 문서 속성이 없습니다: $2",
 	"cpd-api-save-description-pages-error-message": "설명 문서를 저장하는 동안 오류가 발생했습니다: $1",
 	"cpd-api-load-diagram-error-message": "다이어그램을 불러오는 동안 오류가 발생했습니다: $1",
 	"cpd-error-message-missing-config": "구성이 없습니다: '$1'",
@@ -36,7 +37,7 @@
 	"cpd-droplet-height-field-label": "높이",
 	"cpd-droplet-show-toolbar-field-label-help": "도구 모음 활성화 또는 비활성화",
 	"cpd-droplet-show-toolbar-field-label": "도구 모음 표시",
-	"cpd-validation-missing-label": "$1에 레이블이 없습니다",
+	"cpd-validation-missing-label": "$1 $2에 레이블이 없습니다",
 	"cpd-log-no-changes": "변경사항 없음",
 	"cpd-process-usage-not-embedded-description": "이 문서에는 프로세스가 포함되어 있지 않습니다",
 	"cpd-process-usage-special-page-description": "특수 문서에는 프로세스를 포함할 수 없습니다",
