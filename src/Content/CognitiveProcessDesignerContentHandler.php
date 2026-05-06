@@ -90,7 +90,7 @@ class CognitiveProcessDesignerContentHandler extends TextContentHandler {
 			dirname( __DIR__, 2 ) . '/resources/templates'
 		);
 
-		$output->setRawText(
+		$output->setContentHolderText(
 			$templateParser->processTemplate(
 				'CpdContainer',
 				[
