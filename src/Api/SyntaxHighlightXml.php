@@ -64,7 +64,7 @@ class SyntaxHighlightXml extends ApiBase {
 			ParserOptions::newFromUser( $this->getUser() )
 		);
 
-		return $output->getRawText();
+		return $output->getContentHolderText();
 	}
 
 	/**
