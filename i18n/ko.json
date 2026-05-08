@@ -184,5 +184,6 @@
 	"cpd-cancel-confirm": "편집을 취소하시겠습니까? 변경사항이 사라집니다.",
 	"cpd-dialog-validation-page-exist-info-label": "이 이름의 프로세스가 이미 존재합니다. 다른 이름을 선택해 주세요.",
 	"cpd-pretoclip-button-tooltip": "내용을 클립보드에 복사합니다",
-	"cpd-pretoclip-button-notification-text": "내용이 클립보드에 복사되었습니다"
+	"cpd-pretoclip-button-notification-text": "내용이 클립보드에 복사되었습니다",
+	"orphanedprocessdescriptionpages": "고립된 프로세스 설명 문서"
 }
