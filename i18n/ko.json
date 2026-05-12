@@ -7,6 +7,7 @@
 			"Tensama0415"
 		]
 	},
+	"orphanedprocessdescriptionpages": "고립된 프로세스 설명 문서",
 	"processoverview": "프로세스",
 	"apihelp-cpd-load-diagram-summary": "CPD 다이어그램을 불러옵니다",
 	"apihelp-cpd-load-diagram-param-process": "다이어그램을 불러올 프로세스 이름",
