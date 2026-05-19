@@ -130,5 +130,8 @@
 	"cpd-dialog-validation-page-exist-info-label": "이 이름의 프로세스가 이미 존재합니다. 다른 이름을 선택해 주세요.",
 	"cpd-pretoclip-button-tooltip": "내용을 클립보드에 복사합니다",
 	"cpd-pretoclip-button-notification-text": "내용이 클립보드에 복사되었습니다",
-	"orphanedprocessdescriptionpages": "고립된 프로세스 설명 문서"
+	"orphanedprocessdescriptionpages": "고립된 프로세스 설명 문서",
+	"cognitiveprocessdesigner-desc": "시맨틱 미디어위키에서 그래픽 사용자 인터페이스를 사용하여 BPMN 프로세스를 그립니다",
+	"cpd-config-canvas-process-height-msg": "프로세스 페이지와 편집 모드에서의 다이어그램 캔버스의 높이를 설정",
+	"cpd-config-canvas-embedded-height-msg": "다른 페이지에 삽입된 다이어그램 캔버스의 높이를 설정"
 }
