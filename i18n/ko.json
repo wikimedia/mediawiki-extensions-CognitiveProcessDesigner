@@ -133,5 +133,8 @@
 	"orphanedprocessdescriptionpages": "고립된 프로세스 설명 문서",
 	"cognitiveprocessdesigner-desc": "시맨틱 미디어위키에서 그래픽 사용자 인터페이스를 사용하여 BPMN 프로세스를 그립니다",
 	"cpd-config-canvas-process-height-msg": "프로세스 페이지와 편집 모드에서의 다이어그램 캔버스의 높이를 설정",
-	"cpd-config-canvas-embedded-height-msg": "다른 페이지에 삽입된 다이어그램 캔버스의 높이를 설정"
+	"cpd-config-canvas-embedded-height-msg": "다른 페이지에 삽입된 다이어그램 캔버스의 높이를 설정",
+	"apihelp-cpd-orphaned-description-pages-store-param-start": "문서 나열의 시작점 (쪽 번호 매기기에 사용됨)",
+	"cpd-process-usage-description": "다음 문서 삽입 프로세스 $1",
+	"cpd-process-usage-no-pages-description": "아직 프로세스 $1이(가) 삽입된 문서가 없습니다"
 }
