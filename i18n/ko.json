@@ -4,7 +4,8 @@
 			"Ykhwong",
 			"아라",
 			"Bisang",
-			"Tensama0415"
+			"Tensama0415",
+			"解浪"
 		]
 	},
 	"orphanedprocessdescriptionpages": "고립된 프로세스 설명 문서",
@@ -21,6 +22,7 @@
 	"apihelp-cpd-save-diagram-param-savedescriptionpages": "관련 설명 문서를 저장할지 여부",
 	"apihelp-cpd-orphaned-description-pages-store-param-filter": "고립된 문서에 적용할 필터 기준",
 	"apihelp-cpd-orphaned-description-pages-store-param-limit": "처리할 문서의 최대 개수",
+	"apihelp-cpd-orphaned-description-pages-store-param-start": "문서 나열의 시작점 (쪽 번호 매기기에 사용됨)",
 	"apihelp-cpd-orphaned-description-pages-store-param-query": "문서를 필터링할 검색 쿼리",
 	"apihelp-cpd-process-overview-store-summary": "CPD 프로세스 개요를 저장",
 	"apihelp-cpd-orphaned-description-pages-store-summary": "고립된 설명 문서를 저장",
@@ -29,6 +31,7 @@
 	"apihelp-cpd-diagram-usage-param-page": "다이어그램을 사용하는 문서의 이름",
 	"cpd-orphaned-description-pages-column-process-title": "프로세스",
 	"cpd-orphaned-description-pages-column-dbkey-title": "제목",
+	"cognitiveprocessdesigner-desc": "시맨틱 미디어위키에서 그래픽 사용자 인터페이스를 사용하여 BPMN 프로세스를 그립니다",
 	"cpd-ui-action-edit": "편집",
 	"cpd-ui-action-edit-xml": "원본 편집",
 	"cpd-button-cancel-title": "취소",
@@ -84,6 +87,8 @@
 	"cpd-validation-missing-data": "요소에 누락된 데이터가 있습니다",
 	"cpd-validation-missing-label": "$1 $2에 레이블이 없습니다",
 	"cpd-log-no-changes": "변경사항 없음",
+	"cpd-process-usage-description": "다음 문서 삽입 프로세스 $1",
+	"cpd-process-usage-no-pages-description": "아직 프로세스 $1이(가) 삽입된 문서가 없습니다",
 	"cpd-process-usage-not-embedded-description": "이 문서에는 프로세스가 포함되어 있지 않습니다",
 	"cpd-process-usage-special-page-description": "특수 문서에는 프로세스를 포함할 수 없습니다",
 	"cpd-process-usage-undocumented-error": "문서화되지 않은 오류가 발생했습니다",
@@ -117,6 +122,8 @@
 	"bs-cpd-actionmenuentry-new-process-input-label": "프로세스 이름",
 	"cpd-api-save-description-page-comment": "설명 문서가 저장되었습니다",
 	"cpd-api-move-description-page-comment": "설명 문서가 이동되었습니다",
+	"cpd-config-canvas-process-height-msg": "프로세스 페이지와 편집 모드에서의 다이어그램 캔버스의 높이를 설정",
+	"cpd-config-canvas-embedded-height-msg": "다른 페이지에 삽입된 다이어그램 캔버스의 높이를 설정",
 	"cpd-api-save-diagram-update-comment": "다이어그램 업데이트됨",
 	"cpd-description-navigation-incoming-label": "들어오는 연결",
 	"cpd-description-navigation-outgoing-label": "나가는 연결",
