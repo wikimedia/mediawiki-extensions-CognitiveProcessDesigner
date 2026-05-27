@@ -9,9 +9,9 @@ use Exception;
 use MediaWiki\Config\Config;
 use MediaWiki\Title\NamespaceInfo;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use MediaWiki\Title\TitleParser;
 use PHPUnit\Framework\TestCase;
-use TitleFactory;
 
 /**
  * @coversDefaultClass \CognitiveProcessDesigner\Util\CpdXmlProcessor
