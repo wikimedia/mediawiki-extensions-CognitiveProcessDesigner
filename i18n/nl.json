@@ -103,7 +103,7 @@
 	"cpd-error-message-saving-diagram": "Fout bij het opslaan van diagram: $1",
 	"cpd-error-message-missing-root-element": "Geen of te veel stamelementen gevonden",
 	"cpd-error-message-missing-initial-element": "Geen beginelement gevonden",
-	"cpd-error-message-invalid-xml": "Ongeldige XML",
+	"cpd-error-message-invalid-xml": "Incorrecte XML",
 	"cpd-error-message-missing-xml": "XML ontbreekt",
 	"cpd-error-message-missing-diagram-page": "Diagrampagina ontbreekt: $1",
 	"cpd-warning-message-diagram-not-initialized": "Het proces $1 is nog niet aangemaakt. Ga naar de <a href='$2'>procespagina</a> en maak het aan.",
