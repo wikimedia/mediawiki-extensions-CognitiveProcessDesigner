@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ranveig"
+		]
+	},
+	"cpd-description-page-has-no-property-warning": "Elementet «$1» har ei ugyldig skildringsside: $2",
+	"cpd-save-description-page-empty-set-warning": "Ingen element å lagra",
+	"cpd-validation-missing-data": "Elementet har datamanglar",
+	"cpd-validation-missing-label": "Elementet $1 $2 har ingen merke"
+}
