@@ -134,5 +134,8 @@
 	"cpd-error-xml-parse-error": "解析XML时出错",
 	"cpd-cancel-confirm": "您确定要取消编辑吗？所有未保存的更改都将丢失。",
 	"cpd-dialog-validation-page-exist-info-label": "已存在同名的流程，请选择别的名称。",
-	"cpd-pretoclip-button-notification-text": "内容已复制到剪贴板"
+	"cpd-pretoclip-button-notification-text": "内容已复制到剪贴板",
+	"cpd-validation-missing-data": "元素缺少数据",
+	"cpd-entrypoint-action-process-aria-label": "创建流程",
+	"cpd-entrypoint-action-process-title": "创建流程"
 }
