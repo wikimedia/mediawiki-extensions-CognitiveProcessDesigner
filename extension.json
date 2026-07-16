@@ -294,7 +294,6 @@
 			]
 		},
 		"ext.cpd.special.processoverview": {
-			"es6": true,
 			"packageFiles": [
 				"vue/init.js",
 				"vue/components/App.vue",
