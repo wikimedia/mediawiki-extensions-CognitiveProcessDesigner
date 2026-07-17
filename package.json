@@ -42,7 +42,7 @@
 		"mustache": "^4.2.0",
 		"mustache-jest": "^1.1.1",
 		"oojs-ui": "^0.51.5",
-		"stylelint-config-wikimedia": "0.19.2",
+		"stylelint-config-wikimedia": "0.19.3",
 		"ts-jest": "^29.2.5",
 		"ts-loader": "^9.5.2",
 		"types-mediawiki": "^1.9.1",
