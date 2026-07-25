@@ -135,5 +135,6 @@
 	"cpd-pretoclip-button-tooltip": "Kopiert den Inhalt in die Zwischenablage",
 	"cpd-pretoclip-button-notification-text": "Inhalt wurde in die Zwischenablage kopiert",
 	"cpd-entrypoint-action-process-aria-label": "Prozess erstellen",
-	"cpd-entrypoint-action-process-title": "Prozess erstellen"
+	"cpd-entrypoint-action-process-title": "Prozess erstellen",
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Prozess"
 }

@@ -136,5 +136,6 @@
 	"cpd-pretoclip-button-tooltip": "Toolip for a button",
 	"cpd-pretoclip-button-notification-text": "Notification text",
 	"cpd-entrypoint-action-process-aria-label": "Aria label for entrypoint action to create a new process",
-	"cpd-entrypoint-action-process-title": "Title label for entrypoint action to create a new process"
+	"cpd-entrypoint-action-process-title": "Title label for entrypoint action to create a new process",
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Label for the document_type option for the \"CPD\" content model"
 }

@@ -133,5 +133,6 @@
 	"cpd-pretoclip-button-tooltip": "Copy the contents into the clipboard",
 	"cpd-pretoclip-button-notification-text": "Contents have been copied into the clipboard",
 	"cpd-entrypoint-action-process-aria-label": "Create process",
-	"cpd-entrypoint-action-process-title": "Create process"
+	"cpd-entrypoint-action-process-title": "Create process",
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Process"
 }
