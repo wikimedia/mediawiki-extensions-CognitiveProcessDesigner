@@ -135,5 +135,6 @@
 	"cpd-button-import": "Diagramm als XML importieren",
 	"cpd-import-confirm-overwrite": "Der aktuelle Diagramminhalt wird überschrieben. Fortfahren?",
 	"cpd-entrypoint-action-process-aria-label": "Prozess erstellen",
-	"cpd-entrypoint-action-process-title": "Prozess erstellen"
+	"cpd-entrypoint-action-process-title": "Prozess erstellen",
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Prozess"
 }

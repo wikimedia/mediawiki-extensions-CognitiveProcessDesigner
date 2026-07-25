@@ -133,5 +133,6 @@
 	"cpd-button-import": "Import diagram as XML",
 	"cpd-import-confirm-overwrite": "The current diagram content will be overwritten. Continue?",
 	"cpd-entrypoint-action-process-aria-label": "Create process",
-	"cpd-entrypoint-action-process-title": "Create process"
+	"cpd-entrypoint-action-process-title": "Create process",
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Process"
 }
