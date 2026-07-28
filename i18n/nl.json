@@ -134,5 +134,6 @@
 	"cpd-pretoclip-button-tooltip": "Kopieer de inhoud naar het klembord",
 	"cpd-pretoclip-button-notification-text": "De inhoud is naar het klembord gekopieerd",
 	"cpd-entrypoint-action-process-aria-label": "Proces maken",
-	"cpd-entrypoint-action-process-title": "Proces maken"
+	"cpd-entrypoint-action-process-title": "Proces maken",
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Proces"
 }
