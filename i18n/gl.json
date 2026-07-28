@@ -132,5 +132,6 @@
 	"cpd-pretoclip-button-tooltip": "Copiar o contido no portapapeis",
 	"cpd-pretoclip-button-notification-text": "O contido copiouse no portapapeis",
 	"cpd-entrypoint-action-process-aria-label": "Crear o proceso",
-	"cpd-entrypoint-action-process-title": "Crear o proceso"
+	"cpd-entrypoint-action-process-title": "Crear o proceso",
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Proceso"
 }
