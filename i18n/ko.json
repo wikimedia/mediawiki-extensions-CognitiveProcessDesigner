@@ -136,5 +136,6 @@
 	"cpd-pretoclip-button-tooltip": "내용을 클립보드에 복사합니다",
 	"cpd-pretoclip-button-notification-text": "내용이 클립보드에 복사되었습니다",
 	"cpd-entrypoint-action-process-aria-label": "프로세스 만들기",
-	"cpd-entrypoint-action-process-title": "프로세스 만들기"
+	"cpd-entrypoint-action-process-title": "프로세스 만들기",
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "프로세스"
 }
