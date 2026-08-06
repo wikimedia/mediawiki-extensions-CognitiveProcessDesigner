@@ -1,10 +1,19 @@
 {
-	"Template:CPD/BlankDescription": {
+	"Template:CPD/en/BlankDescription": {
+		"lang": "en",
+		"label": "Blank description",
+		"description": "Displays description text for bpmn elements",
+		"target_title": "Template:CPD/BlankDescription",
+		"content_path": "/pages/Template/CPDenBlankDescription.wiki",
+		"sha1": "9cf6bb8b124ce77ebf361bcae0e75fe5b8c10b86",
+		"old_sha1": []
+	},
+	"Template:CPD/de/BlankDescription": {
 		"lang": "de",
 		"label": "Leere Beschreibung",
 		"description": "Zeigt Beschreibungstext f\u00fcr bpmn Elemente an",
 		"target_title": "Template:CPD/BlankDescription",
-		"content_path": "/pages/Template/CPDBlankDescription.wiki",
+		"content_path": "/pages/Template/CPDdeBlankDescription.wiki",
 		"sha1": "9cf6bb8b124ce77ebf361bcae0e75fe5b8c10b86",
 		"old_sha1": []
 	},
