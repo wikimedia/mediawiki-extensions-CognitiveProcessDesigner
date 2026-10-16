@@ -132,5 +132,6 @@
 	"cpd-pretoclip-button-notification-text": "O contido copiouse no portapapeis",
 	"cpd-validation-missing-data": "Fáltanlle datos ao elemento",
 	"cpd-entrypoint-action-process-aria-label": "Crear o proceso",
-	"cpd-entrypoint-action-process-title": "Crear o proceso"
+	"cpd-entrypoint-action-process-title": "Crear o proceso",
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Proceso"
 }
