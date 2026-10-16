@@ -136,5 +136,6 @@
 	"cpd-config-canvas-embedded-height-msg": "다른 페이지에 삽입된 다이어그램 캔버스의 높이를 설정",
 	"apihelp-cpd-orphaned-description-pages-store-param-start": "문서 나열의 시작점 (쪽 번호 매기기에 사용됨)",
 	"cpd-process-usage-description": "다음 문서 삽입 프로세스 $1",
-	"cpd-process-usage-no-pages-description": "아직 프로세스 $1이(가) 삽입된 문서가 없습니다"
+	"cpd-process-usage-no-pages-description": "아직 프로세스 $1이(가) 삽입된 문서가 없습니다",
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "프로세스"
 }
