@@ -74,6 +74,7 @@
 		}
 	},
 	"ExtensionMessagesFiles": {
+		"CognitiveProcessDesignerNamespaces": "languages/CognitiveProcessDesigner.namespaces.php",
 		"CognitiveProcessDesigner.alias": "languages/CognitiveProcessDesigner.special.alias.php"
 	},
 	"MessagesDirs": {
