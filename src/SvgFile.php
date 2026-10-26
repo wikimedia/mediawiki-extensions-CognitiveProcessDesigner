@@ -7,13 +7,13 @@ use DOMDocument;
 use DOMXPath;
 use File;
 use MediaHandler;
+use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Message\Message;
 use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Specials\SpecialUpload;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MWFileProps;
-use RepoGroup;
 use Wikimedia\FileBackend\FSFile\TempFSFile;
 use Wikimedia\Mime\MimeAnalyzer;
 
