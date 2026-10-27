@@ -2,9 +2,9 @@
 
 namespace CognitiveProcessDesigner\Rest;
 
-use MediaHandler;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\FileRepo\RepoGroup;
+use MediaWiki\Media\MediaHandler;
 use MediaWiki\Rest\Handler;
 use MediaWiki\Specials\SpecialUpload;
 use MediaWiki\Title\Title;
