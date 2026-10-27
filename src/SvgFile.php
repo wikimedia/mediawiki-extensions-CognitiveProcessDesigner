@@ -13,7 +13,7 @@ use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Specials\SpecialUpload;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
-use MWFileProps;
+use MediaWiki\Utils\MWFileProps;
 use Wikimedia\FileBackend\FSFile\TempFSFile;
 use Wikimedia\Mime\MimeAnalyzer;
 
