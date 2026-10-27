@@ -5,7 +5,7 @@ namespace CognitiveProcessDesigner;
 use CognitiveProcessDesigner\Exceptions\CpdSvgException;
 use DOMDocument;
 use DOMXPath;
-use File;
+use MediaWiki\FileRepo\File\File;
 use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Media\MediaHandler;
 use MediaWiki\Message\Message;
