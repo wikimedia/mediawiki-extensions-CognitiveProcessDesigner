@@ -2,7 +2,7 @@
 
 namespace CognitiveProcessDesigner\Action;
 
-use EditAction;
+use MediaWiki\Actions\EditAction;
 
 class EditDiagramXmlAction extends EditAction {
 
