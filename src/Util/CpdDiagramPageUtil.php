@@ -22,6 +22,7 @@ use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\PageReference;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Registration\ExtensionRegistry;
@@ -34,7 +35,6 @@ use MWContentSerializationException;
 use MWUnknownContentModelException;
 use TypeError;
 use Wikimedia\Rdbms\ILoadBalancer;
-use WikiPage;
 
 class CpdDiagramPageUtil {
 

@@ -3,8 +3,8 @@
 namespace CognitiveProcessDesigner\Hook;
 
 use MediaWiki\Page\PageIdentity;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Revision\RevisionRecord;
-use WikiPage;
 
 interface CognitiveProcessDesignerBeforeRenderHook {
 
