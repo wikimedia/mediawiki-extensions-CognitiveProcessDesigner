@@ -11,11 +11,11 @@ use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\Message\Message;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Parser\PPFrame;
 use MediaWiki\Revision\RevisionRecord;
-use WikiPage;
 
 class BpmnTag implements ParserFirstCallInitHook {
 	public const PROCESS_PROP_NAME = 'cpd-process';
