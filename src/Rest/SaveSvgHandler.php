@@ -8,7 +8,7 @@ use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Rest\Handler;
 use MediaWiki\Specials\SpecialUpload;
 use MediaWiki\Title\Title;
-use MWFileProps;
+use MediaWiki\Utils\MWFileProps;
 use Wikimedia\FileBackend\FSFile\TempFSFile;
 use Wikimedia\Mime\MimeAnalyzer;
 use Wikimedia\ParamValidator\ParamValidator;
