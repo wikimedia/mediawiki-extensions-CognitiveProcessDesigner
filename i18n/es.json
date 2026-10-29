@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Dgstranz",
-			"Avengium"
+			"Avengium",
+			"Dgstranz"
 		]
 	},
 	"cpd-error-message-missing-connection": "Se produjo un error al crear conexiones entre elementos.",
