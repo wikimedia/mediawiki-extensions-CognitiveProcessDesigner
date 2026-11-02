@@ -15,9 +15,9 @@ use CognitiveProcessDesigner\Util\CpdXmlProcessor;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Exception\PermissionsError;
 use MWContentSerializationException;
 use MWUnknownContentModelException;
-use PermissionsError;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SaveCpdDiagram extends ApiBase {

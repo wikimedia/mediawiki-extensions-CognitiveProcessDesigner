@@ -5,9 +5,9 @@ namespace CognitiveProcessDesigner\Action;
 use CognitiveProcessDesigner\Exceptions\CpdInvalidContentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Actions\EditAction;
+use MediaWiki\Exception\PermissionsError;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\MediaWikiServices;
-use PermissionsError;
 
 class EditDiagramAction extends EditAction {
 
