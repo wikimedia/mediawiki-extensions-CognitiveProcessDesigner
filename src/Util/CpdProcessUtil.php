@@ -2,10 +2,10 @@
 
 namespace CognitiveProcessDesigner\Util;
 
+use MediaWiki\Exception\PermissionsError;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
-use PermissionsError;
 
 class CpdProcessUtil {
 

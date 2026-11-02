@@ -3,10 +3,10 @@
 namespace CognitiveProcessDesigner\Special;
 
 use CognitiveProcessDesigner\Util\CpdProcessUtil;
+use MediaWiki\Exception\PermissionsError;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\SpecialPage\SpecialPage;
-use PermissionsError;
 
 class SpecialProcessOverview extends SpecialPage {
 
