@@ -5,7 +5,7 @@ namespace CognitiveProcessDesigner\HookHandler;
 use CognitiveProcessDesigner\Util\CpdProcessUtil;
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
 use MediaWiki\Registration\ExtensionRegistry;
-use SkinTemplate;
+use MediaWiki\Skin\SkinTemplate;
 
 class AddNewProcess implements SkinTemplateNavigation__UniversalHook {
 

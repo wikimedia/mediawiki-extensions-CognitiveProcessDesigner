@@ -4,7 +4,7 @@ namespace CognitiveProcessDesigner\HookHandler;
 
 use CognitiveProcessDesigner\Content\CognitiveProcessDesignerContent;
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
-use SkinTemplate;
+use MediaWiki\Skin\SkinTemplate;
 
 class AddActions implements SkinTemplateNavigation__UniversalHook {
 	/**
