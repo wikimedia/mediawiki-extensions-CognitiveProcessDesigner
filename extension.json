@@ -431,6 +431,7 @@
 		"PageDeleteComplete": "onPageDeleteComplete",
 		"MWStakeCommonUIRegisterSkinSlotComponents": "commonUserInterface",
 		"StandardDialogsRegisterPageInfoPanelModules": "standardDialogs",
+		"ResourceLoaderGetConfigVars": "addConfigVars",
 		"MediaWikiServices": "registerMetaSlot",
 		"ContentStabilizationIsStabilizationEnabled": "enableStabilizationForProcess",
 		"ContentStabilizationStablePointAdded": "stablePointAdded",
@@ -495,6 +496,9 @@
 		},
 		"standardDialogs": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\StandardDialogs"
+		},
+		"addConfigVars": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddConfigVars"
 		},
 		"addResources": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddResources",
