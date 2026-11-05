@@ -10,14 +10,18 @@ use MediaWiki\Page\Hook\PageDeleteCompleteHook;
 use MediaWiki\Page\ProperPageIdentity;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 
 class OnPageDeleteComplete implements PageDeleteCompleteHook {
 
 	/**
 	 * @param CpdDescriptionPageUtil $descriptionPageUtil
+	 * @param TitleFactory $titleFactory
 	 */
-	public function __construct( private readonly CpdDescriptionPageUtil $descriptionPageUtil ) {
+	public function __construct(
+		private readonly CpdDescriptionPageUtil $descriptionPageUtil,
+		private readonly TitleFactory $titleFactory
+	) {
 	}
 
 	/**
@@ -34,7 +38,7 @@ class OnPageDeleteComplete implements PageDeleteCompleteHook {
 	) {
 		try {
 			$process = CpdDiagramPageUtil::getProcess(
-				Title::makeTitle( $page->getNamespace(), $page->getDBkey() )
+				$this->titleFactory->makeTitle( $page->getNamespace(), $page->getDBkey() )
 			);
 			$this->descriptionPageUtil->cleanUpOrphanedDescriptionPages( $process );
 		} catch ( CpdInvalidNamespaceException $e ) {

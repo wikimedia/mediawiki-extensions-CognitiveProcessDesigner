@@ -36,6 +36,7 @@ class CpdDescriptionPageUtilTest extends TestCase {
 			return $titleMock;
 		} );
 		$this->util = new CpdDescriptionPageUtil(
+			$this->createMock( TitleFactory::class ),
 			$this->createMock( ILoadBalancer::class ),
 			$this->createMock( WikiPageFactory::class ),
 			$this->createMock( Config::class ),

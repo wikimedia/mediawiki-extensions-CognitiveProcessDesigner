@@ -9,7 +9,7 @@ use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Registration\ExtensionRegistry;
-use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class SyntaxHighlightXml extends ApiBase {
@@ -18,11 +18,13 @@ class SyntaxHighlightXml extends ApiBase {
 	 * @param ApiMain $main
 	 * @param string $action
 	 * @param Parser $parser
+	 * @param TitleFactory $titleFactory
 	 */
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		private readonly Parser $parser
+		private readonly Parser $parser,
+		private readonly TitleFactory $titleFactory
 	) {
 		parent::__construct( $main, $action );
 	}
@@ -60,7 +62,7 @@ class SyntaxHighlightXml extends ApiBase {
 
 		$output = $this->parser->parse(
 			$xml,
-			Title::newMainPage(),
+			$this->titleFactory->newMainPage(),
 			ParserOptions::newFromUser( $this->getUser() )
 		);
 

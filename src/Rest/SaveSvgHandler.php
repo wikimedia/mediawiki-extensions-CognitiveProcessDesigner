@@ -7,7 +7,7 @@ use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Media\MediaHandler;
 use MediaWiki\Rest\Handler;
 use MediaWiki\Specials\SpecialUpload;
-use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use MediaWiki\Utils\MWFileProps;
 use Wikimedia\FileBackend\FSFile\TempFSFile;
 use Wikimedia\Mime\MimeAnalyzer;
@@ -18,8 +18,13 @@ class SaveSvgHandler extends Handler {
 	/**
 	 * @param MimeAnalyzer $mimeAnalyzer
 	 * @param RepoGroup $repoGroup
+	 * @param TitleFactory $titleFactory
 	 */
-	public function __construct( private readonly MimeAnalyzer $mimeAnalyzer, private readonly RepoGroup $repoGroup ) {
+	public function __construct(
+		private readonly MimeAnalyzer $mimeAnalyzer,
+		private readonly RepoGroup $repoGroup,
+		private readonly TitleFactory $titleFactory
+	) {
 	}
 
 	/**
@@ -42,7 +47,7 @@ class SaveSvgHandler extends Handler {
 		$title = str_replace( ' ', '_', $params['filename'] );
 		$title = preg_replace( '#(_)+#si', '_', $title );
 
-		$targetTitle = Title::makeTitle( NS_FILE, $title );
+		$targetTitle = $this->titleFactory->makeTitle( NS_FILE, $title );
 		$repo = $this->repoGroup->getLocalRepo();
 
 		$repoFile = $repo->newFile( $targetTitle );

@@ -3,6 +3,7 @@
 namespace CognitiveProcessDesigner\Data\OrphanedDescriptionPages;
 
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
+use MediaWiki\Title\TitleFactory;
 use MWStake\MediaWiki\Component\DataStore\IStore;
 use Wikimedia\Rdbms\ILoadBalancer;
 
@@ -10,10 +11,12 @@ class Store implements IStore {
 	/**
 	 * @param ILoadBalancer $loadBalancer
 	 * @param CpdDiagramPageUtil $cpdDiagramPageUtil
+	 * @param TitleFactory $titleFactory
 	 */
 	public function __construct(
 		private readonly ILoadBalancer $loadBalancer,
-		private readonly CpdDiagramPageUtil $cpdDiagramPageUtil
+		private readonly CpdDiagramPageUtil $cpdDiagramPageUtil,
+		private readonly TitleFactory $titleFactory
 	) {
 	}
 
@@ -28,6 +31,6 @@ class Store implements IStore {
 	 * @return Reader
 	 */
 	public function getReader() {
-		return new Reader( $this->loadBalancer, $this->cpdDiagramPageUtil );
+		return new Reader( $this->loadBalancer, $this->cpdDiagramPageUtil, $this->titleFactory );
 	}
 }

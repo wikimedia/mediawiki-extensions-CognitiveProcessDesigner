@@ -14,7 +14,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Revision\SlotRecord;
-use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use SMW\DIProperty;
 use SMW\StoreFactory;
 
@@ -26,6 +26,9 @@ class MigrateDiagrams extends LoggedUpdateMaintenance {
 
 	/** @var WikiPageFactory */
 	private WikiPageFactory $wikiPageFactory;
+
+	/** @var TitleFactory */
+	private TitleFactory $titleFactory;
 
 	/** @var array */
 	private array $dedicatedSubpageTypes;
@@ -71,6 +74,7 @@ class MigrateDiagrams extends LoggedUpdateMaintenance {
 		$this->xmlProcessor = $services->getService( 'CpdXmlProcessor' );
 		$this->saveDescriptionPagesUtil = $services->getService( 'CpdSaveDescriptionPagesUtil' );
 		$this->wikiPageFactory = $services->getWikiPageFactory();
+		$this->titleFactory = $services->getTitleFactory();
 
 		$userFactory = $services->getUserFactory();
 		$this->anonymousUser = $userFactory->newAnonymous();
@@ -241,7 +245,7 @@ class MigrateDiagrams extends LoggedUpdateMaintenance {
 				continue;
 			}
 
-			$legacyDescriptionPage = $this->wikiPageFactory->newFromTitle( Title::newFromDBkey( $legacyDbKey ) );
+			$legacyDescriptionPage = $this->wikiPageFactory->newFromTitle( $this->titleFactory->newFromDBkey( $legacyDbKey ) );
 
 			$newContent = $descriptionPage->getContent();
 			$legacyContent = $legacyDescriptionPage->getContent();
