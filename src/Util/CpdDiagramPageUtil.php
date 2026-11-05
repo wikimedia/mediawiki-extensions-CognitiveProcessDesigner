@@ -91,7 +91,7 @@ class CpdDiagramPageUtil {
 		}
 
 		try {
-			return $this->wikiPageFactory->newFromTitle( Title::makeTitle( NS_PROCESS, $process ) );
+			return $this->wikiPageFactory->newFromTitle( $this->titleFactory->makeTitle( NS_PROCESS, $process ) );
 		} catch ( TypeError $e ) {
 			throw new CpdInvalidArgumentException( 'Diagram page not found' );
 		}
@@ -378,7 +378,7 @@ class CpdDiagramPageUtil {
 
 		$links = [];
 		foreach ( $rows as $row ) {
-			$title = Title::newFromID( $row->pp_page );
+			$title = $this->titleFactory->newFromID( $row->pp_page );
 			$links[] = $this->linkRenderer->makeLink(
 				$title,
 				$title->getText()
