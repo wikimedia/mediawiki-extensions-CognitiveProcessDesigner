@@ -15,7 +15,18 @@
 
 		if ( this.outlineItem ) {
 			this.outlineItem.setLabel( mw.message( 'bs-cpd-info-dialog' ).plain() );
+			this.outlineItem.toggle( this.canContainProcesses() );
 		}
+	};
+
+	ext.cpd.info.DiagramUsageInformationPage.prototype.canContainProcesses = function () {
+		const title = mw.Title.newFromText( this.pageName );
+		if ( !title ) {
+			return false;
+		}
+		const ns = title.getNamespaceId();
+		return ns === mw.config.get( 'cpdProcessNamespace' ) ||
+			mw.config.get( 'wgContentNamespaces' ).includes( ns );
 	};
 
 	ext.cpd.info.DiagramUsageInformationPage.prototype.setup = function () {
