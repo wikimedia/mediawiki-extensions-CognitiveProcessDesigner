@@ -10,17 +10,20 @@ use MediaWiki\Config\Config;
 use MediaWiki\Content\Content;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class CpdDescriptionPageUtil {
 
 	/**
+	 * @param TitleFactory $titleFactory
 	 * @param ILoadBalancer $loadBalancer
 	 * @param WikiPageFactory $wikiPageFactory
 	 * @param Config $config
 	 * @param IRevisionLookup $lookup
 	 */
 	public function __construct(
+		private readonly TitleFactory $titleFactory,
 		private readonly ILoadBalancer $loadBalancer,
 		private readonly WikiPageFactory $wikiPageFactory,
 		private readonly Config $config,
@@ -51,7 +54,7 @@ class CpdDescriptionPageUtil {
 
 		$templateConfig = $this->config->get( 'CPDPageTemplates' );
 		$template = $templateConfig[$bpmnType] ?? $templateConfig['*'];
-		$templateTitle = Title::newFromDBkey( $template );
+		$templateTitle = $this->titleFactory->newFromDBkey( $template );
 
 		if ( !$templateTitle->exists() ) {
 			throw new CpdSaveException( "$template does not exist" );
@@ -89,7 +92,7 @@ class CpdDescriptionPageUtil {
 		] )->fetchResultSet();
 
 		foreach ( $res as $row ) {
-			$pages[] = Title::makeTitle( $row->page_namespace, $row->page_title );
+			$pages[] = $this->titleFactory->makeTitle( $row->page_namespace, $row->page_title );
 		}
 
 		return $pages;
@@ -200,6 +203,8 @@ class CpdDescriptionPageUtil {
 	 * @return bool
 	 */
 	private function isStabilizationEnabled(): bool {
-		return $this->lookup->isStabilizationEnabled( CpdProcessUtil::getProcessDummyPage() );
+		return $this->lookup->isStabilizationEnabled(
+			$this->titleFactory->newFromText( CpdProcessUtil::DUMMY_PAGE_NAME, NS_PROCESS )
+		);
 	}
 }

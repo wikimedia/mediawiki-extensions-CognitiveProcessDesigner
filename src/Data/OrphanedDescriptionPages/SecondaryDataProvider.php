@@ -4,15 +4,19 @@ namespace CognitiveProcessDesigner\Data\OrphanedDescriptionPages;
 
 use CognitiveProcessDesigner\Exceptions\CpdInvalidArgumentException;
 use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
-use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use MWStake\MediaWiki\Component\DataStore\IRecord;
 
 class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\SecondaryDataProvider {
 
 	/**
 	 * @param CpdDiagramPageUtil $cpdDiagramPageUtil
+	 * @param TitleFactory $titleFactory
 	 */
-	public function __construct( private readonly CpdDiagramPageUtil $cpdDiagramPageUtil ) {
+	public function __construct(
+		private readonly CpdDiagramPageUtil $cpdDiagramPageUtil,
+		private readonly TitleFactory $titleFactory
+	) {
 	}
 
 	/**
@@ -36,9 +40,9 @@ class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\Secon
 		$dbKey = $dataSet->get( Record::TITLE );
 		$process = $dataSet->get( Record::PROCESS );
 
-		$processPage = Title::makeTitle( NS_PROCESS, $process );
+		$processPage = $this->titleFactory->makeTitle( NS_PROCESS, $process );
 
-		$title = Title::newFromDBkey( $dbKey );
+		$title = $this->titleFactory->newFromDBkey( $dbKey );
 		$dataSet->set( Record::TITLE, $title->getSubpageText() );
 		$dataSet->set( Record::TITLE_URL, $title->getFullURL() );
 		$dataSet->set( Record::PROCESS_URL, $processPage->getFullURL() );

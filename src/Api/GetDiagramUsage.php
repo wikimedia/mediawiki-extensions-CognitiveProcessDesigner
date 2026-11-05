@@ -9,7 +9,7 @@ use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class GetDiagramUsage extends ApiBase {
@@ -18,11 +18,13 @@ class GetDiagramUsage extends ApiBase {
 	 * @param ApiMain $main
 	 * @param string $action
 	 * @param CpdDiagramPageUtil $diagramPageUtil
+	 * @param TitleFactory $titleFactory
 	 */
 	public function __construct(
 		ApiMain $main,
 		string $action,
-		private readonly CpdDiagramPageUtil $diagramPageUtil
+		private readonly CpdDiagramPageUtil $diagramPageUtil,
+		private readonly TitleFactory $titleFactory
 	) {
 		parent::__construct( $main, $action );
 	}
@@ -36,7 +38,7 @@ class GetDiagramUsage extends ApiBase {
 		$result = $this->getResult();
 		$params = $this->extractRequestParams();
 		$page = $params['page'];
-		$title = Title::newFromDBkey( $page );
+		$title = $this->titleFactory->newFromDBkey( $page );
 
 		// Special pages do not have diagrams
 		if ( $title->isSpecialPage() ) {

@@ -7,6 +7,7 @@ use CognitiveProcessDesigner\Util\CpdDiagramPageUtil;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Title\TitleFactory;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 use Wikimedia\ParamValidator\ParamValidator;
 use Wikimedia\Rdbms\ILoadBalancer;
@@ -25,15 +26,17 @@ class OrphanedDescriptionPagesStore extends ApiBase {
 	 * @param string $action
 	 * @param ILoadBalancer $loadBalancer
 	 * @param CpdDiagramPageUtil $cpdDiagramPageUtil
+	 * @param TitleFactory $titleFactory
 	 */
 	public function __construct(
 		ApiMain $main,
 		string $action,
 		ILoadBalancer $loadBalancer,
-		CpdDiagramPageUtil $cpdDiagramPageUtil
+		CpdDiagramPageUtil $cpdDiagramPageUtil,
+		TitleFactory $titleFactory
 	) {
 		parent::__construct( $main, $action );
-		$this->store = new Store( $loadBalancer, $cpdDiagramPageUtil );
+		$this->store = new Store( $loadBalancer, $cpdDiagramPageUtil, $titleFactory );
 	}
 
 	/**

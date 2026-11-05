@@ -25,6 +25,7 @@ return [
 	},
 	'CpdDescriptionPageUtil' => static function ( MediaWikiServices $services ) {
 		return new CpdDescriptionPageUtil(
+			$services->getTitleFactory(),
 			$services->getDBLoadBalancer(),
 			$services->getWikiPageFactory(),
 			$services->getMainConfig(),
@@ -68,6 +69,6 @@ return [
 		return new CpdRevisionLookup( $services );
 	},
 	'CpdProcessUtil' => static function ( MediaWikiServices $services ) {
-		return new CpdProcessUtil( $services->getPermissionManager() );
+		return new CpdProcessUtil( $services->getPermissionManager(), $services->getTitleFactory() );
 	}
 ];

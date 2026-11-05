@@ -48,7 +48,7 @@
 			"StylesheetsProvider": {
 				"CpdStyles": {
 					"class": "\\CognitiveProcessDesigner\\Integration\\PDFCreator\\StylesheetsProvider\\CssStyles",
-					"services": [ "CpdDescriptionPageUtil" ]
+					"services": [ "CpdDescriptionPageUtil", "TitleFactory" ]
 				}
 			},
 			"PreProcessors": {
@@ -139,7 +139,8 @@
 		"cpd-syntax-highlight-xml": {
 			"class": "\\CognitiveProcessDesigner\\Api\\SyntaxHighlightXml",
 			"services": [
-				"Parser"
+				"Parser",
+				"TitleFactory"
 			]
 		},
 		"cpd-process-overview-store": {
@@ -147,20 +148,23 @@
 			"services": [
 				"DBLoadBalancer",
 				"CpdDiagramPageUtil",
-				"CpdProcessUtil"
+				"CpdProcessUtil",
+				"TitleFactory"
 			]
 		},
 		"cpd-orphaned-description-pages-store": {
 			"class": "\\CognitiveProcessDesigner\\Api\\Store\\OrphanedDescriptionPagesStore",
 			"services": [
 				"DBLoadBalancer",
-				"CpdDiagramPageUtil"
+				"CpdDiagramPageUtil",
+				"TitleFactory"
 			]
 		},
 		"cpd-diagram-usage": {
 			"class": "\\CognitiveProcessDesigner\\Api\\GetDiagramUsage",
 			"services": [
-				"CpdDiagramPageUtil"
+				"CpdDiagramPageUtil",
+				"TitleFactory"
 			]
 		}
 	},
@@ -479,7 +483,8 @@
 		"onPageDeleteComplete": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\OnPageDeleteComplete",
 			"services": [
-				"CpdDescriptionPageUtil"
+				"CpdDescriptionPageUtil",
+				"TitleFactory"
 			]
 		},
 		"commonUserInterface": {
