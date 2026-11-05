@@ -9,7 +9,7 @@ use CognitiveProcessDesigner\Util\CpdProcessUtil;
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Api\ApiUsageException;
-use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 use Wikimedia\Rdbms\ILoadBalancer;
 
@@ -34,6 +34,7 @@ class ProcessesOverviewStore extends ApiBase {
 		ILoadBalancer $loadBalancer,
 		CpdDiagramPageUtil $util,
 		private readonly CpdProcessUtil $processUtil,
+		private readonly TitleFactory $titleFactory
 	) {
 		parent::__construct( $main, $action );
 		$this->store = new Store( $loadBalancer, $util );
@@ -64,7 +65,7 @@ class ProcessesOverviewStore extends ApiBase {
 		$user = $this->getUser();
 		foreach ( $records as &$record ) {
 			$dbKey = $record->get( Record::DB_KEY );
-			if ( !$permissionManager->quickUserCan( 'edit', $user, Title::newFromDBkey( $dbKey ) ) ) {
+			if ( !$permissionManager->quickUserCan( 'edit', $user, $this->titleFactory->newFromDBkey( $dbKey ) ) ) {
 				$record->set( Record::EDIT_URL, null );
 			}
 		}
