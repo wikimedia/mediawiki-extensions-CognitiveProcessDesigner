@@ -415,6 +415,7 @@
 		"CanonicalNamespaces": "registerNamespaces",
 		"ParserFirstCallInit": "tag",
 		"ContentHandlerDefaultModelFor": "setCPDContentType",
+		"VisualEditorBeforeEditor": "disableVisualEditor",
 		"BlueSpiceDiscoveryTemplateDataProviderAfterInit": "addEditLink",
 		"SkinTemplateNavigation::Universal": [
 			"addActions",
@@ -460,6 +461,9 @@
 		},
 		"addEditLink": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\DiscoverySkin"
+		},
+		"disableVisualEditor": {
+			"class": "\\CognitiveProcessDesigner\\HookHandler\\DisableVisualEditor"
 		},
 		"addActions": {
 			"class": "\\CognitiveProcessDesigner\\HookHandler\\AddActions"
