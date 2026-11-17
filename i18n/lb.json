@@ -69,5 +69,7 @@
 	"cpd-cancel-confirm": "Sidd Dir sécher, datt Dir d'Ännerung annuléiere wëllt? All net gespäichert Ännerunge gi verluer.",
 	"cpd-dialog-validation-page-exist-info-label": "Et gëtt schonn e Prozess mat deem Numm. Sicht Iech wgl. een aneren Numm eraus.",
 	"cpd-dialog-action-label-create": "Uleeën",
-	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Prozess"
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Prozess",
+	"cpd-button-export": "Diagramm als XML eroflueden",
+	"cpd-button-import": "Diagramm als XML importéieren"
 }

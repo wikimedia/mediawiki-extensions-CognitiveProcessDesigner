@@ -3,6 +3,7 @@
 		"authors": [
 			"Cookai1205",
 			"Kly",
+			"LowensteinYang",
 			"張詠涵"
 		]
 	},
@@ -46,7 +47,7 @@
 	"cpd-api-save-diagram-error-message": "儲存圖表時發生錯誤：$1",
 	"cpd-api-save-description-pages-success-message": "{{PLURAL:$1|1=已儲存以下描述頁面：|已儲存以下 $1 個描述頁面：|0=未儲存任何描述頁面。}}",
 	"cpd-description-page-does-not-exist-anymore-warning": "描述頁面$1已不存在",
-	"cpd-description-page-has-no-property-warning": "元素$1沒有描述頁面屬性",
+	"cpd-description-page-has-no-property-warning": "元素\"$1\"有無效的描述頁面：$2",
 	"cpd-save-description-page-empty-set-warning": "沒有要儲存的元素",
 	"cpd-save-description-page-duplicate-warning": "重複描述頁面$1",
 	"cpd-api-save-description-pages-error-message": "儲存描述頁面時發生錯誤：$1",
