@@ -14,6 +14,8 @@
 	"cpd-ui-action-edit-xml": "Quelltext änneren",
 	"cpd-button-cancel-title": "Ofbriechen",
 	"cpd-button-center-viewport": "Diagramm zentréieren",
+	"cpd-button-export": "Diagramm als XML eroflueden",
+	"cpd-button-import": "Diagramm als XML importéieren",
 	"cpd-link-diagram-page-title": "Op d'Diagrammsäit goen",
 	"cpd-link-svg-title": "D'Diagrammen als SVG eroflueden",
 	"cpd-api-save-diagram-param-process-id": "ID vum BPMN-Diagramm",
@@ -69,7 +71,5 @@
 	"cpd-cancel-confirm": "Sidd Dir sécher, datt Dir d'Ännerung annuléiere wëllt? All net gespäichert Ännerunge gi verluer.",
 	"cpd-dialog-validation-page-exist-info-label": "Et gëtt schonn e Prozess mat deem Numm. Sicht Iech wgl. een aneren Numm eraus.",
 	"cpd-dialog-action-label-create": "Uleeën",
-	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Prozess",
-	"cpd-button-export": "Diagramm als XML eroflueden",
-	"cpd-button-import": "Diagramm als XML importéieren"
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Prozess"
 }
