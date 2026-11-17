@@ -69,5 +69,7 @@
 	"cpd-droplet-show-toolbar-field-label-help": "Geschierläischt aktivéieren oder desaktivéieren",
 	"cpd-error-xml-parse-error": "Feeler beim Parse vun XML",
 	"cpd-description-page-has-no-property-warning": "D'Element „$1“ huet eng ongülteg Beschreiwungssäit: $2",
-	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Prozess"
+	"bs-extendedsearch-search-center-filter-document-type-cpd-label": "Prozess",
+	"cpd-button-export": "Diagramm als XML eroflueden",
+	"cpd-button-import": "Diagramm als XML importéieren"
 }
